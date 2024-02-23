@@ -1,0 +1,19 @@
+.fs-status-card-scene {
+  background-color: var(--fs-status-card-scene-color);
+  border-color: var(--fs-status-card-scene-colorborder);
+  position: relative;
+}
+
+.fs-status-card-scene .fs-text{
+  color: var(--fs-status-card-scene-colorfont);
+}
+
+.fs-status-card-scene-label{
+  font-weight: 600 !important;
+}
+
+.fs-status-card-scene-alert {
+  position: absolute !important;
+  top: 1px;
+  right: 1px;
+}
