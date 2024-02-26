@@ -1,61 +1,105 @@
 <template>
-
-  <FSCard
-    height="90px"
-    class="fs-status-card-scene"
-    :style="style"
+   <v-menu
+    :closeOnContentClick="false"
+    v-model="menu"
   >
-    <FSCol
-      align="center-center"
-      gap="4px"
+  <template #activator="{ props }">
+    <FSCard
+      height="90px"
+      class="fs-status-card-scene"
+      :style="style"
+      v-bind="props"
     >
-      <FSRow
+      <FSCol
         align="center-center"
+        gap="4px"
       >
-        <FSIcon
-          size="xl"
-          :color="iconColor"
-          class="fs-status-card-scene-icon"
+        <FSRow
+          align="center-center"
         >
-          {{ $props.status.icon }}
-        </FSIcon>
-        <FSText
-          font="text-button"
+          <FSIcon
+            size="xl"
+            :color="iconColor"
+            class="fs-status-card-scene-icon"
+          >
+            {{ $props.status.icon }}
+          </FSIcon>
+          <FSText
+            font="text-button"
+          >
+            {{ ($props.status.value + " " + ($props.status.unit ?? "")) }}
+          </FSText>
+        </FSRow>
+        <FSRow
+          align="center-center"
         >
-          {{ ($props.status.value + " " + ($props.status.unit ?? "")) }}
-        </FSText>
-      </FSRow>
-      <FSRow
-        align="center-center"
+          <FSText
+            font="text-overline"
+            class="fs-status-card-scene-label"
+          >
+            {{ $props.status.label }}
+          </FSText>
+        </FSRow>
+        <FSRow v-if="$props.sceneTarget" align="center-center" >
+          <FSChip
+            :color="style['--fs-status-card-scene-coloricon']"
+            :label="($tr('ui.status-card-scene.target', 'Target') + ' ' + $props.sceneTarget.label)"
+          >
+          </FSChip>
+        </FSRow>
+      </FSCol>
+      <FSIcon
+        v-if="$props.sceneTarget && $props.sceneTarget.value!==null && $props.sceneTarget.value !== $props.status.value"
+        size="l"
+        :color="style['--fs-status-card-scene-coloricon']"
+        class="fs-status-card-scene-alert"
       >
-        <FSText
-          font="text-overline"
-          class="fs-status-card-scene-label"
-        >
-          {{ $props.status.label }}
-        </FSText>
-      </FSRow>
-      <FSRow v-if="$props.sceneTarget" align="center-center" >
-        <FSChip
-          :color="style['--fs-status-card-scene-coloricon']"
-          :label="($tr('ui.status-card-scene.target', 'Target') + ' ' + $props.sceneTarget.label)"
-        >
-        </FSChip>
-      </FSRow>
-    </FSCol>
-    <FSIcon
-      v-if="$props.sceneTarget && $props.sceneTarget.value!==null && $props.sceneTarget.value !== $props.status.value"
-      size="l"
-      :color="style['--fs-status-card-scene-coloricon']"
-      class="fs-status-card-scene-alert"
+        mdi-alert-circle-outline
+      </FSIcon>
+    </FSCard>
+  </template>
+  <FSCard
+      :elevation="true"
+      :border="false"
     >
-      mdi-alert-circle-outline
-    </FSIcon>
-  </FSCard>    
+      <FSCol
+        align="center-center"
+        padding="6px 24px"
+      >
+        <FSCol
+          align="center-center"
+          gap="12px"
+        >
+          <FSChip
+            :color="$props.status.color"
+            :prependIcon="$props.status.icon"
+            :label="$props.status.label"
+          />
+          <FSRow
+            width="hug"
+          >
+            <FSText>
+              {{ $props.status.value }}
+            </FSText>
+          </FSRow>
+        </FSCol>
+        <FSRow
+          v-if="$props.status.sourceTimestamp"
+          width="hug"
+        >
+          <FSSpan
+            font="text-overline"
+          >
+            {{ $props.status.sourceTimestamp }}
+          </FSSpan>
+        </FSRow>
+      </FSCol>
+    </FSCard>
+  </v-menu>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from "vue";
+import { computed, defineComponent, ref } from "vue";
 
 
 import { ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -107,7 +151,8 @@ export default defineComponent({
     const dark = useColors().getColors(ColorEnum.Dark);
     const lights = useColors().getColors(ColorEnum.Light);
     
-    
+    const menu = ref(false);
+
     const iconColor = computed(() => {
       if(props.sceneTarget){
         if(props.disabled){
@@ -176,7 +221,8 @@ export default defineComponent({
 
     return {
       style,
-      iconColor
+      iconColor,
+      menu
     };
   }
 });
