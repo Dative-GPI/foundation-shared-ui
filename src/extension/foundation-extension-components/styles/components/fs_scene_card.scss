@@ -1,0 +1,21 @@
+.fs-scene-card {
+  background-color: var(--fs-scene-card-background-color);
+  border-color: var(--fs-scene-card-border-color);
+  cursor: not-allowed;
+}
+
+.fs-scene-card.fs-scene-card-clickable {
+  cursor: pointer;
+}
+
+.fs-scene-card .v-icon {
+  color: var(--fs-scene-card-icon-color);
+}
+
+.fs-scene-card .fs-scene-card-title {
+  color: var(--fs-scene-card-title-color);
+}
+
+.fs-scene-card .fs-scene-card-description {
+  color: var(--fs-scene-card-description-color);
+}
