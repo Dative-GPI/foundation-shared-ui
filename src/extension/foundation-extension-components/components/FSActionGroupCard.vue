@@ -123,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, PropType } from "vue";
 
 import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
@@ -139,6 +139,8 @@ import FSBadge from "@dative-gpi/foundation-shared-components/components/FSBadge
 import FSStatusCardScene from "./FSStatusCardScene.vue";
 import FSSceneCard from "./FSSceneCard.vue";
 import FSActionGroupDialogVue from "./FSActionGroupDialog.vue";
+import { SceneInfos } from "../../../core/foundation-core-domain/models/scene/sceneInfos";
+import { FSModelStatus } from "../../../shared/foundation-shared-components/models";
 
 
 export default defineComponent({
@@ -169,17 +171,17 @@ export default defineComponent({
       default: false
     },
     status: {
-      type: Array,
+      type: Array as PropType<FSModelStatus[]>,
       required: false,
       default: null
     },
     scenes: {
-      type: Array,
+      type: Array as PropType<SceneInfos[]>,
       required: false,
       default: null
     },
     selectedScene: {
-      type: Object,
+      type: SceneInfos,
       required: false,
       default: null
     }

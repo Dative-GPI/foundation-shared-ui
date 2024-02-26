@@ -99,10 +99,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, PropType } from "vue";
 
 
-import { ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
@@ -112,6 +112,7 @@ import FSText from "@dative-gpi/foundation-shared-components/components/FSText.v
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
 import { DeviceStatusGroup } from "@dative-gpi/foundation-core-domain";
+import { SceneTarget } from "../../../core/foundation-core-domain/models/scene/sceneInfos";
 
 export default defineComponent({
   name: "FSStatus",
@@ -129,7 +130,7 @@ export default defineComponent({
       required: true
     },
     sceneTarget: {
-      type: Object,
+      type: Object as PropType<SceneTarget>,
       required: false,
       default: null
     },

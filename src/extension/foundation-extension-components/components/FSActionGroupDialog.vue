@@ -92,7 +92,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, PropType } from "vue";
 
 import FSDialog from "@dative-gpi/foundation-shared-components/components/FSDialog.vue";
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
@@ -108,6 +108,8 @@ import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.v
 
 import FSStatusCardScene from "./FSStatusCardScene.vue";
 import FSSceneCard from "./FSSceneCard.vue";
+import { FSModelStatus } from "../../../shared/foundation-shared-components/models";
+import { SceneInfos } from "../../../core/foundation-core-domain/models/scene/sceneInfos";
 
 
 export default defineComponent({
@@ -133,17 +135,17 @@ export default defineComponent({
       required: true
     },
     status: {
-      type: Array,
+      type: Array as PropType<FSModelStatus[]>,
       required: false,
       default: null
     },
     scenes: {
-      type: Array,
+      type: Array as PropType<SceneInfos[]>,
       required: false,
       default: null
     },
     selectedScene: {
-      type: Object,
+      type: Object as PropType<SceneInfos>,
       required: false,
       default: null
     }
