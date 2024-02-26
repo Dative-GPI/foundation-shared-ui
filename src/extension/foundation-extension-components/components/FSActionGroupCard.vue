@@ -3,115 +3,123 @@
   <FSCard
     width="100%"
   >
-  <FSCol
-  :gap="16"
-  :padding="10"
-  >
-    <FSRow>
-      <FSCol>
+    <FSCol
+    :gap="16"
+    :padding="10"
+    >
+      <FSRow>
+        <FSCol>
+          <FSSpan
+            v-if="$props.label"
+            class="fs-calendar-label"
+            font="text-h3"
+          >
+            {{ $props.label }}
+          </FSSpan>
+        </FSCol>
+        <FSCol
+          align="center-right">
+          <FSChip 
+            v-if="$props.workInProgress"
+            :label="$tr('ui.action-group-card.work-in-progress', 'Work in progress')"
+            color="error"
+          />
+          <FSChip 
+            v-if="!$props.workInProgress"
+            :label="$tr('ui.action-group-card.see-all', 'See all')"
+            color="primary"
+            variant="standard"
+            :editable="true"
+            @click="onSeeAllClicked"
+          />
+        </FSCol>
+      </FSRow>
+      <FSRow
+        align="left-center"
+      >
         <FSSpan
           v-if="$props.label"
-          class="fs-calendar-label"
-          font="text-h3"
+          font="text-overline"
         >
-          {{ $props.label }}
+          {{ $tr('ui.action-group-card.status-title', 'Status') }}
         </FSSpan>
-      </FSCol>
-      <FSCol
-        align="center-right">
-        <FSChip 
-          v-if="$props.workInProgress"
-          :label="$tr('ui.action-group-card.work-in-progress', 'Work in progress')"
-          color="error"
-        />
-        <FSChip 
-          v-if="!$props.workInProgress"
-          :label="$tr('ui.action-group-card.see-all', 'See all')"
-          color="primary"
-          variant="standard"
-          :editable="true"
-        />
-      </FSCol>
-    </FSRow>
-    <FSRow
-      align="left-center"
-    >
-      <FSSpan
-        v-if="$props.label"
-        font="text-overline"
-      >
-        {{ $tr('ui.action-group-card.status-title', 'Status') }}
-      </FSSpan>
-      <FSSlideGroup
-        style="width: 100%;"
-      >
-        <FSStatusCardScene
-          v-for="status in $props.status"
-          :status="status"
-          :disabled="$props.workInProgress"
-          :targetMode="(selectedScene !== null)"
-          :sceneTarget="(selectedScene !== null ? selectedScene.sceneTargets.filter((target) => {
-            return target.deviceId === status.deviceId
-          })[0] : null)"
-        />
-      </FSSlideGroup>
-    </FSRow>
-    <FSRow
-      align="left-center"
-    >
-      <FSSpan
-        v-if="$props.label"
-        font="text-overline"
-      >
-        {{ $tr('ui.action-group-card.scene-title', 'Scenes') }}
-      </FSSpan>
-      <FSSlideGroup
-        style="width: 100%;"
-      >
-        <FSSceneCard
-          v-for="scene in $props.scenes"
-          :label="scene.label"
-          :icon="scene.icon"
-          :description="scene.description"
-          :selected="(scene === selectedScene)"
-          :disabled="$props.workInProgress"
-          @click="onSceneClicked(scene)"
-        />
-      </FSSlideGroup>
-    </FSRow>
-    <FSDivider />
-    <FSRow>
-      <FSButton 
-        prependIcon="mdi-home-automation"
-        :label="$tr('ui.action-group-card.deffered-lauch','Deffered launch')"
-        variant="standard"
-        :color="selectedScene?.color"
-        style="flex: 1;"
-        :editable="(selectedScene !== null && !$props.workInProgress)"
-      >
-        <template #append
-          v-if="selectedScene !== null && selectedScene?.defferedCount > 0"
+        <FSSlideGroup
+          style="width: 100%;"
         >
-          <FSBadge
-            :color="($props.workInProgress ? 'grey' :  selectedScene.color)"
-            :content="selectedScene?.defferedCount.toString()"
-            :inline="true"
-            :bordered="false"
+          <FSStatusCardScene
+            v-for="status in $props.status"
+            :status="status"
+            :disabled="$props.workInProgress"
+            :targetMode="(selectedScene !== null)"
+            :sceneTarget="(selectedScene !== null ? selectedScene.sceneTargets.filter((target) => {
+              return target.deviceId === status.deviceId
+            })[0] : null)"
+          />
+        </FSSlideGroup>
+      </FSRow>
+      <FSRow
+        align="left-center"
+      >
+        <FSSpan
+          v-if="$props.label"
+          font="text-overline"
+        >
+          {{ $tr('ui.action-group-card.scene-title', 'Scenes') }}
+        </FSSpan>
+        <FSSlideGroup
+          style="width: 100%;"
+        >
+          <FSSceneCard
+            v-for="scene in $props.scenes"
+            :label="scene.label"
+            :icon="scene.icon"
+            :description="scene.description"
+            :selected="(scene === selectedScene)"
+            :disabled="$props.workInProgress"
+            @click="onSceneClicked(scene)"
+          />
+        </FSSlideGroup>
+      </FSRow>
+      <FSDivider />
+      <FSRow>
+        <FSButton 
+          prependIcon="mdi-home-automation"
+          :label="$tr('ui.action-group-card.deffered-lauch','Deffered launch')"
+          variant="standard"
+          :color="selectedScene?.color"
+          style="flex: 1;"
+          :editable="(selectedScene !== null && !$props.workInProgress)"
+        >
+          <template #append
+            v-if="selectedScene !== null && selectedScene?.defferedCount > 0"
           >
-          </FSBadge>
-        </template>
-      </FSButton>
-      <FSButton 
-        prependIcon="mdi-home-automation"
-        :label="$tr('ui.action-group-card.scene-lauch','Launch now')"
-        variant="full"
-        :color="selectedScene?.color"
-        style="flex: 1;"
-        :editable="(selectedScene !== null && !$props.workInProgress)"
-      />
-    </FSRow>
-  </FSCol>
-  </FSCard>    
+            <FSBadge
+              :color="($props.workInProgress ? 'grey' :  selectedScene.color)"
+              :content="selectedScene?.defferedCount.toString()"
+              :inline="true"
+              :bordered="false"
+            >
+            </FSBadge>
+          </template>
+        </FSButton>
+        <FSButton 
+          prependIcon="mdi-home-automation"
+          :label="$tr('ui.action-group-card.scene-lauch','Launch now')"
+          variant="full"
+          :color="selectedScene?.color"
+          style="flex: 1;"
+          :editable="(selectedScene !== null && !$props.workInProgress)"
+        />
+      </FSRow>
+    </FSCol>
+  </FSCard> 
+  <FSActionGroupDialogVue  
+    :label="$props.label"
+    :status="$props.status"
+    :scenes="$props.scenes"
+    :selectedScene="selectedScene"
+    v-model="dialog"
+  />
 </template>
 
 <script lang="ts">
@@ -130,6 +138,7 @@ import FSBadge from "@dative-gpi/foundation-shared-components/components/FSBadge
 
 import FSStatusCardScene from "./FSStatusCardScene.vue";
 import FSSceneCard from "./FSSceneCard.vue";
+import FSActionGroupDialogVue from "./FSActionGroupDialog.vue";
 
 
 export default defineComponent({
@@ -146,7 +155,8 @@ export default defineComponent({
     FSButton,
     FSChip,
     FSSpan,
-    FSBadge
+    FSBadge,
+    FSActionGroupDialogVue
 },
   props: {
     label: {
@@ -176,6 +186,7 @@ export default defineComponent({
   },
   setup(props) {
     let selectedScene = ref(props.selectedScene);
+    const dialog = ref(false);
 
     const onSceneClicked = (scene): void => {
       if(!props.workInProgress){
@@ -188,10 +199,16 @@ export default defineComponent({
 
     };
 
+    const onSeeAllClicked = (): void => {
+      dialog.value = true;
+    };
+
 
     return {
       selectedScene,
-      onSceneClicked
+      onSceneClicked,
+      onSeeAllClicked,
+      dialog
     };
   }
 });
