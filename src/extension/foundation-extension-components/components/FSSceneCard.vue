@@ -1,10 +1,9 @@
 <template>
 
   <FSCard
-    width="184px"
     height="90px"
     :style="style"
-    :class="{'fs-scene-card': true, 'fs-scene-card-clickable': !disabled && !selected}"
+    :class="{'fs-scene-card': true, 'fs-scene-card-clickable': !$props.disabled}"
   >
     <FSCol
       align="center-center"
@@ -72,10 +71,6 @@ export default defineComponent({
       type: String,
       required: true
     },
-    color: {
-      type: String,
-      required: true
-    },
     selected: {
       type: Boolean,
       required: false,
@@ -130,7 +125,7 @@ export default defineComponent({
           return {
             "--fs-scene-card-background-color": light.light,
             "--fs-scene-card-icon-color": colors.base,
-            "--fs-scene-card-border-color": light.base,
+            "--fs-scene-card-border-color": light.dark,
             "--fs-scene-card-title-color": dark.dark,
             "--fs-scene-card-description-color": dark.dark
           }

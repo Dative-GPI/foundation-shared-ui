@@ -1,6 +1,10 @@
 .fs-scene-card {
   background-color: var(--fs-scene-card-background-color);
   border-color: var(--fs-scene-card-border-color);
+  flex-basis: 184px;
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 184px;
   cursor: not-allowed;
 }
 

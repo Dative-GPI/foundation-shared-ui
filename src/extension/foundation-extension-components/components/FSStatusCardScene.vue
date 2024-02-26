@@ -1,7 +1,6 @@
 <template>
 
   <FSCard
-    width="164px"
     height="90px"
     class="fs-status-card-scene"
     :style="style"
@@ -169,7 +168,7 @@ export default defineComponent({
         }
         return {
           "--fs-status-card-scene-color": lights.light,
-          "--fs-status-card-scene-colorborder": dark.dark,
+          "--fs-status-card-scene-colorborder": lights.dark,
           "--fs-status-card-scene-coloricon": dark.dark,
         };
       }

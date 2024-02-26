@@ -2,6 +2,10 @@
   background-color: var(--fs-status-card-scene-color);
   border-color: var(--fs-status-card-scene-colorborder);
   position: relative;
+  flex-basis: 164px;
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 164px;
 }
 
 .fs-status-card-scene .fs-text{
