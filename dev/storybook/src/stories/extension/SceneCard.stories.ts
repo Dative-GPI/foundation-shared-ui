@@ -25,7 +25,7 @@ export const Variations: Story = {
       return { ...args };
     },
     template: `
-    <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100vw;">
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%;">
         <FSSceneCard
           label="Warm day"
           icon="mdi-weather-sunny"

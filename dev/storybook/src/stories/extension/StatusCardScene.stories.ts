@@ -58,7 +58,7 @@ export const Variations: Story = {
       return { ...args };
     },
     template: `
-    <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100vw;">
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%;">
         <FSStatusCardScene
           :status="args.values[0].status"
           :targetMode="false"

@@ -3,28 +3,45 @@
   <FSCard
     width="100%"
   >
-  <FSCol>
+  <FSCol
+  :gap="16"
+  :padding="10"
+  >
     <FSRow>
-      <FSSpan
-        v-if="$props.label"
-        class="fs-calendar-label"
-        font="text-h3"
-      >
-        {{ $props.label }}
-      </FSSpan>
+      <FSCol>
+        <FSSpan
+          v-if="$props.label"
+          class="fs-calendar-label"
+          font="text-h3"
+        >
+          {{ $props.label }}
+        </FSSpan>
+      </FSCol>
+      <FSCol
+        align="center-right">
+        <FSChip 
+          v-if="$props.workInProgress"
+          :label="$tr('ui.action-group-card.work-in-progress', 'Work in progress')"
+          color="error"
+        />
+        <FSChip 
+          v-if="!$props.workInProgress"
+          :label="$tr('ui.action-group-card.see-all', 'See all')"
+          color="primary"
+          variant="standard"
+          :editable="true"
+        />
+      </FSCol>
     </FSRow>
     <FSRow
       align="left-center"
     >
       <FSSpan
         v-if="$props.label"
-        class="fs-calendar-label"
         font="text-overline"
       >
         {{ $tr('ui.action-group-card.status-title', 'Status') }}
       </FSSpan>
-    </FSRow>
-    <FSRow>
       <FSSlideGroup
         style="width: 100%;"
       >
@@ -44,13 +61,10 @@
     >
       <FSSpan
         v-if="$props.label"
-        class="fs-calendar-label"
         font="text-overline"
       >
         {{ $tr('ui.action-group-card.scene-title', 'Scenes') }}
       </FSSpan>
-    </FSRow>
-    <FSRow>
       <FSSlideGroup
         style="width: 100%;"
       >
@@ -70,11 +84,23 @@
       <FSButton 
         prependIcon="mdi-home-automation"
         :label="$tr('ui.action-group-card.deffered-lauch','Deffered launch')"
-        variant="full"
+        variant="standard"
         :color="selectedScene?.color"
         style="flex: 1;"
         :editable="(selectedScene !== null && !$props.workInProgress)"
-      />
+      >
+        <template #append
+          v-if="selectedScene !== null && selectedScene?.defferedCount > 0"
+        >
+          <FSBadge
+            :color="($props.workInProgress ? 'grey' :  selectedScene.color)"
+            :content="selectedScene?.defferedCount.toString()"
+            :inline="true"
+            :bordered="false"
+          >
+          </FSBadge>
+        </template>
+      </FSButton>
       <FSButton 
         prependIcon="mdi-home-automation"
         :label="$tr('ui.action-group-card.scene-lauch','Launch now')"
@@ -89,7 +115,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue";
 
 import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
@@ -98,6 +124,9 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSSlideGroup from "@dative-gpi/foundation-shared-components/components/FSSlideGroup.vue";
 import FSDivider from "@dative-gpi/foundation-shared-components/components/FSDivider.vue";
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
+import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
+import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
+import FSBadge from "@dative-gpi/foundation-shared-components/components/FSBadge.vue";
 
 import FSStatusCardScene from "./FSStatusCardScene.vue";
 import FSSceneCard from "./FSSceneCard.vue";
@@ -114,14 +143,13 @@ export default defineComponent({
     FSSceneCard,
     FSSlideGroup,
     FSDivider,
-    FSButton
+    FSButton,
+    FSChip,
+    FSSpan,
+    FSBadge
 },
   props: {
     label: {
-      type: String,
-      required: true
-    },
-    color: {
       type: String,
       required: true
     },
