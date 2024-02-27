@@ -89,6 +89,7 @@
           :color="selectedScene?.color"
           style="flex: 1;"
           :editable="(selectedScene !== null && !$props.workInProgress)"
+          @click="dialogSceneSchedule = true"
         >
           <template #append
             v-if="selectedScene !== null && selectedScene?.defferedCount > 0"
@@ -120,6 +121,11 @@
     :selectedScene="selectedScene"
     v-model="dialog"
   />
+  <FSSceneScheduleDialog
+    v-if="selectedScene !== null"
+    v-model="dialogSceneSchedule"
+    :scene="selectedScene"
+  />
 </template>
 
 <script lang="ts">
@@ -141,6 +147,7 @@ import FSSceneCard from "./FSSceneCard.vue";
 import FSActionGroupDialogVue from "./FSActionGroupDialog.vue";
 import { SceneInfos } from "../../../core/foundation-core-domain/models/scene/sceneInfos";
 import { FSModelStatus } from "../../../shared/foundation-shared-components/models";
+import FSSceneScheduleDialog from "./FSSceneScheduleDialog.vue";
 
 
 export default defineComponent({
@@ -158,7 +165,8 @@ export default defineComponent({
     FSChip,
     FSSpan,
     FSBadge,
-    FSActionGroupDialogVue
+    FSActionGroupDialogVue,
+    FSSceneScheduleDialog
 },
   props: {
     label: {
@@ -189,6 +197,7 @@ export default defineComponent({
   setup(props) {
     let selectedScene = ref(props.selectedScene);
     const dialog = ref(false);
+    const dialogSceneSchedule = ref(false);
 
     const onSceneClicked = (scene): void => {
       if(!props.workInProgress){
@@ -210,7 +219,8 @@ export default defineComponent({
       selectedScene,
       onSceneClicked,
       onSeeAllClicked,
-      dialog
+      dialog,
+      dialogSceneSchedule
     };
   }
 });
