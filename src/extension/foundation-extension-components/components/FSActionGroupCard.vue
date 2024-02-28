@@ -125,6 +125,7 @@
     v-if="selectedScene !== null"
     v-model="dialogSceneSchedule"
     :scene="selectedScene"
+    @submit:modelValue="onAddDatetime"
   />
 </template>
 
@@ -148,7 +149,6 @@ import FSActionGroupDialogVue from "./FSActionGroupDialog.vue";
 import { SceneInfos } from "../../../core/foundation-core-domain/models/scene/sceneInfos";
 import { FSModelStatus } from "../../../shared/foundation-shared-components/models";
 import FSSceneScheduleDialog from "./FSSceneScheduleDialog.vue";
-
 
 export default defineComponent({
   name: "FSStatus",
@@ -214,11 +214,23 @@ export default defineComponent({
       dialog.value = true;
     };
 
+    const onAddDatetime = (dateTimeArray: number[]): void => {
+      dialogSceneSchedule.value = false;
+      if(selectedScene.value !== null){
+        selectedScene.value.sceneSchedules = dateTimeArray.map((timestamp) => {
+          return {
+            id: "randomId",
+            timestamp: timestamp
+          };
+        });
+      }
+    };
 
     return {
       selectedScene,
       onSceneClicked,
       onSeeAllClicked,
+      onAddDatetime,
       dialog,
       dialogSceneSchedule
     };

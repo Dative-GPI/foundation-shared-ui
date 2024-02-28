@@ -2,7 +2,8 @@
   <FSSubmitDialog
     cardClasses="fs-submit-dialog"
     :title="$tr('ui.scene-schedule-dialog.title', 'Schedule scene activation')"
-  >
+    @click:rightButton="onSubmit"
+    >
     <template #body>
       <FSCol
         width="fill"
@@ -159,7 +160,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ["submit:modelValue"],
+  setup(props, { emit }) {
     const { getUserOffsetMillis, epochToLongTimeFormat } = useTimeZone();
     const date = ref<number | null>(null);
     const validatedDates = ref(props.scene.sceneSchedules?.map((s) => s.timestamp) ?? []);
@@ -174,10 +176,15 @@ export default defineComponent({
       validatedDates.value = validatedDates.value.filter((d) => d !== date);
     };
 
+    const onSubmit = () => {
+      emit("submit:modelValue", validatedDates.value);
+    };
+
     return {
       date,
       onAddDatetime,
       onDeleteDatetime,
+      onSubmit,
       validatedDates,
       epochToLongTimeFormat
     };
