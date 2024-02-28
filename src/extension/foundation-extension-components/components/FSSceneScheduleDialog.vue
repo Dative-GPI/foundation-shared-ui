@@ -162,7 +162,7 @@ export default defineComponent({
   setup(props) {
     const { getUserOffsetMillis, epochToLongTimeFormat } = useTimeZone();
     const date = ref<number | null>(null);
-    const validatedDates = ref<number[]>([]);
+    const validatedDates = ref(props.scene.sceneSchedules?.map((s) => s.timestamp) ?? []);
 
     const onAddDatetime = () => {
       if (date.value && !validatedDates.value.includes(date.value)) {
@@ -181,6 +181,15 @@ export default defineComponent({
       validatedDates,
       epochToLongTimeFormat
     };
+  },
+  watch: {
+    scene: {
+      handler: function (newScene) {
+        this.validatedDates = newScene?.sceneSchedules?.map((s) => s.timestamp) ?? [];
+      },
+      deep: true,
+      immediate: true
+    }
   }
 });
 </script>

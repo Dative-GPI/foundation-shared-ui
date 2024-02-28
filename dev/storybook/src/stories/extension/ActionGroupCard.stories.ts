@@ -69,7 +69,10 @@ export const Variations: Story = {
           icon: "mdi-lightbulb-outline",
           color:"primary",
           description: "The room is dark",
-          defferedCount: 2,
+          sceneSchedules: [{
+            id: "scd1",
+            timestamp: 1623345600000,
+          }],
           sceneTargets: [{
             value: "Dark",
             label: "Dark",
@@ -91,7 +94,6 @@ export const Variations: Story = {
           icon: "mdi-lightbulb-outline",
           color: "orange",
           description: "The room is full of light",
-          defferedCount: 3,
           sceneTargets: [{
             value: "Bright",
             label: "Bright",

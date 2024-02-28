@@ -92,11 +92,11 @@
           @click="dialogSceneSchedule = true"
         >
           <template #append
-            v-if="selectedScene !== null && selectedScene?.defferedCount > 0"
+            v-if="(selectedScene!==null && selectedScene?.sceneSchedules?.length > 0)"
           >
             <FSBadge
               :color="($props.workInProgress ? 'grey' :  selectedScene.color)"
-              :content="selectedScene?.defferedCount.toString()"
+              :content="selectedScene.sceneSchedules.length.toString()"
               :inline="true"
               :bordered="false"
             >

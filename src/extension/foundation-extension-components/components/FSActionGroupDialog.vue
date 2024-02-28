@@ -1,94 +1,73 @@
 <template>
-
   <FSDialog
     cardClasses="fs-submit-dialog"
     color="light"
   >
-  <FSCard>
-  <FSCol
-  :gap="16"
-  :padding="10"
-  >
-    <FSRow>
-      <FSCol v-if="$props.label">
+    <FSCol
+      :gap="16"
+      :padding="10"
+    >
+      <FSRow>
+
         <FSSpan font="text-h2">
           {{ $props.label }}
         </FSSpan>
-      </FSCol>
-      <v-spacer />
-      <FSButton
-        variant="icon"
-        icon="mdi-close"
-        color="dark"
-        @click="$emit('update:modelValue', false)"
-      />
-    </FSRow>
-    <FSRow
-      align="left-center"
-    >
-      <FSSpan
-        v-if="$props.label"
-        font="text-overline"
-      >
-        {{ $tr('ui.action-group-dialog.status-title', 'Status') }}
-      </FSSpan>
-      <FSSlideGroup
-        style="width: 100%;"
-      >
-        <FSStatusCardScene
-          v-for="status in $props.status"
-          :status="status"
-          :targetMode="false"
-        />
-      </FSSlideGroup>
-    </FSRow>
-    <FSRow
-      align="left-center"
-    >
-      <FSSpan
-        v-if="$props.label"
-        font="text-overline"
-      >
-        {{ $tr('ui.action-group-dialog.target-title', 'Target') }}
-      </FSSpan>
-      <FSSlideGroup
-        style="width: 100%;"
-      >
-        <FSStatusCardScene
-          v-for="status in $props.status"
-          :status="status"
-          :targetMode="(selectedScene !== null)"
-          :sceneTarget="(selectedScene !== null ? selectedScene.sceneTargets.filter((target) => {
-            return target.deviceId === status.deviceId
-          })[0] : null)"
-        />
-      </FSSlideGroup>
-    </FSRow>
-    <FSRow
-      align="left-center"
-    >
-      <FSSpan
-        v-if="$props.label"
-        font="text-overline"
-      >
-        {{ $tr('ui.action-group-dialog.scene-title', 'Scenes') }}
-      </FSSpan>
-      <FSSlideGroup
-        style="width: 100%;"
-      >
-        <FSSceneCard
-          v-for="scene in $props.scenes"
-          :label="scene.label"
-          :icon="scene.icon"
-          :description="scene.description"
-          :selected="(scene === selectedScene)"
-          @click="onSceneClicked(scene)"
-        />
-      </FSSlideGroup>
-    </FSRow>
-  </FSCol>
-  </FSCard>
-  </FSDialog>    
+
+      </FSRow>
+
+      <FSRow align="left-center">
+        <FSSpan
+          v-if="$props.label"
+          font="text-overline"
+        >
+          {{ $tr('ui.action-group-dialog.status-title', 'Status') }}
+        </FSSpan>
+        <FSSlideGroup style="width: 100%;">
+          <FSStatusCardScene
+            v-for="status in $props.status"
+            :status="status"
+            :targetMode="false"
+          />
+        </FSSlideGroup>
+      </FSRow>
+      <FSRow align="left-center">
+        <FSSpan
+          v-if="$props.label"
+          font="text-overline"
+        >
+          {{ $tr('ui.action-group-dialog.target-title', 'Target') }}
+        </FSSpan>
+        <FSSlideGroup style="width: 100%;">
+          <FSStatusCardScene
+            v-for="status in $props.status"
+            :status="status"
+            :targetMode="(selectedScene !== null)"
+            :sceneTarget="(selectedScene !== null ? selectedScene.sceneTargets.filter((target) => {
+              return target.deviceId === status.deviceId
+            })[0] : null)"
+          />
+        </FSSlideGroup>
+      </FSRow>
+      <FSRow align="left-center">
+        <FSSpan
+          v-if="$props.label"
+          font="text-overline"
+        >
+          {{ $tr('ui.action-group-dialog.scene-title', 'Scenes') }}
+        </FSSpan>
+        <FSSlideGroup style="width: 100%;">
+          <FSSceneCard
+            v-for="scene in $props.scenes"
+            :label="scene.label"
+            :icon="scene.icon"
+            :description="scene.description"
+            :selected="(scene === selectedScene)"
+            @click="onSceneClicked(scene)"
+          />
+        </FSSlideGroup>
+      </FSRow>
+    </FSCol>
+  </FSDialog>
 </template>
 
 <script lang="ts">
@@ -128,7 +107,7 @@ export default defineComponent({
     FSSpan,
     FSBadge,
     FSCard
-},
+  },
   props: {
     label: {
       type: String,
@@ -154,9 +133,9 @@ export default defineComponent({
     let selectedScene = ref(props.selectedScene);
 
     const onSceneClicked = (scene): void => {
-      if(selectedScene.value === scene){
+      if (selectedScene.value === scene) {
         selectedScene.value = null;
-      }else{
+      } else {
         selectedScene.value = scene;
       }
     };
