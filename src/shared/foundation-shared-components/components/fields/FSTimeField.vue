@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref, watch } from "vue";
+import { computed, defineComponent, type PropType, ref, type StyleValue, watch } from "vue";
 
 import { useColors, useRules, useSlots } from "@dative-gpi/foundation-shared-components/composables";
 import { getTimeScaleIndex, timeScale } from "@dative-gpi/foundation-shared-components/utils";
@@ -153,14 +153,14 @@ export default defineComponent({
       return Object.keys(slots).filter(k => k.startsWith("number-")).reduce((acc, key) => {
         acc[key.substring("number-".length)] = slots[key];
         return acc;
-      }, {});
+      }, {} as { [key: string]: any });
     });
 
     const selectSlots = computed((): any => {
       return Object.keys(slots).filter(k => k.startsWith("select-")).reduce((acc, key) => {
         acc[key.substring("select-".length)] = slots[key];
         return acc;
-      }, {});
+      }, {} as { [key: string]: any });
     });
 
     const messages = computed((): string[] => props.messages ?? getMessages(props.modelValue, props.rules));

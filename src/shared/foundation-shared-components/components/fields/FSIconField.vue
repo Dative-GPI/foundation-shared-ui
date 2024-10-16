@@ -43,13 +43,11 @@
 </template>
 
 <script lang="ts">
-import type { PropType} from "vue";
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, type PropType, ref, type StyleValue, watch } from "vue";
 
+import { type ColorBase, ColorEnum, type FSToggle } from "@dative-gpi/foundation-shared-components/models";
 import { Icons, sortByLevenshteinDistance } from "@dative-gpi/foundation-shared-components/utils";
 import { useColors, useRules } from "@dative-gpi/foundation-shared-components/composables";
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import type { FSToggle } from "@dative-gpi/foundation-shared-components/models";
 
 import FSToggleSet from "../FSToggleSet.vue";
 import FSTextField from "./FSTextField.vue";

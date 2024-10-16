@@ -390,21 +390,21 @@ export default defineComponent({
       return Object.keys(slots).filter(k => !k.startsWith("menu-")).reduce((acc, key) => {
         acc[key] = slots[key];
         return acc;
-      }, {});
+      }, {} as { [key: string]: any });
     });
 
     const menuSlots = computed((): any => {
       return Object.keys(slots).filter(k => k.startsWith("menu-")).reduce((acc, key) => {
         acc[key.substring("menu-".length)] = slots[key];
         return acc;
-      }, {});
+      }, {} as { [key: string]: any });
     });
 
     const innerValue = computed((): string | null => {
       if (props.multiple) {
         if (Array.isArray(props.modelValue)) {
           return props.modelValue.map((value: any) => {
-            const item = props.items.find((item: object) => item[props.itemValue] === value);
+            const item = props.items.find((item: { [key: string]: any }) => item[props.itemValue] === value);
             if (item) {
               return item[props.itemTitle];
             }
@@ -412,7 +412,7 @@ export default defineComponent({
         }
       }
       if (props.modelValue) {
-        const item = props.items.find((item: object) => item[props.itemValue] === props.modelValue);
+        const item = props.items.find((item: { [key: string]: any }) => item[props.itemValue] === props.modelValue);
         if (item) {
           return item[props.itemTitle];
         }
