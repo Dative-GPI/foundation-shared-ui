@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     :items="roleOrganisationTypes"
     :itemTo="$props.itemTo"
     :loading="fetchingRoleOrganisations"
@@ -52,8 +53,7 @@
 </template>
   
 <script lang="ts">
-import type { PropType} from "vue";
-import { defineComponent, watch } from "vue";
+import { defineComponent, type PropType, watch } from "vue";
 import type { RouteLocation } from "vue-router";
 import _ from "lodash";
 

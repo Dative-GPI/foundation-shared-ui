@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     :loading="fetchingServiceAccountRoleOrganisations"
     :items="serviceAccountRoleOrganisations"
     :showSelect="$props.editable"

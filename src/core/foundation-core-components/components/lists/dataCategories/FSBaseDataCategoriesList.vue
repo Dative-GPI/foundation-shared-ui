@@ -1,111 +1,81 @@
 <template>
-  <FSCol>
-    <FSRow
-      align="bottom-center"
-      width="50%"
+  <FSDataTable
+    defaultMode="iterator"
+    :loading="fetchingDataCategories"
+    :items="dataCategories"
+    :tableCode="$props.tableCode"
+    :modelValue="$props.modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
+    v-bind="$attrs"
+  >
+    <template
+      v-for="(_, name) in $slots"
+      v-slot:[name]="slotData"
     >
-      <FSSearchField
-        v-model="search"
+      <slot
+        :name="name"
+        v-bind="slotData"
       />
-      <FSButtonCheckbox
-        :label="$tr('ui.common.data-correlated','Correlated only')"
-        :color="ColorEnum.Success"
-        prependIcon="mdi-link"
-        v-model="correlated"
-      />
-    </FSRow>
-    <FSFadeOut
-      maxHeight="150px"
-      maskHeight="0px"
+    </template>
+    <template
+      #item.tile="{ item }"
     >
-      <FSDataTable
-        :loading="fetchingDataCategories"
-        :items="dataCategories"
-        :modelValue="$props.modelValue"
-        :showSearch="false"
-        :tableCode="$props.tableCode"
-        :search="search"
-        @update:modelValue="$emit('update:modelValue', $event)"
+      <FSClickable
+        padding="12px"
+        height="60px"
+        width="233px"
+        :color="isSelected(item.id) ? ColorEnum.Primary : ColorEnum.Dark"
+        @click="$emit('update:modelValue', [item.id])"
         v-bind="$attrs"
       >
         <template
-          v-for="(_, name) in $slots"
-          v-slot:[name]="slotData"
+          #default
         >
-          <slot
-            :name="name"
-            v-bind="slotData"
-          />
-        </template>
-        <template
-          #item.tile="{ item }"
-        >
-          <FSClickable
-            padding="12px"
-            height="60px"
-            width="233px"
-            :color="isSelected(item.id) ? ColorEnum.Primary : ColorEnum.Dark"
-            @click="$emit('update:modelValue', [item.id])"
-            v-bind="$attrs"
+          <FSRow
+            align="center-center"
+            :wrap="false"
           >
-            <template
-              #default
+            <FSSpan
+              :lineClamp="1"
             >
-              <FSRow
-                align="center-center"
-                :wrap="false"
-              >
-                <FSSpan
-                  :lineClamp="1"
-                >
-                  {{ item.label }}
-                </FSSpan>
-                <v-spacer/>
-                <FSIcon
-                  :color="item.correlated ? ColorEnum.Primary : ColorEnum.Light"
-                  :icon="item.correlated ? 'mdi-link' : 'mdi-link-off'"
-                  variant="dark"
-                />
-              </FSRow>
-            </template>
-          </FSClickable>
+              {{ item.label }}
+            </FSSpan>
+            <v-spacer/>
+            <FSIcon
+              :color="item.correlated ? ColorEnum.Primary : ColorEnum.Light"
+              :icon="item.correlated ? 'mdi-link' : 'mdi-link-off'"
+              variant="dark"
+            />
+          </FSRow>
         </template>
-      </FSDataTable>
-    </FSFadeOut>
-  </FSCol>
+      </FSClickable>
+    </template>
+  </FSDataTable>
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType, ref, watch } from "vue";
+import { computed, defineComponent, type PropType, watch } from "vue";
 import _ from "lodash";
 
+import type { DataCategoryFilters, DataCategoryInfos } from "@dative-gpi/foundation-core-domain/models";
+import { useDataCategories } from "@dative-gpi/foundation-core-services/composables";
 import {ColorEnum} from "@dative-gpi/foundation-shared-components/models";
 
-import { useDataCategories } from "@dative-gpi/foundation-core-services/composables";
-import type { DataCategoryFilters } from "@dative-gpi/foundation-core-domain/models";
-
 import FSDataTable from "../FSDataTable.vue";
-import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
+
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
-import FSFadeOut from "@dative-gpi/foundation-shared-components/components/FSFadeOut.vue";
 import FSClickable from "@dative-gpi/foundation-shared-components/components/FSClickable.vue";
-import FSSearchField from "@dative-gpi/foundation-shared-components/components/fields/FSSearchField.vue";
-import FSButtonCheckbox from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonCheckbox.vue";
 
 export default defineComponent({
   name: "FSBaseDataCategoriesList",
   components: {
-    FSDataTable,
-    FSCol,
-    FSFadeOut,
     FSClickable,
-    FSRow,
+    FSDataTable,
+    FSIcon,
     FSSpan,
-    FSSearchField,
-    FSButtonCheckbox,
-    FSIcon
+    FSRow
   },
   props: {
     tableCode: {
@@ -118,6 +88,11 @@ export default defineComponent({
       required: false,
       default: null
     },
+    correlatedOnly: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     modelValue: {
       type: Array as PropType<string[]>,
       default: () => [],
@@ -126,18 +101,22 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props) {
-    const { getMany: fetchDataCategories, fetching: fetchingDataCategories, entities: dataCategories } = useDataCategories();
+    const { entities, getMany: getManyDataCategories, fetching: fetchingDataCategories } = useDataCategories();
 
-    const search = ref<string | null | undefined >();
-    const correlated = ref<boolean>(false);
+    const dataCategories = computed((): DataCategoryInfos[] => {
+      if (props.correlatedOnly) {
+        return entities.value.filter((dc) => dc.correlated);
+      }
+      return entities.value;
+    });
 
     const isSelected = (id: string): boolean => {
       return props.modelValue.includes(id);
     };
-
-    watch(() => [props.dataCategoryFilters, search.value, correlated.value] , (next, previous) => {
+  
+    watch(() => props.dataCategoryFilters, (next, previous) => {
       if ((!next && !previous) || !_.isEqual(next, previous)) {
-        fetchDataCategories({...props.dataCategoryFilters, search: search.value, correlated: correlated.value ? true : undefined});
+        getManyDataCategories(props.dataCategoryFilters);
       }
     }, { immediate: true });
 
@@ -145,8 +124,6 @@ export default defineComponent({
       fetchingDataCategories,
       dataCategories,
       ColorEnum,
-      search,
-      correlated,
       isSelected
     };
   }

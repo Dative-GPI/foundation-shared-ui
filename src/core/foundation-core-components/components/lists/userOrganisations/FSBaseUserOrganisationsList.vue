@@ -1,6 +1,6 @@
 <template>
   <FSDataTable
-    defaultMode="iterator"
+    defaultMode="table"
     :items="userOrganisations"
     :itemTo="$props.itemTo"
     :loading="fetchingUserOrganisations"

@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     :items="authTokens"
     :loading="fetchingAuthTokens"
     :tableCode="$props.tableCode"

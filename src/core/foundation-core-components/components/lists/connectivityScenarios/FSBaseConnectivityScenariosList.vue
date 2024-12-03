@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     :loading="fetchingConnectivityScenarios"
     :modelValue="$props.modelValue"
     :items="connectivityScenarios"

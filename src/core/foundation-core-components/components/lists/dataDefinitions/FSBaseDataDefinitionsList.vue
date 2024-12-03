@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="iterator"
     :loading="fetchingDataDefinitions"
     :items="dataDefinitions"
     :tableCode="$props.tableCode"
@@ -17,21 +18,13 @@
       />
     </template>
     <template
-      #toolbar
-    >
-      <FSButtonCheckbox
-        :label="$tr('ui.common.data-correlated','Correlated only')"
-        :color="ColorEnum.Success"
-      />
-    </template>
-    <template
       #item.tile="{ item }"
     >
       <FSClickable
         padding="12px"
         height="60px"
         width="233px"
-        :color="isSelected(item.id) ? ColorEnum.Primary : ColorEnum.Light"
+        :color="isSelected(item.id) ? ColorEnum.Primary : ColorEnum.Dark"
         @click="$emit('update:modelValue', [item.id])"
         v-bind="$attrs"
       >
@@ -51,8 +44,9 @@
             </FSSpan>
             <v-spacer/>
             <FSIcon
-              :color="ColorEnum.Primary"
-              icon="mdi-link"
+              :color="item.correlated ? ColorEnum.Primary : ColorEnum.Light"
+              :icon="item.correlated ? 'mdi-link' : 'mdi-link-off'"
+              variant="dark"
             />
           </FSRow>
         </template>

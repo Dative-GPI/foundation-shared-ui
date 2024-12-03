@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     :loading="fetchingRoleOrganisations"
     :showSelect="$props.editable"
     :tableCode="$props.tableCode"

@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="iterator"
     :items="chartOrganisations"
     :itemTo="$props.itemTo"
     :loading="fetchingChartOrganisations"
@@ -53,6 +54,20 @@
       />
     </template>
     <template
+      #item.chartType="{ item }"
+    >
+      <FSRow
+        :wrap="false"
+      >
+        <FSIcon
+          :icon="chartIcon(item.chartType)"
+        />
+        <FSText>
+          {{ chartTypeLabel(item.chartType) }}
+        </FSText>
+      </FSRow>
+    </template>
+    <template
       #item.modelsLabels="{ item }"
     >
       <FSTagGroup
@@ -73,20 +88,6 @@
         :color="ColorEnum.Light"
         :to="$props.itemTo && $props.itemTo(item)"
       />
-    </template>
-    <template
-      #item.chartType="{ item }"
-    >
-      <FSRow
-        :wrap="false"
-      >
-        <FSIcon
-          :icon="chartIcon(item.chartType)"
-        />
-        <FSText>
-          {{ chartTypeLabel(item.chartType) }}
-        </FSText>
-      </FSRow>
     </template>
   </FSDataTable>
 </template>

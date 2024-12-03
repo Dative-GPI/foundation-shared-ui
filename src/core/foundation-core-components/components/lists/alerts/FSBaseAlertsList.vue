@@ -1,9 +1,9 @@
 <template>
   <FSDataTable
     rowGap="6px"
-    :rowColor="criticityColor"
+    :rowColor="rowCriticityColor"
     :itemTo="$props.itemTo"
-    :items="alertsOrdered"
+    :items="alerts"
     :loading="fetchingAlerts"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
@@ -204,29 +204,27 @@
         :icon="item.icon"
         :triggerProcessedTimestamp="item.triggerProcessedTimestamp"
         :to="$props.itemTo && $props.itemTo(item)"
-        :color="alertColorByCriticity(item.criticity)"
+        :color="AlertTools.criticityColor(item.criticity)"
       />
     </template>
   </FSDataTable>
 </template>
 
 <script lang="ts">
-import type { PropType} from "vue";
+import { computed, defineComponent, type PropType, watch } from "vue";
 import type { RouteLocation } from "vue-router";
-import { computed, defineComponent, watch } from "vue";
 import _ from "lodash";
 
 import type { AlertFilters, AlertInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 import { useAlerts } from "@dative-gpi/foundation-core-services/composables";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import type { Criticity } from "@dative-gpi/foundation-shared-domain/enums";
-import { AlertStatus } from "@dative-gpi/foundation-shared-domain/enums";
-
 import { AlertTools } from "@dative-gpi/foundation-shared-components/tools";
+import { AlertStatus } from "@dative-gpi/foundation-shared-domain/enums";
 
 import FSDataTable from "../FSDataTable.vue";
 import FSButtonAcknowledgeAlert from "./FSButtonAcknowledgeAlert.vue";
+
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
@@ -260,10 +258,12 @@ export default defineComponent({
     notAcknowledged:{
       type: Boolean,
       required: false,
+      default: false
     },
     hidePending:{
       type: Boolean,
       required: false,
+      default: false
     },
     modelValue: {
       type: Array as PropType<string[]>,
@@ -282,55 +282,46 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props) {
-    const { getMany: getManyAlerts, entities: alerts, fetching : fetchingAlerts } = useAlerts();
+    const { entities, getMany: getManyAlerts, fetching : fetchingAlerts } = useAlerts();
     const { epochToShortTimeFormat } = useDateFormat();
 
-
-    const criticityColor = (row: any) => {
+    const rowCriticityColor = (row: any) => {
       return AlertTools.criticityColor(row.criticity);
     };
 
-    const alertColorByCriticity = (criticity: Criticity | number) => {
-      return AlertTools.criticityColor(criticity);
-    };
-
-    const alertsOrdered = computed(() => {
-      const als = [...alerts.value]
-      return  als.sort((a: AlertInfos, b: AlertInfos) => {
-        return (a.acknowledged === b.acknowledged) ?
-          +b.currentSourceTimestamp! - +a.currentSourceTimestamp! : a.acknowledged ? 1 : -1
-      }); 
+    const alerts = computed(() => {
+      return  [...entities.value].sort((a: AlertInfos, b: AlertInfos) =>
+        (a.acknowledged == b.acknowledged) ? +b.currentSourceTimestamp! - +a.currentSourceTimestamp! : a.acknowledged ? 1 : -1
+      ); 
     });
 
     watch(() => [props.alertFilters, props.notAcknowledged, props.hidePending], (next, previous) => {
       if (!_.isEqual(next, previous)) {
-        if(props.notAcknowledged){
+        if (props.notAcknowledged) {
           getManyAlerts({
             ...props.alertFilters,
             acknowledged: false,
             statuses: [AlertStatus.Unresolved, AlertStatus.Triggered],
           });
         }
-        else{
+        else {
+          // TODO, gérer les conditions pour que les alertes s'affichent ici notamment lorsqu'elles sont acquittées
+          // la FilterFactory gère pas ces conditions correctement
           getManyAlerts({
             ...props.alertFilters,
-            statuses: props.hidePending ?
-              [AlertStatus.Unresolved, AlertStatus.Resolved, AlertStatus.Triggered] : props.alertFilters?.statuses
-          }); // TODO, gérer les conditions pour que les alertes s'affichent ici notamment lorsqu'elles sont acquittées
-          // la FilterFactory gère pas ces conditions correctement
+            statuses: props.hidePending ? [AlertStatus.Unresolved, AlertStatus.Resolved, AlertStatus.Triggered] : props.alertFilters?.statuses
+          });
         }
       }
     }, { immediate: true });
 
-
     return {
       fetchingAlerts,
-      alertsOrdered,
       AlertTools,
       ColorEnum,
+      alerts,
       epochToShortTimeFormat,
-      alertColorByCriticity,
-      criticityColor
+      rowCriticityColor
     };
   }
 });
