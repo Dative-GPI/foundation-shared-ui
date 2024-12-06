@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     rowGap="6px"
     :rowColor="rowCriticityColor"
     :itemTo="$props.itemTo"

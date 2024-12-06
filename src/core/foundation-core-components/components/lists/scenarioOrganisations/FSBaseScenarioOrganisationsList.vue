@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     :items="scenarioOrganisations"
     :itemTo="$props.itemTo"
     :loading="fetchingScenarioOrganisations"

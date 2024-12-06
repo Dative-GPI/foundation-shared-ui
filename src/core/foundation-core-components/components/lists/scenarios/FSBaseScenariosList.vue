@@ -1,5 +1,6 @@
 <template>
   <FSDataTable
+    defaultMode="table"
     :loading="fetchingScenarioOrganisationTypes || fetchingScenarioOrganisations"
     :headersOptions="headersOptions"
     :extraHeaders="headerAssociation"

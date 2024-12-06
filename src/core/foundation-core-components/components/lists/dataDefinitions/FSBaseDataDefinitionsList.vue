@@ -59,7 +59,7 @@
 import { defineComponent, type PropType, watch } from "vue";
 import _ from "lodash";
 
-import {ColorEnum} from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import { useDataDefinitions } from "@dative-gpi/foundation-core-services/composables";
 import type { DataDefinitionFilters } from "@dative-gpi/foundation-core-domain/models";
@@ -69,12 +69,10 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSClickable from "@dative-gpi/foundation-shared-components/components/FSClickable.vue";
-import FSButtonCheckbox from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonCheckbox.vue";
 
 export default defineComponent({
   name: "FSBaseDataDefinitionsList",
   components: {
-    FSButtonCheckbox,
     FSDataTable,
     FSClickable,
     FSSpan,
