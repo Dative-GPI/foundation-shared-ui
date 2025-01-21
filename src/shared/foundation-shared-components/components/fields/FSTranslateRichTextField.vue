@@ -182,13 +182,13 @@ export default defineComponent({
     };
 
     watch(() => props.translations, (newTranslations) => {
-      innerTranslations.value = newTranslations.map((tranlation) => {
-        if(typeof tranlation[props.property] === 'string'){
-          return tranlation;
+      innerTranslations.value = newTranslations.map((translation) => {
+        if(typeof translation[props.property] === 'string'){
+          return translation;
         }
         return {
-          ...tranlation,
-          [props.property]: JSON.stringify(tranlation[props.property])
+          ...translation,
+          [props.property]: JSON.stringify(translation[props.property])
         }
       });
     }, { immediate: true, deep: true });
