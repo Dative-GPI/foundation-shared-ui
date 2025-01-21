@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType, ref, computed, watch } from 'vue';
+import { defineComponent, type PropType, ref, watch } from 'vue';
 
 import { useAppLanguages } from "@dative-gpi/foundation-shared-services/composables";
 
@@ -139,16 +139,16 @@ export default defineComponent({
       [key: string]: string | object | null;
     }[]>([]);
 
-    const getTranslation = computed(() => {
-      const translationsMap = new Map(
-        innerTranslations.value.map((t) => [t.languageCode, t[props.property]])
-      );
-
-      return (languageCode: string) => {
-        return translationsMap.get(languageCode) || emptyLexicalState;
+    const getTranslation = (languageCode: string): string | object => {
+      if (!innerTranslations.value) {
+        return emptyLexicalState;
       }
-        
-    });
+      const translation = innerTranslations.value.find((t) => t.languageCode === languageCode);
+      if (!translation || !translation[props.property]) {
+        return emptyLexicalState;
+      }
+      return translation[props.property]!;
+    };
 
     const setTranslation = (languageCode: string, value: string): void => {
       if (!innerTranslations.value) {
@@ -191,7 +191,7 @@ export default defineComponent({
           [props.property]: JSON.stringify(tranlation[props.property])
         }
       });
-    }, { immediate: true });
+    }, { immediate: true, deep: true });
 
     return {
       languages,
