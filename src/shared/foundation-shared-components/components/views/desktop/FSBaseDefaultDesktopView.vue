@@ -13,7 +13,8 @@
         name="header"
       >
         <FSRow
-          :style="`position: sticky; top: 0px; z-index: 3; background-color: ${backgroundColor}; margin-top: ${$props.stickyTitleTopOffset};`"
+          style="position: sticky; top: 0px; z-index: 3;"
+          :style="{ backgroundColor, marginTop: $props.stickyTitleTopOffset }"
           :padding="`24px ${isTouchScreenEnabled ? '24px' : '16px'} 16px 24px`"
         >
           <slot
