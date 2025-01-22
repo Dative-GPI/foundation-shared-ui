@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType, ref } from 'vue';
+import { defineComponent, type PropType, ref, watch } from 'vue';
 
 import { useAppLanguages } from "@dative-gpi/foundation-shared-services/composables";
 
@@ -134,7 +134,10 @@ export default defineComponent({
   setup(props, { emit }) {
     const { languages } = useAppLanguages();
 
-    const innerTranslations = ref(props.translations);
+    const innerTranslations = ref<{
+      languageCode: string;
+      [key: string]: string | object | null;
+    }[]>([]);
 
     const getTranslation = (languageCode: string): string | object => {
       if (!innerTranslations.value) {
@@ -177,6 +180,18 @@ export default defineComponent({
     const onCancelTranslations  = (): void => {
       emit('update:translationsExpanded', false);
     };
+
+    watch(() => props.translations, (newTranslations) => {
+      innerTranslations.value = newTranslations.map((translation) => {
+        if(typeof translation[props.property] === 'string'){
+          return translation;
+        }
+        return {
+          ...translation,
+          [props.property]: JSON.stringify(translation[props.property])
+        }
+      });
+    }, { immediate: true, deep: true });
 
     return {
       languages,
