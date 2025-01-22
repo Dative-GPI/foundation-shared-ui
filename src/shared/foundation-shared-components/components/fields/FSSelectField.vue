@@ -122,7 +122,7 @@
       </FSCard>
     </FSSlideGroup>
     <FSDialogMenu
-      cardPadding="16px"
+      padding="16px"
       v-model="dialog"
     >
       <template
