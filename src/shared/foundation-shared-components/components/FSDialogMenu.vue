@@ -5,9 +5,8 @@
     v-bind="$attrs"
   >
     <FSCard
-      width="calc(100vw - 48px)"
-      padding="8px"
-      gap="24px"
+      :padding="$props.padding"
+      :gap="$props.gap"
       :color="$props.color"
       :class="classes"
     >
@@ -38,10 +37,20 @@ export default defineComponent({
     FSCard
   },
   props: {
-    cardClasses: {
+    classes: {
       type: [Array, String] as PropType<string[] | string | null>,
       required: false,
       default: null
+    },
+    padding: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: "8px"
+    },
+    gap: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: "24px"
     },
     modelValue: {
       type: Boolean,
@@ -60,12 +69,12 @@ export default defineComponent({
 
     const classes = computed((): string[] => {
       const classNames = ["fs-dialog-menu"];
-      if (props.cardClasses) {
-        if (Array.isArray(props.cardClasses)) {
-          classNames.push(...props.cardClasses);
+      if (props.classes) {
+        if (Array.isArray(props.classes)) {
+          classNames.push(...props.classes);
         }
         else {
-          classNames.push(props.cardClasses);
+          classNames.push(props.classes);
         }
       }
       return classNames;

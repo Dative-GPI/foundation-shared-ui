@@ -1,8 +1,10 @@
 .v-overlay__content:has(.fs-dialog-menu) {
     width: fit-content !important;
     max-height: calc(100dvh - 40px) !important;
+    max-width: calc(100vw - 40px) !important;
     justify-content: center;
     align-items: center;
+    margin: 20px;
 }
 
 .fs-dialog-menu {
