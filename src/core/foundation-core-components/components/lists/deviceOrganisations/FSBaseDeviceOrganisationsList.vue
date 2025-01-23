@@ -160,11 +160,14 @@
 import { computed, defineComponent, onMounted, type PropType, watch } from "vue";
 import { type RouteLocation } from "vue-router";
 import _ from "lodash";
-  
-import { alphanumericSort, connectivityLabel } from "@dative-gpi/foundation-shared-components/utils";
-import { ConnectivityStatus, PropertyEntity } from "@dative-gpi/foundation-shared-domain/enums";
 
-import type { DeviceConnectivityDetails, DeviceOrganisationAlert, DeviceOrganisationFilters, DeviceOrganisationInfos} from "@dative-gpi/foundation-core-domain/models";
+import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui";
+  
+import { ConnectivityStatus, Criticity, PropertyEntity } from "@dative-gpi/foundation-shared-domain/enums";
+import { alphanumericSort, connectivityLabel } from "@dative-gpi/foundation-shared-components/utils";
+import { AlertTools } from "@dative-gpi/foundation-shared-components/tools";
+
+import type { DeviceConnectivityDetails, DeviceOrganisationAlert, DeviceOrganisationFilters, DeviceOrganisationInfos, DeviceStatusDetails} from "@dative-gpi/foundation-core-domain/models";
 import { useCustomProperties, useDeviceOrganisations } from "@dative-gpi/foundation-core-services/composables";
 
 import FSMetaValue from "../../customProperties/FSMetaValue.vue";
@@ -236,6 +239,7 @@ export default defineComponent({
   setup(props) {
     const { fetching: fecthingCustomProperties, entities: customProperties, getMany: getManyCustomProperties } = useCustomProperties();
     const { entities, fetching: fetchingDeviceOrganisations, getMany: getManyDeviceOrganisations } = useDeviceOrganisations();
+    const { $tr } = useTranslationsProvider();
   
     const deviceOrganisations = computed((): DeviceOrganisationInfos[] => {
       if (props.connectedOnly) {
@@ -245,6 +249,19 @@ export default defineComponent({
     });
 
     const headersOptions = computed(() => ({
+      status: {
+        fixedFilters: [{
+          value: true,
+          text: $tr("ui.device-organisation.has-statuses", "Has statuses")
+        }, {
+          value: false,
+          text: $tr("ui.device-organisation.has-no-statuses", "Has no statuses")
+        }],
+        methodFilter: (value: boolean, item: DeviceStatusDetails) => {
+          return value ? item.statuses.length > 0 : item.statuses.length === 0;
+        },
+        sort: (a: DeviceStatusDetails, b: DeviceStatusDetails) => a.statuses.length - b.statuses.length
+      },
       connectivity: {
         fixedFilters: [{
           value: ConnectivityStatus.None,
@@ -272,7 +289,41 @@ export default defineComponent({
         },
         sort: (a: DeviceConnectivityDetails, b: DeviceConnectivityDetails) => alphanumericSort(a?.status, b?.status)
       },
+      alerts: {
+        fixedFilters: [{
+          value: true,
+          text: $tr("ui.device-organisation.has-alerts", "Has alerts")
+        }, {
+          value: false,
+          text: $tr("ui.device-organisation.has-no-alerts", "Has no alerts")
+        }],
+        methodFilter: (value: boolean, item: DeviceOrganisationAlert[]) => {
+          return value ? item.length > 0 : item.length === 0;
+        },
+        sort: (a: DeviceOrganisationAlert[], b: DeviceOrganisationAlert[]) => a.length - b.length
+      },
       worstAlert: {
+        fixedFilters: [{
+          value: Criticity.None,
+          text: "—"
+        }, {
+          value: Criticity.Information,
+          text: AlertTools.criticityLabel(Criticity.Information)
+        }, {
+          value: Criticity.Warning,
+          text: AlertTools.criticityLabel(Criticity.Warning)
+        }, {
+          value: Criticity.Error,
+          text: AlertTools.criticityLabel(Criticity.Error)
+        }],
+        methodFilter: (value: Criticity, item: DeviceOrganisationAlert | null) => {
+          switch(value) {
+            case Criticity.None:
+              return !item;
+            default:
+              return item != null && item.criticity === value;
+          }
+        },
         sort: (a: DeviceOrganisationAlert, b: DeviceOrganisationAlert) => alphanumericSort(a?.criticity, b?.criticity)
       },
       ...customProperties.value.reduce((acc, cp) => ({
