@@ -7,4 +7,5 @@ export * from "./useMagicFieldProvider";
 export * from "./useRules";
 export * from "./useSlots";
 export * from "./useTables";
+export * from "./useThrottle";
 export * from "./useTreeView";

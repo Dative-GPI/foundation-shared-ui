@@ -712,7 +712,7 @@ import { computed, defineComponent, nextTick, onMounted, onUnmounted, type PropT
 import { useRouter } from "vue-router";
 
 import { ColorEnum, type FSDataTableColumn, type FSDataTableFilter, type FSDataTableOrder, type FSToggle } from "@dative-gpi/foundation-shared-components/models";
-import { useBreakpoints, useColors, useSlots } from "@dative-gpi/foundation-shared-components/composables";
+import { useBreakpoints, useColors, useSlots, useThrottle } from "@dative-gpi/foundation-shared-components/composables";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { useRouting } from "@dative-gpi/foundation-shared-services/composables";
 import { uuidv4 } from "@dative-gpi/bones-ui/tools/uuid"
@@ -915,6 +915,7 @@ export default defineComponent({
     const { isExtraSmall, isMobileSized } = useBreakpoints();
     const { handleRoutingEvent } = useRouting();
     const { $tr } = useTranslationsProvider();
+    const { throttle } = useThrottle();
     const { getColors } = useColors();
     const router = useRouter();
 
@@ -1513,8 +1514,9 @@ export default defineComponent({
       }
     };
 
+    const throttleFilters = (): void => throttle(computeFilters, 30000);
+
     onMounted(() => {
-      computeFilters();
       observeIntersection();
     });
 
@@ -1564,12 +1566,10 @@ export default defineComponent({
       emit("update:rowsPerPage", innerRowsPerPage.value);
     });
 
-    watch(() => props.headers, () => {
-      computeFilters();
-    });
-
-    watch(() => props.items, async () => {
-      computeFilters();
+    watch(() => props.items, async (next, previous) => {
+      if (previous != null || next.length) {
+        throttleFilters();
+      }
       observeIntersection();
       if (innerPage.value !== 1) {
         const formerPage = innerPage.value;
@@ -1577,7 +1577,7 @@ export default defineComponent({
         await nextTick();
         innerPage.value = formerPage;
       }
-    }, { deep: true });
+    }, { immediate: true, deep: true });
 
     return {
       ColorEnum,
