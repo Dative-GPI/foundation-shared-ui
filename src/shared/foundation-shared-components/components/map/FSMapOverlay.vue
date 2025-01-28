@@ -10,7 +10,7 @@
     v-show="isExtraSmall"
     ref="mobileOverlayWrapper"
     class="fs-map-overlay-mobile"
-    :style="{ height: $props.mode === 'expand' ? '90%' : ($props.mode === 'half' ? '60%' : '20px') }"
+    :style="{ height: $props.mode === 'expand' ? '90%' : ($props.mode === 'half' ? '60%' : 'auto') }"
   >
     <FSCard
       width="100%"
@@ -24,14 +24,18 @@
       >
         <FSRow
           align="center-center"
-          @touchstart="$props.mode === 'expand' ? $emit('update:mode', 'collapse') : $emit('update:mode', 'expand')"
+          style="cursor: pointer;"
+          @touchstart="onClick"
+          @mousedown="onClick"
         >
-          <FSButton
-            variant="icon"
-            :icon="$props.mode === 'expand' ? 'mdi-chevron-down' : 'mdi-chevron-up'"
-            @click="$props.mode === 'expand' ? $emit('update:mode', 'collapse') : $emit('update:mode', 'expand')"
-          />
+          <FSIcon>
+            {{ $props.mode === 'expand' ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+          </FSIcon>
         </FSRow>
+        <slot
+          v-if="$props.mode === 'collapse'"
+          name="collapsed"
+        />
         <FSCol
           v-if="$props.mode !== 'collapse'"
           height="fill"
@@ -44,7 +48,6 @@
       </FSCol>
     </FSCard>
   </div>
-
   <FSCard
     v-show="!isExtraSmall"
     class="fs-map-overlay-desktop"
@@ -64,14 +67,22 @@
 
 <script lang="ts">
 import { defineComponent, type PropType, onUnmounted, onMounted, ref } from "vue";
+
 import { useBreakpoints } from "../../composables";
-import FSButton from "../FSButton.vue";
+
 import FSCard from "../FSCard.vue";
+import FSIcon from "../FSIcon.vue";
 import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
 
 export default defineComponent({
   name: "FSMapOverlay",
+  components: {
+    FSCard,
+    FSIcon,
+    FSCol,
+    FSRow
+  },
   props: {
     mode: {
       type: String as PropType<"collapse" | "half" | "expand">,
@@ -79,21 +90,23 @@ export default defineComponent({
       default: "collapse"
     }
   },
-  components: {
-    FSButton,
-    FSCard,
-    FSCol,
-    FSRow
-  },
   emits: ["update:mode", "update:height", "update:width"],
-  setup(_, { emit }) {
-    const { isExtraSmall } = useBreakpoints();
+  setup(props, { emit }) {
+    const { isExtraSmall, isTouchScreenEnabled } = useBreakpoints();
 
     const mobileOverlayWrapper = ref<HTMLDivElement | null>(null);
     const desktopOverlay = ref<InstanceType<typeof FSCard> | null>(null);
 
     const mobileResizeObserver = ref<ResizeObserver | null>(null);
     const desktopResizeObserver = ref<ResizeObserver | null>(null);
+
+    const onClick = (): void => {
+      if (props.mode === "expand") {
+        emit("update:mode", "collapse");
+        return;
+      }
+      emit("update:mode", "expand");
+    }
 
     onMounted(() => {
       mobileResizeObserver.value = new ResizeObserver(entries => {
@@ -129,9 +142,11 @@ export default defineComponent({
     });
 
     return {
-      isExtraSmall,
       mobileOverlayWrapper,
-      desktopOverlay
+      isTouchScreenEnabled,
+      desktopOverlay,
+      isExtraSmall,
+      onClick
     };
   }
 });
