@@ -22,39 +22,20 @@
         height="100%"
         gap="0px"
       >
-        <template
-          v-if="isTouchScreenEnabled"
+        <FSRow
+          align="center-center"
+          style="cursor: pointer;"
+          @touchstart="onClick"
+          @mousedown="onClick"
         >
-          <FSRow
-            align="center-center"
-            @touchstart="$props.mode === 'expand' ? $emit('update:mode', 'collapse') : $emit('update:mode', 'expand')"
-          >
-            <FSIcon>
-              {{ $props.mode === 'expand' ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
-            </FSIcon>
-          </FSRow>
-          <slot
-            v-if="$props.mode === 'collapse'"
-            name="collapsed"
-          />
-        </template>
-        <template
-          v-else
-        >
-          <FSRow
-            align="center-center"
-          >
-            <FSButton
-              variant="icon"
-              :icon="$props.mode === 'expand' ? 'mdi-chevron-down' : 'mdi-chevron-up'"
-              @click="$props.mode === 'expand' ? $emit('update:mode', 'collapse') : $emit('update:mode', 'expand')"
-            />
-          </FSRow>
-          <slot
-            v-if="$props.mode === 'collapse'"
-            name="collapsed"
-          />
-        </template>
+          <FSIcon>
+            {{ $props.mode === 'expand' ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+          </FSIcon>
+        </FSRow>
+        <slot
+          v-if="$props.mode === 'collapse'"
+          name="collapsed"
+        />
         <FSCol
           v-if="$props.mode !== 'collapse'"
           height="fill"
@@ -67,7 +48,6 @@
       </FSCol>
     </FSCard>
   </div>
-
   <FSCard
     v-show="!isExtraSmall"
     class="fs-map-overlay-desktop"
@@ -90,7 +70,6 @@ import { defineComponent, type PropType, onUnmounted, onMounted, ref } from "vue
 
 import { useBreakpoints } from "../../composables";
 
-import FSButton from "../FSButton.vue";
 import FSCard from "../FSCard.vue";
 import FSIcon from "../FSIcon.vue";
 import FSCol from "../FSCol.vue";
@@ -99,7 +78,6 @@ import FSRow from "../FSRow.vue";
 export default defineComponent({
   name: "FSMapOverlay",
   components: {
-    FSButton,
     FSCard,
     FSIcon,
     FSCol,
@@ -113,7 +91,7 @@ export default defineComponent({
     }
   },
   emits: ["update:mode", "update:height", "update:width"],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const { isExtraSmall, isTouchScreenEnabled } = useBreakpoints();
 
     const mobileOverlayWrapper = ref<HTMLDivElement | null>(null);
@@ -121,6 +99,14 @@ export default defineComponent({
 
     const mobileResizeObserver = ref<ResizeObserver | null>(null);
     const desktopResizeObserver = ref<ResizeObserver | null>(null);
+
+    const onClick = (): void => {
+      if (props.mode === "expand") {
+        emit("update:mode", "collapse");
+        return;
+      }
+      emit("update:mode", "expand");
+    }
 
     onMounted(() => {
       mobileResizeObserver.value = new ResizeObserver(entries => {
@@ -160,6 +146,7 @@ export default defineComponent({
       isTouchScreenEnabled,
       desktopOverlay,
       isExtraSmall,
+      onClick
     };
   }
 });
