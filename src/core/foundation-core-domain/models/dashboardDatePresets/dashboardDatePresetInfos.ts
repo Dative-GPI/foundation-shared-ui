@@ -7,6 +7,7 @@ import { DashboardDatePresetTranslation } from "./dashboardDatePresetTranslation
 export class DashboardDatePresetInfos {
   hiddenCode: string;
   labelDefault: string;
+  showInOptions: boolean;
   startDate: string;
   endDate: string;
   useAutoRefresh: boolean;
@@ -20,6 +21,7 @@ export class DashboardDatePresetInfos {
   constructor(params: DashboardDatePresetInfosDTO) {
     this.hiddenCode = params.hiddenCode;
     this.labelDefault = params.labelDefault;
+    this.showInOptions = params.showInOptions;
     this.startDate = params.startDate;
     this.endDate = params.endDate;
     this.useAutoRefresh = params.useAutoRefresh;
@@ -31,6 +33,7 @@ export class DashboardDatePresetInfos {
 export interface DashboardDatePresetInfosDTO {
   hiddenCode: string;
   labelDefault: string;
+  showInOptions: boolean;
   startDate: string;
   endDate: string;
   useAutoRefresh: boolean;
