@@ -131,3 +131,17 @@
   pointer-events: none;
   width: 100%;
 }
+
+.fs-data-iterator-container {
+  > .fs-draggable-item {
+    flex: 1 1 auto;
+
+    &:not(:first-child) {
+      max-width: var(--fs-data-table-iterator-max-width);
+    }
+
+    > * {
+      flex: 1 1 auto;
+    }
+  }
+}

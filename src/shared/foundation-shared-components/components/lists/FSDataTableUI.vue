@@ -602,6 +602,7 @@
       v-else
     >
       <v-data-iterator
+        :style="style"
         class="fs-data-table-iterator"
         :loading="$props.loading"
         :itemsPerPage="size"
@@ -634,6 +635,7 @@
           >
             <FSDraggable
               v-for="(item, index) in items.filter((item) => item.type === 'item')"
+              ref="iterators"
               elementSelector=".fs-draggable-item"
               :disabled="draggableDisabled"
               :item="{ ...item, index }"
@@ -930,6 +932,9 @@ export default defineComponent({
     const innerShowFilters = ref(props.showFilters);
     const resetable = ref(false);
 
+    const iterators = ref<typeof FSDraggable[]>();
+    const firstIteratorWidth = ref(null);
+
     const intersectionObserver = ref<IntersectionObserver | null>(null);
     const size = ref(props.sizeIterator);
 
@@ -1006,7 +1011,8 @@ export default defineComponent({
     const style = computed((): StyleValue => ({
       "--fs-data-table-background-color": backgrounds.base,
       "--fs-data-table-border-color": lights.base,
-      "--fs-data-table-row-gap": sizeToVar(props.rowGap)
+      "--fs-data-table-row-gap": sizeToVar(props.rowGap),
+      "--fs-data-table-iterator-max-width": (firstIteratorWidth.value ? `${firstIteratorWidth.value}px` : "100%")
     }));
 
     const classes = computed((): string[] => {
@@ -1372,6 +1378,25 @@ export default defineComponent({
       }
     }
 
+    const observeSize = () => {
+      if (iterators.value && iterators.value.length > 0) {
+        const firstIteratorElement = iterators.value[0].$el;
+        const resizeObserver = new ResizeObserver(() => {
+          if (firstIteratorWidth.value !== null) {
+            firstIteratorWidth.value = null;
+            resizeObserver.unobserve(firstIteratorElement);
+            setTimeout(() => {
+              resizeObserver.observe(firstIteratorElement);
+            }, 300);
+          } else {
+            firstIteratorWidth.value = firstIteratorElement.clientWidth;
+            console.log(firstIteratorWidth.value);
+          }
+        });
+        resizeObserver.observe(firstIteratorElement);
+      }
+    };
+
     const rowProps = (row: any): Record<string, any> => {
       if (props.rowColor && row.item) {
         const rowColors = getColors(props.rowColor(row.item));
@@ -1576,6 +1601,10 @@ export default defineComponent({
       }
     });
 
+    watch(iterators, () => {
+      observeSize();
+    }, { immediate: true });
+
     return {
       ColorEnum,
       innerSlots,
@@ -1604,6 +1633,7 @@ export default defineComponent({
       style,
       size,
       isMobileSized,
+      iterators,
       isExtraSmall,
       draggableDisabled,
       elementId,
