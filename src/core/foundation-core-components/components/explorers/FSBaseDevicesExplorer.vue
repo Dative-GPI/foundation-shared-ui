@@ -282,7 +282,7 @@ export default defineComponent({
     }
 
     // Delay to wait before fetching after a search change
-    const debounceFetch = (): void => debounce(fetch, 1500);
+    const debounceFetch = (): void => debounce(fetch, 1000);
   
     watch([() => props.parentId, () => props.root], (next, previous) => {
       if ((!next && !previous) || !_.isEqual(next, previous)) {

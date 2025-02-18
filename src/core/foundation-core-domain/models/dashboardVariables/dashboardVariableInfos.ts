@@ -9,6 +9,7 @@ export class DashboardVariableInfos {
   hiddenCode: string;
   variableType: DashboardVariableType;
   labelDefault: string;
+  showInOptions: boolean;
   code: string;
   value: string;
   useOnlyAllowedValues: boolean;
@@ -23,6 +24,7 @@ export class DashboardVariableInfos {
     this.hiddenCode = params.hiddenCode;
     this.variableType = params.variableType;
     this.labelDefault = params.labelDefault;
+    this.showInOptions = params.showInOptions;
     this.code = params.code;
     this.value = params.value;
     this.useOnlyAllowedValues = params.useOnlyAllowedValues;
@@ -35,6 +37,7 @@ export interface DashboardVariableInfosDTO {
   hiddenCode: string;
   variableType: DashboardVariableType;
   labelDefault: string;
+  showInOptions: boolean;
   code: string;
   value: string;
   useOnlyAllowedValues: boolean;

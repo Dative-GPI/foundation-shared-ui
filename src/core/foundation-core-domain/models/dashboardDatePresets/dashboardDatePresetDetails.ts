@@ -5,6 +5,7 @@ import type { DashboardDatePresetTranslationDTO } from "./dashboardDatePresetTra
 export interface CreateDashboardDatePresetDTO {
   hiddenCode: string;
   labelDefault: string;
+  showInOptions: boolean;
   startDate: string;
   endDate: string;
   useAutoRefresh: boolean;

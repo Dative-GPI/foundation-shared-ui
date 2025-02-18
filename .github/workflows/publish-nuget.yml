@@ -35,7 +35,7 @@ jobs:
         run: |
           dotnet build
           export VERSION=${{ github.ref_name }}
-          dotnet pack
+          dotnet pack -c Release
 
       # publish to NuGet
       - name: Publish Package to NuGet 🚀
