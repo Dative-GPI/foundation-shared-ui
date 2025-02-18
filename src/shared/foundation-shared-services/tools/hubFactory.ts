@@ -10,7 +10,7 @@ export class HubFactory {
 
         let connection: signalR.HubConnection | null = null;
         let subscribed = false;
-        let watchManySubscribers = 0;
+        const watchManySubscribers = ref(0);
         const watcheds = ref<string[]>([]);
 
         return () => {
@@ -24,7 +24,7 @@ export class HubFactory {
 
                     configureHooks(connection, {
                         isWatched: (id: string) => watcheds.value.includes(id),
-                        hasWatchers: () => watchManySubscribers > 0,
+                        hasWatchers: () => watchManySubscribers.value > 0,
                     })
                 }
                 if (connection.state !== signalR.HubConnectionState.Connected) {
@@ -48,7 +48,7 @@ export class HubFactory {
                 }
             }
 
-            const hasSubscribers = computed(() => watcheds.value.length > 0 || watchManySubscribers > 0);
+            const hasSubscribers = computed(() => watcheds.value.length > 0 || watchManySubscribers.value > 0);
 
             watch(hasSubscribers, async (value) => {
                 if (value) {
@@ -68,11 +68,11 @@ export class HubFactory {
             }
 
             const subscribeToMany = () => {
-                watchManySubscribers++;
+                watchManySubscribers.value++;
             }
 
             const unsubscribeFromMany = () => {
-                watchManySubscribers--;
+                watchManySubscribers.value--;
             }
 
             return {
