@@ -7,6 +7,7 @@ export interface CreateDashboardVariableDTO {
   hiddenCode: string;
   variableType: DashboardVariableType;
   labelDefault: string;
+  showInOptions: boolean;
   code: string;
   value: string;
   useOnlyAllowedValues: boolean;
