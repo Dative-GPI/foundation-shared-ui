@@ -650,26 +650,10 @@ export default defineComponent({
       innerDateValue.value = 1;
     };
 
-    watch(() => props.startDate, () => {
-      if (props.startDate && parseForPicker(props.startDate) != null) {
-        innerDateSetting.value = DateSetting.Pick;
-        if (props.startDate !== innerStartDate.value) {
-          innerStartDate.value = props.startDate;
-        }
-      }
-      else if (props.endDate !== innerEndDate.value) {
-        reset();
-      }
-    });
-
-    watch(() => props.endDate, () => {
-      if (props.endDate && parseForPicker(props.endDate) != null) {
-        innerDateSetting.value = DateSetting.Pick;
-        if (props.endDate !== innerEndDate.value) {
-          innerEndDate.value = props.endDate;
-        }
-      }
-      else if (props.startDate !== innerStartDate.value) {
+    // This watcher is called once even if both value are set at the same time
+    watch([() => props.startDate, () => props.endDate], () => {
+      // Having one of those different from the inner value means something up the chain is updating
+      if (props.startDate !== innerStartDate.value || props.endDate !== innerEndDate.value) {
         reset();
       }
     });
