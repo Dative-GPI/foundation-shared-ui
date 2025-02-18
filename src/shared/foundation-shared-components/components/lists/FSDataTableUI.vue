@@ -1062,10 +1062,13 @@ export default defineComponent({
     });
 
     const innerItems = computed((): any[] => {
-      const activeFilters: { [key: string]: FSDataTableFilter[] } = {};
-      for (const property in filters.value) {
-        activeFilters[property] = filters.value[property].filter((filter) => !filter.hidden);
-      }
+      // Select only the filters where a value is hidden, for others, accept all values
+      const activeFilters: { [key: string]: FSDataTableFilter[] } = Object.keys(filters.value).reduce((acc, key) => {
+        if (filters.value[key].some((filter) => filter.hidden)) {
+          acc[key] = filters.value[key].filter((filter) => !filter.hidden);
+        }
+        return acc;
+      }, {} as { [key: string]: FSDataTableFilter[] });
 
       if (props.items && props.items.length) {
         const innerSearchFormatted = innerSearch.value ? innerSearch.value.toLowerCase() : null;
@@ -1574,7 +1577,7 @@ export default defineComponent({
         await nextTick();
         innerPage.value = formerPage;
       }
-    });
+    }, { deep: true });
 
     return {
       ColorEnum,

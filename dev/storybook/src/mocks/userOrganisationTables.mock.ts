@@ -135,7 +135,7 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             index: 3,
             hidden: false,
             sortable: false,
-            filterable: false
+            filterable: true
         }, {
             columnId: "5",
             text: "Status",
@@ -143,7 +143,7 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             index: 3,
             hidden: false,
             sortable: false,
-            filterable: false
+            filterable: true
         }],
         sortByKey: null,
         sortByOrder: null
@@ -874,7 +874,7 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             index: 6,
             hidden: false,
             sortable: false,
-            filterable: false
+            filterable: true
         }, {
             columnId: "device4",
             text: "Status",
@@ -882,7 +882,7 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             index: 7,
             hidden: false,
             sortable: false,
-            filterable: false
+            filterable: true
         }],
         sortByKey: null,
         sortByOrder: null
