@@ -21,6 +21,7 @@ export class ChartOrganisationTypeInfos {
   multiple: boolean;
   chartType: ChartType;
   modelsLabels: ChartModelLabel[];
+  dataDefinitionsIds: string[];
 
   constructor(params: ChartOrganisationTypeInfosDTO) {
     this.id = params.id;
@@ -40,6 +41,7 @@ export class ChartOrganisationTypeInfos {
     this.multiple = params.multiple;
     this.chartType = params.chartType;
     this.modelsLabels = params.modelsLabels.map((modelLabel) => new ChartModelLabel(modelLabel));
+    this.dataDefinitionsIds = params.dataDefinitionsIds.slice();
   }
 }
 
@@ -61,6 +63,7 @@ export interface ChartOrganisationTypeInfosDTO {
   multiple: boolean;
   chartType: ChartType;
   modelsLabels: ChartModelLabelDTO[];
+  dataDefinitionsIds: string[];
 }
 
 export interface ChartOrganisationTypeFilters {
