@@ -1,60 +1,16 @@
 <template>
-  <FSRow
-    width="hug"
-    align="top-left"
-    gap="16px"
+  <FSCol
     padding="8px 0px"
-    :wrap="false"
+    width="hug"
   >
-    <v-switch
-      v-if="variant == 'left'"
-      class="fs-switch"
-      hide-details
-      inset
-      :validateOn="validateOn"
-      :rules="$props.rules"
-      :ripple="false"
-      :style="style"
-      :modelValue="$props.modelValue"
-      @update:modelValue="onToggle"
-      v-bind="$attrs"
-    />
-    <slot>
-      <FSCol
-        width="hug"
-        v-if="$props.label || $props.description || $slots.description"
-      >
-        <FSSpan
-          v-if="$props.label"
-          class="fs-switch-label"
-          :style="style"
-          :font="font"
-          @click.stop="onToggle"
-        >
-          {{ $props.label }}
-        </FSSpan>
-        <slot
-          name="description"
-        >
-          <FSSpan
-            v-if="$props.description"
-            class="fs-switch-description"
-            font="text-overline"
-            :style="style"
-          >
-            {{ $props.description }}
-          </FSSpan>
-        </slot>
-        <slot
-          name="footer"
-        />
-      </FSCol>
-    </slot>
     <FSRow
-      v-if="variant == 'right'"
-      align="center-right"
+      align="top-left"
+      width="hug"
+      gap="16px"
+      :wrap="false"
     >
       <v-switch
+        v-if="variant == 'left'"
         class="fs-switch"
         hide-details
         inset
@@ -66,8 +22,47 @@
         @update:modelValue="onToggle"
         v-bind="$attrs"
       />
+      <FSSpan
+        v-if="$props.label"
+        class="fs-switch-label"
+        :style="style"
+        :font="font"
+        @click.stop="onToggle"
+      >
+        {{ $props.label }}
+      </FSSpan>
+      <FSRow
+        v-if="variant == 'right'"
+        align="center-right"
+      >
+        <v-switch
+          class="fs-switch"
+          hide-details
+          inset
+          :validateOn="validateOn"
+          :rules="$props.rules"
+          :ripple="false"
+          :style="style"
+          :modelValue="$props.modelValue"
+          @update:modelValue="onToggle"
+          v-bind="$attrs"
+        />
+      </FSRow>
     </FSRow>
-  </FSRow>
+    <slot
+      name="description"
+    >
+      <FSSpan
+        v-if="$props.description"
+        class="fs-switch-description"
+        font="text-overline"
+        :style="style"
+        :lineClamp="2"
+      >
+        {{ $props.description }}
+      </FSSpan>
+    </slot>
+  </FSCol>
 </template>
 
 <script lang="ts">

@@ -42,6 +42,7 @@ export const Variations: Story = {
       </div>
       <FSText font="text-h3"> Variant right </FSText>
       <div style="display: flex; flex-direction: column; gap: 8px;">
+        <FSSwitch variant="right" v-model="args.value1" />
         <FSSwitch variant="right" v-model="args.value2" label="Second switch" />
         <FSSwitch variant="right" v-model="args.value3" label="Third switch"  description="Description of the third switch" />
       </div>
