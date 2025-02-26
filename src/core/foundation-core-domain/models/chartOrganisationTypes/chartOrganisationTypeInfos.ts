@@ -70,4 +70,5 @@ export interface ChartOrganisationTypeFilters {
   draft?: boolean | null;
   deprecatedChartId?: string | null;
   deviceOrganisationsIds?: string[] | null
+  dataDefinitionsIds?: string[] | null;
 }

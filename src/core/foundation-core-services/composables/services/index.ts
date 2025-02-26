@@ -18,6 +18,7 @@ export * from "./useDataCategories";
 export * from "./useDataDefinitions";
 export * from "./useDataTables";
 export * from "./useDeviceConnectivities";
+export * from "./useDeviceDataDefinitions";
 export * from "./useDeviceExplorerElements";
 export * from "./useDeviceOrganisations";
 export * from "./useDeviceStatuses";
