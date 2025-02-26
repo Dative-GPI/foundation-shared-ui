@@ -29,6 +29,7 @@ export * from "./useModels";
 export * from "./useOrganisations";
 export * from "./useOrganisationTypes";
 export * from "./useReports";
+export * from "./useReportExecutions";
 export * from "./usePermissionCategories";
 export * from "./useRoleOrganisations";
 export * from "./useRoleOrganisationTypes";
