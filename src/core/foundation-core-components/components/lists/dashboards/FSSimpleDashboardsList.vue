@@ -10,8 +10,7 @@
 import { defineComponent, type PropType, watch, computed } from "vue";
 
 import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
-import { useDashboardOrganisations } from "@dative-gpi/foundation-core-services/composables";
-import { useDashboardOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
+import { useDashboardOrganisations, useDashboardOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
 
 import FSSimpleList from "@dative-gpi/foundation-shared-components/components/lists/FSSimpleList.vue";
 

@@ -9,28 +9,11 @@
       height="12px"
     />
   </FSRow>
-  <FSRow
-    v-else-if="userOrganisations.length > 0"
-    :wrap="wrapped"
-  >
-    <FSChip
-      v-for="userOrganisation in userOrganisations"
-      :key="userOrganisation.id"
-      :color="ColorEnum.Light"
-      :label="userOrganisation.name"
-    />
-  </FSRow>
-  <FSRow
+  <FSChipGroupUserOrganisationUI
     v-else
-    :wrap="wrapped"
-  >
-    <FSChip
-      v-for="(label, i) in $props.userOrganisationLabels"
-      :key="i"
-      :color="ColorEnum.Light"
-      :label="label"
-    />
-  </FSRow>
+    :userOrganisationLabels="userOrganisations.map(u => u.name)"
+    :wrapped="wrapped"
+  />
 </template>
 
 <script lang="ts">
@@ -39,14 +22,15 @@ import { defineComponent, watch, type PropType } from "vue";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useUserOrganisations } from "@dative-gpi/foundation-core-services/composables";
 
+import FSChipGroupUserOrganisationUI from "./FSChipGroupUserOrganisationUI.vue";
+
 export default defineComponent({
-  name: "ChipGroupUserOrganisation",
+  name: "FSChipGroupUserOrganisation",
+  components: {
+    FSChipGroupUserOrganisationUI
+  },
   props: {
     userOrganisationIds: {
-      type: Array as PropType<string[]>,
-      required: false
-    },
-    userOrganisationLabels: {
       type: Array as PropType<string[]>,
       required: false
     },
