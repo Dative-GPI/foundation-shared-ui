@@ -9,9 +9,8 @@
 <script lang="ts">
 import { defineComponent, type PropType, watch, computed } from "vue";
 
-import type { DashboardOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
-import { useDashboardOrganisations } from "@dative-gpi/foundation-core-services/composables";
-import { useDashboardOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
+import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
+import { useDashboardOrganisations, useDashboardOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
 
 import FSSimpleList from "@dative-gpi/foundation-shared-components/components/lists/FSSimpleList.vue";
 
@@ -27,7 +26,7 @@ export default defineComponent({
       default: () => ({})
     },
     dashboardOrganisationTypeFilters: {
-      type: Object as PropType<DashboardOrganisationFilters>,
+      type: Object as PropType<DashboardOrganisationTypeFilters>,
       required: false,
       default: () => ({})
     }
