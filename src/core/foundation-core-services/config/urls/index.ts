@@ -16,6 +16,7 @@ export * from "./dashboards";
 export * from "./dataCategories";
 export * from "./dataDefinitions";
 export * from "./deviceConnectivities";
+export * from "./deviceDataDefinitions";
 export * from "./deviceOrganisations";
 export * from "./deviceExplorerElements";
 export * from "./deviceStatuses";
