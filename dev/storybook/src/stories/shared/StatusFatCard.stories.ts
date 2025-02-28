@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSStatus from "@dative-gpi/foundation-shared-components/components/deviceOrganisations/FSStatus.vue";
+import FSStatusFatCard from "@dative-gpi/foundation-shared-components/components/deviceOrganisations/FSStatusFatCard.vue";
 import type { FSDeviceStatusGroup, FSModelStatus } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
-  title: 'Foundation/Shared/Status',
-  component: FSStatus,
+  title: 'Foundation/Shared/StatusFatCard',
+  component: FSStatusFatCard,
   tags: ['autodocs'],
   argTypes: {
   }
-} satisfies Meta<typeof FSStatus>;
+} satisfies Meta<typeof FSStatusFatCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -36,21 +36,21 @@ export const Default: Story = {
   args: {
     modelStatus: modelStatus,
     statusGroup: statusGroup,
-    size: '32',
-    padding: '8px',
+    title: "Status",
+    background: true
   },
   render: (args, { argTypes }) => ({
-    components: { FSStatus },
+    components: { FSStatusFatCard },
     props: Object.keys(argTypes),
     setup() {
       return { args };
     },
     template: `
-      <FSStatus 
+      <FSStatusFatCard 
         :modelStatus="args.modelStatus" 
         :statusGroup="args.statusGroup" 
-        :size="args.size"
-        :padding="args.padding"
+        :title="args.title"
+        :background="args.background"
       />`
   })
 }
