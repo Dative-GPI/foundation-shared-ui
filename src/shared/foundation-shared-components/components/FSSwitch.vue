@@ -1,11 +1,8 @@
 <template>
   <FSCol
     padding="8px 0px"
-    width="hug"
   >
     <FSRow
-      align="top-left"
-      width="hug"
       gap="16px"
       :wrap="false"
     >
@@ -22,15 +19,30 @@
         @update:modelValue="onToggle"
         v-bind="$attrs"
       />
-      <FSSpan
-        v-if="$props.label"
-        class="fs-switch-label"
-        :style="style"
-        :font="font"
-        @click.stop="onToggle"
-      >
-        {{ $props.label }}
-      </FSSpan>
+      <FSCol>
+        <FSSpan
+          v-if="$props.label"
+          class="fs-switch-label"
+          :style="style"
+          :font="font"
+          @click.stop="onToggle"
+        >
+          {{ $props.label }}
+        </FSSpan>
+        <slot
+          name="description"
+        >
+          <FSSpan
+            v-if="$props.description"
+            class="fs-switch-description"
+            font="text-overline"
+            :style="style"
+            :lineClamp="2"
+          >
+            {{ $props.description }}
+          </FSSpan>
+        </slot>
+      </FSCol>
       <FSRow
         v-if="variant == 'right'"
         align="center-right"
@@ -49,19 +61,6 @@
         />
       </FSRow>
     </FSRow>
-    <slot
-      name="description"
-    >
-      <FSSpan
-        v-if="$props.description"
-        class="fs-switch-description"
-        font="text-overline"
-        :style="style"
-        :lineClamp="2"
-      >
-        {{ $props.description }}
-      </FSSpan>
-    </slot>
   </FSCol>
 </template>
 
