@@ -2,6 +2,7 @@ import { DeviceConnectivityDetails, type DeviceConnectivityDetailsDTO } from "..
 import { DeviceStatusDetails, type DeviceStatusDetailsDTO } from "../deviceStatuses/deviceStatusDetails";
 import { DeviceOrganisationAlert, type DeviceOrganisationAlertDTO } from "./deviceOrganisationAlert";
 import { ModelStatusInfos, type ModelStatusInfosDTO } from "../modelStatuses/modelStatusInfos";
+import { Address, type AddressDTO } from "@dative-gpi/foundation-shared-domain/models";
 import { PathCrumb, type PathCrumbDTO } from "../shared/pathCrumb";
 
 export class DeviceOrganisationInfos {
@@ -9,6 +10,7 @@ export class DeviceOrganisationInfos {
   deviceId: string;
   manufacturerId: string;
   manufacturerLabel: string;
+  address: Address;
   articleId: string;
   articleLabel: string;
   modelId: string;
@@ -44,6 +46,7 @@ export class DeviceOrganisationInfos {
     this.deviceId = params.deviceId;
     this.manufacturerId = params.manufacturerId;
     this.manufacturerLabel = params.manufacturerLabel;
+    this.address = new Address(params.address);
     this.articleId = params.articleId;
     this.articleLabel = params.articleLabel;
     this.modelId = params.modelId;
@@ -82,6 +85,7 @@ export interface DeviceOrganisationInfosDTO {
   deviceId: string;
   manufacturerId: string;
   manufacturerLabel: string;
+  address: AddressDTO;
   articleId: string;
   articleLabel: string;
   modelId: string;
