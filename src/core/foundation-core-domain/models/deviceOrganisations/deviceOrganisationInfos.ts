@@ -10,7 +10,7 @@ export class DeviceOrganisationInfos {
   deviceId: string;
   manufacturerId: string;
   manufacturerLabel: string;
-  address: Address;
+  address: Address | null;
   articleId: string;
   articleLabel: string;
   modelId: string;
@@ -46,7 +46,7 @@ export class DeviceOrganisationInfos {
     this.deviceId = params.deviceId;
     this.manufacturerId = params.manufacturerId;
     this.manufacturerLabel = params.manufacturerLabel;
-    this.address = new Address(params.address);
+    this.address = params.address ? new Address(params.address) : null;
     this.articleId = params.articleId;
     this.articleLabel = params.articleLabel;
     this.modelId = params.modelId;
@@ -85,7 +85,7 @@ export interface DeviceOrganisationInfosDTO {
   deviceId: string;
   manufacturerId: string;
   manufacturerLabel: string;
-  address: AddressDTO;
+  address: AddressDTO | null;
   articleId: string;
   articleLabel: string;
   modelId: string;
