@@ -87,15 +87,15 @@ export default {
         icon = divIcon({
           html: locationMarkerHtml(props.icon, getColors(props.color).base, props.label),
           iconSize: [size, size],
-          className: props.selected ? 'fs-map-location fs-map-location-selected' : 'fs-map-location',
+          className: props.selected ? 'fs-map-marker fs-map-location fs-map-location-selected' : 'fs-map-marker fs-map-location',
           iconAnchor: [size / 2, size / 2],
         });
       } else {
-        const size = 20;
+        const size = 16;
         icon = divIcon({
-          html: pinMarkerHtml(getColors(props.color).base),
+          html: pinMarkerHtml(getColors(props.color).base, props.label),
           iconSize: [size, size],
-          className: props.selected ? 'fs-map-location fs-map-location-selected' : 'fs-map-location',
+          className: props.selected ? 'fs-map-marker fs-map-pin fs-map-pin-selected' : 'fs-map-marker fs-map-pin',
           iconAnchor: [size / 2, size / 2],
         });
       }

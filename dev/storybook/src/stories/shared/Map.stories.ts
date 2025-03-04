@@ -9,6 +9,8 @@ import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue
 import type { FSArea } from '@dative-gpi/foundation-shared-domain/models';
 import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
 import FSDialogMultiForm from '@dative-gpi/foundation-shared-components/components/FSDialogMultiForm.vue';
+import FSMapMarker from '@dative-gpi/foundation-shared-components/components/map/FSMapMarker.vue';
+import FSMapMarkerClusterGroup from '@dative-gpi/foundation-shared-components/components/map/FSMapMarkerClusterGroup.vue';
 
 const meta = {
   title: 'Foundation/Shared/Map',
@@ -223,55 +225,37 @@ export const MultiLocationMap: Story = {
   }),
 };
 
-export const MultiLocationMapClick: Story = {
+export const CustomPinMap: Story = {
   args: {
-    locations: [location2, location3, location4, location5],
-    selectedLocationId: null,
     currentLayer: 'map',
+    grayscale: false,
+    enableScrollWheelZoom: true,
   },
   render: (args) => ({
-    components: { FSMap, FSFadeOut, FSRow, FSCol },
+    components: { FSMap, FSMapMarker, FSMapMarkerClusterGroup },
     setup() {
       return { args };
     },
     template: `
-      <FSMap
-        :overlayMode="args.selectedLocationId ? 'half' : 'collapse'"
-        v-model:currentLayer="args.currentLayer"
-        v-model:selectedLocationId="args.selectedLocationId"
-        :locations="args.locations"
-      >
-        <template #overlay-body>
-          <FSRow
-            padding="8px"
-          >
-            <span>Custom overlay with fade out</span>
-          </FSRow>
-          <FSCol height="hug" style="min-height: 0;">
-            <FSFadeOut height="100%">
-              <div style="padding:8px; border-radius:4px; display: flex; flex-direction: column; gap: 10px;">
-                <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-                  <span>Left overlay</span>
-              </div>
-            </FSFadeOut>
-          </FSCol>
-        </template>
+      <FSMap>
+        <FSMapMarkerClusterGroup
+          :expected-layers="2"
+        >
+          <FSMapMarker
+            :latlng="{ lat: 45.71175, lng: 5.071489 }"
+            :selected="true"
+            label="Dative GPI"
+            variant="pin"
+            @click="console.log($event)"
+          />
+          <FSMapMarker
+            :latlng="{ lat: 45.71175, lng: 5.074489 }"
+            :selected="false"
+            label="Train"
+            variant="pin"
+            @click="console.log($event)"
+          />
+        </FSMapMarkerClusterGroup>
       </FSMap>
     `,
   }),

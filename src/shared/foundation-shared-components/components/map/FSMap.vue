@@ -22,7 +22,6 @@
           :color="ColorEnum.Primary"
           :latlng="gpsPosition"
         />
-  
         <FSMapFeatureGroup
           v-if="$props.areas"
           :expected-layers="$props.areas.length"
@@ -36,7 +35,6 @@
             @click="$emit('update:selectedAreaId', area.id)"
           />
         </FSMapFeatureGroup>
-  
         <FSMapMarkerClusterGroup
           v-if="$props.locations"
           :expected-layers="$props.locations.length"
@@ -54,6 +52,7 @@
             @click="$emit('update:selectedLocationId', location.id)"
           />
         </FSMapMarkerClusterGroup>
+        <slot />
       </template>
     </div>
 
