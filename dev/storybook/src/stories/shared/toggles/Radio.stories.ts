@@ -23,18 +23,18 @@ export const Variations: Story = {
       value3: 1,
       options1: [
         { value: 0 },
-        { value: 1, label: "Second option"  },
-        { value: 2, label: "Third option", description: "Description of the third option"  }
+        { value: 1, label: "Second option" },
+        { value: 2, label: "Third option", description: "Description of the third option" }
     ],
       options2: [
         { value: 0 },
-        { value: 1, label: "Second option"  },
-        { value: 2, label: "Third option", description: "Description of the third option"  }
+        { value: 1, label: "Second option" },
+        { value: 2, label: "Third option", description: "Description of the third option" }
       ],
       options3: [
         { value: 0 },
-        { value: 1, label: "Second option"  },
-        { value: 2, label: "Third option", description: "Description of the third option"  }
+        { value: 1, label: "Second option" },
+        { value: 2, label: "Third option", description: "Description of the third option" }
       ]
     }
   },

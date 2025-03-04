@@ -54,6 +54,7 @@
         v-if="$props.description"
         class="fs-base-field-description"
         font="text-overline"
+        :lineClamp="2"
       >
         {{ $props.description }}
       </FSSpan>

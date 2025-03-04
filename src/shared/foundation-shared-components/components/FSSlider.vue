@@ -35,7 +35,7 @@
       :elevation="0"
       :tickSize="4"
       :modelValue="$props.modelValue ?? undefined"
-      @update:modelValue="(value) => $emit('update:modelValue', value)"
+      @update:modelValue="$emit('update:modelValue', $event)"
       v-bind="$attrs"
     >
       <template
@@ -55,6 +55,7 @@
         v-if="$props.description"
         class="fs-slider-description"
         font="text-overline"
+        :lineClamp="2"
         :style="style"
       >
         {{ $props.description }}
