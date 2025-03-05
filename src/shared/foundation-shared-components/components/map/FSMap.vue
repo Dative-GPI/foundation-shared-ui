@@ -22,36 +22,6 @@
           :color="ColorEnum.Primary"
           :latlng="gpsPosition"
         />
-        <FSMapFeatureGroup
-          v-if="$props.areas"
-          :expected-layers="$props.areas.length"
-          @update:bounds="(bounds) => areaGroupBounds = bounds"
-        >
-          <FSMapPolygon
-            v-for="area in areas"
-            :key="area.id"
-            :color="area.color"
-            :latlngs="area.coordinates.map((coord) => ({lat: coord.latitude, lng: coord.longitude}))"
-            @click="$emit('update:selectedAreaId', area.id)"
-          />
-        </FSMapFeatureGroup>
-        <FSMapMarkerClusterGroup
-          v-if="$props.locations"
-          :expected-layers="$props.locations.length"
-          :disableClusteringAtZoom="defaultZoom"
-          @update:bounds="(bounds) => locationGroupBounds = bounds"
-        >
-          <FSMapMarker
-            v-for="location in $props.locations"
-            :selected="location.id === $props.selectedLocationId"
-            :key="location.id"
-            :label="location.label"
-            :color="location.color ?? ColorEnum.Primary"
-            :icon="location.icon ?? 'mdi-map-marker'"
-            :latlng="{lat: location.address.latitude, lng: location.address.longitude}"
-            @click="$emit('update:selectedLocationId', location.id)"
-          />
-        </FSMapMarkerClusterGroup>
         <slot />
       </template>
     </div>
@@ -124,10 +94,9 @@ import type {} from "leaflet.markercluster";
 import { map as createMap, control, tileLayer, latLngBounds, latLng, type LatLng, type FitBoundsOptions, type ZoomPanOptions, type LatLngBounds } from "leaflet";
 
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
-import { type FSArea } from '@dative-gpi/foundation-shared-domain/models';
 
 import { useBreakpoints, useColors, useSlots } from "../../composables";
-import { ColorEnum, type FSLocation, type MapLayer } from "../../models";
+import { ColorEnum, type MapLayer } from "../../models";
 
 import FSMapLayerButton from "./FSMapLayerButton.vue";
 import FSMapOverlay from "./FSMapOverlay.vue";
@@ -137,19 +106,12 @@ import FSCol from "../FSCol.vue";
 
 import FSMapMarker from "./FSMapMarker.vue";
 import FSMapTileLayer from "./FSMapTileLayer.vue";
-import FSMapFeatureGroup from "./FSMapFeatureGroup.vue";
-import FSMapMarkerClusterGroup from "./FSMapMarkerClusterGroup.vue";
-import FSMapPolygon from "./FSMapPolygon.vue";
 
 export default defineComponent({
   name: "FSMap",
   components: {
     FSMapMarker,
     FSMapTileLayer,
-    FSMapFeatureGroup,
-    FSMapMarkerClusterGroup,
-    FSMapPolygon,
-
     FSMapLayerButton,
     FSMapOverlay,
     FSButton,
@@ -193,19 +155,14 @@ export default defineComponent({
       default: false
     },
     center: {
-      type: Array as PropType<number[]>,
+      type: Array as PropType<number[] | null>,
       required: false,
-      default: () => [45.71, 5.07]
+      default: null
     },
-    locations: {
-      type: Array as PropType<FSLocation[]>,
+    bounds: {
+      type: Object as PropType<LatLngBounds | null>,
       required: false,
-      default: () => [],
-    },
-    areas: {
-      type: Array as PropType<FSArea[]>,
-      required: false,
-      default: () => [],
+      default: null
     },
     currentLayer: {
       type: String as PropType<"map" | "imagery">,
@@ -216,16 +173,6 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       required: false,
       default: () => ["map", "imagery"]
-    },
-    selectedLocationId: {
-      type: String as PropType<string | null>,
-      required: false,
-      default: null
-    },
-    selectedAreaId: {
-      type: String as PropType<string | null>,
-      required: false,
-      default: null
     }
   },
   emits: ["update:modelValue", "update:selectedLocationId", "update:selectedAreaId", 'update:overlayMode', 'update:currentLayer', "click:latlng"],
@@ -300,19 +247,6 @@ export default defineComponent({
 
     const actualLayer = computed(() => {
       return mapLayers.find((layer) => layer.name === props.currentLayer)?.layer ?? mapLayers[0].layer;
-    });
-
-    const bounds = computed<LatLngBounds | null>(() => {
-      if(!locationGroupBounds.value && !areaGroupBounds.value) {
-        return null;
-      }
-      let bounds = locationGroupBounds.value;
-      if(bounds && areaGroupBounds.value) {
-        bounds.extend(areaGroupBounds.value);
-      } else if(areaGroupBounds.value) {
-        bounds = areaGroupBounds.value;
-      }
-      return bounds as LatLngBounds;
     });
 
     const overlaySlots = computed(() => {
@@ -393,11 +327,12 @@ export default defineComponent({
         minZoom: 2,
         maxZoom: 22,
         maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
-        maxBoundsViscosity: 1.0
+        maxBoundsViscosity: 1.0,
+        zoom: defaultZoom,
+        center: props.center ? latLng(props.center[0], props.center[1]) : latLng(48.85782, 2.29521)
       };
 
       map.value = markRaw(createMap(leafletContainer.value, mapOptions));
-      setView(props.center[0], props.center[1], defaultZoom);
       
       map.value.on('click', (e: L.LeafletMouseEvent) => {
         emit('click:latlng', e.latlng);
@@ -427,41 +362,18 @@ export default defineComponent({
       mapResizeObserver.disconnect();
     });
 
-    watch (() => props.center, (center) => {
-      if(!map.value) {
+    watch ([() => props.center, () => map.value], () => {
+      if(!map.value || !props.center) {
         return;
       }
-      setView(center[0], center[1], defaultZoom);
-    });
-
-    watch (() => props.selectedLocationId, (selectedLocationId) => {
-      if(!map.value) {
-        return;
-      }
-      const selectedLocation = props.locations.find((location) => location.id === selectedLocationId);
-      if(!selectedLocation) {
-        return;
-      }
-      flyTo(selectedLocation?.address.latitude, selectedLocation?.address.longitude, defaultZoom, { animate: false });
+      setView(props.center[0], props.center[1], defaultZoom);
     }, { immediate: true });
 
-    watch(() => props.selectedAreaId, (selectedAreaId) => {
-      if(!map.value) {
+    watch([() => props.bounds, () => map.value], () => {
+      if(!map.value || !props.bounds) {
         return;
       }
-      const selectedArea = props.areas.find((area) => area.id === selectedAreaId);
-      if(!selectedArea) {
-        return;
-      }
-      const bounds = latLngBounds(selectedArea.coordinates.map((coord) => latLng(coord.latitude, coord.longitude)));
-      fitBounds(bounds);
-    }, { immediate: true });
-
-    watch( () => bounds.value, (bounds) => {
-      if(!map.value || !bounds) {
-        return;
-      }
-      fitBounds(bounds, { maxZoom: defaultZoom });
+      fitBounds(props.bounds, { maxZoom: defaultZoom });
     });
 
     return {

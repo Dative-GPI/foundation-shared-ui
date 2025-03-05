@@ -82,10 +82,10 @@ export default {
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2],
         });
-      } else if(props.variant === 'location' && props.icon) {
+      } else if(props.variant === 'location') {
         const size = 36;
         icon = divIcon({
-          html: locationMarkerHtml(props.icon, getColors(props.color).base, props.label),
+          html: locationMarkerHtml(props.icon ?? "mdi-map-marker", getColors(props.color).base, props.label),
           iconSize: [size, size],
           className: props.selected ? 'fs-map-marker fs-map-location fs-map-location-selected' : 'fs-map-marker fs-map-location',
           iconAnchor: [size / 2, size / 2],
