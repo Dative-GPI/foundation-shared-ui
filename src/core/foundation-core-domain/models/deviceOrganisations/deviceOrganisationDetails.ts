@@ -1,3 +1,4 @@
+import type { AddressDTO } from "@dative-gpi/foundation-shared-domain/models";
 import type { DeviceOrganisationOptionDTO } from "./deviceOrganisationOption";
 import { DeviceOrganisationOption } from "./deviceOrganisationOption";
 import type { DeviceOrganisationInfosDTO } from "./deviceOrganisationInfos";
@@ -35,6 +36,7 @@ export interface CreateDeviceOrganisationDTO {
     manufacturerId: string;
     managerId: string | null;
     locationId: string | null;
+    address: AddressDTO | null;
     groupId: string | null;
     code: string;
     label: string;
@@ -46,6 +48,7 @@ export interface CreateDeviceOrganisationDTO {
 export interface UpdateDeviceOrganisationDTO {
     managerId: string | null;
     locationId: string | null;
+    address: AddressDTO | null;
     groupId: string | null;
     imageId: string | null;
     image: string | null;
