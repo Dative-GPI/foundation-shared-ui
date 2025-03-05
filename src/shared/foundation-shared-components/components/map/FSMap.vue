@@ -293,7 +293,7 @@ export default defineComponent({
       if(!map.value) {
         return;
       }
-      map.value.setView(calculateTargetPosition(latLng(lat, lng)), zoom);
+      map.value.setView(calculateTargetPosition(latLng(lat, lng), zoom), zoom);
     }
 
     const fitBounds = (bounds: LatLngBounds, options?: FitBoundsOptions) => {
@@ -328,7 +328,7 @@ export default defineComponent({
         maxZoom: 22,
         maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
         maxBoundsViscosity: 1.0,
-        zoom: defaultZoom,
+        zoom: 5,
         center: props.center ? latLng(props.center[0], props.center[1]) : latLng(48.85782, 2.29521)
       };
 
