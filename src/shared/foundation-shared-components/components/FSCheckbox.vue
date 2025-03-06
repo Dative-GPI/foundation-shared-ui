@@ -50,6 +50,7 @@
         v-if="$props.description"
         class="fs-checkbox-description"
         font="text-overline"
+        :lineClamp="2"
         :style="style"
       >
         {{ $props.description }}
