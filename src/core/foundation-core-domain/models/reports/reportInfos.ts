@@ -11,7 +11,7 @@ export class ReportInfos {
   body: string;
   cron: string;
   icon: string;
-  users: string[];
+  userIds: string[];
   dashboardId: string;
   dashboardScope: DashboardType;
   dashboardLabel: string;
@@ -35,7 +35,7 @@ export class ReportInfos {
     this.dashboardLabel = params.dashboardLabel;
     this.startDate = params.startDate;
     this.endDate = params.endDate;
-    this.users = params.users;
+    this.userIds = params.userIds;
     this.createdAt = params.createdAt ? isoToEpoch(params.createdAt) : null;
     this.nextExecution = params.nextExecution ? isoToEpoch(params.nextExecution) : null;
     this.lastExecution = params.lastExecution ? isoToEpoch(params.lastExecution) : null;
@@ -57,7 +57,7 @@ export interface ReportInfosDTO {
   dashboardLabel: string;
   startDate: string;
   endDate: string;
-  users: string[];
+  userIds: string[];
   createdAt: string | null;
   nextExecution: string | null;
   lastExecution: string | null;

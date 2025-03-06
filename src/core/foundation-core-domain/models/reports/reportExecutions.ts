@@ -1,6 +1,9 @@
-import { DashboardTranslation, type DashboardTranslationDTO } from "../dashboards";
 import type { DashboardType, JobHangfireState } from "@dative-gpi/foundation-shared-domain/enums";
 import { isoToEpoch } from "@dative-gpi/foundation-shared-domain/tools";
+
+import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
+
+const { epochToLongDateFormat } = useDateFormat();
 
 export class ReportExecution {
   id: string | null;
@@ -8,6 +11,8 @@ export class ReportExecution {
   jobId: string;
   fileId: string | null;
   fileLabel: string | null;
+  reportLabel: string | null;
+  mailBody: string | null;
   state: JobHangfireState;
   startDate: string;
   endDate: string;
@@ -18,7 +23,10 @@ export class ReportExecution {
   executedAt: number;
   error: string;
   cron: string;
-  translationDashboards: DashboardTranslation[];
+
+  get executedAtGroup(): string {
+    return epochToLongDateFormat(this.executedAt);
+  }
 
 
   constructor(params: ReportExecutionDTO) {
@@ -27,6 +35,8 @@ export class ReportExecution {
     this.jobId = params.jobId;
     this.fileId = params.fileId;
     this.fileLabel = params.fileLabel;
+    this.reportLabel = params.reportLabel;
+    this.mailBody = params.mailBody
     this.state = params.state;
     this.startDate = params.startDate;
     this.endDate = params.endDate;
@@ -37,7 +47,6 @@ export class ReportExecution {
     this.executedAt = isoToEpoch(params.executedAt);
     this.error = params.error;
     this.cron = params.cron;
-    this.translationDashboards = params.translationDashboards.map((translation) => new DashboardTranslation(translation));
   }
 }
 
@@ -48,6 +57,8 @@ export interface ReportExecutionDTO {
   jobId: string;
   fileId: string | null;
   fileLabel: string | null;
+  reportLabel: string | null;
+  mailBody: string | null;
   state: JobHangfireState;
   success: boolean;
   startDate: string;
@@ -59,7 +70,6 @@ export interface ReportExecutionDTO {
   executedAt: string;
   error: string;
   cron: string;
-  translationDashboards: DashboardTranslationDTO[];
 }
 
 export interface ReportExecutionFilters {

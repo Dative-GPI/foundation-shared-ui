@@ -21,7 +21,7 @@ export interface CreateReportDTO {
   dashboardScope: DashboardType;
   icon: string;
   cron: string;
-  users: string[];
+  userIds: string[];
   translations: TranslationReportDTO[];
 }
 
@@ -34,6 +34,6 @@ export interface UpdateReportDTO {
   dashboardScope: DashboardType;
   icon: string;
   cron: string;
-  users: string[];
+  userIds: string[];
   translations: TranslationReportDTO[];
 }
