@@ -1,31 +1,19 @@
-import type { CreateDashboardShallowEntityPresetDTO, DashboardShallowEntityPresetInfosDTO } from "../dashboardShallowEntityPresets";
-import { DashboardShallowEntityPresetInfos } from "../dashboardShallowEntityPresets";
-import type { CreateDashboardShallowDatePresetDTO, DashboardShallowDatePresetInfosDTO } from "../dashboardShallowDatePresets";
-import { DashboardShallowDatePresetInfos } from "../dashboardShallowDatePresets";
-import type { CreateDashboardShallowVariableDTO, DashboardShallowVariableInfosDTO } from "../dashboardShallowVariables";
-import { DashboardShallowVariableInfos } from "../dashboardShallowVariables";
-import type { DashboardEntityPresetInfosDTO } from "../dashboardEntityPresets";
-import { DashboardEntityPresetInfos } from "../dashboardEntityPresets";
-import type { DashboardDatePresetInfosDTO } from "../dashboardDatePresets";
-import { DashboardDatePresetInfos } from "../dashboardDatePresets";
-import type { DashboardVariableInfosDTO } from "../dashboardVariables";
-import { DashboardVariableInfos } from "../dashboardVariables";
-import type { DashboardShallowInfosDTO } from "./dashboardShallowInfos";
-import { DashboardShallowInfos } from "./dashboardShallowInfos";
-import type { DashboardTranslationDTO } from "../dashboards";
-import { DashboardTranslation } from "../dashboards";
-import type { WidgetInfosDTO } from "../widgets/widgetInfos";
-import { WidgetInfos } from "../widgets/widgetInfos";
-import type { PathCrumbDTO } from "../shared/pathCrumb";
-import { PathCrumb } from "../shared/pathCrumb";
-
+import { type CreateDashboardShallowEntityPresetDTO, DashboardShallowEntityPresetInfos, type DashboardShallowEntityPresetInfosDTO } from "../dashboardShallowEntityPresets";
+import { type CreateDashboardShallowDatePresetDTO, DashboardShallowDatePresetInfos, type DashboardShallowDatePresetInfosDTO } from "../dashboardShallowDatePresets";
+import { type CreateDashboardShallowVariableDTO, DashboardShallowVariableInfos, type DashboardShallowVariableInfosDTO } from "../dashboardShallowVariables";
+import { type CreateDashboardShallowWidgetDTO, DashboardShallowWidgetInfos, type DashboardShallowWidgetInfosDTO } from "../dashboardShallowWidgets";
+import { DashboardEntityPresetInfos, type DashboardEntityPresetInfosDTO } from "../dashboardEntityPresets";
+import { DashboardDatePresetInfos, type DashboardDatePresetInfosDTO } from "../dashboardDatePresets";
+import { DashboardVariableInfos, type DashboardVariableInfosDTO } from "../dashboardVariables";
+import { DashboardShallowInfos, type DashboardShallowInfosDTO } from "./dashboardShallowInfos";
+import { DashboardTranslation, type DashboardTranslationDTO } from "../dashboards";
+import { WidgetInfos, type WidgetInfosDTO } from "../widgets/widgetInfos";
+import { PathCrumb, type PathCrumbDTO } from "../shared/pathCrumb";
 
 export class DashboardShallowDetails extends DashboardShallowInfos {
   labelDefault: string;
   translations: DashboardTranslation[];
   path: PathCrumb[];
-  
-  widgets: WidgetInfos[];
   
   entityPresetCode: string | null;
   datePresetCode: string | null;
@@ -33,10 +21,12 @@ export class DashboardShallowDetails extends DashboardShallowInfos {
   defaultDatePresets: DashboardDatePresetInfos[];
   defaultEntityPresets: DashboardEntityPresetInfos[];
   defaultVariables: DashboardVariableInfos[];
+  defaultWidgets: WidgetInfos[];
   
   overrideDatePresets: DashboardShallowDatePresetInfos[];
   overrideEntityPresets: DashboardShallowEntityPresetInfos[];
   overrideVariables: DashboardShallowVariableInfos[];
+  overrideWidgets: DashboardShallowWidgetInfos[];
 
   get datePresets() : DashboardDatePresetInfos[] {
     return this.defaultDatePresets.map(d => {
@@ -59,17 +49,24 @@ export class DashboardShallowDetails extends DashboardShallowInfos {
     });
   }
 
+  get widgets() {
+    return this.defaultWidgets.map(d => {
+      const override = this.overrideWidgets.find(od => od.widgetId === d.id);
+      return override ? new WidgetInfos({ ...d, ...override }) : d;
+    });
+  }
+
   constructor(params: DashboardShallowDetailsDTO) {
     super(params);
     
     this.labelDefault = params.labelDefault;
     this.path = params.path.map(dto => new PathCrumb(dto)).sort((a, b) => b.index - a.index);
     this.translations = params.translations.map(t => new DashboardTranslation(t));
-    this.widgets = params.widgets.map(dto => new WidgetInfos(dto));
     
     this.overrideDatePresets = params.overrideDatePresets.map(dto => new DashboardShallowDatePresetInfos(dto));
     this.overrideEntityPresets = params.overrideEntityPresets.map(dto => new DashboardShallowEntityPresetInfos(dto));
     this.overrideVariables = params.overrideVariables.map(dto => new DashboardShallowVariableInfos(dto));
+    this.overrideWidgets = params.overrideWidgets.map(dto => new DashboardShallowWidgetInfos(dto));
 
     this.entityPresetCode = params.entityPresetCode;
     this.datePresetCode = params.datePresetCode;
@@ -77,6 +74,7 @@ export class DashboardShallowDetails extends DashboardShallowInfos {
     this.defaultDatePresets = params.defaultDatePresets.map(dto => new DashboardDatePresetInfos(dto));
     this.defaultEntityPresets = params.defaultEntityPresets.map(dto => new DashboardEntityPresetInfos(dto));
     this.defaultVariables = params.defaultVariables.map(dto => new DashboardVariableInfos(dto));
+    this.defaultWidgets = params.defaultWidgets.map(dto => new WidgetInfos(dto));
   }
 }
 
@@ -86,6 +84,7 @@ export interface DashboardShallowDetailsDTO extends DashboardShallowInfosDTO {
   overrideDatePresets: DashboardShallowDatePresetInfosDTO[];
   overrideEntityPresets: DashboardShallowEntityPresetInfosDTO[];
   overrideVariables: DashboardShallowVariableInfosDTO[];
+  overrideWidgets: DashboardShallowWidgetInfosDTO[];
   translations: DashboardTranslationDTO[];
   dashboardId: string;
   scope: number;
@@ -95,7 +94,7 @@ export interface DashboardShallowDetailsDTO extends DashboardShallowInfosDTO {
   defaultDatePresets: DashboardDatePresetInfosDTO[];
   defaultEntityPresets: DashboardEntityPresetInfosDTO[];
   defaultVariables: DashboardVariableInfosDTO[];
-  widgets: WidgetInfosDTO[];
+  defaultWidgets: WidgetInfosDTO[];
 }
 
 export interface CreateDashboardShallowDTO {
@@ -114,6 +113,7 @@ export interface UpdateDashboardShallowDTO {
   overrideDatePresets: CreateDashboardShallowDatePresetDTO[];
   overrideEntityPresets: CreateDashboardShallowEntityPresetDTO[];
   overrideVariables: CreateDashboardShallowVariableDTO[];
+  overrideWidgets: CreateDashboardShallowWidgetDTO[];
   translations: DashboardTranslationDTO[];
 }
 

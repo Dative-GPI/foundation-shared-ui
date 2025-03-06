@@ -32,7 +32,9 @@
             >
               {{ $tr('translate-rich-text-field.translate-in', 'Translate in {0}', language.label) }}
             </FSSpan>
-            <FSIcon>{{ language.icon }}</FSIcon>
+            <FSIcon>
+              {{ language.icon }}
+            </FSIcon>
           </FSRow>
         </template>
       </FSRichTextField>
