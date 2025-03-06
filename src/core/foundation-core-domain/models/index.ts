@@ -19,6 +19,7 @@ export * from "./dashboardShallowDatePresets";          // No service
 export * from "./dashboardShallowEntityPresets";        // No service
 export * from "./dashboardShallows";
 export * from "./dashboardShallowVariables";            // No service
+export * from "./dashboardShallowWidgets";              // No service
 export * from "./dashboardVariables";                   // No service
 export * from "./dashboardVariableValues";              // No service
 export * from "./dataCategories";
