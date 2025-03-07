@@ -1,3 +1,4 @@
+import type { EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 import { Address, type AddressDTO } from "@dative-gpi/foundation-shared-domain/models";
 
 export class LocationInfos {
@@ -46,4 +47,6 @@ export interface LocationFilters {
   locationsIds?: string[] | null;
   modelsIds?: string[] | null;
   search?: string | null;
+  entityType?: EntityType | null;
+  entitiesIds?: string[] | null;
 }

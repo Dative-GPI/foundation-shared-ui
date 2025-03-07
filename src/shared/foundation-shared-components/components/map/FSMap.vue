@@ -14,7 +14,7 @@
         v-if="map"
       >
         <FSMapTileLayer
-          :layer="actualLayer"
+          :layers="actualLayer"
         />
         <FSMapMarker 
           v-if="gpsPosition"
@@ -22,38 +22,7 @@
           :color="ColorEnum.Primary"
           :latlng="gpsPosition"
         />
-  
-        <FSMapFeatureGroup
-          v-if="$props.areas"
-          :expected-layers="$props.areas.length"
-          @update:bounds="(bounds) => areaGroupBounds = bounds"
-        >
-          <FSMapPolygon
-            v-for="area in areas"
-            :key="area.id"
-            :color="area.color"
-            :latlngs="area.coordinates.map((coord) => ({lat: coord.latitude, lng: coord.longitude}))"
-            @click="$emit('update:selectedAreaId', area.id)"
-          />
-        </FSMapFeatureGroup>
-  
-        <FSMapMarkerClusterGroup
-          v-if="$props.locations"
-          :expected-layers="$props.locations.length"
-          :disableClusteringAtZoom="defaultZoom"
-          @update:bounds="(bounds) => locationGroupBounds = bounds"
-        >
-          <FSMapMarker
-            v-for="location in $props.locations"
-            :selected="location.id === $props.selectedLocationId"
-            :key="location.id"
-            :label="location.label"
-            :color="location.color ?? ColorEnum.Primary"
-            :icon="location.icon ?? 'mdi-map-marker'"
-            :latlng="{lat: location.address.latitude, lng: location.address.longitude}"
-            @click="$emit('update:selectedLocationId', location.id)"
-          />
-        </FSMapMarkerClusterGroup>
+        <slot />
       </template>
     </div>
 
@@ -100,6 +69,7 @@
     </FSCol>
 
     <FSMapOverlay
+      v-if="overlaySlots && Object.keys(overlaySlots).length"
       :mode="$props.overlayMode"
       @update:mode="$emit('update:overlayMode', $event)"
       @update:height="(height) => overlayHeight = height"
@@ -125,10 +95,9 @@ import type {} from "leaflet.markercluster";
 import { map as createMap, control, tileLayer, latLngBounds, latLng, type LatLng, type FitBoundsOptions, type ZoomPanOptions, type LatLngBounds } from "leaflet";
 
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
-import { type FSArea } from '@dative-gpi/foundation-shared-domain/models';
 
 import { useBreakpoints, useColors, useSlots } from "../../composables";
-import { ColorEnum, type FSLocation, type MapLayer } from "../../models";
+import { ColorEnum, MapLayers, MapOverlayPositions, type MapLayer } from "../../models";
 
 import FSMapLayerButton from "./FSMapLayerButton.vue";
 import FSMapOverlay from "./FSMapOverlay.vue";
@@ -138,19 +107,12 @@ import FSCol from "../FSCol.vue";
 
 import FSMapMarker from "./FSMapMarker.vue";
 import FSMapTileLayer from "./FSMapTileLayer.vue";
-import FSMapFeatureGroup from "./FSMapFeatureGroup.vue";
-import FSMapMarkerClusterGroup from "./FSMapMarkerClusterGroup.vue";
-import FSMapPolygon from "./FSMapPolygon.vue";
 
 export default defineComponent({
   name: "FSMap",
   components: {
     FSMapMarker,
     FSMapTileLayer,
-    FSMapFeatureGroup,
-    FSMapMarkerClusterGroup,
-    FSMapPolygon,
-
     FSMapLayerButton,
     FSMapOverlay,
     FSButton,
@@ -174,9 +136,9 @@ export default defineComponent({
       default: false
     },
     overlayMode: {
-      type: String as PropType<'collapse' | 'half' | 'expand'>,
+      type: String as PropType<MapOverlayPositions>,
       required: false,
-      default: 'collapse'
+      default: MapOverlayPositions.Collapse
     },
     showMyLocation: {
       type: Boolean,
@@ -194,39 +156,29 @@ export default defineComponent({
       default: false
     },
     center: {
-      type: Array as PropType<number[]>,
+      type: Array as PropType<number[] | null>,
       required: false,
-      default: () => [45.71, 5.07]
+      default: null
     },
-    locations: {
-      type: Array as PropType<FSLocation[]>,
+    bounds: {
+      type: Object as PropType<LatLngBounds | null>,
       required: false,
-      default: () => [],
-    },
-    areas: {
-      type: Array as PropType<FSArea[]>,
-      required: false,
-      default: () => [],
+      default: null
     },
     currentLayer: {
-      type: String as PropType<"map" | "imagery">,
+      type: String as PropType<MapLayers>,
       required: false,
-      default: "map"
+      default: MapLayers.Map
     },
     allowedLayers: {
-      type: Array as PropType<string[]>,
+      type: Array as PropType<MapLayers[]>,
       required: false,
-      default: () => ["map", "imagery"]
+      default: () => [MapLayers.Map, MapLayers.Imagery]
     },
-    selectedLocationId: {
-      type: String as PropType<string | null>,
+    dirtyZoom: {
+      type: Number,
       required: false,
-      default: null
-    },
-    selectedAreaId: {
-      type: String as PropType<string | null>,
-      required: false,
-      default: null
+      default: 16
     }
   },
   emits: ["update:modelValue", "update:selectedLocationId", "update:selectedAreaId", 'update:overlayMode', 'update:currentLayer', "click:latlng"],
@@ -246,7 +198,7 @@ export default defineComponent({
 
     provide('map', map);
 
-    const defaultZoom = 16;
+    const defaultZoom = ref(props.dirtyZoom);
     const mapResizeObserver = new ResizeObserver(() => {
       if(!map.value) {
         return;
@@ -256,29 +208,53 @@ export default defineComponent({
 
     const mapLayers: MapLayer[] = [
       {
-        name: "map",
+        name: MapLayers.Map,
         label: $tr("ui.map-layer.map", "Map"),
         image: new URL("../../assets/images/map/map.png", import.meta.url).href,
-        layer: tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
-          maxZoom: 22,
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-          attribution: '© Google Map Data'
-        })
+        layers: [
+          tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
+            maxZoom: 22,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: '© Google Map Data',
+            className: 'fs-map-tile-base-layer'
+          })
+        ]
       },
       {
-        name: "imagery",
+        name: MapLayers.Imagery,
         label: $tr("ui.map-layer.imagery", "Imagery"),
         image: new URL("../../assets/images/map/imagery.png", import.meta.url).href,
-        layer: tileLayer(`https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
-          maxZoom: 22,
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-          attribution: '© Google Map Data'
-        })
+        layers: [
+          tileLayer(`https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
+            maxZoom: 22,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: '© Google Map Data',
+            className: 'fs-map-tile-base-layer'
+          })
+        ]
+      },
+      {
+        name: MapLayers.Snow,
+        label: $tr("ui.map-layer.snow", "Snow ski map"),
+        image: new URL("../../assets/images/map/snow.png", import.meta.url).href,
+        layers: [
+          tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
+            maxZoom: 22,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: '© Google Map Data',
+            className: 'fs-map-tile-base-layer fs-map-tile-grayscale-layer'
+          }),
+          tileLayer(`https://tiles.opensnowmap.org/pistes/{z}/{x}/{y}.png`, {
+            maxZoom: 18,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & ODbL, &copy; <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            className: 'fs-map-tile-base-layer'
+          })
+        ]
       }
     ];
 
     const bottomOffset = computed(() => {
-      if (props.overlayMode !== 'expand' && overlayHeight.value && isExtraSmall.value) {
+      if (props.overlayMode !== MapOverlayPositions.Expand && overlayHeight.value && isExtraSmall.value) {
         return overlayHeight.value;
       }
       return 0;
@@ -300,20 +276,7 @@ export default defineComponent({
     }));
 
     const actualLayer = computed(() => {
-      return mapLayers.find((layer) => layer.name === props.currentLayer)?.layer ?? mapLayers[0].layer;
-    });
-
-    const bounds = computed<LatLngBounds | null>(() => {
-      if(!locationGroupBounds.value && !areaGroupBounds.value) {
-        return null;
-      }
-      let bounds = locationGroupBounds.value;
-      if(bounds && areaGroupBounds.value) {
-        bounds.extend(areaGroupBounds.value);
-      } else if(areaGroupBounds.value) {
-        bounds = areaGroupBounds.value;
-      }
-      return bounds as LatLngBounds;
+      return mapLayers.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers ?? mapLayers[0].layers;
     });
 
     const overlaySlots = computed(() => {
@@ -332,7 +295,7 @@ export default defineComponent({
       return map.value.unproject(targetPoint, zoom);
     }
 
-    const flyTo = (lat: number, lng: number, zoom: number = defaultZoom, options?: ZoomPanOptions) => {
+    const flyTo = (lat: number, lng: number, zoom: number = defaultZoom.value, options?: ZoomPanOptions) => {
       if(!map.value) {
         return;
       }
@@ -360,7 +323,7 @@ export default defineComponent({
       if(!map.value) {
         return;
       }
-      map.value.setView(calculateTargetPosition(latLng(lat, lng)), zoom);
+      map.value.setView(calculateTargetPosition(latLng(lat, lng), zoom), zoom);
     }
 
     const fitBounds = (bounds: LatLngBounds, options?: FitBoundsOptions) => {
@@ -394,11 +357,12 @@ export default defineComponent({
         minZoom: 2,
         maxZoom: 22,
         maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
-        maxBoundsViscosity: 1.0
+        maxBoundsViscosity: 1.0,
+        zoom: defaultZoom.value,
+        center: props.center ? latLng(props.center[0], props.center[1]) : latLng(48.85782, 2.29521)
       };
 
       map.value = markRaw(createMap(leafletContainer.value, mapOptions));
-      setView(props.center[0], props.center[1], defaultZoom);
       
       map.value.on('click', (e: L.LeafletMouseEvent) => {
         emit('click:latlng', e.latlng);
@@ -428,42 +392,26 @@ export default defineComponent({
       mapResizeObserver.disconnect();
     });
 
-    watch (() => props.center, (center) => {
-      if(!map.value) {
+    watch ([() => props.center, () => map.value], () => {
+      if(!map.value || !props.center) {
         return;
       }
-      setView(center[0], center[1], defaultZoom);
-    });
-
-    watch (() => props.selectedLocationId, (selectedLocationId) => {
-      if(!map.value) {
-        return;
-      }
-      const selectedLocation = props.locations.find((location) => location.id === selectedLocationId);
-      if(!selectedLocation) {
-        return;
-      }
-      flyTo(selectedLocation?.address.latitude, selectedLocation?.address.longitude, defaultZoom, { animate: false });
+      setView(props.center[0], props.center[1], defaultZoom.value);
     }, { immediate: true });
 
-    watch(() => props.selectedAreaId, (selectedAreaId) => {
-      if(!map.value) {
+    watch([() => props.bounds, () => map.value], () => {
+      if(!map.value || !props.bounds) {
         return;
       }
-      const selectedArea = props.areas.find((area) => area.id === selectedAreaId);
-      if(!selectedArea) {
-        return;
-      }
-      const bounds = latLngBounds(selectedArea.coordinates.map((coord) => latLng(coord.latitude, coord.longitude)));
-      fitBounds(bounds);
-    }, { immediate: true });
-
-    watch( () => bounds.value, (bounds) => {
-      if(!map.value || !bounds) {
-        return;
-      }
-      fitBounds(bounds, { maxZoom: defaultZoom });
+      fitBounds(props.bounds, { maxZoom: defaultZoom.value });
     });
+
+    watch(() => props.dirtyZoom, (newZoom) => {
+      defaultZoom.value = newZoom;
+      if(map.value) {
+        map.value.setZoom(newZoom);
+      }
+    }, { immediate: true });
 
     return {
       ColorEnum,

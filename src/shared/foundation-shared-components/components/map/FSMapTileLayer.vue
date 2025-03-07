@@ -12,15 +12,15 @@ import { MAP } from './keys';
 export default {
   name: 'FSMapTileLayer',
   props: {
-    layer: {
-      type: Object as PropType<Layer>,
+    layers: {
+      type: Object as PropType<Layer[]>,
       required: false
     }
   },
   setup(props) {
     const map = inject<Ref<Map | null>>(MAP);
 
-    const lastLayer = props.layer;
+    let lastLayers = props.layers;
 
     if(!map) {
       throw new Error('FSMapTileLayer must be used inside a FSMap component');
@@ -31,20 +31,26 @@ export default {
     }
 
     const updateLayer = () => {
-      if (!props.layer || !map.value) {
+      if (!props.layers || !map.value) {
         return;
       }
 
-      if(lastLayer) {
-        map.value.removeLayer(lastLayer);
+      if(lastLayers) {
+        lastLayers.forEach(layer => {
+          layer.removeFrom(map.value!);
+        });
       }
 
-      props.layer.addTo(map.value);
+      lastLayers = [];
+
+      props.layers.forEach(layer => {
+        lastLayers?.push(layer.addTo(map.value!));
+      });
     };
 
     onMounted(updateLayer);
 
-    watch(() => props.layer, updateLayer);
+    watch(() => props.layers, updateLayer);
   }
 };
 </script>

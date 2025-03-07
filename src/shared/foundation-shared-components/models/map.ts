@@ -1,18 +1,20 @@
 import { type Layer } from "leaflet";
 
-import { type Address } from "@dative-gpi/foundation-shared-domain/models";
-
 export interface MapLayer {
-  name : string;
+  name : MapLayers;
   label: string;
   image: string;
-  layer: Layer;
+  layers: Layer[];
 }
 
-export interface FSLocation {
-  id: string;
-  label: string;
-  icon: string | null;
-  address: Address;
-  color: string | null;
+export enum MapLayers {
+  Map = "map",
+  Imagery = "imagery",
+  Snow= "snow"
+}
+
+export enum MapOverlayPositions {
+  Expand = "expand",
+  Half = "half",
+  Collapse = "collapse",
 }
