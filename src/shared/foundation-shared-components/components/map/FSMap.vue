@@ -69,6 +69,7 @@
     </FSCol>
 
     <FSMapOverlay
+      v-if="overlaySlots && Object.keys(overlaySlots).length"
       :mode="$props.overlayMode"
       @update:mode="$emit('update:overlayMode', $event)"
       @update:height="(height) => overlayHeight = height"
