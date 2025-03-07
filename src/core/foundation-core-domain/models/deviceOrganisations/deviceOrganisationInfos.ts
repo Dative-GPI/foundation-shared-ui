@@ -3,6 +3,7 @@ import { DeviceStatusDetails, type DeviceStatusDetailsDTO } from "../deviceStatu
 import { DeviceOrganisationAlert, type DeviceOrganisationAlertDTO } from "./deviceOrganisationAlert";
 import { ModelStatusInfos, type ModelStatusInfosDTO } from "../modelStatuses/modelStatusInfos";
 import { Address, type AddressDTO } from "@dative-gpi/foundation-shared-domain/models";
+import { type EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 import { PathCrumb, type PathCrumbDTO } from "../shared/pathCrumb";
 
 export class DeviceOrganisationInfos {
@@ -128,4 +129,6 @@ export interface DeviceOrganisationFilters {
   deviceOrganisationsIds?: string[] | null;
   otherDeviceOrganisationsIds?: string[] | null;
   search?: string | null;
+  entityType?: EntityType | null;
+  entitiesIds?: string[] | null;
 }
