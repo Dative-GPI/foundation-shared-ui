@@ -6,7 +6,15 @@
   .fs-leaflet-container {
     width: 100%;
     height: 100%;
-    filter: grayscale(var(--fs-map-container-grayscale));
+    z-index: 0;
+
+    .fs-map-tile-base-layer {
+      filter: grayscale(var(--fs-map-container-grayscale));
+    }
+
+    .fs-map-tile-grayscale-layer {
+      filter: grayscale(100%);
+    }
   }
 
   .fs-map-overlay-mobile {

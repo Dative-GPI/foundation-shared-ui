@@ -14,7 +14,7 @@
         v-if="map"
       >
         <FSMapTileLayer
-          :layer="actualLayer"
+          :layers="actualLayer"
         />
         <FSMapMarker 
           v-if="gpsPosition"
@@ -96,7 +96,7 @@ import { map as createMap, control, tileLayer, latLngBounds, latLng, type LatLng
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 
 import { useBreakpoints, useColors, useSlots } from "../../composables";
-import { ColorEnum, type MapLayer } from "../../models";
+import { ColorEnum, MapLayers, MapOverlayPositions, type MapLayer } from "../../models";
 
 import FSMapLayerButton from "./FSMapLayerButton.vue";
 import FSMapOverlay from "./FSMapOverlay.vue";
@@ -135,9 +135,9 @@ export default defineComponent({
       default: false
     },
     overlayMode: {
-      type: String as PropType<'collapse' | 'half' | 'expand'>,
+      type: String as PropType<MapOverlayPositions>,
       required: false,
-      default: 'collapse'
+      default: MapOverlayPositions.Collapse
     },
     showMyLocation: {
       type: Boolean,
@@ -165,14 +165,19 @@ export default defineComponent({
       default: null
     },
     currentLayer: {
-      type: String as PropType<"map" | "imagery">,
+      type: String as PropType<MapLayers>,
       required: false,
-      default: "map"
+      default: MapLayers.Map
     },
     allowedLayers: {
-      type: Array as PropType<string[]>,
+      type: Array as PropType<MapLayers[]>,
       required: false,
-      default: () => ["map", "imagery"]
+      default: () => [MapLayers.Map, MapLayers.Imagery]
+    },
+    dirtyZoom: {
+      type: Number,
+      required: false,
+      default: 16
     }
   },
   emits: ["update:modelValue", "update:selectedLocationId", "update:selectedAreaId", 'update:overlayMode', 'update:currentLayer', "click:latlng"],
@@ -192,7 +197,7 @@ export default defineComponent({
 
     provide('map', map);
 
-    const defaultZoom = 16;
+    const defaultZoom = ref(props.dirtyZoom);
     const mapResizeObserver = new ResizeObserver(() => {
       if(!map.value) {
         return;
@@ -202,29 +207,53 @@ export default defineComponent({
 
     const mapLayers: MapLayer[] = [
       {
-        name: "map",
+        name: MapLayers.Map,
         label: $tr("ui.map-layer.map", "Map"),
         image: new URL("../../assets/images/map/map.png", import.meta.url).href,
-        layer: tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
-          maxZoom: 22,
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-          attribution: '© Google Map Data'
-        })
+        layers: [
+          tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
+            maxZoom: 22,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: '© Google Map Data',
+            className: 'fs-map-tile-base-layer'
+          })
+        ]
       },
       {
-        name: "imagery",
+        name: MapLayers.Imagery,
         label: $tr("ui.map-layer.imagery", "Imagery"),
         image: new URL("../../assets/images/map/imagery.png", import.meta.url).href,
-        layer: tileLayer(`https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
-          maxZoom: 22,
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-          attribution: '© Google Map Data'
-        })
+        layers: [
+          tileLayer(`https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
+            maxZoom: 22,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: '© Google Map Data',
+            className: 'fs-map-tile-base-layer'
+          })
+        ]
+      },
+      {
+        name: MapLayers.Snow,
+        label: $tr("ui.map-layer.snow", "Snow ski map"),
+        image: new URL("../../assets/images/map/snow.png", import.meta.url).href,
+        layers: [
+          tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
+            maxZoom: 22,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: '© Google Map Data',
+            className: 'fs-map-tile-base-layer fs-map-tile-grayscale-layer'
+          }),
+          tileLayer(`https://tiles.opensnowmap.org/pistes/{z}/{x}/{y}.png`, {
+            maxZoom: 18,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & ODbL, &copy; <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            className: 'fs-map-tile-base-layer'
+          })
+        ]
       }
     ];
 
     const bottomOffset = computed(() => {
-      if (props.overlayMode !== 'expand' && overlayHeight.value && isExtraSmall.value) {
+      if (props.overlayMode !== MapOverlayPositions.Expand && overlayHeight.value && isExtraSmall.value) {
         return overlayHeight.value;
       }
       return 0;
@@ -246,7 +275,7 @@ export default defineComponent({
     }));
 
     const actualLayer = computed(() => {
-      return mapLayers.find((layer) => layer.name === props.currentLayer)?.layer ?? mapLayers[0].layer;
+      return mapLayers.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers ?? mapLayers[0].layers;
     });
 
     const overlaySlots = computed(() => {
@@ -265,7 +294,7 @@ export default defineComponent({
       return map.value.unproject(targetPoint, zoom);
     }
 
-    const flyTo = (lat: number, lng: number, zoom: number = defaultZoom, options?: ZoomPanOptions) => {
+    const flyTo = (lat: number, lng: number, zoom: number = defaultZoom.value, options?: ZoomPanOptions) => {
       if(!map.value) {
         return;
       }
@@ -328,7 +357,7 @@ export default defineComponent({
         maxZoom: 22,
         maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
         maxBoundsViscosity: 1.0,
-        zoom: 5,
+        zoom: defaultZoom.value,
         center: props.center ? latLng(props.center[0], props.center[1]) : latLng(48.85782, 2.29521)
       };
 
@@ -366,15 +395,22 @@ export default defineComponent({
       if(!map.value || !props.center) {
         return;
       }
-      setView(props.center[0], props.center[1], defaultZoom);
+      setView(props.center[0], props.center[1], defaultZoom.value);
     }, { immediate: true });
 
     watch([() => props.bounds, () => map.value], () => {
       if(!map.value || !props.bounds) {
         return;
       }
-      fitBounds(props.bounds, { maxZoom: defaultZoom });
+      fitBounds(props.bounds, { maxZoom: defaultZoom.value });
     });
+
+    watch(() => props.dirtyZoom, (newZoom) => {
+      defaultZoom.value = newZoom;
+      if(map.value) {
+        map.value.setZoom(newZoom);
+      }
+    }, { immediate: true });
 
     return {
       ColorEnum,

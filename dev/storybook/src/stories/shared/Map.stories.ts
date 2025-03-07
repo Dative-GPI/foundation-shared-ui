@@ -7,6 +7,7 @@ import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSFadeOut from '@dative-gpi/foundation-shared-components/components/FSFadeOut.vue';
 import FSMapMarker from '@dative-gpi/foundation-shared-components/components/map/FSMapMarker.vue';
 import FSMapMarkerClusterGroup from '@dative-gpi/foundation-shared-components/components/map/FSMapMarkerClusterGroup.vue';
+import { MapLayers, MapOverlayPositions } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
   title: 'Foundation/Shared/Map',
@@ -15,11 +16,11 @@ const meta = {
   argTypes: {
     currentLayer: {
       control: 'select',
-      options: ['map', 'imagery'],
+      options: [MapLayers.Map, MapLayers.Imagery],
     },
     overlayMode: {
       control: 'select',
-      options: ['collapse', 'half', 'expand'],
+      options: [MapOverlayPositions.Expand, MapOverlayPositions.Half, MapOverlayPositions.Collapse],
     },
   },
 } satisfies Meta<typeof FSMap>;
@@ -119,8 +120,8 @@ const areas = [{
 
 export const SingleLocationMap: Story = {
   args: {
-    overlayMode: 'collapse',
-    currentLayer: 'map',
+    overlayMode: MapOverlayPositions.Collapse,
+    currentLayer: MapLayers.Map,
     height: '100%',
     width: '100%',
     grayscale: false,
@@ -170,8 +171,8 @@ export const SingleLocationMap: Story = {
 
 export const MultiLocationMap: Story = {
   args: {
-    currentLayer: 'imagery',
-    overlayMode: 'half',
+    currentLayer: MapLayers.Imagery,
+    overlayMode: MapOverlayPositions.Half,
   },
   render: (args) => ({
     components: { FSMap, FSFadeOut, FSRow, FSCol, FSMapMarker, FSMapMarkerClusterGroup },
@@ -238,7 +239,8 @@ export const MultiLocationMap: Story = {
 
 export const CustomPinMap: Story = {
   args: {
-    currentLayer: 'map',
+    currentLayer: MapLayers.Snow,
+    allowedLayers: [MapLayers.Map, MapLayers.Imagery, MapLayers.Snow],
     grayscale: false,
     enableScrollWheelZoom: true,
   },
@@ -251,6 +253,8 @@ export const CustomPinMap: Story = {
     },
     template: `
       <FSMap
+        v-model:currentLayer="args.currentLayer"
+        :allowed-layers="args.allowedLayers"
         :bounds="bounds"
       >
         <FSMapMarkerClusterGroup
@@ -258,16 +262,16 @@ export const CustomPinMap: Story = {
           @update:bounds="bounds = $event"
         >
           <FSMapMarker
-            :latlng="{ lat: 45.71175, lng: 5.071489 }"
+            :latlng="{ lat: 45.904565, lng: 6.423869 }"
             :selected="true"
-            label="Dative GPI"
+            label="Centre station"
             variant="pin"
             @click="console.log($event)"
           />
           <FSMapMarker
-            :latlng="{ lat: 45.71175, lng: 5.074489 }"
+            :latlng="{ lat: 45.915748, lng: 6.469506 }"
             :selected="false"
-            label="Train"
+            label="Les confins"
             variant="pin"
             @click="console.log($event)"
           />
