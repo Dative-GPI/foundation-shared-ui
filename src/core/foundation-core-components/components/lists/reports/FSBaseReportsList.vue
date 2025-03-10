@@ -5,7 +5,7 @@
     :items="reports"
     :showSelect="$props.editable"
     :tableCode="tableCode"
-    :itemTo="routerLink"
+    :itemTo="$props.itemTo"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -54,10 +54,10 @@
       </FSSpan>
     </template>
     <template
-      #item.users="{ item }"
+      #item.userIds="{ item }"
     >
       <FSChipGroupUserOrganisation
-        :userOrganisationIds="item.users"
+        :userOrganisationIds="item.userIds"
         :wrapped="false"
       />
     </template>
@@ -71,7 +71,7 @@ import { defineComponent, type PropType, watch } from "vue";
 
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
-import { useRouteOrganisation, useReports } from "@dative-gpi/foundation-core-services/composables";
+import { useReports } from "@dative-gpi/foundation-core-services/composables";
 import type { ReportFilters, ReportInfos } from "@dative-gpi/foundation-core-domain/models";
 
 import FSChipGroupUserOrganisation from "../../chips/FSChipGroupUserOrganisation.vue";
@@ -115,13 +115,9 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props) {
-    const { $r } = useRouteOrganisation();
     const { epochToLongTimeFormat } = useDateFormat();
     const { getMany: fetchReports, fetching: fetchingReports, entities: reports } = useReports();
     
-    const routerLink = (item: ReportInfos ) => {
-      return $r({ name: "report", params: { entityId: item.id } });
-    }; 
 
     watch(() => props.reportsFilters, (next, previous) => {
       if ((!next && !previous) || !_.isEqual(next, previous)) {
@@ -132,7 +128,6 @@ export default defineComponent({
     return {
       fetchingReports,
       reports,
-      routerLink,
       epochToLongTimeFormat
     };
   }
