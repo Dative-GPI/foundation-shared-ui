@@ -51,7 +51,7 @@
     <template
       #item.users="{ item }"
     >
-      <FSChipGroupUserOrganisationUI
+      <FSChipUserOrganisationsList
         :userOrganisationLabels="item.users"
         :wrapped="false"
       />
@@ -64,19 +64,19 @@ import { defineComponent, type PropType, computed, watch } from "vue";
 import _ from "lodash";
 
 import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
-import { JobHangfireState } from "@dative-gpi/foundation-shared-domain/enums";
+import { JobState } from "@dative-gpi/foundation-shared-domain/enums";
 import { getLabelByState, getColorByState, getIconByState } from "@dative-gpi/foundation-shared-components/tools";
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
 import type { ReportExecutionFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useReportExecutions } from "@dative-gpi/foundation-core-services/composables";
   
-import FSChipGroupUserOrganisationUI from "../../chips/FSChipGroupUserOrganisationUI.vue";
+import FSChipUserOrganisationsList from "../userOrganisations/FSChipUserOrganisationsList.vue";
 
 export default defineComponent({
   name: "FSBaseReportExecutionsList",
   components: {
-    FSChipGroupUserOrganisationUI
+    FSChipUserOrganisationsList
   },
   props: {
     tableCode: {
@@ -106,11 +106,11 @@ export default defineComponent({
 
     const headersOptions = computed(() => ({
       state: {
-        fixedFilters: getEnumEntries(JobHangfireState).map(e => ({
+        fixedFilters: getEnumEntries(JobState).map(e => ({
           value: e.value,
           text: getLabelByState(e.value)
         })),
-        methodFilter: (value: JobHangfireState, item: JobHangfireState) => value == item
+        methodFilter: (value: JobState, item: JobState) => value == item
       }
     }));
     

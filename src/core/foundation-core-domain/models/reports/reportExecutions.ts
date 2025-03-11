@@ -1,4 +1,4 @@
-import type { DashboardType, JobHangfireState } from "@dative-gpi/foundation-shared-domain/enums";
+import type { DashboardType, JobState } from "@dative-gpi/foundation-shared-domain/enums";
 import { isoToEpoch } from "@dative-gpi/foundation-shared-domain/tools";
 
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
@@ -13,7 +13,7 @@ export class ReportExecution {
   fileLabel: string | null;
   reportLabel: string | null;
   mailBody: string | null;
-  state: JobHangfireState;
+  state: JobState;
   startDate: string;
   endDate: string;
   users: string[];
@@ -59,7 +59,7 @@ export interface ReportExecutionDTO {
   fileLabel: string | null;
   reportLabel: string | null;
   mailBody: string | null;
-  state: JobHangfireState;
+  state: JobState;
   success: boolean;
   startDate: string;
   endDate: string;
