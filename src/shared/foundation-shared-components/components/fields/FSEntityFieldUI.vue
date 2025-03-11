@@ -14,18 +14,20 @@
         :wrap="false"
       >
         <FSSelectField
+          :editable="$props.editable"
+          :items="actualEntityTypes"
           :hideHeader="true"
+          :clearable="false"
           :modelValue="$props.entityType"
           @update:modelValue="$emit('update:entityType', $event)"
-          :items="actualEntityTypes"
-          :clearable="false"
         />
         <template
           v-if="itemsCount > 0"
         >
           <FSButton
-            :label="$tr('ui.common.edit', 'Edit')"
             icon="mdi-pencil"
+            :label="$tr('ui.common.edit', 'Edit')"
+            :editable="$props.editable"
             @click="$emit('click:select')"
           />
         </template>
@@ -33,8 +35,9 @@
           v-else
         >
           <FSButton
-            :label="$tr('ui.common.select', 'Select')"
             icon="mdi-plus-circle-multiple-outline"
+            :label="$tr('ui.common.select', 'Select')"
+            :editable="$props.editable"
             @click="$emit('click:select')"
           />
         </template>
