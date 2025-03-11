@@ -35,6 +35,8 @@ export interface CreateDeviceOrganisationDTO {
     manufacturerId: string;
     managerId: string | null;
     locationId: string | null;
+    latitude: number | null;
+    longitude: number | null;
     groupId: string | null;
     code: string;
     label: string;
@@ -46,6 +48,8 @@ export interface CreateDeviceOrganisationDTO {
 export interface UpdateDeviceOrganisationDTO {
     managerId: string | null;
     locationId: string | null;
+    latitude: number | null;
+    longitude: number | null;
     groupId: string | null;
     imageId: string | null;
     image: string | null;

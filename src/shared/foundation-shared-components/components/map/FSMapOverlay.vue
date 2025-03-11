@@ -1,16 +1,16 @@
 <template>
   <v-overlay
     v-if="isExtraSmall"
-    :modelValue="$props.mode === 'expand'"
+    :modelValue="$props.mode === MapOverlayPositions.Expand"
     :contained="true"
-    @click="$emit('update:mode', 'collapse')"
+    @click="$emit('update:mode', MapOverlayPositions.Collapse)"
     zIndex="0"
   />
   <div
     v-show="isExtraSmall"
     ref="mobileOverlayWrapper"
     class="fs-map-overlay-mobile"
-    :style="{ height: $props.mode === 'expand' ? '90%' : ($props.mode === 'half' ? '60%' : 'auto') }"
+    :style="{ height: $props.mode === MapOverlayPositions.Expand ? '90%' : ($props.mode === MapOverlayPositions.Half ? '60%' : 'auto') }"
   >
     <FSCard
       width="100%"
@@ -29,15 +29,15 @@
           @mousedown="onClick"
         >
           <FSIcon>
-            {{ $props.mode === 'expand' ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+            {{ $props.mode === MapOverlayPositions.Expand ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
           </FSIcon>
         </FSRow>
         <slot
-          v-if="$props.mode === 'collapse'"
+          v-if="$props.mode === MapOverlayPositions.Collapse"
           name="collapsed"
         />
         <FSCol
-          v-if="$props.mode !== 'collapse'"
+          v-if="$props.mode !== MapOverlayPositions.Collapse"
           height="fill"
           style="min-height: 0;"
         >
@@ -70,6 +70,8 @@ import { defineComponent, type PropType, onUnmounted, onMounted, ref } from "vue
 
 import { useBreakpoints } from "../../composables";
 
+import { MapOverlayPositions } from '@dative-gpi/foundation-shared-components/models';
+
 import FSCard from "../FSCard.vue";
 import FSIcon from "../FSIcon.vue";
 import FSCol from "../FSCol.vue";
@@ -85,9 +87,9 @@ export default defineComponent({
   },
   props: {
     mode: {
-      type: String as PropType<"collapse" | "half" | "expand">,
+      type: String as PropType<MapOverlayPositions>,
       required: false,
-      default: "collapse"
+      default: MapOverlayPositions.Collapse
     }
   },
   emits: ["update:mode", "update:height", "update:width"],
@@ -101,11 +103,11 @@ export default defineComponent({
     const desktopResizeObserver = ref<ResizeObserver | null>(null);
 
     const onClick = (): void => {
-      if (props.mode === "expand") {
-        emit("update:mode", "collapse");
+      if (props.mode === MapOverlayPositions.Expand) {
+        emit("update:mode", MapOverlayPositions.Collapse);
         return;
       }
-      emit("update:mode", "expand");
+      emit("update:mode", MapOverlayPositions.Expand);
     }
 
     onMounted(() => {
@@ -144,6 +146,7 @@ export default defineComponent({
     return {
       mobileOverlayWrapper,
       isTouchScreenEnabled,
+      MapOverlayPositions,
       desktopOverlay,
       isExtraSmall,
       onClick
