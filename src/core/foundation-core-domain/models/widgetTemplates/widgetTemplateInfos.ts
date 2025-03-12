@@ -16,6 +16,7 @@ const clean = <T>(meta: T): T => {
 
 export class WidgetTemplateInfos {
     id: string;
+    extensionId: string | null;
     label: string;
     code: string;
     icon: string;
@@ -27,6 +28,7 @@ export class WidgetTemplateInfos {
   
     constructor(params: WidgetTemplateInfosDTO) {
         this.id = params.id;
+        this.extensionId = params.extensionId || null;
         this.label = params.label;
         this.code = params.code;
         this.icon = params.icon;
@@ -40,6 +42,7 @@ export class WidgetTemplateInfos {
   
 export interface WidgetTemplateInfosDTO {
     id: string;
+    extensionId?: string;
     label: string;
     code: string;
     icon: string;
