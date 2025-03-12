@@ -97,6 +97,13 @@
           :imageId="$props.imageId"
           :width="imageSize"
         />
+        <FSIconCard
+          v-else-if="$props.icon"
+          backgroundVariant="standard"
+          :backgroundColor="ColorEnum.Background"
+          :icon="$props.icon"
+          :size="imageSize"
+        />
       </FSRow>
     </FSCol>
   </FSTile>
@@ -108,6 +115,7 @@ import { computed, defineComponent, type PropType } from "vue";
 import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composables";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
+import FSIconCard from "../FSIconCard.vue";
 import FSImage from "../FSImage.vue";
 import FSColor from "../FSColor.vue";
 import FSSpan from "../FSSpan.vue";
@@ -118,6 +126,7 @@ import FSRow from "../FSRow.vue";
 export default defineComponent({
   name: "FSGroupTileUI",
   components: {
+    FSIconCard,
     FSImage,
     FSColor,
     FSSpan,
@@ -130,6 +139,10 @@ export default defineComponent({
       type: String as PropType<string | null>,
       required: false,
       default: null
+    },
+    icon: {
+      type: String,
+      required: false
     },
     label: {
       type: String as PropType<string | null>,
@@ -183,7 +196,7 @@ export default defineComponent({
     });
 
     const infoWidth = computed((): string => {
-      if (!props.imageId) {
+      if (!props.imageId && !props.icon) {
         return "100%";
       }
       return `calc(100% - ${imageSize.value}px - 24px)`;

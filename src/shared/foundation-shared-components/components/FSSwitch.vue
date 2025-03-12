@@ -1,29 +1,25 @@
 <template>
-  <FSRow
-    width="hug"
-    align="top-left"
-    gap="16px"
+  <FSCol
     padding="8px 0px"
-    :wrap="false"
   >
-    <v-switch
-      v-if="variant == 'left'"
-      class="fs-switch"
-      hide-details
-      inset
-      :validateOn="validateOn"
-      :rules="$props.rules"
-      :ripple="false"
-      :style="style"
-      :modelValue="$props.modelValue"
-      @update:modelValue="onToggle"
-      v-bind="$attrs"
-    />
-    <slot>
-      <FSCol
-        width="hug"
-        v-if="$props.label || $props.description || $slots.description"
-      >
+    <FSRow
+      gap="16px"
+      :wrap="false"
+    >
+      <v-switch
+        v-if="variant == 'left'"
+        class="fs-switch"
+        hide-details
+        inset
+        :validateOn="validateOn"
+        :rules="$props.rules"
+        :ripple="false"
+        :style="style"
+        :modelValue="$props.modelValue"
+        @update:modelValue="onToggle"
+        v-bind="$attrs"
+      />
+      <FSCol>
         <FSSpan
           v-if="$props.label"
           class="fs-switch-label"
@@ -41,33 +37,31 @@
             class="fs-switch-description"
             font="text-overline"
             :style="style"
+            :lineClamp="2"
           >
             {{ $props.description }}
           </FSSpan>
         </slot>
-        <slot
-          name="footer"
-        />
       </FSCol>
-    </slot>
-    <FSRow
-      v-if="variant == 'right'"
-      align="center-right"
-    >
-      <v-switch
-        class="fs-switch"
-        hide-details
-        inset
-        :validateOn="validateOn"
-        :rules="$props.rules"
-        :ripple="false"
-        :style="style"
-        :modelValue="$props.modelValue"
-        @update:modelValue="onToggle"
-        v-bind="$attrs"
-      />
+      <FSRow
+        v-if="variant == 'right'"
+        align="center-right"
+      >
+        <v-switch
+          class="fs-switch"
+          hide-details
+          inset
+          :validateOn="validateOn"
+          :rules="$props.rules"
+          :ripple="false"
+          :style="style"
+          :modelValue="$props.modelValue"
+          @update:modelValue="onToggle"
+          v-bind="$attrs"
+        />
+      </FSRow>
     </FSRow>
-  </FSRow>
+  </FSCol>
 </template>
 
 <script lang="ts">

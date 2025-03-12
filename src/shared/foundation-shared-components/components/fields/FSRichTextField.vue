@@ -215,7 +215,8 @@
       <FSSpan
         v-if="!readonly && $props.description"
         class="fs-rich-text-field-description"
-        font="text-underline"
+        font="text-overline"
+        :lineClamp="2"
         :style="style"
       >
         {{ $props.description }}

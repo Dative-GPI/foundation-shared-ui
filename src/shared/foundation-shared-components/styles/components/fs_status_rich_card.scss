@@ -1,0 +1,13 @@
+.fs-status-rich-card {
+  position: relative;
+  flex-grow: 1;
+  background-color: var(--fs-status-rich-card-background-color);
+  border-color: var(--fs-status-rich-card-border-color);
+}
+
+.fs-status-rich-card-corner {
+  position: absolute;
+  display: flex;
+  right: 2px;
+  top: 2px;
+}

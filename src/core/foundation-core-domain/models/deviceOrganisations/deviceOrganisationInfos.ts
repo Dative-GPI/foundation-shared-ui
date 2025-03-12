@@ -2,6 +2,7 @@ import { DeviceConnectivityDetails, type DeviceConnectivityDetailsDTO } from "..
 import { DeviceStatusDetails, type DeviceStatusDetailsDTO } from "../deviceStatuses/deviceStatusDetails";
 import { DeviceOrganisationAlert, type DeviceOrganisationAlertDTO } from "./deviceOrganisationAlert";
 import { ModelStatusInfos, type ModelStatusInfosDTO } from "../modelStatuses/modelStatusInfos";
+import { type EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 import { PathCrumb, type PathCrumbDTO } from "../shared/pathCrumb";
 
 export class DeviceOrganisationInfos {
@@ -9,6 +10,8 @@ export class DeviceOrganisationInfos {
   deviceId: string;
   manufacturerId: string;
   manufacturerLabel: string;
+  latitude: number | null;
+  longitude: number | null;
   articleId: string;
   articleLabel: string;
   modelId: string;
@@ -44,6 +47,8 @@ export class DeviceOrganisationInfos {
     this.deviceId = params.deviceId;
     this.manufacturerId = params.manufacturerId;
     this.manufacturerLabel = params.manufacturerLabel;
+    this.latitude = params.latitude;
+    this.longitude = params.longitude;
     this.articleId = params.articleId;
     this.articleLabel = params.articleLabel;
     this.modelId = params.modelId;
@@ -82,6 +87,8 @@ export interface DeviceOrganisationInfosDTO {
   deviceId: string;
   manufacturerId: string;
   manufacturerLabel: string;
+  latitude: number | null;
+  longitude: number | null;
   articleId: string;
   articleLabel: string;
   modelId: string;
@@ -124,4 +131,6 @@ export interface DeviceOrganisationFilters {
   deviceOrganisationsIds?: string[] | null;
   otherDeviceOrganisationsIds?: string[] | null;
   search?: string | null;
+  entityType?: EntityType | null;
+  entitiesIds?: string[] | null;
 }

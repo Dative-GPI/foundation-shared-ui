@@ -38,14 +38,11 @@ const BaseStory: Story = {
     },
     template: `
     <div style="display: flex; flex-direction: column; gap: 10px; width: 400px;">
-        <FSEntityField
-          v-bind="args" 
-          v-model="value" 
-          v-model:entityType="entityType"
-        >
-            <FSText font="text-button">Obiwan kenobi</FSText>
-            <FSText> - Hello there!</FSText>
-        </FSEntityField>
+      <FSEntityField
+        v-bind="args" 
+        v-model="value" 
+        v-model:entityType="entityType"
+      />
     </div>`
   })
 }

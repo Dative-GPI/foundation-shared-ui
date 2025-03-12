@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 import FSStatus from "@dative-gpi/foundation-shared-components/components/deviceOrganisations/FSStatus.vue";
 import type { FSDeviceStatusGroup, FSModelStatus } from '@dative-gpi/foundation-shared-components/models';
 
@@ -41,7 +40,7 @@ export const Default: Story = {
     padding: '8px',
   },
   render: (args, { argTypes }) => ({
-    components: { FSStatus, FSButton },
+    components: { FSStatus },
     props: Object.keys(argTypes),
     setup() {
       return { args };
@@ -50,7 +49,7 @@ export const Default: Story = {
       <FSStatus 
         :modelStatus="args.modelStatus" 
         :statusGroup="args.statusGroup" 
-        :size="args.size",
+        :size="args.size"
         :padding="args.padding"
       />`
   })

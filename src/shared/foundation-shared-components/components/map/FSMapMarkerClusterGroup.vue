@@ -45,7 +45,7 @@ export default {
 
         return divIcon({
           html: clusterMarkerHtml(cluster.getChildCount()),
-          className: 'fs-map-location fs-map-location-full',
+          className: 'fs-map-marker fs-map-cluster-marker',
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2],
         });
