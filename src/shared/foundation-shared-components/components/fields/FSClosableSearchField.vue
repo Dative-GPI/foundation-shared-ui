@@ -25,7 +25,7 @@ import { defineComponent, type PropType } from "vue";
 import FSSearchField from "./FSSearchField.vue";
 
 export default defineComponent({
-  name: "FSSearchCloseField",
+  name: "FSClosableSearchField",
   components: {
     FSSearchField
   },
