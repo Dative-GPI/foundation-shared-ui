@@ -51,9 +51,9 @@
     <template
       #item.users="{ item }"
     >
-      <FSChipUserOrganisationsList
-        :userOrganisationLabels="item.users"
-        :wrapped="false"
+      <FSChipGroup
+        variant="slide"
+        :labels="item.users"
       />
     </template>
   </FSDataTable>
@@ -71,12 +71,12 @@ import { useDateFormat } from "@dative-gpi/foundation-shared-services/composable
 import type { ReportExecutionFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useReportExecutions } from "@dative-gpi/foundation-core-services/composables";
   
-import FSChipUserOrganisationsList from "../userOrganisations/FSChipUserOrganisationsList.vue";
+import FSChipGroup from "@dative-gpi/foundation-shared-components/components/FSChipGroup.vue";
 
 export default defineComponent({
   name: "FSBaseReportExecutionsList",
   components: {
-    FSChipUserOrganisationsList
+    FSChipGroup
   },
   props: {
     tableCode: {
