@@ -19,12 +19,11 @@ export const userOrganisations: Story = {
         },
         template: `
       <FSChipUserOrganisationsList
-        :showRemove="true"
-        :userOrganisationLabels="args.userOrganisationLabels"
+        :userOrganisationIds="args.userOrganisationIds"
       />
     `,
     }),
     args: {
-        userOrganisationLabels: ["Dative GPIs", "Dimitri Donfack"],
+        userOrganisationIds: ["1", "2"],
     },
 };
