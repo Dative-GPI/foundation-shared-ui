@@ -1,5 +1,5 @@
 import type { ApplicationScope } from "@dative-gpi/foundation-shared-domain/enums";
-import type { CreateDashboardDatePresetDTO, CreateDashboardEntityPresetDTO, CreateDashboardVariableDTO, DashboardTranslationDTO, UpdateDashboardOrganisationDTO, UpdateDashboardOrganisationTypeDTO, UpdateDashboardShallowDTO } from "@dative-gpi/foundation-core-domain/models";
+import type { CreateDashboardDatePresetDTO, CreateDashboardEntityPresetDTO, CreateDashboardVariableDTO, DashboardTranslationDTO } from "@dative-gpi/foundation-core-domain/models";
 
 export interface DashboardSettings {
   folderId: string | null;
@@ -20,5 +20,3 @@ export interface DashboardSettings {
   variables: CreateDashboardVariableDTO[];
   scope: ApplicationScope;
 }
-
-export type UpdateDashboardSettingsDTO = Omit<UpdateDashboardOrganisationDTO & UpdateDashboardOrganisationTypeDTO & UpdateDashboardShallowDTO, "widgets">;
