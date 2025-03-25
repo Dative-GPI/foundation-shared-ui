@@ -4,6 +4,8 @@
     :loading="fetchingChartOrganisationTypes || fetchingChartOrganisations"
     :headersOptions="headersOptions"
     :items="charts"
+    :showSelect="$props.editable"
+    :singleSelect="$props.singleSelect"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="onSelect"
@@ -75,16 +77,19 @@
       />
     </template>
     <template
-      #item.tile="{ item }"
+      #item.tile="{ item, toggleSelect }"
     >
       <FSChartTileUI
-        variant="standard"
         :label="item.label"
         :categoryLabel="item.chartCategoryLabel"
         :icon="item.icon"
         :imageId="item.imageId"
         :type="item.chartType"
-        :color="isSelected(item.id) ? ColorEnum.Primary : ColorEnum.Light"
+        :singleSelect="$props.singleSelect"
+        :editable="$props.editable"
+        :activeColor="ColorEnum.Primary"
+        :modelValue="isSelected(item.id)"
+        @update:modelValue="toggleSelect(item)"
         @click="update(item.id)"
       />
     </template>
@@ -141,6 +146,16 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
       required: false
+    },
+    editable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   emits: ["update", "update:modelValue", "update:scope"],
@@ -219,11 +234,14 @@ export default defineComponent({
     }));
 
     const update = (value : string) => {
-      const item = isSelected(value);
-      if (item) {
+      const valueUnselected = isSelected(value);
+      if (valueUnselected) {
         onSelect(props.modelValue.filter(m => m != value));
       }
-      else {
+      else if(props.singleSelect){
+        onSelect([value]);
+      }
+      else{
         onSelect([...props.modelValue, value]);
       }
     }
