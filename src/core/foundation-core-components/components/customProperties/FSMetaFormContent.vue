@@ -17,7 +17,7 @@
       <FSMetaField
         v-for="(property, index) in properties"
         :customProperty="property"
-        :editable="editable"
+        :disabled="disabled"
         :key="index"
         :modelValue="modelValue[property.code]"
         @update:modelValue="(event) => $emit('update:modelValue', { ...modelValue, [property.code]: event})"
@@ -50,10 +50,10 @@ export default defineComponent({
       type: Object as PropType<{ [key: string]: string }>,
       required: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   setup(props) {

@@ -7,7 +7,7 @@
       v-for="(item, index) in $props.values"
       :selected="isSelected(item.value)"
       :description="item.description"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :color="$props.color"
       :label="item.label"
       :item="item.item"
@@ -63,10 +63,10 @@ export default defineComponent({
       required: false,
       default: ColorEnum.Primary
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
   },
   emits: ["update:modelValue"],

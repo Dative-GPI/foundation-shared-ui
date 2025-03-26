@@ -86,7 +86,7 @@
     :type="$props.type"
     :style="style"
     :class="$props.class"
-    :disabled="$props.load || !$props.editable"
+    :disabled="$props.load || $props.disabled"
     @click.stop="onClick"
     @mouseover="hover = true"
     @mouseleave="hover = false"
@@ -209,10 +209,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["click"],
@@ -228,7 +228,7 @@ export default defineComponent({
     const active = ref(false);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-clickable-border-size"     : props.border ? "1px" : "0",
           "--fs-clickable-border-style"    : props.borderStyle,
@@ -328,7 +328,7 @@ export default defineComponent({
 
     const classes = computed((): string[] => {
       const classNames: string[] = ["fs-clickable"];
-      if (!props.editable) {
+      if (props.disabled) {
         classNames.push("fs-clickable-disabled");
       }
       return classNames;
@@ -345,7 +345,7 @@ export default defineComponent({
     });
 
     const onClick = (event: MouseEvent) => {
-      if (!props.to && !props.href && props.editable && !props.load) {
+      if (!props.to && !props.href && !props.disabled && !props.load) {
         emit("click", event);
       }
     };

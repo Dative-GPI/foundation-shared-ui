@@ -23,7 +23,7 @@
       v-bind="{ color: $props.color, colors }"
     >
       <v-btn
-        v-if="$props.editable"
+        v-if="!$props.removeDisabled"
         class="fs-tag-button"
         :ripple="false"
         @click="$emit('remove')"
@@ -81,10 +81,10 @@ export default defineComponent({
       required: false,
       default: ColorEnum.Light
     },
-    editable: {
+    removeDisabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["remove"],

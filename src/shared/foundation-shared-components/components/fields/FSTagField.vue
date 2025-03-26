@@ -5,7 +5,7 @@
       :description="$props.description"
       :hideHeader="$props.hideHeader"
       :required="$props.required"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :rules="$props.rules"
       :messages="messages"
       :validateOn="validateOn"
@@ -29,7 +29,7 @@
         <FSButton
           variant="icon"
           icon="mdi-tag-outline"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Dark"
           @click="onAdd"
         />
@@ -40,7 +40,7 @@
     </FSTextField>
     <FSTagGroup
       :tagVariant="$props.tagVariant"
-      :editable="$props.editable"
+      :removeDisabled="$props.disabled"
       :tags="$props.modelValue"
       :color="$props.tagColor"
       @remove="onRemove"
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref } from "vue";
+import { computed, defineComponent, type PropType, ref, type StyleValue } from "vue";
 
 import { useColors, useRules, useSlots } from "@dative-gpi/foundation-shared-components/composables";
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -108,10 +108,10 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -129,7 +129,7 @@ export default defineComponent({
     const innerValue = ref("");
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-tag-field-color": lights.dark
         };
@@ -145,7 +145,7 @@ export default defineComponent({
     const onAdd = (event: Event): void => {
       event.stopImmediatePropagation();
       event.preventDefault();
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       const tags = props.modelValue ?? [];
@@ -157,7 +157,7 @@ export default defineComponent({
     }
 
     const onRemove = (label: string): void => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       const tags = props.modelValue ?? [];

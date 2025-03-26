@@ -1,7 +1,7 @@
 <template>
   <FSSelectField
     v-if="$props.customProperty.useOnlyAllowedValues"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :itemTitle="itemTitle"
     :label="$props.label"
     :class="classes"
@@ -30,35 +30,35 @@
   >
     <FSNumberField
       v-if="$props.customProperty.dataType === PropertyDataType.Number"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :label="$props.label"
       :modelValue="asNumber()"
       @update:modelValue="onUpdate"
     />
     <FSSwitch
       v-else-if="$props.customProperty.dataType === PropertyDataType.Boolean"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :label="$props.label"
       :modelValue="asBoolean()"
       @update:modelValue="onUpdate"
     />
     <FSTextField
       v-else-if="$props.customProperty.dataType === PropertyDataType.String"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :label="$props.label"
       :modelValue="$props.modelValue"
       @update:modelValue="onUpdate"
     />
     <FSDateTimeField
       v-else-if="$props.customProperty.dataType === PropertyDataType.DateTime"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :label="$props.label"
       :modelValue="asNumber()"
       @update:modelValue="onUpdate"
     />
     <FSIconField
       v-else-if="$props.customProperty.dataType === PropertyDataType.Icon"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :label="$props.label" 
       :modelValue="modelValue"
       @update:modelValue="onUpdate"
@@ -108,10 +108,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

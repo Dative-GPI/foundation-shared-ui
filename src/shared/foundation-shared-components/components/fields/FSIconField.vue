@@ -5,7 +5,7 @@
       :description="$props.description"
       :hideHeader="$props.hideHeader"
       :required="$props.required"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :rules="$props.rules"
       :messages="messages"
       :validateOn="validateOn"
@@ -34,7 +34,7 @@
       :activeColor="$props.activeColor"
       :modelValue="$props.modelValue"
       :required="$props.required"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :values="icons"
       @update:modelValue="$emit('update:modelValue', $event)"
     />
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import type { PropType} from "vue";
+import type { PropType, StyleValue } from "vue";
 import { computed, defineComponent, ref, watch } from "vue";
 
 import { Icons, sortByLevenshteinDistance } from "@dative-gpi/foundation-shared-components/utils";
@@ -119,10 +119,10 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -138,7 +138,7 @@ export default defineComponent({
     const innerValue = ref<string | null>(null);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-icon-field-color": lights.dark
         };

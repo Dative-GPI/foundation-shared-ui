@@ -3,7 +3,7 @@
     defaultMode="table"
     :loading="fetchingReports"
     :items="reports"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="tableCode"
     :itemTo="$props.itemTo"
     :modelValue="$props.modelValue"
@@ -93,7 +93,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

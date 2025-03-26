@@ -4,25 +4,9 @@
     :height="$props.height"
     :width="$props.width"
   >
-    <FSClickable
-      v-if="$props.editable && $props.singleSelect"
-      padding="12px"
-      :variant="variant"
-      :color="color"
-      :style="style"
-      :to="$props.to"
-      :href="$props.href" 
-      width="100%"
-      height="100%"
-      @click="() => $emit('update:modelValue', !$props.modelValue)"
-      v-bind="$attrs"
-    >
-      <slot />
-    </FSClickable>
 
-    
     <FSClickable
-      v-else-if="$props.editable && ($props.href || $props.to || $attrs.onClick)"
+      v-if="($props.href || $props.to || $attrs.onClick)"
       variant="background"
       class="fs-tile"
       padding="12px"
@@ -31,10 +15,12 @@
       height="100%"
       :to="$props.to"
       :style="style"
+      :disabled="$props.disableClick"
       v-bind="$attrs"
     >
       <slot />
       <FSCard
+        v-if="!$props.disableSelect"
         class="fs-tile-checkbox"
         :height="['40px', '32px']"
         :width="['40px', '32px']"
@@ -45,6 +31,20 @@
           @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
         />
       </FSCard>
+    </FSClickable>
+
+    <FSClickable
+      v-else-if="!$props.disableSelect &&  !$props.singleSelect"
+      padding="12px"
+      :variant="variant"
+      :color="color"
+      :style="style"
+      width="100%"
+      height="100%"
+      @click="() => $emit('update:modelValue', !$props.modelValue)"
+      v-bind="$attrs"
+    >
+      <slot />
     </FSClickable>
     
     <FSCard
@@ -59,7 +59,7 @@
     >
       <slot />
       <FSCard
-        v-if="$props.editable"
+        v-if="!$props.disableSelect"
         class="fs-tile-checkbox"
         variant="background"
         :height="['40px', '32px']"
@@ -72,6 +72,7 @@
         />
       </FSCard>
     </FSCard>  
+    
     <div
       v-if="$props.leftColor"
       class="fs-tile-left"
@@ -134,7 +135,12 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disableSelect: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    disableClick: {
       type: Boolean,
       required: false,
       default: false

@@ -114,7 +114,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
       default: true
@@ -131,7 +131,7 @@ export default defineComponent({
     const darks = getColors(ColorEnum.Dark);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-checkbox-cursor"        : "default",
           "--fs-checkbox-checkbox-color": (props.modelValue || props.indeterminate) ? colors.value.light : lights.base,
@@ -159,7 +159,7 @@ export default defineComponent({
     const messages = computed((): string[] => props.messages ?? getMessages(props.modelValue, props.rules));
 
     const onToggle = (): void => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       emit("update:modelValue", !props.modelValue);

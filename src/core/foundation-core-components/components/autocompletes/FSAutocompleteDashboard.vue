@@ -25,7 +25,6 @@
       <FSChip
         :color="dashboardTypeColor(item.type)"
         :label="dashboardTypeLabel(item.type)"
-        :editable="false"
       />
     </template>
     <template
@@ -46,7 +45,6 @@
           <FSChip
             :color="dashboardTypeColor(props.item.type)"
             :label="dashboardTypeLabel(props.item.type)"
-            :editable="false"
           />
         </template>
       </FSButton>

@@ -8,7 +8,7 @@
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     :singleSelect="$props.singleSelect"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
@@ -51,7 +51,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -59,7 +59,7 @@
       #item.modelsLabels="{ item }"
     >
       <FSTagGroup
-        :editable="false"
+        :disabled="true"
         :tags="item.modelsLabels.map((d: any) => d.label)"
       />
     </template>
@@ -83,7 +83,7 @@
       <FSChartTileUI
         :label="item.label"
         :singleSelect="$props.singleSelect"
-        :editable="$props.editable"
+        :selectable="$props.selectable"
         :categoryLabel="item.chartCategoryLabel"
         :icon="item.icon"
         :imageId="item.imageId"
@@ -149,7 +149,7 @@ export default defineComponent({
       default: () => [],
       required: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

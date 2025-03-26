@@ -112,7 +112,7 @@
             :label="$tr('data-table.reset-filters', 'Reset')"
             :height="['30px', '24px']"
             :color="ColorEnum.Error"
-            :editable="true"
+            :clickable="true"
             @click="resetFilter"
           />
           <FSHiddenButton

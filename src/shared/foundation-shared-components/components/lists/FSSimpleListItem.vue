@@ -3,7 +3,7 @@
     v-bind="$props.tileProps"
     :width="$props.width"
     height="fit-content"
-    :editable="false"
+    :disableSelect="true"
   >
     <slot
       name="item"

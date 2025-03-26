@@ -30,7 +30,7 @@
         </FSRow>
       </slot>
       <FSRow
-        v-if="$props.editable"
+        v-if="!$props.disabled"
         align="center-right"
         :wrap="false"
       >
@@ -193,7 +193,7 @@
       <div
         class="fs-rich-text-field-content"
         :data-variable-values="variableValues"
-        :contenteditable="!readonly && $props.editable && !loading"
+        :contenteditable="!readonly && !$props.disabled && !loading"
         :data-readonly="$props.variant === 'readonly'"
         :id="id"
       />
@@ -204,7 +204,7 @@
     </div>
 
     <FSTextField
-      v-if="isLink && !readonly && $props.editable"
+      v-if="isLink && !readonly && !$props.disabled"
       :hideHeader="true"
       @keypress.enter.stop="toggleLink"
       v-model="linkUrl"
@@ -310,10 +310,10 @@ export default defineComponent({
       required: false,
       default: () => ({})
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -400,7 +400,7 @@ export default defineComponent({
       }
       switch (props.variant) {
         case "standard": {
-          if (!props.editable) {
+          if (props.disabled) {
             return {
               "--fs-rich-text-field-undo-cursor"        : "default",
               "--fs-rich-text-field-icon-cursor"        : "default",
@@ -450,7 +450,7 @@ export default defineComponent({
     });
 
     const toolbarColors = computed((): { [code: string]: string } => {
-      if (props.editable) {
+      if (!props.disabled) {
         return {
           undo: canUndo.value ? darks.base : lights.base,
           bold: isBold.value ? darks.base : lights.base,

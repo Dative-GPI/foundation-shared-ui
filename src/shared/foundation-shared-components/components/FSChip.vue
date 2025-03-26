@@ -97,7 +97,7 @@ export default defineComponent({
       required: false,
       default: ColorEnum.Primary
     },
-    editable: {
+    clickable: {
       type: Boolean,
       required: false,
       default: false
@@ -158,8 +158,8 @@ export default defineComponent({
 
     const classes = computed((): string[] => {
       const classNames: string[] = ["fs-chip"];
-      if (props.editable) {
-        classNames.push("fs-chip-editable");
+      if (props.clickable) {
+        classNames.push("fs-chip-clickable");
       }
       return classNames;
     });
