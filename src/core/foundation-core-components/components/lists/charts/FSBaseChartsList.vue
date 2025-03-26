@@ -234,8 +234,8 @@ export default defineComponent({
     }));
 
     const update = (value : string) => {
-      const valueUnselected = isSelected(value);
-      if (valueUnselected) {
+      const isAlreadySelected = isSelected(value);
+      if (isAlreadySelected) {
         onSelect(props.modelValue.filter(m => m != value));
       }
       else if(props.singleSelect){
