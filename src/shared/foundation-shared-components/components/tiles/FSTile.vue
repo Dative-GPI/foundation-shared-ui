@@ -137,7 +137,7 @@ export default defineComponent({
     selectable: {
       type: Boolean,
       required: false,
-      default: false
+      default: true
     },
     disableClick: {
       type: Boolean,
