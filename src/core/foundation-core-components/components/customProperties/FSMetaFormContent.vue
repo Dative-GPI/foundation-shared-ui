@@ -56,6 +56,7 @@ export default defineComponent({
       default: false
     }
   },
+  emits: ["update:modelValue"],
   setup(props) {
     const categories = props.customProperties.reduce((acc, curr) => {
       if (acc[curr.categoryLabel] === undefined) {

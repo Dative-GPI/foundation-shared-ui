@@ -1,8 +1,5 @@
 import type { ArgTypes } from "@storybook/vue3";
 
-/**
- * Génère les `argTypes` à partir des props réelles des sous-composants.
- */
 export function addSubcomponentsArgTypes(subcomponents: any[], component: any): ArgTypes {
   return subcomponents.reduce((acc, subcomponent) => {
     if (!subcomponent.props) return acc;
@@ -30,9 +27,6 @@ export function addSubcomponentsArgTypes(subcomponents: any[], component: any): 
   }, {} as ArgTypes);
 }
 
-/**
- * Détermine le bon `control` pour Storybook en fonction du type de la prop.
- */
 function getControlType(propOptions: any): Record<string, any> {
   if (!propOptions?.type) return { type: "object" };
 
@@ -63,6 +57,7 @@ export function addComponentEmits(component: any): Record<string, any> {
     };
     return acc;
   }, {} as Record<string, any>);
+
   return argsTypes;
 }
 
