@@ -7,6 +7,8 @@
     :headersOptions="headersOptions"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
+    :showSelect="$props.editable"
+    :singleSelect="$props.singleSelect"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
@@ -76,16 +78,18 @@
       />
     </template>
     <template
-      #item.tile="{item}"
+      #item.tile="{ item, toggleSelect}"
     >
       <FSChartTileUI
-        variant="standard"
         :label="item.label"
         :category-label="item.chartCategoryLabel"
+        :singleSelect="$props.singleSelect"
+        :editable="$props.editable"
         :icon="item.icon"
         :imageId="item.imageId"
         :type="item.chartType"
-        :color="ColorEnum.Light"
+        :modelValue="isSelected(item.id)"
+        @update:modelValue="toggleSelect(item)"
         :to="$props.itemTo && $props.itemTo(item)"
       />
     </template>
@@ -144,6 +148,16 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
       required: false
+    },
+    editable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   emits: ["update:modelValue"],

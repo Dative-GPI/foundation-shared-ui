@@ -27,11 +27,15 @@ export const Default: Story = {
     },
     template: `
       <FSBaseChartOrganisationTypesList
-        :tableCode="args.tableCode"
+        v-model:modelValue="args.modelValue"
+        v-bind="args"
       />
     `,
   }),
   args: {
     tableCode: 'chartOrganisationTypes1',
+    modelValue: [],
+    singleSelect: false,
+    editable: true
   },
 };

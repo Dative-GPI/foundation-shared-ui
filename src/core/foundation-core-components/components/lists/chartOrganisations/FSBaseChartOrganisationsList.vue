@@ -7,6 +7,8 @@
     :headersOptions="headersOptions"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
+    :singleSelect="$props.singleSelect"
+    :showSelect="$props.editable"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
@@ -62,20 +64,6 @@
       />
     </template>
     <template
-      #item.tile="{ item }"
-    >
-      <FSChartTileUI
-        variant="standard"
-        :label="item.label"
-        :categoryLabel="item.chartCategoryLabel"
-        :icon="item.icon"
-        :imageId="item.imageId"
-        :type="item.chartType"
-        :color="ColorEnum.Light"
-        :to="$props.itemTo && $props.itemTo(item)"
-      />
-    </template>
-    <template
       #item.chartType="{ item }"
     >
       <FSRow
@@ -88,6 +76,22 @@
           {{ chartTypeLabel(item.chartType) }}
         </FSText>
       </FSRow>
+    </template>
+    <template
+      #item.tile="{ item, toggleSelect }"
+    >
+      <FSChartTileUI
+        :label="item.label"
+        :singleSelect="$props.singleSelect"
+        :editable="$props.editable"
+        :categoryLabel="item.chartCategoryLabel"
+        :icon="item.icon"
+        :imageId="item.imageId"
+        :type="item.chartType"
+        :modelValue="isSelected(item.id)"
+        @update:modelValue="toggleSelect(item)"
+        :to="$props.itemTo && $props.itemTo(item)"
+      />
     </template>
   </FSDataTable>
 </template>
@@ -144,7 +148,17 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
       required: false
-    }
+    },
+    editable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
   },
   emits: ["update:modelValue"],
   setup(props) {
