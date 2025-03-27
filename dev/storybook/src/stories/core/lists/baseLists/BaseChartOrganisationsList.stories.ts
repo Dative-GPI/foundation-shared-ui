@@ -10,7 +10,7 @@ const meta: Meta<typeof FSBaseChartOrganisationsList> = {
   component: FSBaseChartOrganisationsList,
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI, ], FSBaseChartOrganisationsList),
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseChartOrganisationsList),
     ...addComponentEmits(FSBaseChartOrganisationsList),
     tableCode: {
       control: 'select',

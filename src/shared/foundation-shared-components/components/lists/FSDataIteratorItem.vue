@@ -7,7 +7,8 @@
   >
     <FSCol
       height="fill"
-      align="center-left"
+      style="overflow: hidden;"
+      align="top-left"
     >
       <slot
         name="item.top"

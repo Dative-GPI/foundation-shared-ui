@@ -77,7 +77,7 @@
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ item }"
     >
       <FSChartTileUI
         :label="item.label"
@@ -87,10 +87,8 @@
         :type="item.chartType"
         :singleSelect="$props.singleSelect"
         :selectable="$props.selectable"
-        :activeColor="ColorEnum.Primary"
         :modelValue="isSelected(item.id)"
-        @update:modelValue="toggleSelect(item)"
-        @click="update(item.id)"
+        @update:modelValue="update(item.id)"
       />
     </template>
   </FSDataTable>

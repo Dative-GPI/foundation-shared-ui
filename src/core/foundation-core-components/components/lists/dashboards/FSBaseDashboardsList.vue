@@ -5,6 +5,8 @@
     :itemTo="$props.itemTo"
     :loading="fetchingDashboardOrganisationTypes || fetchingDashboardOrganisations || fetchingDashboardShallows"
     :tableCode="$props.tableCode"
+    :showSelect="$props.selectable"
+    :singleSelect="$props.singleSelect"
     :modelValue="selecteds"
     @update:modelValue="onSelect"
     v-bind="$attrs"
@@ -54,6 +56,8 @@
       <FSDashboardOrganisationTypeTileUI
         v-if="item.dashboardType == DashboardType.OrganisationType"
         :bottomColor="item.colors"
+        :selectable="$props.selectable"
+        :singleSelect="$props.singleSelect"
         :to="$props.itemTo && $props.itemTo(item)"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -62,6 +66,8 @@
       <FSDashboardOrganisationTileUI
         v-if="item.dashboardType == DashboardType.Organisation"
         :bottomColor="item.colors"
+        :selectable="$props.selectable"
+        :singleSelect="$props.singleSelect"
         :to="$props.itemTo && $props.itemTo(item)"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -70,6 +76,8 @@
       <FSDashboardShallowTileUI
         v-if="item.dashboardType == DashboardType.Shallow"
         :bottomColor="item.colors"
+        :selectable="$props.selectable"
+        :singleSelect="$props.singleSelect"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
         :to="$props.itemTo && $props.itemTo(item)"
@@ -138,7 +146,17 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
       required: false
-    }
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
   },
   emits: ["update", "update:modelValue", "update:type"],
   setup(props, { emit }) {

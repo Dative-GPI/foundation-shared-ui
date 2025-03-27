@@ -481,12 +481,13 @@
                   :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
                   :selectable="$props.showSelect"
+                  :singleSelect="$props.singleSelect"
                   :to="$props.itemTo"
                   :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
                   :modelValue="$props.modelValue?.includes(item.raw[$props.itemValue])"
-                  @update:modelValue="toggleSelect"
+                  @update:modelValue="toggleSelect(item.raw)"
                   v-bind="onClickLibrary.clickable ? {
                     onClick: (event) => onClickLibrary.mobile(event, item),
                     onAuxclick: (event) => onClickLibrary.mobile(event, item)
@@ -653,12 +654,13 @@
                   :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
                   :selectable="$props.showSelect"
+                  :singleSelect="$props.singleSelect"
                   :to="$props.itemTo"
                   :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
                   :modelValue="$props.modelValue?.includes(item.raw[$props.itemValue])"
-                  @update:modelValue="toggleSelect"
+                  @update:modelValue="toggleSelect(item.raw)"
                   v-bind="onClickLibrary.clickable ? {
                     onClick: (event) => onClickLibrary.mobile(event, item),
                     onAuxclick: (event) => onClickLibrary.mobile(event, item)
@@ -1128,6 +1130,7 @@ export default defineComponent({
     });
 
     const onClickLibrary = computed((): { [key: string]: Function | boolean } => {
+      console.log(props["onClick:row"]);
       if (props["onClick:row"] || props.itemTo) {
         return {
           clickable: true,

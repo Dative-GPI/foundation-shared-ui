@@ -185,8 +185,6 @@ export default defineComponent({
       return (props.singleSelect && props.modelValue) ? props.activeColor : ColorEnum.Background;
     });
 
-    console.log(props.onCLick);
-
     return {
       ColorEnum,
       variant,
