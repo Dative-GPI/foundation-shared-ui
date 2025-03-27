@@ -142,6 +142,7 @@
     >
       <FSDeviceOrganisationTileUI
         :to="$props.itemTo && $props.itemTo(item)"
+        :selectable="$props.selectable"
         :deviceConnectivity="item.connectivity"
         :deviceStatuses="item.status.statuses"
         :deviceWorstAlert="item.worstAlert"

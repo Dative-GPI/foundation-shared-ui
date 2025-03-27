@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSBaseAuthTokensList from "@dative-gpi/foundation-core-components/components/lists/authTokens/FSBaseAuthTokensList.vue";
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
+import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
+import FSBaseAuthTokensList from "@dative-gpi/foundation-core-components/components/lists/authTokens/FSBaseAuthTokensList.vue";
 
 const meta: Meta<typeof FSBaseAuthTokensList> = {
   title: 'Foundation/Core/Lists/Base Lists/BaseAuthTokensList',
@@ -9,6 +12,8 @@ const meta: Meta<typeof FSBaseAuthTokensList> = {
   subcomponents: { FSDataTable },
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseAuthTokensList),
+    ...addComponentEmits(FSBaseAuthTokensList),
     tableCode: {
       control: 'select',
       options: ['authTokens1'],
@@ -27,11 +32,13 @@ export const Default: Story = {
     },
     template: `
       <FSBaseAuthTokensList
-        :tableCode="args.tableCode"
+        v-model:modelValue="args.modelValue"
+        v-bind="args"
       />
     `,
   }),
   args: {
     tableCode: 'authTokens1',
+    'onClick:row': null
   },
 };

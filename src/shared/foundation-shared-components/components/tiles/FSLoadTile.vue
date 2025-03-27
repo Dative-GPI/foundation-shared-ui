@@ -40,7 +40,7 @@
       />
     </FSRow>
     <FSCard
-      v-if="!$props.disableSelect"
+      v-if="$props.selectable"
       class="fs-tile-checkbox"
       :height="['40px', '32px']"
       :width="['40px', '32px']"
@@ -82,10 +82,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    disableSelect: {
+    selectable: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

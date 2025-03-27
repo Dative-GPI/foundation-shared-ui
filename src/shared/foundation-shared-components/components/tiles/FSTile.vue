@@ -4,7 +4,6 @@
     :height="$props.height"
     :width="$props.width"
   >
-
     <FSClickable
       v-if="($props.href || $props.to || $attrs.onClick)"
       variant="background"
@@ -20,7 +19,7 @@
     >
       <slot />
       <FSCard
-        v-if="!$props.disableSelect"
+        v-if="$props.selectable"
         class="fs-tile-checkbox"
         :height="['40px', '32px']"
         :width="['40px', '32px']"
@@ -34,7 +33,7 @@
     </FSClickable>
 
     <FSClickable
-      v-else-if="!$props.disableSelect &&  !$props.singleSelect"
+      v-else-if="$props.selectable && $props.singleSelect"
       padding="12px"
       :variant="variant"
       :color="color"
@@ -59,7 +58,7 @@
     >
       <slot />
       <FSCard
-        v-if="!$props.disableSelect"
+        v-if="$props.selectable"
         class="fs-tile-checkbox"
         variant="background"
         :height="['40px', '32px']"
@@ -135,10 +134,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    disableSelect: {
+    selectable: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     disableClick: {
       type: Boolean,
@@ -185,6 +184,8 @@ export default defineComponent({
     const color = computed((): ColorBase => {
       return (props.singleSelect && props.modelValue) ? props.activeColor : ColorEnum.Background;
     });
+
+    console.log(props.onCLick);
 
     return {
       ColorEnum,

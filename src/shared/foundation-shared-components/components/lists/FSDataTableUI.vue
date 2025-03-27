@@ -478,18 +478,19 @@
               >
                 <FSDataIteratorItem
                   v-if="item.type === 'item'"
-                  :itemColor="$props.rowColor ? $props.rowColor(item.raw) : ColorEnum.Background"
+                  :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
-                  :clickable="onClickLibrary.clickable"
-                  :showSelect="$props.showSelect"
-                  :itemTo="$props.itemTo"
-                  :color="$props.color"
+                  :selectable="$props.showSelect"
+                  :to="$props.itemTo"
+                  :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
-                  :modelValue="$props.modelValue.includes(item.raw[$props.itemValue])"
+                  :modelValue="$props.modelValue?.includes(item.raw[$props.itemValue])"
                   @update:modelValue="toggleSelect"
-                  @auxclick="() => onClickLibrary.mobile($event, item)"
-                  @click="() => onClickLibrary.mobile($event, item)"
+                  v-bind="onClickLibrary.clickable ? {
+                    onClick: (event) => onClickLibrary.mobile(event, item),
+                    onAuxclick: (event) => onClickLibrary.mobile(event, item)
+                  } : {}"
                 >
                   <template
                     #item.top="props"
@@ -649,18 +650,19 @@
                 v-bind="{ index, item: item.raw, toggleSelect }"
               >
                 <FSDataIteratorItem
-                  :itemColor="$props.rowColor ? $props.rowColor(item.raw) : ColorEnum.Background"
+                  :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
-                  :clickable="onClickLibrary.clickable"
-                  :showSelect="$props.showSelect"
-                  :itemTo="$props.itemTo"
-                  :color="$props.color"
+                  :selectable="$props.showSelect"
+                  :to="$props.itemTo"
+                  :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
-                  :modelValue="$props.modelValue.includes(item.raw[$props.itemValue])"
+                  :modelValue="$props.modelValue?.includes(item.raw[$props.itemValue])"
                   @update:modelValue="toggleSelect"
-                  @auxclick="() => onClickLibrary.mobile($event, item)"
-                  @click="() => onClickLibrary.mobile($event, item)"
+                  v-bind="onClickLibrary.clickable ? {
+                    onClick: (event) => onClickLibrary.mobile(event, item),
+                    onAuxclick: (event) => onClickLibrary.mobile(event, item)
+                  } : {}"
                 >
                   <template
                     #item.top="props"

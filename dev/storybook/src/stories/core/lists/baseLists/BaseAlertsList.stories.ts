@@ -1,14 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSBaseAlertsList from "@dative-gpi/foundation-core-components/components/lists/alerts/FSBaseAlertsList.vue";
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
+import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
+import FSBaseAlertsList from "@dative-gpi/foundation-core-components/components/lists/alerts/FSBaseAlertsList.vue";
 
 const meta: Meta<typeof FSBaseAlertsList> = {
   title: 'Foundation/Core/Lists/Base Lists/BaseAlertsList',
   component: FSBaseAlertsList,
-  subcomponents: { FSDataTable },
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseAlertsList),
+    ...addComponentEmits(FSBaseAlertsList),
     tableCode: {
       control: 'select',
       options: ['alerts1'],
@@ -27,13 +31,8 @@ export const Default: Story = {
     },
     template: `
       <FSBaseAlertsList
-        mode="table"
-        :tableCode="args.tableCode"
-        :notAcknowledged="args.notAcknowledged"
-        :hidePending="args.hidePending"
-        :allowAcknowledge="args.allowAcknowledge"
-        :showSearch="false"
         v-model="args.modelValue"
+        v-bind="args"
       />
     `,
   }),
