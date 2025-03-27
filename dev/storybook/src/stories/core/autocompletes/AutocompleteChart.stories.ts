@@ -1,68 +1,41 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
+import { ChartOrigin } from '@dative-gpi/foundation-shared-domain/enums';
+
+import { VAutocomplete } from 'vuetify/components';
+import FSAutocompleteField from '@dative-gpi/foundation-shared-components/components/fields/FSAutocompleteField.vue';
 import FSAutocompleteChart from "@dative-gpi/foundation-core-components/components/autocompletes/FSAutocompleteChart.vue";
-import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
-const meta = {
+const meta: Meta<typeof FSAutocompleteChart> = {
   title: 'Foundation/Core/Autocompletes/AutocompleteChart',
   component: FSAutocompleteChart,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addSubcomponentsArgTypes([FSAutocompleteField, VAutocomplete], FSAutocompleteChart),
+    ...addComponentEmits(FSAutocompleteChart),
   },
-} satisfies Meta<typeof FSAutocompleteChart>;
+};
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-export const Variations: Story = {
-  args: {
-    args: {
-      value1: null,
-      type1: 0,
-      value2: null,
-      type2: 0,
-      value3: null,
-      type3: 0,
-      value4: null,
-      type4: 0
-    }
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSAutocompleteChart, FSCol },
-    props: Object.keys(argTypes),
+export const Default: Story = {
+  render: (args) => ({
+    components: { FSAutocompleteChart },
     setup() {
-      return { ...args };
+      return { args };
     },
     template: `
-    <FSCol>
-      <FSAutocompleteChart
-        label="Chart"
-        v-model="args.value1"
-        v-model:type="args.type1"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteChart
-        label="Chart with toggleset disabled"
-        :toggleSetDisabled="true"
-        v-model="args.value2"
-        v-model:type="args.type2"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteChart
-        label="Chart with multiple"
-        :multiple="true"
-        v-model="args.value3"
-        v-model:type="args.type3"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteChart
-        label="Chart with multiple and toggleSet disabled"
-        :multiple="true"
-        :toggleSetDisabled="true"
-        v-model="args.value4"
-        v-model:type="args.type4"
-      />
-    </FSCol>`
-  })
-}
+    <FSAutocompleteChart
+      v-model="args.modelValue"
+      v-model:type="args.type"
+      v-bind="args"
+    />`
+  }),
+  args: {
+    modelValue: [],
+    type: ChartOrigin.None,
+  },
+};
