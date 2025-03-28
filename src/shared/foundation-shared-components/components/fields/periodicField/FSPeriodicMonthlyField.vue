@@ -1,7 +1,7 @@
 <template>
   <FSRadioGroup
     :values="availableConfigurations"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     v-model="selectedConfiguration"
   >
     <template
@@ -17,7 +17,7 @@
           {{ $tr("ui.common.day", "Day") }}
         </FSSpan>
         <FSSelectField
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :items="dayNumbers"
           :hideHeader="true"
           :clearable="false"
@@ -30,7 +30,7 @@
           {{ $tr("periodic-monthly-field.every-month-at", "every month at") }}
         </FSSpan>
         <FSClock
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Light"
           :hideHeader="true"
           :slider="false"
@@ -48,7 +48,7 @@
           {{ $tr("ui.common.every", "Every") }}
         </FSSpan>
         <FSSelectField
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :items="dayWeekNumbers"
           :hideHeader="true"
           :clearable="false"
@@ -56,7 +56,7 @@
           @update:modelValue="onUpdateDayWeekNumber($event)"
         />
         <FSSelectDays
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :useAllDays="false"
           :hideHeader="true"
           :modelValue="dayWeek"
@@ -68,7 +68,7 @@
           {{ $tr("ui.common.at", "at") }}
         </FSSpan>
         <FSClock
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Light"
           :hideHeader="true"
           :slider="false"
@@ -108,10 +108,10 @@ export default defineComponent({
       type: Array<string>,
       required: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

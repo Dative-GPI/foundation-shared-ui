@@ -27,7 +27,7 @@
           :description="$props.description"
           :hideHeader="$props.hideHeader"
           :clearable="$props.clearable"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :required="$props.required"
           :validateOn="validateOn"
           :label="$props.label"
@@ -79,7 +79,7 @@
                   <FSCheckbox
                     v-if="$props.multiple"
                     :class="listItemClass(item[$props.itemValue])"
-                    :editable="$props.editable"
+                    :disabled="$props.disabled"
                     :modelValue="$props.modelValue?.includes(item[$props.itemValue])"
                     @update:modelValue="() => onCheckboxChange(item[$props.itemValue])"
                   >
@@ -101,7 +101,7 @@
                     v-if="!$props.multiple"
                     :selected="$props.modelValue === item[$props.itemValue]"
                     :class="listItemClass(item[$props.itemValue])"
-                    :editable="$props.editable"
+                    :disabled="$props.disabled"
                     :modelValue="item[$props.itemValue]"
                     @update:modelValue="onRadioChange"
                   >
@@ -133,7 +133,7 @@
       >
         <v-menu
           :closeOnContentClick="false"
-          :modelValue="menu && $props.editable"
+          :modelValue="menu && !$props.disabled"
           @update:modelValue="menu = $event"
         >
           <template
@@ -145,7 +145,7 @@
               :description="$props.description"
               :hideHeader="$props.hideHeader"
               :clearable="$props.clearable"
-              :editable="$props.editable"
+              :disabled="$props.disabled"
               :required="$props.required"
               :validateOn="validateOn"
               :label="$props.label"
@@ -188,7 +188,7 @@
               <FSCheckbox
                 v-if="$props.multiple"
                 :class="listItemClass(item[$props.itemValue])"
-                :editable="$props.editable"
+                :disabled="$props.disabled"
                 :modelValue="$props.modelValue?.includes(item[$props.itemValue])"
                 @update:modelValue="() => onCheckboxChange(item[$props.itemValue])"
               >
@@ -210,7 +210,7 @@
                 v-if="!$props.multiple"
                 :selected="$props.modelValue === item[$props.itemValue]"
                 :class="listItemClass(item[$props.itemValue])"
-                :editable="$props.editable"
+                :disabled="$props.disabled"
                 :modelValue="item[$props.itemValue]"
                 @update:modelValue="onRadioChange"
               >
@@ -338,10 +338,10 @@ export default defineComponent({
       required: false,
       default: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     loading: {
       type: Boolean,
@@ -366,7 +366,7 @@ export default defineComponent({
     const menu = ref(false);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-tree-view-field-cursor": "default"
         };
@@ -462,7 +462,7 @@ export default defineComponent({
     };
 
     const openMobileOverlay = () => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       dialog.value = true;

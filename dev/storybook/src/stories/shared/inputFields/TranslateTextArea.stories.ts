@@ -55,9 +55,9 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSTranslateTextArea
-        label="Uneditable translation, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled translation, with description"
+        description="description"
+        :disabled="true"
         v-model="args.value3"
         v-model:translations="args.translations3"
       />

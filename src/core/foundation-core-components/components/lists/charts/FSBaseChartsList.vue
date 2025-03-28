@@ -4,7 +4,7 @@
     :loading="fetchingChartOrganisationTypes || fetchingChartOrganisations"
     :headersOptions="headersOptions"
     :items="charts"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :singleSelect="$props.singleSelect"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
@@ -50,7 +50,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -72,12 +72,12 @@
       #item.modelsLabels="{ item }"
     >
       <FSTagGroup
-        :editable="false"
+        :disabled="true"
         :tags="item.modelsLabels.map((d: any) => d.label)"
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ item }"
     >
       <FSChartTileUI
         :label="item.label"
@@ -86,11 +86,9 @@
         :imageId="item.imageId"
         :type="item.chartType"
         :singleSelect="$props.singleSelect"
-        :editable="$props.editable"
-        :activeColor="ColorEnum.Primary"
+        :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
-        @update:modelValue="toggleSelect(item)"
-        @click="update(item.id)"
+        @update:modelValue="update(item.id)"
       />
     </template>
   </FSDataTable>
@@ -147,7 +145,7 @@ export default defineComponent({
       default: () => [],
       required: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

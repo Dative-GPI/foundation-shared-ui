@@ -4,7 +4,7 @@
     :loading="fetchingDeviceExplorerElements"
     :singleSelect="$props.singleSelect"
     :items="deviceExplorerElements"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="$props.tableCode"
     :itemTo="$props.itemTo"
     :noSearch="$props.recursiveSearch"
@@ -52,7 +52,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -221,7 +221,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

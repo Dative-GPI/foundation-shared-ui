@@ -10,7 +10,7 @@
         prependIcon="mdi-eye-off-outline"
         :height="[30, 24]"
         :color="ColorEnum.Light"
-        :editable="true"
+        :clickable="true"
         :label="$tr('data-table.hidden-columns', '{0} hidden column(s)', $props.headers.length.toString())"
         v-bind="props"
       />
@@ -46,7 +46,7 @@
               :height="['30px', '24px']"
               :color="$props.color"
               :label="header.text"
-              :editable="true"
+              :clickable="true"
               :key="index"
               @click="$emit('update:show', header)"
             >

@@ -5,7 +5,7 @@
   >
     <FSRadioGroup
       :values="availablePeriod"
-      :editable="editable"
+      :disabled="disabled"
       v-model="selectedPeriod"
     />
     <FSRow
@@ -19,25 +19,25 @@
       />
       <FSPeriodicDailyField
         v-if="selectedPeriod === 'daily'"
-        :editable="editable"
+        :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
       />
       <FSPeriodicWeeklyField
         v-else-if="selectedPeriod === 'weekly'"
-        :editable="editable"
+        :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
       />
       <FSPeriodicMonthlyField
         v-else-if="selectedPeriod === 'monthly'"
-        :editable="editable"
+        :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
       />
       <FSPeriodicYearlyField
         v-else-if="selectedPeriod === 'yearly'"
-        :editable="editable"
+        :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
       />
@@ -74,10 +74,10 @@ export default defineComponent({
       type: String as PropType<string>,
       required: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

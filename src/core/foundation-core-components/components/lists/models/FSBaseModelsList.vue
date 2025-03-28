@@ -2,7 +2,7 @@
   <FSDataTable
     defaultMode="iterator"
     :singleSelect="$props.singleSelect"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="$props.tableCode"
     :loading="fetchingModels"
     :items="models"
@@ -114,7 +114,7 @@ export default defineComponent({
       type: Function as PropType<(item: ModelInfos) => Partial<RouteLocation>>,
       required: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

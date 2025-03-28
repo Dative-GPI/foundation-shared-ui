@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
+import { addComponentEmits } from '@/utils/properties';
+
 import FSPagination from "@dative-gpi/foundation-shared-components/components/FSPagination.vue";
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
@@ -9,7 +11,7 @@ const meta = {
   component: FSPagination,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addComponentEmits(FSPagination),
   }
 } satisfies Meta<typeof FSPagination>;
 
@@ -18,34 +20,32 @@ type Story = StoryObj<typeof meta>;
 
 export const Variations: Story = {
   args: {
-    args: {
-      page1: 0,
-      pages1: 3
-    }
+    modelValue: 4,
+    pages: 10,
+    width: "100%"
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSPagination, FSButton, FSText },
-    props: Object.keys(argTypes),
     setup() {
-      return { ...args };
+      return { args };
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 30px;">
         <div style="display: flex; width: 100%; flex-direction: column; gap: 8px; justify-content: center;">
           <FSPagination
-            :modelValue="args.page1"
-            :pages="args.pages1"
+            v-model="args.modelValue"
+            v-bind="args"
           />
           <div style="display: flex; width: 100%; gap: 8px; justify-content: center;">
             <FSButton
               label="Previous"
-              :editable="args.page1 > 0"
-              @click="args.page1--"
+              :disabled="args.modelValue === 0"
+              @click="args.modelValue--"
             />
             <FSButton
               label="Next"
-              :editable="args.page1 < args.pages1 - 1"
-              @click="args.page1++"
+              :disabled="args.modelValue >= args.pages - 1"
+              @click="args.modelValue++"
             />
           </div>
         </div>

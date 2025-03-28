@@ -3,7 +3,7 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
   >
@@ -16,7 +16,7 @@
         <FSSelectDateSetting
           minWidth="180px"
           :lastPeriod="$props.lastPeriod"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :variant="$props.variant"
           :hideHeader="true"
           :modelValue="innerDateSetting"
@@ -26,7 +26,7 @@
           minWidth="60px"
           v-if="pastSettings.includes(innerDateSetting)"
           :rules="[NumberRules.required(), NumberRules.min(0)]"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :hideHeader="true"
           :clearable="false"
           :modelValue="innerDateValue"
@@ -44,7 +44,7 @@
             </FSIcon>
             <FSTextField
               :rules="[TextRules.required(), DateRules.validateExpression($props.variant)]"
-              :editable="$props.editable"
+              :disabled="$props.disabled"
               :hideHeader="true"
               :clearable="false"
               :modelValue="innerStartDate"
@@ -60,7 +60,7 @@
             </FSIcon>
             <FSTextField
               :rules="[TextRules.required(), DateRules.validateExpression($props.variant)]"
-              :editable="$props.editable"
+              :disabled="$props.disabled"
               :hideHeader="true"
               :clearable="false"
               :modelValue="innerEndDate"
@@ -72,7 +72,7 @@
           v-else-if="innerDateSetting === DateSetting.Pick"
           :width="['350px', '310px']"
           :rules="[DateRules.required()]"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :hideHeader="true"
           :clearable="false"
           :modelValue="actualValue"
@@ -162,10 +162,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update", "update:startDate", "update:endDate"],

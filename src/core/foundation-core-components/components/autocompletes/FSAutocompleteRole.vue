@@ -25,7 +25,6 @@
       <FSChip
         :color="roleTypeColor(item.type)"
         :label="roleTypeLabel(item.type)"
-        :editable="false"
       />
     </template>
     <template
@@ -46,7 +45,6 @@
           <FSChip
             :color="roleTypeColor(props.item.type)"
             :label="roleTypeLabel(props.item.type)"
-            :editable="false"
           />
         </template>
       </FSButton>

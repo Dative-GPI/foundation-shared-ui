@@ -3,14 +3,14 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
   >
     <FSRow>
       <FSNumberField
         :validationValue="$props.modelValue"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :validateOn="validateOn"
         :rules="$props.rules"
         :hideHeader="true"
@@ -31,7 +31,7 @@
       </FSNumberField>
       <FSSelectField
         class="fs-time-field-select"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :hideHeader="true"
         :clearable="false"
         :items="units"
@@ -113,10 +113,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

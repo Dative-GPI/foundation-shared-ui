@@ -10,7 +10,8 @@
         type="number"
         hide-details
         :style="style"
-        :readonly="!$props.editable"
+        :disabled="$props.disabled"
+        :readonly="$props.readonly"
         :modelValue="innerHours.toString().padStart(2, '0')"
         @update:modelValue="onChangeHours"
       />
@@ -21,7 +22,8 @@
         type="number"
         hide-details
         :style="style"
-        :readonly="!$props.editable"
+        :disabled="$props.disabled"
+        :readonly="$props.readonly"
         :modelValue="innerMinutes.toString().padStart(2, '0')"
         @update:modelValue="onChangeMinutes"
       />
@@ -31,7 +33,8 @@
     >
       <FSSlider
         :label="$tr('ui.common.hours', 'Hours')"
-        :readonly="!$props.editable"
+        :disabled="$props.disabled"
+        :readonly="$props.readonly"
         :color="$props.color"
         :step="1"
         :max="23"
@@ -40,7 +43,8 @@
       />
       <FSSlider
         :label="$tr('ui.common.minutes', 'Minutes')"
-        :readonly="!$props.editable"
+        :disabled="$props.disabled"
+        :readonly="$props.readonly"
         :color="$props.color"
         :step="1"
         :max="59"
@@ -85,10 +89,15 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     slider: {
       type: Boolean,
@@ -111,7 +120,7 @@ export default defineComponent({
     const innerMinutes = ref(0);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-clock-field-cursor"             : "default",
           "--fs-clock-field-background-color"   : backgrounds.base,

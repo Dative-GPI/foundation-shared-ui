@@ -31,7 +31,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :removeDisabled="true"
         :tags="item.tags"
       />
     </template>

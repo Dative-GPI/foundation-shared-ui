@@ -3,14 +3,14 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
   >
     <FSRow>
       <FSNumberField
         :validationValue="$props.modelValue"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :validateOn="validateOn"
         :rules="$props.rules"
         :hideHeader="true"
@@ -31,7 +31,7 @@
       </FSNumberField>
       <FSSelectField
         class="fs-time-field-select"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :hideHeader="true"
         :clearable="false"
         :items="timeScale"
@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref, watch } from "vue";
+import { computed, defineComponent, type PropType, ref, watch, type StyleValue } from "vue";
 
 import { useColors, useRules, useSlots } from "@dative-gpi/foundation-shared-components/composables";
 import { getTimeScaleIndex, timeScale } from "@dative-gpi/foundation-shared-components/utils";
@@ -108,10 +108,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -131,7 +131,7 @@ export default defineComponent({
     const selectedUnit = ref(timeScale[0]);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-time-field-cursor"             : "default",
           "--fs-time-field-border-color"       : lights.base,
@@ -153,14 +153,14 @@ export default defineComponent({
       return Object.keys(slots).filter(k => k.startsWith("number-")).reduce((acc, key) => {
         acc[key.substring("number-".length)] = slots[key];
         return acc;
-      }, {});
+      }, {} as Record<string, any>);
     });
 
     const selectSlots = computed((): any => {
       return Object.keys(slots).filter(k => k.startsWith("select-")).reduce((acc, key) => {
         acc[key.substring("select-".length)] = slots[key];
         return acc;
-      }, {});
+      }, {} as Record<string, any>);
     });
 
     const messages = computed((): string[] => props.messages ?? getMessages(props.modelValue, props.rules));
@@ -171,7 +171,11 @@ export default defineComponent({
     };
 
     const onSubmitTimeScale = (value: number): void => {
-      selectedUnit.value = timeScale.find((item) => item.id === value);
+      const newUnit = timeScale.find((item) => item.id === value);
+      if(!newUnit) {
+        return;
+      }
+      selectedUnit.value = newUnit;
       emit("update:modelValue", innerTime.value * selectedUnit.value.id);
     };
 

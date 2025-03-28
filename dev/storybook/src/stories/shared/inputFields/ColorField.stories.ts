@@ -8,7 +8,6 @@ const meta = {
   component: FSColorField,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSColorField>;
 
@@ -60,7 +59,7 @@ export const Variations: Story = {
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSColorField
         label="Base color picker"
-        :editable="false"
+        :disabled="true"
         :onlyBaseColors="false"     
         description="Description for this field"
         v-model="args.value4"

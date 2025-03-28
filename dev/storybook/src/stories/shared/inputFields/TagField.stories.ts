@@ -56,10 +56,10 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSTagField
-        label="Uneditable tag, full, error color, width description"
-        description="Uneditable description"
+        label="Disabled tag, full, error color, width description"
+        description="description"
         tagColor="error"
-        :editable="false"
+        :disabled="true"
         v-model="args.value4"
       />
     </FSCol>`
