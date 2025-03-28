@@ -14,7 +14,7 @@
       height="100%"
       :to="$props.to"
       :style="style"
-      :disabled="$props.disableClick"
+      :disabled="$props.clickDisabled"
       v-bind="$attrs"
     >
       <slot />
@@ -139,7 +139,7 @@ export default defineComponent({
       required: false,
       default: true
     },
-    disableClick: {
+    clickDisabled: {
       type: Boolean,
       required: false,
       default: false
