@@ -11,7 +11,6 @@ const meta = {
   component: FSSelectField,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSSelectField>;
 
@@ -86,7 +85,6 @@ export const Variations: Story = {
           <FSChip
             :color="item.chipColor"
             :label="item.chipLabel"
-            :editable="false"
           />
         </template>
         <template
@@ -107,7 +105,6 @@ export const Variations: Story = {
               <FSChip
                 :color="props.item.chipColor"
                 :label="props.item.chipLabel"
-                :editable="false"
               />
             </template>
           </FSButton>
@@ -135,7 +132,6 @@ export const Variations: Story = {
           <FSChip
             :color="item.chipColor"
             :label="item.chipLabel"
-            :editable="false"
           />
         </template>
         <template
@@ -156,7 +152,6 @@ export const Variations: Story = {
               <FSChip
                 :color="props.item.chipColor"
                 :label="props.item.chipLabel"
-                :editable="false"
               />
             </template>
           </FSButton>
@@ -186,7 +181,6 @@ export const Variations: Story = {
           <FSChip
             :color="item.chipColor"
             :label="item.chipLabel"
-            :editable="false"
           />
         </template>
         <template
@@ -207,7 +201,6 @@ export const Variations: Story = {
               <FSChip
                 :color="props.item.chipColor"
                 :label="props.item.chipLabel"
-                :editable="false"
               />
             </template>
           </FSButton>
@@ -236,7 +229,6 @@ export const Variations: Story = {
           <FSChip
             :color="item.chipColor"
             :label="item.chipLabel"
-            :editable="false"
           />
         </template>
         <template
@@ -257,7 +249,6 @@ export const Variations: Story = {
               <FSChip
                 :color="props.item.chipColor"
                 :label="props.item.chipLabel"
-                :editable="false"
               />
             </template>
           </FSButton>

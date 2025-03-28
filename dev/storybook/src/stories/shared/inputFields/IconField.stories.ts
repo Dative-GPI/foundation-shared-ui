@@ -12,7 +12,6 @@ const meta = {
   component: FSIconField,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSIconField>;
 
@@ -59,9 +58,8 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSIconField
-        label="Uneditable icon, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled icon, with description"
+        :disabled="true"
         v-model="args.value4"
       />
     </FSCol>`

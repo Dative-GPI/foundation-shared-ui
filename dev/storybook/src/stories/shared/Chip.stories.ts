@@ -24,36 +24,36 @@ export const Variations: Story = {
     <div style="display: flex; flex-direction: column; gap: 10px;">
       <FSText> With slots (default & button) </FSText>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <FSChip color="primary" :editable="true">
+        <FSChip color="primary" :clickable="true">
           <FSIcon size="s"> mdi-emoticon-cool-outline </FSIcon>
-          <FSSpan font="text-overline"> Primary, full, editable </FSSpan>
+          <FSSpan font="text-overline"> Primary, full, clickable </FSSpan>
         </FSChip>
         <FSChip color="success" variant="standard">
-          <FSSpan font="text-overline"> Success, standard, uneditable </FSSpan>
+          <FSSpan font="text-overline"> Success, standard, unclickable </FSSpan>
         </FSChip>
-        <FSChip color="warning" :editable="true">
-          <FSSpan font="text-overline"> Warning, full, editable </FSSpan>
+        <FSChip color="warning" :clickable="true">
+          <FSSpan font="text-overline"> Warning, full, clickable </FSSpan>
         </FSChip>
         <FSChip color="error" variant="standard">
           <FSIcon size="s"> mdi-thermometer </FSIcon>
-          <FSSpan font="text-overline"> Error, standard, uneditable </FSSpan>
+          <FSSpan font="text-overline"> Error, standard, unclickable </FSSpan>
         </FSChip>
         <FSChip color="light">
-          <FSSpan font="text-overline"> Light, full, uneditable </FSSpan>
+          <FSSpan font="text-overline"> Light, full, unclickable </FSSpan>
         </FSChip>
-        <FSChip color="dark" variant="standard" :editable="true">
-          <FSSpan font="text-overline"> Dark, standard, editable </FSSpan>
+        <FSChip color="dark" variant="standard" :clickable="true">
+          <FSSpan font="text-overline"> Dark, standard, clickable </FSSpan>
         </FSChip>
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText> With props </FSText>
       <div style="display: flex; gap: 10px;">
-        <FSChip color="primary" variant="standard" label="Primary, standard, uneditable" />
-        <FSChip color="success" :editable="true" prependIcon="mdi-check" label="Success, full, editable"     />
-        <FSChip color="warning" variant="standard" label="Warning, standard, uneditable" />
-        <FSChip color="error" :editable="true" label="Error, full, editable" appendIcon="mdi-close" />
-        <FSChip color="light" variant="standard" :editable="true" label="Light, standard, editable" />
-        <FSChip color="dark" label="Dark, full, uneditable" />
+        <FSChip color="primary" variant="standard" label="Primary, standard, unclickable" />
+        <FSChip color="success" :clickable="true" prependIcon="mdi-check" label="Success, full, clickable"     />
+        <FSChip color="warning" variant="standard" label="Warning, standard, unclickable" />
+        <FSChip color="error" :clickable="true" label="Error, full, clickable" appendIcon="mdi-close" />
+        <FSChip color="light" variant="standard" :clickable="true" label="Light, standard, clickable" />
+        <FSChip color="dark" label="Dark, full, unclickable" />
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText> Text align </FSText>

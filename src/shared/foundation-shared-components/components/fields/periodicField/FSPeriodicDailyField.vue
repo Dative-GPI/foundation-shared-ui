@@ -69,7 +69,7 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

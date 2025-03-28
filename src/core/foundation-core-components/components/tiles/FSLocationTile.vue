@@ -50,6 +50,7 @@ export default defineComponent({
       default: true
     }
   },
+  emits: ['update:modelValue'],
   setup(props) {
     const { get, getting, entity } = useLocation();
 

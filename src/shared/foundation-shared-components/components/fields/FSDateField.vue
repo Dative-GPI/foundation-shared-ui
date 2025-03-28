@@ -74,7 +74,7 @@
       <v-menu
         min-width="300px"
         :closeOnContentClick="false"
-        :modelValue="menu && $props.disabled"
+        :modelValue="menu && !$props.disabled"
         @update:modelValue="menu = $event"
       >
         <template

@@ -51,13 +51,13 @@ export const Default: Story = {
             <FSClickable
               height="100px"
               width="100%"
-              :editable="!isPast"
+              :disabled="isPast"
               padding="8px"
               :variant="!isCurrentMonth ? 'full' : undefined"
               :color="isDisabled(date) ? 'error' : undefined"
               @click="toggleDate(date)"
             >
-              <FSClickable v-if="isToday" color="primary" borderRadius="20%">{{ date.getDate() }}</FSClickable>
+              <FSClickable v-if="isToday" color="primary" padding="0 4px" variant="full">{{ date.getDate() }}</FSClickable>
               <template v-else>{{ date.getDate() }}</template>
             </FSClickable>
           </template>
