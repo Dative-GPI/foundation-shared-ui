@@ -2,13 +2,16 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSBaseDataCategoriesList from "@dative-gpi/foundation-core-components/components/lists/dataCategories/FSBaseDataCategoriesList.vue";
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
 
 const meta: Meta<typeof FSBaseDataCategoriesList> = {
   title: 'Foundation/Core/Lists/Base Lists/BaseDataCategoriesList',
   component: FSBaseDataCategoriesList,
-  subcomponents: { FSDataTable },
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseDataCategoriesList),
+    ...addComponentEmits(FSBaseDataCategoriesList),
     tableCode: {
       control: 'select',
       options: ['dataCategories1'],
@@ -27,7 +30,8 @@ export const Default: Story = {
     },
     template: `
       <FSBaseDataCategoriesList
-        :tableCode="args.tableCode"
+        v-model="args.modelValue"
+        v-bind="args"
       />
     `,
   }),
