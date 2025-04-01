@@ -4,6 +4,8 @@ export class ServiceAccountOrganisationInfos {
   id: string;
   userId: string;
   organisationId: string;
+  languageCode: string;
+  timeZoneId: string;
   roleId: string | null;
   roleLabel: string;
   roleIcon: string;
@@ -18,6 +20,8 @@ export class ServiceAccountOrganisationInfos {
     this.id = params.id;
     this.userId = params.userId;
     this.organisationId = params.organisationId;
+    this.languageCode = params.languageCode;
+    this.timeZoneId = params.timeZoneId;
     this.roleId = params.roleId;
     this.roleLabel = params.roleLabel;
     this.roleIcon = params.roleIcon;
@@ -34,6 +38,8 @@ export interface ServiceAccountOrganisationInfosDTO {
   id: string;
   userId: string;
   organisationId: string;
+  languageCode: string;
+  timeZoneId: string;
   roleId: string | null;
   roleLabel: string;
   roleIcon: string;
