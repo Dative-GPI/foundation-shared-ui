@@ -50,7 +50,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :removeDisabled="true"
+        :showRemove="false"
         :tags="item.tags"
       />
     </template>
@@ -60,7 +60,7 @@
       <FSTagGroup
         variant="slide"
         :tags="item.groupByValues.map((gbv: any) => `${gbv.label}: ${gbv.value}`)"
-        :removeDisabled="true"
+        :showRemove="false"
       />
     </template>
     <template
@@ -120,7 +120,7 @@
       <FSTagGroup
         variant="slide"
         :tags="item.history.map((h: any) => AlertTools.statusLabel(h.status))"
-        :removeDisabled="true"
+        :showRemove="false"
       />
     </template>
     <template

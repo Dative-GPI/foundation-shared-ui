@@ -46,7 +46,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :removeDisabled="true"
+        :showRemove="false"
         :tags="item.tags"
       />
     </template>

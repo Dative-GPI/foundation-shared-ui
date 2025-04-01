@@ -40,7 +40,7 @@
     </FSTextField>
     <FSTagGroup
       :tagVariant="$props.tagVariant"
-      :removeDisabled="$props.disabled"
+      :showRemove="!$props.disabled"
       :tags="$props.modelValue"
       :color="$props.tagColor"
       @remove="onRemove"

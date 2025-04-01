@@ -26,7 +26,7 @@ export const Variations: Story = {
         <FSTag color="primary">
           <FSSpan> Primary, full, removable </FSSpan>
         </FSTag>
-        <FSTag color="success" variant="standard" :removeDisabled="true">
+        <FSTag color="success" variant="standard" :showRemove="false">
           <FSSpan> Success, standard, unremovable </FSSpan>
         </FSTag>
         <FSTag color="warning">
@@ -35,10 +35,10 @@ export const Variations: Story = {
             <FSIcon style="cursor: pointer;"> mdi-emoticon-cool-outline </FSIcon>
           </template>
         </FSTag>
-        <FSTag color="error" variant="standard" :removeDisabled="true">
+        <FSTag color="error" variant="standard" :showRemove="false">
           <FSSpan> Error, standard, unremovable </FSSpan>
         </FSTag>
-        <FSTag color="light" :removeDisabled="true">
+        <FSTag color="light" :showRemove="false">
           <FSSpan> Light, full, unremovable </FSSpan>
         </FSTag>
         <FSTag color="dark" variant="standard">
@@ -48,12 +48,12 @@ export const Variations: Story = {
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText> With props </FSText>
       <div style="display: flex; gap: 10px;">
-        <FSTag color="primary" variant="standard" :removeDisabled="true" label="Primary, standard, unremovable" />
+        <FSTag color="primary" variant="standard" :showRemove="false" label="Primary, standard, unremovable" />
         <FSTag color="success" label="Success, full, removable"     />
-        <FSTag color="warning" variant="standard" :removeDisabled="true" label="Warning, standard, unremovable" />
+        <FSTag color="warning" variant="standard" :showRemove="false" label="Warning, standard, unremovable" />
         <FSTag color="error" label="Error, full, removable"       />
         <FSTag color="light" variant="standard" label="Light, standard, removable" />
-        <FSTag color="dark" :removeDisabled="true" label="Dark, standard, unremovable" />
+        <FSTag color="dark" :showRemove="false" label="Dark, standard, unremovable" />
       </div>
     </div>`
   })
