@@ -1,6 +1,6 @@
 <template>
   <FSClickable
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :height="['32px', '28px']"
     :padding="$props.padding"
     :variant="$props.variant"
@@ -110,10 +110,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["click"],
@@ -123,7 +123,7 @@ export default defineComponent({
     const colors = computed(() => getColors(props.color));
 
     const onClick = (event: MouseEvent) => {
-      if (props.editable && !props.load) {
+      if (!props.disabled && !props.load) {
         emit("click", event);
       }
     };

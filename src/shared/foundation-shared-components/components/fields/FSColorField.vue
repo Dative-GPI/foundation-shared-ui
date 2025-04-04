@@ -4,7 +4,7 @@
     class="fs-color-field"
     :description="$props.description"
     :hideHeader="$props.hideHeader"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :required="$props.required"
     :label="$props.label"
     :width="$props.width"
@@ -16,7 +16,7 @@
       :id="activatorId"
       padding="8px"
       width="100%"
-      :class="{ 'fs-color-field-disabled': !$props.editable }"
+      :class="{ 'fs-color-field-disabled': $props.disabled }"
     >
       <FSRow
         align="center-center"
@@ -39,7 +39,7 @@
     min-width="300px"
     :activator="`#${activatorId}`"
     :closeOnContentClick="false"
-    :modelValue="menu && $props.editable"
+    :modelValue="menu && !$props.disabled"
     @update:modelValue="menu = $event"
   >
     <FSCard
@@ -131,10 +131,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     allowOpacity: {
       type: Boolean,
@@ -170,7 +170,7 @@ export default defineComponent({
     const fullColor = ref("#00000000");
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-color-field-cursor"             : "default",
           "--fs-color-field-border-color"       : lights.base,

@@ -50,7 +50,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :showRemove="false"
         :tags="item.tags"
       />
     </template>

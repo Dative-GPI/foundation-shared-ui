@@ -2,7 +2,7 @@
   <FSTextField
     class="fs-number-field"
     minWidth="80px"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :modelValue="$props.modelValue?.toString()"
     @update:modelValue="onUpdate"
     v-bind="$attrs"
@@ -35,10 +35,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

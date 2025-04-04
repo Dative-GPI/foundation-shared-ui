@@ -3,7 +3,7 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
   >
@@ -14,7 +14,7 @@
         :wrap="false"
       >
         <FSSelectField
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :items="actualEntityTypes"
           :hideHeader="true"
           :clearable="false"
@@ -27,7 +27,7 @@
           <FSButton
             icon="mdi-pencil"
             :label="$tr('ui.common.edit', 'Edit')"
-            :editable="$props.editable"
+            :disabled="$props.disabled"
             @click="$emit('click:select')"
           />
         </template>
@@ -37,7 +37,7 @@
           <FSButton
             icon="mdi-plus-circle-multiple-outline"
             :label="$tr('ui.common.select', 'Select')"
-            :editable="$props.editable"
+            :disabled="$props.disabled"
             @click="$emit('click:select')"
           />
         </template>
@@ -170,10 +170,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     entityType: {
       type: Number as PropType<EntityType>,

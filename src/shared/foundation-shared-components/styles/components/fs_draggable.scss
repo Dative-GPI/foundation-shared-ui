@@ -1,10 +1,5 @@
 .fs-draggable-item {
   transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
- 
-  &:has(.fs-data-iterator-item) {
-    flex: 1 1 0 !important;
-    width: 100% !important;
-  }
 }
 
 .fs-draggable-dragging {

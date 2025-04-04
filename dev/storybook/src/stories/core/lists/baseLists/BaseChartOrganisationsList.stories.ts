@@ -2,13 +2,16 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSBaseChartOrganisationsList from "@dative-gpi/foundation-core-components/components/lists/chartOrganisations/FSBaseChartOrganisationsList.vue";
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
 
 const meta: Meta<typeof FSBaseChartOrganisationsList> = {
   title: 'Foundation/Core/Lists/Base Lists/BaseChartOrganisationsList',
   component: FSBaseChartOrganisationsList,
-  subcomponents: { FSDataTable },
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseChartOrganisationsList),
+    ...addComponentEmits(FSBaseChartOrganisationsList),
     tableCode: {
       control: 'select',
       options: ['chartOrganisations1'],
@@ -33,9 +36,5 @@ export const Default: Story = {
     `,
   }),
   args: {
-    tableCode: 'chartOrganisations1',
-    modelValue: [],
-    singleSelect: false,
-    editable: true,
   },
 };

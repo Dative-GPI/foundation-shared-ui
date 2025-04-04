@@ -6,7 +6,7 @@
       :label="$props.label"
       :description="$props.description"
       :required="$props.required"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       v-bind="$attrs"
     >
       <FSRow>
@@ -15,14 +15,14 @@
           :allowOpacity="$props.allowOpacity"
           :modelValue="$props.modelValue[colorIndex - 1]"
           :required="$props.required"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :key="colorIndex"
           @update:modelValue="$emit('update:modelValue', $props.modelValue.map((color, i) => colorIndex === i + 1 ? $event : color))"
         />
       </FSRow>
       <FSSelectField
         class="fs-gradient-field-select"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :clearable="false"
         :items="items"
         modelValue="custom"
@@ -92,10 +92,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     allowOpacity: {
       type: Boolean,

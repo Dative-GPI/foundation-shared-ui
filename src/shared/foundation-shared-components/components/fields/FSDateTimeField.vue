@@ -10,7 +10,7 @@
         :color="$props.color"
         :hideHeader="$props.hideHeader"
         :required="$props.required"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :readonly="true"
         :rules="$props.rules"
         :messages="messages"
@@ -29,7 +29,7 @@
             <FSButton
               variant="icon"
               icon="mdi-calendar"
-              :editable="$props.editable"
+              :disabled="$props.disabled"
               :color="ColorEnum.Dark"
               @click="openMobileOverlay"
             />
@@ -93,7 +93,7 @@
     >
       <v-menu
         :closeOnContentClick="false"
-        :modelValue="menu && $props.editable"
+        :modelValue="menu && !$props.disabled"
         @update:modelValue="menu = $event"
       >
         <template
@@ -106,7 +106,7 @@
             :color="$props.color"
             :hideHeader="$props.hideHeader"
             :required="$props.required"
-            :editable="$props.editable"
+            :disabled="$props.disabled"
             :readonly="true"
             :rules="$props.rules"
             :messages="messages"
@@ -125,7 +125,7 @@
                 <FSButton
                   variant="icon"
                   icon="mdi-calendar"
-                  :editable="$props.editable"
+                  :disabled="$props.disabled"
                   :color="ColorEnum.Dark"
                 />
               </slot>
@@ -256,10 +256,10 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -279,7 +279,7 @@ export default defineComponent({
     const messages = computed((): string[] => getMessages(props.modelValue, props.rules));
 
     const openMobileOverlay = () => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       dialog.value = true;

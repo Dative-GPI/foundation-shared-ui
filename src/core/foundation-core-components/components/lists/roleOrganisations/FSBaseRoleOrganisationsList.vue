@@ -1,7 +1,7 @@
 <template>
   <FSDataTable
     :loading="fetchingRoleOrganisations"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="$props.tableCode"
     :items="roleOrganisations"
     :itemTo="$props.itemTo"
@@ -44,7 +44,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -91,7 +91,7 @@ export default defineComponent({
       type: Function as PropType<(item: RoleOrganisationInfos) => Partial<RouteLocation>>,
       required: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

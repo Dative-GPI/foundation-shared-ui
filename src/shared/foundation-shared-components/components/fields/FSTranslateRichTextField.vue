@@ -6,14 +6,14 @@
       gap="16px"
     >
       <FSRichTextField
-        :editable="false"
+        :disabled="true"
         :label="$tr('ui.common.default-value', 'Default value')"
         :modelValue="$props.modelValue"
         v-bind="$attrs"
       />
       <FSRichTextField
         v-for="(language, index) in languages"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :key="index"
         :modelValue="getTranslation(language.code)"
         @update:modelValue="setTranslation(language.code, $event)"
@@ -48,7 +48,7 @@
         @click="onCancelTranslations"
       />
       <FSButton
-        v-if="$props.editable"
+        v-if="!$props.disabled"
         prependIcon="mdi-check"
         color="primary"
         width="100%"
@@ -59,7 +59,7 @@
   </FSCol>
   <FSRichTextField
     v-else
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -109,9 +109,9 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    editable: {
+    disabled: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     modelValue: {
       type: [Object, String] as PropType<{ [key: string]: any } | string | null>,
@@ -173,7 +173,7 @@ export default defineComponent({
     };
 
     const onSubmitTranslations = (): void => {
-      if (props.editable) {
+      if (!props.disabled) {
         emit("update:translations", innerTranslations.value);
       }
       emit('update:translationsExpanded', false);

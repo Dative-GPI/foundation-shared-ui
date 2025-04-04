@@ -20,7 +20,7 @@
       :description="$props.description"
       :hideHeader="$props.hideHeader"
       :clearable="$props.clearable"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :required="$props.required"
       :validateOn="validateOn"
       :label="$props.label"
@@ -64,7 +64,7 @@
             name="clear"
           >
             <FSButton
-              v-if="$props.clearable && $props.editable && !!$props.modelValue"
+              v-if="$props.clearable && !$props.disabled && !!$props.modelValue"
               icon="mdi-close"
               variant="icon"
               :color="ColorEnum.Dark"
@@ -79,7 +79,7 @@
         <FSButton
           icon="mdi-chevron-down"
           variant="icon"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Dark"
           @click="openMobileOverlay"
         />
@@ -170,14 +170,14 @@
                 />
                 <FSCheckbox
                   v-if="$props.multiple"
-                  :editable="$props.editable"
+                  :disabled="$props.disabled"
                   :modelValue="$props.modelValue?.includes(item[$props.itemValue!])"
                   @update:modelValue="onCheckboxChange(item[$props.itemValue!])"
                 />
                 <FSRadio
                   v-else
                   :selected="$props.modelValue === item[$props.itemValue!]"
-                  :editable="$props.editable"
+                  :disabled="$props.disabled"
                   :item="item"
                   :modelValue="item[$props.itemValue!]"
                   @update:modelValue="onRadioChange(item[$props.itemValue!])"
@@ -203,13 +203,13 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
   >
     <FSToggleSet
       v-if="$props.toggleSet"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :multiple="$props.multiple"
       :required="$props.required"
       :values="$props.items"
@@ -234,10 +234,11 @@
       <v-select
         class="fs-select-field"
         variant="outlined"
-        :clearable="$props.clearable && $props.editable && !!$props.modelValue"
+        :clearable="$props.clearable && !$props.disabled && !!$props.modelValue"
         :itemTitle="$props.itemTitle"
         :itemValue="$props.itemValue"
-        :readonly="!$props.editable"
+        :disabled="$props.disabled"
+        :readonly="$props.readonly"
         :multiple="$props.multiple"
         :validateOn="validateOn"
         :persistentClear="true"
@@ -347,7 +348,7 @@
               name="clear"
             >
               <FSButton
-                v-if="$props.clearable && $props.editable && !!$props.modelValue"
+                v-if="$props.clearable && $props.disabled && !!$props.modelValue"
                 icon="mdi-close"
                 variant="icon"
                 :color="ColorEnum.Dark"
@@ -365,7 +366,7 @@
             <FSButton
               icon="mdi-chevron-down"
               variant="icon"
-              :editable="$props.editable"
+              :disabled="$props.disabled"
               :color="ColorEnum.Dark"
             />
           </slot>
@@ -413,7 +414,7 @@
             <FSButton
               icon="mdi-close"
               variant="icon"
-              :editable="$props.editable"
+              :disabled="$props.disabled"
               :color="ColorEnum.Dark"
               @click="() => onCheckboxChange(item[$props.itemValue!])"
             />
@@ -528,10 +529,15 @@ export default defineComponent({
       required: false,
       default: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     loading: {
       type: Boolean,
@@ -562,7 +568,7 @@ export default defineComponent({
     const dialog = ref(false);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-select-field-cursor"             : "default",
           "--fs-select-field-border-color"       : lights.base,
@@ -650,7 +656,7 @@ export default defineComponent({
     });
 
     const openMobileOverlay = () => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       dialog.value = true;

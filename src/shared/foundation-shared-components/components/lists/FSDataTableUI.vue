@@ -112,7 +112,7 @@
             :label="$tr('data-table.reset-filters', 'Reset')"
             :height="['30px', '24px']"
             :color="ColorEnum.Error"
-            :editable="true"
+            :clickable="true"
             @click="resetFilter"
           />
           <FSHiddenButton
@@ -478,18 +478,20 @@
               >
                 <FSDataIteratorItem
                   v-if="item.type === 'item'"
-                  :itemColor="$props.rowColor ? $props.rowColor(item.raw) : ColorEnum.Background"
+                  :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
-                  :clickable="onClickLibrary.clickable"
-                  :showSelect="$props.showSelect"
-                  :itemTo="$props.itemTo"
-                  :color="$props.color"
+                  :selectable="$props.showSelect"
+                  :singleSelect="$props.singleSelect"
+                  :to="$props.itemTo"
+                  :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
-                  :modelValue="$props.modelValue.includes(item.raw[$props.itemValue])"
-                  @update:modelValue="toggleSelect"
-                  @auxclick="() => onClickLibrary.mobile($event, item)"
-                  @click="() => onClickLibrary.mobile($event, item)"
+                  :modelValue="$props.modelValue?.includes(item.raw[$props.itemValue])"
+                  @update:modelValue="toggleSelect(item.raw)"
+                  v-bind="onClickLibrary.clickable ? {
+                    onClick: (event) => onClickLibrary.mobile(event, item),
+                    onAuxclick: (event) => onClickLibrary.mobile(event, item)
+                  } : {}"
                 >
                   <template
                     #item.top="props"
@@ -649,18 +651,20 @@
                 v-bind="{ index, item: item.raw, toggleSelect }"
               >
                 <FSDataIteratorItem
-                  :itemColor="$props.rowColor ? $props.rowColor(item.raw) : ColorEnum.Background"
+                  :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
-                  :clickable="onClickLibrary.clickable"
-                  :showSelect="$props.showSelect"
-                  :itemTo="$props.itemTo"
-                  :color="$props.color"
+                  :selectable="$props.showSelect"
+                  :singleSelect="$props.singleSelect"
+                  :to="$props.itemTo"
+                  :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
-                  :modelValue="$props.modelValue.includes(item.raw[$props.itemValue])"
-                  @update:modelValue="toggleSelect"
-                  @auxclick="() => onClickLibrary.mobile($event, item)"
-                  @click="() => onClickLibrary.mobile($event, item)"
+                  :modelValue="$props.modelValue?.includes(item.raw[$props.itemValue])"
+                  @update:modelValue="toggleSelect(item.raw)"
+                  v-bind="onClickLibrary.clickable ? {
+                    onClick: (event) => onClickLibrary.mobile(event, item),
+                    onAuxclick: (event) => onClickLibrary.mobile(event, item)
+                  } : {}"
                 >
                   <template
                     #item.top="props"
@@ -1126,6 +1130,7 @@ export default defineComponent({
     });
 
     const onClickLibrary = computed((): { [key: string]: Function | boolean } => {
+      console.log(props["onClick:row"]);
       if (props["onClick:row"] || props.itemTo) {
         return {
           clickable: true,

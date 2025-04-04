@@ -3,6 +3,7 @@
     :items="authTokens"
     :loading="fetchingAuthTokens"
     :tableCode="$props.tableCode"
+    :showSelect="false"
     v-bind="$attrs"
   >
     <template

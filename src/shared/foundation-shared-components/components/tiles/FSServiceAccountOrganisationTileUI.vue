@@ -1,7 +1,6 @@
 <template>
   <FSTile
     :activeColor="ColorEnum.Primary"
-    :editable="$props.editable"
     :width="$props.width"
     :modelValue="$props.modelValue"
     v-bind="$attrs"
@@ -108,11 +107,6 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
-    },
-    editable: {
-      type: Boolean,
-      required: false,
-      default: true
     }
   },
   setup(props) {

@@ -1,60 +1,37 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
+import { VAutocomplete } from 'vuetify/components';
+import FSAutocompleteField from '@dative-gpi/foundation-shared-components/components/fields/FSAutocompleteField.vue';
 import FSAutocompleteDataDefinition from "@dative-gpi/foundation-core-components/components/autocompletes/FSAutocompleteDataDefinition.vue";
-import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
-const meta = {
+const meta: Meta<typeof FSAutocompleteDataDefinition> = {
   title: 'Foundation/Core/Autocompletes/AutocompleteDataDefinition',
   component: FSAutocompleteDataDefinition,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addSubcomponentsArgTypes([FSAutocompleteField, VAutocomplete], FSAutocompleteDataDefinition),
+    ...addComponentEmits(FSAutocompleteDataDefinition),
   },
-} satisfies Meta<typeof FSAutocompleteDataDefinition>;
+};
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-export const Variations: Story = {
-  args: {
-    args: {
-      value1: null,
-      value2: null,
-      value3: null,
-      value4: null
-    }
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSAutocompleteDataDefinition, FSCol },
-    props: Object.keys(argTypes),
+export const Default: Story = {
+  render: (args) => ({
+    components: { FSAutocompleteDataDefinition },
     setup() {
-      return { ...args };
+      return { args };
     },
     template: `
-    <FSCol>
-      <FSAutocompleteDataDefinition
-        label="DataDefinition"
-        v-model="args.value1"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteDataDefinition
-        label="DataDefinition with toggleset disabled"
-        :toggleSetDisabled="true"
-        v-model="args.value2"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteDataDefinition
-        label="DataDefinition with multiple selection"
-        :multiple="true"
-        v-model="args.value3"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteDataDefinition
-        label="DataDefinition with toggleset disabled and multiple selection"
-        :multiple="true"
-        :toggleSetDisabled="true"
-        v-model="args.value4"
-      />
-    </FSCol>`
-  })
-}
+    <FSAutocompleteDataDefinition
+      v-model="args.modelValue"
+      v-bind="args"
+    />`
+  }),
+  args: {
+    modelValue: []
+  },
+};

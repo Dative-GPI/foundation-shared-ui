@@ -3,7 +3,7 @@
     defaultMode="iterator"
     :loading="fetchingLocations"
     :items="locations"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
@@ -33,7 +33,7 @@
         v-bind="item"
         :bottomColor="item.colors"
         :address="item.address.placeLabel"
-        :editable="true"
+        :selectable="$props.selectable"
         :singleSelect="singleSelect"
         :modelValue="isSelected(item.id)"
         :to="$props.itemTo && $props.itemTo(item)"
@@ -74,7 +74,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

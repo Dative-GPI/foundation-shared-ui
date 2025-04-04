@@ -6,7 +6,7 @@
     :color="$props.color"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :readonly="true"
     :rules="$props.rules"
     :messages="messages"
@@ -26,7 +26,7 @@
         <FSButton
           variant="icon"
           icon="mdi-calendar"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Dark"
         />
       </slot>
@@ -115,10 +115,10 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -140,7 +140,7 @@ export default defineComponent({
     const messages = computed((): string[] => getMessages(props.modelValue, props.rules, true));
 
     const onClick = (): void => {
-      if (props.editable) {
+      if (!props.disabled) {
         dialog.value = true;
       }
     };

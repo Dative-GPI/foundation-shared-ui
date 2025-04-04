@@ -75,7 +75,10 @@ export function mockApp() {
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/users1", USERORGANISATIONTABLES[4]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/users2", USERORGANISATIONTABLES[5]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/connectivityScenarios1", USERORGANISATIONTABLES[17]);
+    
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/devicesExplorer1", USERORGANISATIONTABLES[18]);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/foldersExplorer1", USERORGANISATIONTABLES[19]);
+
 
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/custom-properties", CUSTOMPROPERTIES);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/custom-property-values/1/1/code", CUSTOMPROPERTYVALUES);

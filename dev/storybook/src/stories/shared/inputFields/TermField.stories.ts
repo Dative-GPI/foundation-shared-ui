@@ -4,6 +4,8 @@ import { reactive, computed, ref } from 'vue';
 import { useDateFormat, useTermFieldDate } from '@dative-gpi/foundation-shared-services/composables';
 import { useAppTimeZone } from "@dative-gpi/foundation-shared-services/composables";
 
+import { addComponentEmits } from '@/utils/properties';
+
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 import FSDivider from '@dative-gpi/foundation-shared-components/components/FSDivider.vue';
@@ -16,13 +18,11 @@ const meta = {
   component: FSTermField,
   tags: ['autodocs'],
   argTypes: {
+    ...addComponentEmits(FSTermField),
     variant: {
       control: { type: 'select' },
       options: ['default', 'before-after']
-    },
-    'onUpdate': { action: 'update' },
-    'onUpdate:startDate': { action: 'update:startDate' },
-    'onUpdate:endDate': { action: 'update:endDate' },
+    }
   },
 } satisfies Meta<typeof FSTermField>;
 
@@ -30,19 +30,38 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Variations: Story = {
+export const Default: Story = {
   args: {
-    label: 'Term',
-    description: null,
     startDate: 'now - 1d',
     endDate: 'now',
     variant: 'default',
-    hideHeader: false,
-    lastPeriod: false,
-    required: false,
-    editable: true,
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
+    components: {
+      FSTermField
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: `
+      <FSTermField
+        v-bind="args"
+        v-model:startDate="args.startDate"
+        v-model:endDate="args.endDate"
+      />
+    `
+  }),
+};
+
+export const UseTermField: Story = {
+  args: {
+    startDate: 'now - 1d',
+    endDate: 'now',
+    variant: 'default',
+  },
+  render: (args) => ({
     components: {
       FSCol,
       FSText,

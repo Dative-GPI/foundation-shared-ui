@@ -3,7 +3,7 @@
     :items="roleOrganisationTypes"
     :itemTo="$props.itemTo"
     :loading="fetchingRoleOrganisations"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
@@ -44,7 +44,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -91,7 +91,7 @@ export default defineComponent({
       type: Function as PropType<(item: RoleOrganisationTypeInfos) => Partial<RouteLocation>>,
       required: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

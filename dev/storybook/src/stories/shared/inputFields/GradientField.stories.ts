@@ -46,7 +46,7 @@ export const Variations: Story = {
       <FSGradientField
         v-model="args.value3"
         label="Base gradient disabled"
-        :editable="false"
+        :disabled="true"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey; margin: 18px;" />
       <FSGradientField

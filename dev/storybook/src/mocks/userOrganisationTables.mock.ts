@@ -886,5 +886,51 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
         }],
         sortByKey: null,
         sortByOrder: null
+    },
+    {
+        id: "19",
+        code: "foldersExplorer1",
+        mode: "table",
+        rowsPerPage: 10,
+        columns: [
+            {
+                "columnId": "ee4baff5-ec77-49bf-9a77-c6883cbf9e51",
+                "text": "Icône",
+                "value": "icon",
+                "sortable": false,
+                "filterable": false,
+                "index": 0,
+                "hidden": false
+            },
+            {
+                "columnId": "e99e08c0-64d0-4e7a-adc2-2263dc8721b5",
+                "text": "Code",
+                "value": "code",
+                "sortable": false,
+                "filterable": false,
+                "index": 1,
+                "hidden": false
+            },
+            {
+                "columnId": "046f9724-f9e9-4a2e-b507-34c8b3942b7f",
+                "text": "Nom",
+                "value": "label",
+                "sortable": false,
+                "filterable": false,
+                "index": 2,
+                "hidden": false
+            },
+            {
+                "columnId": "cb6b0e04-c80b-4ccf-a47f-9e3e3911a410",
+                "text": "Tags",
+                "value": "tags",
+                "sortable": false,
+                "filterable": false,
+                "index": 3,
+                "hidden": false
+            }
+        ],
+        sortByKey: null,
+        sortByOrder: null
     }
 ];

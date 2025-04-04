@@ -55,9 +55,9 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSTextField
-        label="Uneditable text, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled text, with description"
+        description="description"
+        :disabled="true"
         v-model="args.value4"
       />
     </FSCol>`

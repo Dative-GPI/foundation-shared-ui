@@ -1,7 +1,7 @@
 <template>
   <FSRadioGroup
     :values="availableConfigurations"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     v-model="selectedConfiguration"
   >
     <template
@@ -19,7 +19,7 @@
         <FSSelectDays
           width="200px"
           :placeholder="$tr('ui.common.selected-days', '{0} selected day(s)', days.length)"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :multiple="true"
           :useAllDays="false"
           :hideHeader="true"
@@ -32,7 +32,7 @@
           {{ $tr("ui.common.at", "at") }}
         </FSSpan>
         <FSClock
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Light"
           :hideHeader="true"
           :slider="false"
@@ -69,10 +69,10 @@ export default defineComponent({
       type: Array<string>,
       required: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

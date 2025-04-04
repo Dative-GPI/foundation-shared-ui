@@ -1,7 +1,7 @@
 <template>
   <FSClickable
     v-if="$props.variant !== 'icon'"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :padding="padding"
     :variant="$props.variant"
     :color="$props.color"
@@ -254,10 +254,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["click"],
@@ -270,7 +270,7 @@ export default defineComponent({
     const slots = useSlots();
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         switch (props.variant) {
           case "icon": return {
             "--fs-button-color": lights.dark,
@@ -295,7 +295,7 @@ export default defineComponent({
 
     const iconClasses = computed((): string[] => {
       const classNames = ["fs-button-icon"];
-      if (!props.editable) {
+      if (props.disabled) {
         classNames.push("fs-button-disabled");
       }
       return classNames;
@@ -331,7 +331,7 @@ export default defineComponent({
     });
 
     const onClick = (event: MouseEvent) => {
-      if (!props.to && !props.href && props.editable && !props.load) {
+      if (!props.to && !props.href && !props.disabled && !props.load) {
         emit("click", event);
       }
     };

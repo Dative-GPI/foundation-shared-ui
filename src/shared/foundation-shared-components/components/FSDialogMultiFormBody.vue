@@ -53,7 +53,7 @@
                 :appendIcon="$props.submitButtonAppendIcon"
                 :color="$props.submitButtonColor"
                 :variant="nextButtonVariant"
-                :editable="$props.editable"
+                :disabled="$props.disabled"
                 :label="nextButtonLabel"
                 :load="$props.load"
               />
@@ -174,10 +174,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["click:cancelButton", "click:submitButton"],

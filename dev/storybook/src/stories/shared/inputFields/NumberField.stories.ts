@@ -12,7 +12,6 @@ const meta = {
   component: FSNumberField,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSNumberField>;
 
@@ -48,9 +47,8 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSNumberField
-        label="Uneditable number, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled number, with description"
+        :disabled="true"
         v-model="args.value3"
       />
     </FSCol>`

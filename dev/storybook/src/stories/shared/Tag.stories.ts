@@ -10,7 +10,6 @@ const meta = {
   component: FSTag,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSTag>;
 
@@ -25,36 +24,36 @@ export const Variations: Story = {
       <FSText> With slots (default & button) </FSText>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <FSTag color="primary">
-          <FSSpan> Primary, full, editable </FSSpan>
+          <FSSpan> Primary, full, removable </FSSpan>
         </FSTag>
-        <FSTag color="success" variant="standard" :editable="false">
-          <FSSpan> Success, standard, uneditable </FSSpan>
+        <FSTag color="success" variant="standard" :showRemove="false">
+          <FSSpan> Success, standard, unremovable </FSSpan>
         </FSTag>
         <FSTag color="warning">
-          <FSSpan> Warning, full, editable </FSSpan>
+          <FSSpan> Warning, full, removable </FSSpan>
           <template #button>
             <FSIcon style="cursor: pointer;"> mdi-emoticon-cool-outline </FSIcon>
           </template>
         </FSTag>
-        <FSTag color="error" variant="standard" :editable="false">
-          <FSSpan> Error, standard, uneditable </FSSpan>
+        <FSTag color="error" variant="standard" :showRemove="false">
+          <FSSpan> Error, standard, unremovable </FSSpan>
         </FSTag>
-        <FSTag color="light" :editable="false">
-          <FSSpan> Light, full, uneditable </FSSpan>
+        <FSTag color="light" :showRemove="false">
+          <FSSpan> Light, full, unremovable </FSSpan>
         </FSTag>
         <FSTag color="dark" variant="standard">
-          <FSSpan> Dark, standard, editable </FSSpan>
+          <FSSpan> Dark, standard, removable </FSSpan>
         </FSTag>
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText> With props </FSText>
       <div style="display: flex; gap: 10px;">
-        <FSTag color="primary" variant="standard" :editable="false" label="Primary, standard, uneditable" />
-        <FSTag color="success" label="Success, full, editable"     />
-        <FSTag color="warning" variant="standard" :editable="false" label="Warning, standard, uneditable" />
-        <FSTag color="error" label="Error, full, editable"       />
-        <FSTag color="light" variant="standard" label="Light, standard, editable" />
-        <FSTag color="dark" :editable="false" label="Dark, standard, uneditable" />
+        <FSTag color="primary" variant="standard" :showRemove="false" label="Primary, standard, unremovable" />
+        <FSTag color="success" label="Success, full, removable"     />
+        <FSTag color="warning" variant="standard" :showRemove="false" label="Warning, standard, unremovable" />
+        <FSTag color="error" label="Error, full, removable"       />
+        <FSTag color="light" variant="standard" label="Light, standard, removable" />
+        <FSTag color="dark" :showRemove="false" label="Dark, standard, unremovable" />
       </div>
     </div>`
   })

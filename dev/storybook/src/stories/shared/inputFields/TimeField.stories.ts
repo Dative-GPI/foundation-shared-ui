@@ -49,9 +49,9 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSTimeField
-        label="Uneditable time, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled time, with description"
+        description="description"
+        :disabled="true"
         v-model="args.value3"
       />
     </FSCol>`

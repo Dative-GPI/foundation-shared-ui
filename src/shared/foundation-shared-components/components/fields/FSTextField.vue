@@ -4,7 +4,7 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :messages="messages"
   >
     <template
@@ -32,8 +32,8 @@
       :type="$props.type"
       :persistentClear="true"
       :hideDetails="true"
-      :readonly="!$props.editable"
-      :clearable="$props.clearable && $props.editable && !!$props.modelValue"
+      :disabled="$props.disabled"
+      :clearable="$props.clearable && !$props.disabled && !!$props.modelValue"
       :rules="$props.rules"
       :validateOn="validateOn"
       :modelValue="$props.modelValue"
@@ -56,7 +56,7 @@
           name="clear"
         >
           <FSButton
-            v-if="$props.clearable && $props.editable && !!$props.modelValue"
+            v-if="$props.clearable && !$props.disabled && !!$props.modelValue"
             icon="mdi-close"
             variant="icon"
             :color="ColorEnum.Dark"
@@ -129,10 +129,10 @@ export default defineComponent({
       required: false,
       default: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -150,7 +150,7 @@ export default defineComponent({
     const darks = getColors(ColorEnum.Dark);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-text-field-cursor"             : "default",
           "--fs-text-field-border-color"       : lights.base,

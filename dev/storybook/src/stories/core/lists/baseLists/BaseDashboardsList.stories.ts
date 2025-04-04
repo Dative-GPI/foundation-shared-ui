@@ -23,7 +23,9 @@ export const Default: Story = {
     },
     template: `
       <FSBaseDashboardsList
-        :tableCode="args.tableCode"
+        v-model:modelValue="args.modelValue"
+        v-mode:type="args.type"
+        v-bind="args"
       />
     `,
   }),

@@ -6,6 +6,8 @@
     :itemTo="$props.itemTo"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
+    :showSelect="$props.selectable"
+    :singleSelect="$props.singleSelect"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
@@ -59,7 +61,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :showRemove="false"
         :tags="item.tags"
       />
     </template>
@@ -68,6 +70,8 @@
     >
       <FSDashboardOrganisationTypeTileUI
         :bottomColor="item.colors"
+        :selectable="$props.selectable"
+        :singleSelect="$props.singleSelect"
         :to="$props.itemTo && $props.itemTo(item)"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -125,8 +129,21 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       required: false,
       default: () => []
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
+  emits: [
+    "update:modelValue"
+  ],
   setup(props) {
     const { getMany: getDashboardOrganisationTypes, fetching: fetchingDashboardOrganisationTypes, entities: dashboardOrganisationTypes } = useDashboardOrganisationTypes();
     const { fetch: fetchUserOrganisation, entity: userOrganisation } = useCurrentUserOrganisation();

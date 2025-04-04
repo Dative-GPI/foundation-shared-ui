@@ -3,7 +3,7 @@
     :items="scenarioOrganisations"
     :itemTo="$props.itemTo"
     :loading="fetchingScenarioOrganisations"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     :headersOptions="headersOptions"
@@ -50,7 +50,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -97,7 +97,7 @@ export default defineComponent({
       type: Function as PropType<(item: ScenarioOrganisationInfos) => Partial<RouteLocation>>,
       required: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true
