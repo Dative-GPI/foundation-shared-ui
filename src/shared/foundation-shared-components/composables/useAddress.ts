@@ -1,20 +1,26 @@
+/// <reference types="@types/google.maps" />
 import _ from "lodash";
 
 import { Address, type Place } from "@dative-gpi/foundation-shared-domain/models";
+import { useCurrentUserOrganisation } from '@dative-gpi/foundation-core-services/composables';
 
 export const useAddress = () => {
   const enabled = true;
+  const { entity: currentUser, fetch: getCurrentUser } = useCurrentUserOrganisation();
+
   let initialized = false;
+  let userLocation: google.maps.LatLngLiteral | null;
   let searchService: google.maps.places.AutocompleteService;
   let placeService: google.maps.places.PlacesService;
   let sessionId: google.maps.places.AutocompleteSessionToken;
-  
 
   const init = async () => {
     await window.initMap;
+    await getCurrentUser();
+    userLocation = await getCurrentLocation();
     searchService = new google.maps.places.AutocompleteService();
     placeService = new google.maps.places.PlacesService(
-      document.getElementById("places") as HTMLDivElement
+      document.createElement("div")
     );
     sessionId = new google.maps.places.AutocompleteSessionToken();
     initialized = true;
@@ -25,11 +31,12 @@ export const useAddress = () => {
       await init();
     } 
 
-    return _search(search).then(result => {
-      return _.map(result, r => ({ id: r.place_id, label: r.description }));
-    }).catch(() => {
-      return [];
-    });
+    const mapsResults = await _search(search);
+
+    return mapsResults.map((result) => ({
+      id: result.place_id,
+      label: result.description
+    }));
   }
 
   const get = async (place: Place): Promise<Address> => {
@@ -78,16 +85,39 @@ export const useAddress = () => {
     });
   }
 
+  const getCurrentLocation = async (): Promise<google.maps.LatLngLiteral | null> => {
+    if (!navigator.geolocation) {
+      return null;
+    }
+  
+    return new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+        },
+        () => resolve(null)
+      );
+    });
+  };
+
   const _search = (search: string) => {
     if (!enabled) {
       throw new Error("offline mode, do not call this method");
     }
     return new Promise<google.maps.places.AutocompletePrediction[]>(
       (resolve, reject) => {
+        const languageCode = currentUser.value?.languageCode.split("-")[0];
+
         searchService!.getPlacePredictions(
           {
             input: search,
-            sessionToken: sessionId!
+            region: languageCode,
+            language: languageCode,
+            sessionToken: sessionId,
+            locationBias: userLocation,
           },
           function (result, status) {
             if (status != google.maps.places.PlacesServiceStatus.OK || !result) {
