@@ -5,6 +5,9 @@
     :toggleSet="false"
     :multiple="false"
     :items="items"
+    :customFilter="(_label: string, _query: string, item: any) => {
+      return item.value !== $props.modelValue?.placeId;
+    }"
     :modelValue="$props.modelValue?.placeId"
     @update:modelValue="onUpdate"
     v-model:search="search"
