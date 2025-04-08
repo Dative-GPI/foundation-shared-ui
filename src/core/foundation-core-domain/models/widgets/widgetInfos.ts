@@ -23,7 +23,7 @@ export class WidgetInfos {
     y: number;
     targetScreenSize: "s" | "m" | "l" | "xl";
     meta: { [key: string]: string };
-    overridedMetas: { [key: string]: string } | null;
+    defaultMetas: { [key: string]: string } | null;
 
     constructor(params: WidgetInfosDTO) {
         this.id = params.id;
@@ -35,7 +35,7 @@ export class WidgetInfos {
         this.y = params.y;
         this.targetScreenSize = params.targetScreenSize;
         this.meta = clean(params.meta);
-        this.overridedMetas = params.overridedMetas ?? null;
+        this.defaultMetas = params.defaultMetas ?? null;
     }
 }
   
@@ -49,5 +49,5 @@ export interface WidgetInfosDTO {
     y: number;
     targetScreenSize: "s" | "m" | "l" | "xl";
     meta: { [key: string]: string };
-    overridedMetas?: { [key: string]: string };
+    defaultMetas?: { [key: string]: string };
 }

@@ -55,7 +55,7 @@ export class DashboardShallowDetails extends DashboardShallowInfos {
       return override ? new WidgetInfos({
         ...d,
         ...override,
-        overridedMetas: d.meta
+        defaultMetas: d.meta
       }) : d;
     });
   }
