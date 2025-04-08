@@ -2,11 +2,11 @@
 import _ from "lodash";
 
 import { Address, type Place } from "@dative-gpi/foundation-shared-domain/models";
-import { useCurrentUserOrganisation } from '@dative-gpi/foundation-core-services/composables';
+import { useAppLanguageCode } from '@dative-gpi/foundation-shared-services/composables';
 
 export const useAddress = () => {
   const enabled = true;
-  const { entity: currentUser, fetch: getCurrentUser } = useCurrentUserOrganisation();
+  const { languageCode } = useAppLanguageCode();
 
   let initialized = false;
   let userLocation: google.maps.LatLngLiteral | null;
@@ -16,7 +16,6 @@ export const useAddress = () => {
 
   const init = async () => {
     await window.initMap;
-    await getCurrentUser();
     userLocation = await getCurrentLocation();
     searchService = new google.maps.places.AutocompleteService();
     placeService = new google.maps.places.PlacesService(
@@ -109,13 +108,16 @@ export const useAddress = () => {
     }
     return new Promise<google.maps.places.AutocompletePrediction[]>(
       (resolve, reject) => {
-        const languageCode = currentUser.value?.languageCode.split("-")[0];
+        /**
+         * ISO 3166 language code
+         */
+        const isoLanguageCode = languageCode.value?.split("-")[0];
 
         searchService!.getPlacePredictions(
           {
             input: search,
-            region: languageCode,
-            language: languageCode,
+            region: isoLanguageCode,
+            language: isoLanguageCode,
             sessionToken: sessionId,
             locationBias: userLocation,
           },
