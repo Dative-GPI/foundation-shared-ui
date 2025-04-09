@@ -1,3 +1,4 @@
+import type { WidgetTemplateType } from '@dative-gpi/foundation-shared-domain/enums/widgetTemplates';
 import _ from "lodash";
 
 const clean = <T>(meta: T): T => {
@@ -15,6 +16,7 @@ const clean = <T>(meta: T): T => {
 
 export class WidgetInfos {
     id: string;
+    templateType: WidgetTemplateType;
     templateId: string;
     hideBorders: boolean;
     width: number;
@@ -26,6 +28,7 @@ export class WidgetInfos {
 
     constructor(params: WidgetInfosDTO) {
         this.id = params.id;
+        this.templateType = params.templateType;
         this.templateId = params.templateId;
         this.hideBorders = params.hideBorders;
         this.width = params.width;
@@ -39,6 +42,7 @@ export class WidgetInfos {
   
 export interface WidgetInfosDTO {
     id: string;
+    templateType: WidgetTemplateType;
     templateId: string;
     hideBorders: boolean;
     width: number;

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import type { WidgetCategory } from "@dative-gpi/foundation-shared-domain/enums";
+import type { WidgetTemplateType } from '@dative-gpi/foundation-shared-domain/enums/widgetTemplates';
 
 const clean = <T>(meta: T): T => {
   const newMeta = _.cloneDeepWith(meta, (value) => {
@@ -16,6 +17,7 @@ const clean = <T>(meta: T): T => {
 
 export class WidgetTemplateInfos {
     id: string;
+    type: WidgetTemplateType;
     extensionId: string | null;
     extensionHost: string | null;
     label: string;
@@ -29,6 +31,7 @@ export class WidgetTemplateInfos {
   
     constructor(params: WidgetTemplateInfosDTO) {
         this.id = params.id;
+        this.type = params.type;
         this.extensionId = params.extensionId ?? null;
         this.extensionHost = params.extensionHost ?? null;
         this.label = params.label;
@@ -44,6 +47,7 @@ export class WidgetTemplateInfos {
   
 export interface WidgetTemplateInfosDTO {
     id: string;
+    type: WidgetTemplateType;
     extensionId?: string;
     extensionHost?: string;
     label: string;
