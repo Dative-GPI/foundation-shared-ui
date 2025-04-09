@@ -3,7 +3,7 @@ import { ComposableFactory, ServiceFactory } from "@dative-gpi/bones-ui/core";
 
 import { SERVICE_ACCOUNT_ROLE_ORGANISATIONS_URL, SERVICE_ACCOUNT_ROLE_ORGANISATION_URL } from "../../config/urls";
 
-const ServiceAccountRoleOrganisationServiceFactory = new ServiceFactory<ServiceAccountRoleOrganisationDetailsDTO, ServiceAccountRoleOrganisationDetails>("serviceAccountOrganisation", ServiceAccountRoleOrganisationDetails)
+const ServiceAccountRoleOrganisationServiceFactory = new ServiceFactory<ServiceAccountRoleOrganisationDetailsDTO, ServiceAccountRoleOrganisationDetails>("serviceAccountRoleOrganisation", ServiceAccountRoleOrganisationDetails)
   .createComplete<ServiceAccountRoleOrganisationInfos, ServiceAccountRoleOrganisationInfosDTO, CreateServiceAccountRoleOrganisationDTO, UpdateServiceAccountRoleOrganisationDTO, ServiceAccountRoleOrganisationFilters>(SERVICE_ACCOUNT_ROLE_ORGANISATIONS_URL, SERVICE_ACCOUNT_ROLE_ORGANISATION_URL, ServiceAccountRoleOrganisationInfos);
 
 export const useServiceAccountRoleOrganisation = ComposableFactory.get(ServiceAccountRoleOrganisationServiceFactory);

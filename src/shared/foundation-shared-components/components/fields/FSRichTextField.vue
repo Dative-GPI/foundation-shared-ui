@@ -501,11 +501,11 @@ export default defineComponent({
           return;
         }
         const editorModelValue = JSON.stringify(editorState.toJSON());
-        if(editorModelValue === emptyLexicalState) {
+        if(editorModelValue === emptyLexicalState && props.modelValue !== null) {
           emit("update:modelValue", null);
           return;
         }
-        if(editorModelValue !== props.modelValue) {
+        if(editorModelValue !== emptyLexicalState && editorModelValue !== props.modelValue) {
           emit("update:modelValue", editorModelValue);
         }
       });
@@ -674,21 +674,16 @@ export default defineComponent({
         return;
       }
       if (props.modelValue != null) {
-        editor.update(() => {
-          if (typeof props.modelValue === "string") {
-            if (props.modelValue !== "") {
-              editor.setEditorState(editor.parseEditorState(props.modelValue!));
-            }
-          }
-          else {
-            editor.setEditorState(editor.parseEditorState(JSON.stringify(props.modelValue)));
-          }
-        });
-        return;
+        if (typeof props.modelValue === "string" && props.modelValue !== "") {
+          editor.setEditorState(editor.parseEditorState(props.modelValue!));
+          return;
+        }
+        if (typeof props.modelValue === "object") {
+          editor.setEditorState(editor.parseEditorState(JSON.stringify(props.modelValue)));
+          return;
+        }
       }
-      editor.update(() => {
-        editor.setEditorState(editor.parseEditorState(emptyLexicalState));
-      });
+      editor.setEditorState(editor.parseEditorState(emptyLexicalState));
     }
 
     watch(() => props.modelValue, () => {

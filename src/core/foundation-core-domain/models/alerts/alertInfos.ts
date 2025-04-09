@@ -16,6 +16,8 @@ export class AlertInfos {
   deviceOrganisationImageId: string | null;
   deviceOrganisationCode: string;
   deviceOrganisationLabel: string;
+  deviceOrganisationLocationLabel: string | null;
+  deviceOrganisationOwnerLabel: string | null;
   icon: string;
   code: string;
   label: string;
@@ -48,6 +50,8 @@ export class AlertInfos {
     this.deviceOrganisationImageId = params.deviceOrganisationImageId;
     this.deviceOrganisationCode = params.deviceOrganisationCode;
     this.deviceOrganisationLabel = params.deviceOrganisationLabel;
+    this.deviceOrganisationLocationLabel = params.deviceOrganisationLocationLabel;
+    this.deviceOrganisationOwnerLabel = params.deviceOrganisationOwnerLabel;
     this.icon = params.icon;
     this.code = params.code;
     this.label = params.label;
@@ -89,6 +93,8 @@ export interface AlertInfosDTO {
   deviceOrganisationImageId: string | null;
   deviceOrganisationCode: string;
   deviceOrganisationLabel: string;
+  deviceOrganisationLocationLabel: string | null;
+  deviceOrganisationOwnerLabel: string | null;
   icon: string;
   code: string;
   label: string;

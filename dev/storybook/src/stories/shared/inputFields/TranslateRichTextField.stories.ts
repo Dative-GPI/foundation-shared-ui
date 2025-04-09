@@ -63,6 +63,7 @@ export const TranslationObject: Story = {
     template: `
     <FSCol>
       <FSTranslateRichTextField
+        @update:modelValue="args['onUpdate:modelValue']"
         v-model:translationsExpanded="args.translationsExpanded"
         v-model:modelValue="args.modelValue"
         v-model:translations="args.translations"
