@@ -2,6 +2,7 @@
   <FSTile
     :width="['275px','336px']"
     :height="['124px','156px']"
+    :editable="$props.editable"
     borderRadius="8px"
     v-bind="$attrs"
   >
@@ -99,6 +100,11 @@ export default defineComponent({
       type: Number as PropType<ChartType>,
       required: false,
       default: ChartType.None
+    },
+    editable: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   setup() {

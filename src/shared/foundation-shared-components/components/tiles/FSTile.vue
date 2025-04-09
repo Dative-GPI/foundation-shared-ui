@@ -4,58 +4,54 @@
     :height="$props.height"
     :width="$props.width"
   >
-    <template
-      v-if="$props.editable"
+    <FSClickable
+      v-if="$props.editable && $props.singleSelect"
+      padding="12px"
+      :variant="variant"
+      :color="color"
+      :style="style"
+      :to="$props.to"
+      :href="$props.href" 
+      width="100%"
+      height="100%"
+      @click="() => $emit('update:modelValue', !$props.modelValue)"
+      v-bind="$attrs"
     >
-      <FSClickable
-        v-if="$props.singleSelect"
-        padding="12px"
-        :variant="variant"
-        :color="color"
-        :style="style"
-        width="100%"
-        height="100%"
-        @click="() => $emit('update:modelValue', !$props.modelValue)"
-        v-bind="$attrs"
+      <slot />
+    </FSClickable>
+
+    
+    <FSClickable
+      v-else-if="$props.editable && ($props.href || $props.to || $attrs.onClick)"
+      variant="background"
+      class="fs-tile"
+      padding="12px"
+      :href="$props.href"
+      width="100%"
+      height="100%"
+      :to="$props.to"
+      :style="style"
+      v-bind="$attrs"
+    >
+      <slot />
+      <FSCard
+        class="fs-tile-checkbox"
+        :height="['40px', '32px']"
+        :width="['40px', '32px']"
+        :border="false"
       >
-        <slot />
-      </FSClickable>
-      <FSClickable
-        v-else-if="$props.href || $props.to || $attrs.onClick"
-        variant="background"
-        class="fs-tile"
-        padding="12px"
-        :color="ColorEnum.Background"
-        :href="$props.href"
-        width="100%"
-        height="100%"
-        :to="$props.to"
-        :style="style"
-        v-bind="$attrs"
-      >
-        <slot />
-        <FSCard
-          v-if="$props.editable"
-          class="fs-tile-checkbox"
-          variant="background"
-          :height="['40px', '32px']"
-          :width="['40px', '32px']"
-          :border="false"
-          v-bind="$attrs"
-        >
-          <FSCheckbox
-            :modelValue="$props.modelValue"
-            @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
-          />
-        </FSCard>
-      </FSClickable>
-    </template>
+        <FSCheckbox
+          :modelValue="$props.modelValue"
+          @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
+        />
+      </FSCard>
+    </FSClickable>
+    
     <FSCard
       v-else
       variant="background"
       class="fs-tile"
       padding="12px"
-      :color="color"
       :style="style"
       width="100%"
       height="100%"
@@ -69,7 +65,6 @@
         :height="['40px', '32px']"
         :width="['40px', '32px']"
         :border="false"
-        v-bind="$attrs"
       >
         <FSCheckbox
           :modelValue="$props.modelValue"

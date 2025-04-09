@@ -3,22 +3,15 @@ import { PermissionInfos, type PermissionInfosDTO } from "@dative-gpi/foundation
 import { ServiceAccountOrganisationInfos, type ServiceAccountOrganisationInfosDTO } from "./serviceAccountOrganisationInfos";
 
 export class ServiceAccountOrganisationDetails extends ServiceAccountOrganisationInfos {
-  languageCode: string;
-  timeZoneId: string;
   permissions: PermissionInfos[];
 
   constructor(params: ServiceAccountOrganisationDetailsDTO) {
     super(params);
-    
-    this.languageCode = params.languageCode;
-    this.timeZoneId = params.timeZoneId;
     this.permissions = params.permissions.map(dto => new PermissionInfos(dto));
   }
 }
 
 export interface ServiceAccountOrganisationDetailsDTO extends ServiceAccountOrganisationInfosDTO {
-  languageCode: string;
-  timeZoneId: string;
   permissions: PermissionInfosDTO[];
 }
 

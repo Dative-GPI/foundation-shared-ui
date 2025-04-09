@@ -17,3 +17,4 @@ export * from "./roles";
 export * from "./times";
 export * from "./users";
 export * from "./widgetTemplates";
+export * from "./reports";
