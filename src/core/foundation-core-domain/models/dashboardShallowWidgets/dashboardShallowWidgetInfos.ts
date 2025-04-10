@@ -15,16 +15,16 @@ const clean = <T>(meta: T): T => {
 }
 
 export class DashboardShallowWidgetInfos {
-  widgetId: string;
+  hiddenCode: string;
   meta: { [key: string]: string };
 
   constructor(params: DashboardShallowWidgetInfosDTO) {
-    this.widgetId = params.widgetId;
+    this.hiddenCode = params.hiddenCode;
     this.meta = clean(params.meta);
   }
 }
   
 export interface DashboardShallowWidgetInfosDTO {
-  widgetId: string;
+  hiddenCode: string;
   meta: { [key: string]: string };
 }

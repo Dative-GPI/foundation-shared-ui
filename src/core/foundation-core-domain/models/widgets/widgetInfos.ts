@@ -16,6 +16,7 @@ const clean = <T>(meta: T): T => {
 
 export class WidgetInfos {
     id: string;
+    hiddenCode: string;
     templateType: WidgetTemplateType;
     templateId: string;
     hideBorders: boolean;
@@ -28,6 +29,7 @@ export class WidgetInfos {
 
     constructor(params: WidgetInfosDTO) {
         this.id = params.id;
+        this.hiddenCode = params.hiddenCode;
         this.templateType = params.templateType;
         this.templateId = params.templateId;
         this.hideBorders = params.hideBorders;
@@ -42,6 +44,7 @@ export class WidgetInfos {
   
 export interface WidgetInfosDTO {
     id: string;
+    hiddenCode: string;
     templateType: WidgetTemplateType;
     templateId: string;
     hideBorders: boolean;

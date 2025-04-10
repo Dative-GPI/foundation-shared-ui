@@ -12,6 +12,7 @@ export interface WidgetDetailsDTO extends WidgetInfosDTO {
 }
 
 export interface CreateWidgetDTO {
+    hiddenCode: string;
     templateType: WidgetTemplateType;
     templateId: string;
     hideBorders: boolean;

@@ -2,6 +2,7 @@ import type { WidgetTemplateType } from '@dative-gpi/foundation-shared-domain/en
 
 export interface Widget {
   id: string;
+  hiddenCode: string;
   templateType: WidgetTemplateType;
   templateId: string;
   hideBorders: boolean;
