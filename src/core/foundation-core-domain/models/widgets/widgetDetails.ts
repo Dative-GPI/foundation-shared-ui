@@ -1,3 +1,4 @@
+import type { WidgetTemplateType } from '@dative-gpi/foundation-shared-domain/enums/widgetTemplates';
 import type { WidgetInfosDTO } from "./widgetInfos";
 import { WidgetInfos } from "./widgetInfos";
 
@@ -11,6 +12,8 @@ export interface WidgetDetailsDTO extends WidgetInfosDTO {
 }
 
 export interface CreateWidgetDTO {
+    hiddenCode: string;
+    templateType: WidgetTemplateType;
     templateId: string;
     hideBorders: boolean;
     width: number;

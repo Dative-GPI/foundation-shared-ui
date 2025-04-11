@@ -1,4 +1,4 @@
 export interface CreateDashboardShallowWidgetDTO {
-  widgetId: string;
+  hiddenCode: string;
   meta: { [key: string]: string };
 }

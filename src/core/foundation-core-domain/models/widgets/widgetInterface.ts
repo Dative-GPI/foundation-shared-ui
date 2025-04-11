@@ -1,5 +1,9 @@
+import type { WidgetTemplateType } from '@dative-gpi/foundation-shared-domain/enums/widgetTemplates';
+
 export interface Widget {
   id: string;
+  hiddenCode: string;
+  templateType: WidgetTemplateType;
   templateId: string;
   hideBorders: boolean;
   width: number;
