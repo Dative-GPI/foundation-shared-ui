@@ -1,7 +1,7 @@
 <template>
   <FSTextField
     :type="type"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -20,7 +20,7 @@
     >
       <FSButton
         variant="icon"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :color="ColorEnum.Dark"
         :icon="icon"
         @click="onToggle"
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref } from "vue";
+import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
 
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -53,10 +53,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -69,7 +69,7 @@ export default defineComponent({
     const stars = ref(true);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-password-field-cursor"   : "default",
           "--fs-password-field-color": lights.dark,
@@ -88,7 +88,7 @@ export default defineComponent({
     const icon = computed((): string => stars.value ? "mdi-eye-off-outline" : "mdi-eye-outline");
 
     const onToggle = (): void => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       stars.value = !stars.value;

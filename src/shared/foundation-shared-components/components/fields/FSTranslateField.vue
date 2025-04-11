@@ -1,6 +1,6 @@
 <template>
   <FSTextField
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -44,7 +44,7 @@
       >
         <FSTextField
           :label="$tr('ui.common.default-value', 'Default value')"
-          :editable="false"
+          :disabled="$props.disabled"
           :modelValue="$props.modelValue"
         />
         <FSCol
@@ -52,7 +52,7 @@
         >
           <FSTextField
             v-for="(language, index) in languages"
-            :editable="$props.editable"
+            :disabled="$props.disabled"
             :key="index"
             :modelValue="getTranslation(language.code)"
             @update:modelValue="setTranslation(language.code, $event)"
@@ -149,10 +149,10 @@ export default defineComponent({
       required: false,
       default: ColorEnum.Primary
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue", "update:translations"],
@@ -171,7 +171,7 @@ export default defineComponent({
     const darks = getColors(ColorEnum.Dark);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-translate-field-color": lights.dark
         };
@@ -214,7 +214,7 @@ export default defineComponent({
 
     const onSubmit = (): void => {
       dialog.value = false;
-      if (props.editable) {
+      if (!props.disabled) {
         emit("update:translations", innerTranslations.value);
       }
     };

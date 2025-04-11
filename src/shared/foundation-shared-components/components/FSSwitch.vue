@@ -15,6 +15,7 @@
         :rules="$props.rules"
         :ripple="false"
         :style="style"
+        :disabled="$props.disabled"
         :modelValue="$props.modelValue"
         @update:modelValue="onToggle"
         v-bind="$attrs"
@@ -51,6 +52,7 @@
           class="fs-switch"
           hide-details
           inset
+          :disabled="$props.disabled"
           :validateOn="validateOn"
           :rules="$props.rules"
           :ripple="false"
@@ -117,10 +119,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -135,7 +137,7 @@ export default defineComponent({
     const darks = getColors(ColorEnum.Dark);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-switch-translate-x": props.modelValue ? "8px" : "-8px",
           "--fs-switch-cursor"     : "default",
@@ -167,7 +169,7 @@ export default defineComponent({
     const messages = computed((): string[] => props.messages ?? getMessages(props.modelValue, props.rules));
 
     const onToggle = (): void => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       emit("update:modelValue", !props.modelValue);

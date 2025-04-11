@@ -4,7 +4,7 @@
     :loading="fetchingDeviceOrganisations"
     :singleSelect="$props.singleSelect"
     :headersOptions="headersOptions"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="$props.tableCode"
     :items="deviceOrganisations"
     :itemTo="$props.itemTo"
@@ -68,7 +68,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -142,6 +142,7 @@
     >
       <FSDeviceOrganisationTileUI
         :to="$props.itemTo && $props.itemTo(item)"
+        :selectable="$props.selectable"
         :deviceConnectivity="item.connectivity"
         :deviceStatuses="item.status.statuses"
         :deviceWorstAlert="item.worstAlert"
@@ -219,7 +220,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

@@ -1,68 +1,41 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
+import { DashboardType } from '@dative-gpi/foundation-shared-domain/enums';
+
+import { VAutocomplete } from 'vuetify/components';
+import FSAutocompleteField from '@dative-gpi/foundation-shared-components/components/fields/FSAutocompleteField.vue';
 import FSAutocompleteDashboard from "@dative-gpi/foundation-core-components/components/autocompletes/FSAutocompleteDashboard.vue";
-import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
-const meta = {
+const meta: Meta<typeof FSAutocompleteDashboard> = {
   title: 'Foundation/Core/Autocompletes/AutocompleteDashboard',
   component: FSAutocompleteDashboard,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addSubcomponentsArgTypes([FSAutocompleteField, VAutocomplete], FSAutocompleteDashboard),
+    ...addComponentEmits(FSAutocompleteDashboard),
   },
-} satisfies Meta<typeof FSAutocompleteDashboard>;
+};
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-export const Variations: Story = {
-  args: {
-    args: {
-      value1: null,
-      type1: 0,
-      value2: null,
-      type2: 0,
-      value3: null,
-      type3: 0,
-      value4: null,
-      type4: 0
-    }
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSAutocompleteDashboard, FSCol },
-    props: Object.keys(argTypes),
+export const Default: Story = {
+  render: (args) => ({
+    components: { FSAutocompleteDashboard },
     setup() {
-      return { ...args };
+      return { args };
     },
     template: `
-    <FSCol>
-      <FSAutocompleteDashboard
-        label="Dashboard"
-        v-model="args.value1"
-        v-model:type="args.type1"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteDashboard
-        label="Dashboard with toggleset disabled"
-        :toggleSetDisabled="true"
-        v-model="args.value2"
-        v-model:type="args.type2"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteDashboard
-        label="Dashboard with multiple"
-        :multiple="true"
-        v-model="args.value3"
-        v-model:type="args.type3"
-      />
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSAutocompleteDashboard
-        label="Dashboard with multiple and toggleSet disabled"
-        :multiple="true"
-        :toggleSetDisabled="true"
-        v-model="args.value4"
-        v-model:type="args.type4"
-      />
-    </FSCol>`
-  })
-}
+    <FSAutocompleteDashboard
+      v-model="args.modelValue"
+      v-model:type="args.type"
+      v-bind="args"
+    />`
+  }),
+  args: {
+    modelValue: [],
+    type: DashboardType.None,
+  },
+};

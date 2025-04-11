@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSBaseDashboardOrganisationTypesList from "@dative-gpi/foundation-core-components/components/lists/dashboardOrganisationTypes/FSBaseDashboardOrganisationTypesList.vue";
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
+import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
+import FSBaseDashboardOrganisationTypesList from "@dative-gpi/foundation-core-components/components/lists/dashboardOrganisationTypes/FSBaseDashboardOrganisationTypesList.vue";
 
 const meta: Meta<typeof FSBaseDashboardOrganisationTypesList> = {
   title: 'Foundation/Core/Lists/Base Lists/BaseDashboardOrganisationTypesList',
@@ -9,6 +12,12 @@ const meta: Meta<typeof FSBaseDashboardOrganisationTypesList> = {
   subcomponents: { FSDataTable },
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseDashboardOrganisationTypesList),
+    ...addComponentEmits(FSBaseDashboardOrganisationTypesList),
+    tableCode: {
+      control: 'select',
+      options: ['dashboardOrganisationTypes1'],
+    }
   },
 };
 
@@ -23,7 +32,8 @@ export const Default: Story = {
     },
     template: `
       <FSBaseDashboardOrganisationTypesList
-        :tableCode="args.tableCode"
+        v-bind="args"
+        v-model:modelValue="args.modelValue"
       />
     `,
   }),

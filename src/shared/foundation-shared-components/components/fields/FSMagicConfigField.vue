@@ -3,10 +3,11 @@
     class="fs-magic-config-field"
   >
     <component
+      v-if="$props.type"
       class="fs-magic-config-field-value"
       :is="get($props.type)"
       :label="$tr('ui.common.value', 'Value')"
-      :editable="$props.editable"
+      :disabled="$props.disabled"
       :required="true"
       :rules="rules"
       :modelValue="valueToInput"
@@ -17,7 +18,7 @@
     >
       <FSTranslateField
         :label="$tr('ui.common.label', 'Label')"
-        :editable="$props.editable"
+        :disabled="$props.disabled"
         :modelValue="$props.labelDefault"
         :translations="$props.translations"
         @update:modelValue="$emit('update:labelDefault', $event)"
@@ -80,10 +81,10 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["click:remove", "click:add", "update:modelValue", "update:labelDefault", "update:translations"],

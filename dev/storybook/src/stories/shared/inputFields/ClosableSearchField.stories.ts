@@ -1,17 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSClosableSearchField from "@dative-gpi/foundation-shared-components/components/fields/FSClosableSearchField.vue";
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 import FSTextField from '@dative-gpi/foundation-shared-components/components/fields/FSTextField.vue';
+import FSSearchField from '@dative-gpi/foundation-shared-components/components/fields/FSSearchField.vue';
+import FSClosableSearchField from "@dative-gpi/foundation-shared-components/components/fields/FSClosableSearchField.vue";
 
 const meta = {
   title: 'Foundation/Shared/Input fields/ClosableSearchField',
   component: FSClosableSearchField,
-  subcomponents: { FSTextField },
   tags: ['autodocs'],
   argTypes: {
-    "onUpdate:modelValue": { action: "update:modelValue" },
-    "onClose": { action: "close" }
+    ...addSubcomponentsArgTypes([FSTextField, FSSearchField], FSClosableSearchField),
+    ...addComponentEmits(FSClosableSearchField),
   },
 } satisfies Meta<typeof FSClosableSearchField>;
 
@@ -20,16 +22,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Variations: Story = {
   args: {
-    modelValue: '',
-    appendInnerIcon: 'mdi-close',
-    unfocusOnClose: true,
-    clearOnClose: true,
-    closable: true,
-
-    placeholder: 'Type here...',
-    label: 'Search',
-    hideHeader: false,
-    editable: true,
   },
   render: (args, { argTypes }) => ({
     components: { FSClosableSearchField, FSCol },

@@ -3,7 +3,7 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :label="$props.label"
   >
     <FSRow
@@ -15,6 +15,7 @@
         :label="$tr('ui.instant-picker.analyze-period', 'Analyze Period')"
         :startDate="$props.startDate"
         :endDate="$props.endDate"
+        :disabled="$props.disabled"
         @update:startDate="$emit('update:startDate', $event)"
         @update:endDate="$emit('update:endDate', $event)"
       />
@@ -27,6 +28,7 @@
         >
           <FSSlider
             minWidth='min(300px, 90vw)'
+            :disabled="$props.disabled"
             :color="ColorEnum.Light"
             :thumbColor="ColorEnum.Primary"
             :thumbSize="18"
@@ -72,6 +74,7 @@
         </FSCol>
         <FSPlayButtons
           v-if="$props.playable"
+          :disabled="$props.disabled"
           :modelValue="playing"
           @click:backward="onClickBackward"
           @click:forward="onClickForward"
@@ -142,10 +145,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     playable: {
       type: Boolean,

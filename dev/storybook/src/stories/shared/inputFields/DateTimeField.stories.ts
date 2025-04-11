@@ -70,10 +70,10 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSDateTimeField
-        label="Uneditable date & time, error color, with description"
-        description="Uneditable description"
+        label="Disabled date & time, error color, with description"
+        description="Disabled description"
         color="error"
-        :editable="false"
+        :disabled="true"
         v-model="args.value3"
       />
     </FSCol>`

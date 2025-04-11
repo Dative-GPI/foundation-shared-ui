@@ -48,9 +48,9 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSTextArea
-        label="Uneditable text, 1 row"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled text, 1 row"
+        description="Disabled description"
+        :disabled="true"
         :autoGrow="false"
         :rows="1"
         v-model="args.value3"

@@ -12,7 +12,7 @@
         variant="standard"
         :height="['30px', '24px']"
         :color="ColorEnum.Dark"
-        :editable="true"
+        :clickable="true"
         :label="label"
         v-bind="props"
       />
@@ -40,7 +40,7 @@
             :height="['30px', '24px']"
             :variant="getAllVariant()"
             :color="$props.color"
-            :editable="true"
+            :clickable="true"
             @click="onToggleAll"
           />
           <FSDivider />
@@ -63,7 +63,7 @@
               :height="['30px', '24px']"
               :color="$props.color"
               :label="filter.text"
-              :editable="true"
+              :clickable="true"
               :key="index"
               @click="() => onToggle(filter)"
             >

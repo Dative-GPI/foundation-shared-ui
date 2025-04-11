@@ -5,13 +5,13 @@
     :modelValue="$props.modelValue"
   >
     <FSWrapGroup
-      v-if="['wrap'].includes($props.variant)"
+      v-if="$props.variant && ['wrap'].includes($props.variant)"
       ref="toggleSetRef"
       :padding="$props.padding"
       :gap="$props.gap"
     >
       <template
-        v-if="$props.values.length"
+        v-if="$props.values && $props.values.length"
       >
         <template
           v-if="!$slots.item"
@@ -20,7 +20,7 @@
             v-for="(item, index) in $props.values"
             :prependIcon="item.prependIcon"
             :appendIcon="item.appendIcon"
-            :editable="$props.editable"
+            :disabled="$props.disabled"
             :variant="getVariant(item)"
             :color="getColor(item)"
             :class="getClass(item)"
@@ -54,7 +54,7 @@
       :gap="$props.gap"
     >
       <template
-        v-if="$props.values.length"
+        v-if="$props.values && $props.values.length"
       >
         <template
           v-if="!$slots.item"
@@ -63,7 +63,7 @@
             v-for="(item, index) in $props.values"
             :prependIcon="item.prependIcon"
             :appendIcon="item.appendIcon"
-            :editable="$props.editable"
+            :disabled="$props.disabled"
             :variant="getVariant(item)"
             :color="getColor(item)"
             :class="getClass(item)"
@@ -197,10 +197,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

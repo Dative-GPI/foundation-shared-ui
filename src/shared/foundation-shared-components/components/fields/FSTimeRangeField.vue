@@ -3,7 +3,7 @@
     :description="$props.description"
     :hideHeader="$props.hideHeader"
     :required="$props.required"
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
   >
@@ -13,7 +13,7 @@
       >
         <FSSelectField
           :validationValue="$props.modelValue"
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :validateOn="validateOn"
           :rules="$props.rules"
           :items="daysItems"
@@ -23,7 +23,7 @@
           @update:modelValue="onChangeDayStart"
         />
         <FSClock
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Light"
           :slider="false"
           :modelValue="startTime"
@@ -34,7 +34,7 @@
         :wrap="false"
       >
         <FSSelectField
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :items="daysItems"
           :hideHeader="true"
           :clearable="false"
@@ -42,7 +42,7 @@
           @update:modelValue="onChangeDayEnd"
         />
         <FSClock
-          :editable="$props.editable"
+          :disabled="$props.disabled"
           :color="ColorEnum.Light"
           :slider="false"
           :modelValue="endTime"
@@ -123,10 +123,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     showVariant: {
       type: Boolean,

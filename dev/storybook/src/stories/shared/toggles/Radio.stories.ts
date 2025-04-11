@@ -52,8 +52,8 @@ export const Variations: Story = {
       <FSText> Warning color </FSText>
       <FSRadioGroup :values="args.options2" v-model="args.value2" color="warning" />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSText> Primary color, uneditable </FSText>
-      <FSRadioGroup :values="args.options3" v-model="args.value3" :editable="false" />
+      <FSText> Primary color, disabled </FSText>
+      <FSRadioGroup :values="args.options3" v-model="args.value3" :disabled="true" />
     </div>`
   })
 }

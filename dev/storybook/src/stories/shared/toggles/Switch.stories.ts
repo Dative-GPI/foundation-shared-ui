@@ -54,11 +54,11 @@ export const Variations: Story = {
         <FSSwitch v-model="args.value6" color="success" label="Third switch"  description="Description of the third switch" />
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSText font="text-h3"> Primary color, uneditable </FSText>
+      <FSText font="text-h3"> Primary color, disabled </FSText>
       <div style="display: flex; flex-direction: column; gap: 8px;">
-        <FSSwitch :modelValue="false" :editable="false" />
-        <FSSwitch :modelValue="true"  :editable="false" label="Second switch (disabled)" />
-        <FSSwitch :modelValue="false" :editable="false" label="Third switch (disabled)" description="Description of the third switch" />
+        <FSSwitch :modelValue="false" :disabled="true" />
+        <FSSwitch :modelValue="true" :disabled="true" label="Second switch (disabled)" />
+        <FSSwitch :modelValue="false" :disabled="true" label="Third switch (disabled)" description="Description of the third switch" />
       </div>
     </div>`
   })

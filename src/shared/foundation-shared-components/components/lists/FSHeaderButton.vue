@@ -35,7 +35,7 @@
             variant="borderless"
             :label="$tr('data-table.hide-column', 'Hide column')"
             :height="[30, 24]"
-            :editable="true"
+            :clickable="true"
             @click="$emit('update:hide')"
           />
           <FSChip
@@ -45,7 +45,7 @@
             prependIcon="mdi-chevron-left"
             :label="$tr('data-table.move-left', 'Move to the left')"
             :height="[30, 24]"
-            :editable="true"
+            :clickable="true"
             @click="$emit('update:left')"
           />
           <FSChip
@@ -55,7 +55,7 @@
             prependIcon="mdi-chevron-right"
             :label="$tr('data-table.move-right', 'Move to the right')"
             :height="[30, 24]"
-            :editable="true"
+            :clickable="true"
             @click="$emit('update:right')"
           />
         </FSCol>

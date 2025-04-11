@@ -8,7 +8,6 @@ const meta = {
   component: FSSlider,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSSlider>;
 
@@ -59,9 +58,8 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSSlider
-        label="Uneditable"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled"
+        :disabled="true"
         v-model="args.value4"
       />
     </FSCol>`
