@@ -2,6 +2,9 @@ import { computed, ref } from "vue";
 
 const timeZone = ref<string | undefined>(undefined);
 
+const currentUserOffset = ref<number | null>(null);
+const currentMachineOffset = ref<number | null>(null);
+
 export const useAppTimeZone = () => {
   const setAppTimeZone = (payload: string) => {
     timeZone.value = payload;
@@ -54,18 +57,38 @@ export const useAppTimeZone = () => {
   }
 
   const getOffsetDifference = (epoch: number | null = null): number => {
-    return getUserOffset(epoch) - getMachineOffset(epoch);
+    return cachedUserOffset(epoch) - cachedMachineOffset(epoch);
   };
 
   const ready = computed(() => timeZone.value !== null);
+
+  const cachedUserOffset = (epoch: number | null = null): number => {
+    if (epoch === null) {
+      if (currentUserOffset.value === null) {
+        currentUserOffset.value = getUserOffset();
+      }
+      return currentUserOffset.value;
+    }
+    return getUserOffset(epoch);
+  }
+
+  const cachedMachineOffset = (epoch: number | null = null): number => {
+    if (epoch === null) {
+      if (currentMachineOffset.value === null) {
+        currentMachineOffset.value = getMachineOffset();
+      }
+      return currentMachineOffset.value;
+    }
+    return getMachineOffset(epoch);
+  }
 
   return {
     ready,
     timeZone,
     setAppTimeZone,
-    getUserOffset,
+    getUserOffset: cachedUserOffset,
     getUserOffsetName,
-    getMachineOffset,
+    getMachineOffset: cachedMachineOffset,
     getMachineOffsetName,
     getOffsetDifference,
   };
