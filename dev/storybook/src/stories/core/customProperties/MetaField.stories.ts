@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits } from '@/utils/properties';
 
-import { PropertyDataType } from '@dative-gpi/foundation-shared-domain/enums';
+import { PropertyDataType, PropertyEntity } from '@dative-gpi/foundation-shared-domain/enums';
 
 import FSMetaField from "@dative-gpi/foundation-core-components/components/customProperties/FSMetaField.vue";
 import { CustomPropertyInfos } from '@dative-gpi/foundation-core-domain/models';
 
 const meta: Meta<typeof FSMetaField> = {
-  title: 'Foundation/Core/CustomProperties/MeatField',
+  title: 'Foundation/Core/CustomProperties/MetaField',
   component: FSMetaField,
   tags: ['autodocs'],
   argTypes: {
@@ -126,6 +126,43 @@ export const AllowedValues: Story = {
       colorMap: [],
       useOnlyAllowedValues: true,
       allowedValues: { "Alpha": "", "Beta" : "", "third.choice": "Charly (tr)" }
+    },
+    label: "Label",
+  },
+};
+
+export const Date: Story = {
+  render: (args) => ({
+    components: { FSMetaField },
+    setup() {
+      return { args };
+    },
+    template: `
+    <FSMetaField
+      v-model="args.modelValue"
+      v-model:type="args.type"
+      v-bind="args"
+    />`
+  }),
+  args: {
+    modelValue: "1744346065004",
+    customProperty: {
+      id: "1",
+      allowedValues: {},
+      categoryLabel: "Entretien",
+      code: "lastMaintenance",
+      defaultValue: "",
+      colorMap: [],
+      colorful: false,
+      dataType: 3,
+      entity: PropertyEntity.Device,
+      history: false,
+      historySize: 10,
+      index: 5,
+      label: "Dernière maintenance",
+      readOnlyAdmin: false,
+      readOnlyCore: true,
+      useOnlyAllowedValues: false
     },
     label: "Label",
   },

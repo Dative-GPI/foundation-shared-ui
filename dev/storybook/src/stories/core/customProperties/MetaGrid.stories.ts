@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSMetaGrid from "@dative-gpi/foundation-core-components/components/customProperties/FSMetaGrid.vue";
 import FSIcon from '@dative-gpi/foundation-shared-components/components/FSIcon.vue';
-import { FilterType, PropertyDataType } from '@dative-gpi/foundation-shared-domain/enums';
+import { FilterType, PropertyDataType, PropertyEntity } from '@dative-gpi/foundation-shared-domain/enums';
 
 const meta = {
   title: 'Foundation/Core/CustomProperties/MetaGrid',
@@ -52,7 +52,13 @@ export const Default: Story = {
       code: "meta.property2",
       value: "",
       hideDefault: true
-    }],
+    }, {
+      label: "Dernière maintenance",
+      code: "meta.lastMaintenance",
+      value: "",
+      hideDefault: true
+    }
+  ],
     customProperties: [{
       id: "3",
       code: "property1",
@@ -107,10 +113,54 @@ export const Default: Story = {
       }],
       useOnlyAllowedValues: false,
       allowedValues: {}
+    },
+    {
+      id: "1",
+      allowedValues: {},
+      categoryLabel: "Entretien",
+      code: "lastMaintenance",
+      defaultValue: "",
+      colorMap: [
+        {
+            "priority": 2,
+            "filterType": FilterType.More,
+            "filterValues": [
+              "now + 1M"
+            ],
+            "color": "#00FF00"
+        },
+        {
+            "priority": 1,
+            "filterType": FilterType.More,
+            "filterValues": [
+              "now + 4M"
+            ],
+            "color": "#00B0FF"
+        },
+        {
+          "priority": 0,
+          "filterType": FilterType.LessOrEqual,
+          "filterValues": [
+            "now + 4M"
+          ],
+          "color": "#FF0000"
+      }
+      ],
+      colorful: true,
+      dataType: 3,
+      entity: PropertyEntity.Device,
+      history: false,
+      historySize: 10,
+      index: 5,
+      label: "Dernière maintenance",
+      readOnlyAdmin: false,
+      readOnlyCore: true,
+      useOnlyAllowedValues: false
     }],
     meta: {
       property1: "meta1",
-      property2: "mdi-ab-testing"
+      property2: "mdi-ab-testing",
+      lastMaintenance: "1704346065004"
     }
   },
   render: (args) => ({
