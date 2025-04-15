@@ -1,7 +1,7 @@
 import { useAppTimeZone } from './app/useAppTimeZone';
 import { useDateFormat } from '@dative-gpi/foundation-shared-services/composables/useDateFormat';
 
-export const useTermFieldDate = () => {
+export const useDateExpression = () => {
   const { getOffsetDifference } = useAppTimeZone();
   const { parseForPicker } = useDateFormat();
 

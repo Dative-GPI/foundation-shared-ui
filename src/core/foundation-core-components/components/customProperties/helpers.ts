@@ -1,9 +1,9 @@
-import { useTermFieldDate } from "@dative-gpi/foundation-shared-services/composables";
+import { useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
 import { FilterType, PropertyDataType } from "@dative-gpi/foundation-shared-domain/enums";
 
 import { type CustomPropertyInfos,  } from "../../../foundation-core-domain/models";
 
-const { convert: convertExpressionToEpoch } = useTermFieldDate();
+const { convert: convertExpressionToEpoch } = useDateExpression();
 
 export const getColor = (property: CustomPropertyInfos, value: string): string | undefined => {
     if (property.colorful) {

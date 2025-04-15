@@ -88,7 +88,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from "vue";
 
-import { useDateFormat, useTermFieldDate } from "@dative-gpi/foundation-shared-services/composables";
+import { useDateFormat, useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
 
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-components/composables';
@@ -169,7 +169,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'update:startDate', 'update:endDate'],
   setup(props, { emit }) {
     const { epochToShortTimeOnlyFormat, epochToShortDateFormat, epochToDayMonthShortOnly, epochToISO, epochToMonthShortTimeFormat } = useDateFormat();
-    const { convert : convertTermToEpoch } = useTermFieldDate();
+    const { convert : convertTermToEpoch } = useDateExpression();
     const { isMobileSized, isExtraSmall } = useBreakpoints();
     const { getColors } = useColors();
 

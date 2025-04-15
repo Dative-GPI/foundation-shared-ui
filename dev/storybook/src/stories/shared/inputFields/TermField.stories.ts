@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { reactive, computed, ref } from 'vue';
 
-import { useDateFormat, useTermFieldDate } from '@dative-gpi/foundation-shared-services/composables';
+import { useDateFormat, useDateExpression } from '@dative-gpi/foundation-shared-services/composables';
 import { useAppTimeZone } from "@dative-gpi/foundation-shared-services/composables";
 
 import { addComponentEmits } from '@/utils/properties';
@@ -55,7 +55,7 @@ export const Default: Story = {
   }),
 };
 
-export const UseTermField: Story = {
+export const UseDateExpression: Story = {
   args: {
     startDate: 'now - 1d',
     endDate: 'now',
@@ -77,7 +77,7 @@ export const UseTermField: Story = {
       });
       
       const { setAppTimeZone, timeZone } = useAppTimeZone();
-      const { convert } = useTermFieldDate();
+      const { convert } = useDateExpression();
       const { epochToLongTimeFormat } = useDateFormat();
 
       const variables = ref({
@@ -148,7 +148,7 @@ export const UseTermField: Story = {
             <FSText
               font="text-h3"
             >
-              Evaluation de la date de début et de fin avec useTermFieldDate:
+              Evaluation de la date de début et de fin avec useDateExpression:
             </FSText>
             <FSRow>
               <FSText

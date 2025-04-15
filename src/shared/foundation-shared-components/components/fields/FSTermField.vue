@@ -88,7 +88,7 @@ import { computed, defineComponent, onMounted, type PropType, ref, watch } from 
 import _ from "lodash";
 
 import { DateRules, NumberRules, TextRules } from "@dative-gpi/foundation-shared-components/models";
-import { useDateFormat, useTermFieldDate } from "@dative-gpi/foundation-shared-services/composables";
+import { useDateFormat, useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
 import { useRules } from "@dative-gpi/foundation-shared-components/composables";
 import { DateSetting } from "@dative-gpi/foundation-shared-domain/enums";
 
@@ -171,7 +171,7 @@ export default defineComponent({
   emits: ["update", "update:startDate", "update:endDate"],
   setup(props, { emit }) {
     const { parseForPicker, epochToISO, todayToPicker, yesterdayToPicker } = useDateFormat();
-    const { convert: convertTermFieldToEpoch } = useTermFieldDate();
+    const { convert: convertTermFieldToEpoch } = useDateExpression();
     const { getMessages } = useRules();
 
     const innerDateSetting = ref<DateSetting>(DateSetting.PastDays);
