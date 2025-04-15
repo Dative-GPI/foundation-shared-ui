@@ -14,17 +14,17 @@ const clean = <T>(meta: T): T => {
   return newMeta;
 }
 
-export class DashboardShallowWidgetInfos {
+export class DashboardWidgetOverrideInfos {
   hiddenCode: string;
   meta: { [key: string]: string };
 
-  constructor(params: DashboardShallowWidgetInfosDTO) {
+  constructor(params: DashboardWidgetOverrideInfosDTO) {
     this.hiddenCode = params.hiddenCode;
     this.meta = clean(params.meta);
   }
 }
   
-export interface DashboardShallowWidgetInfosDTO {
+export interface DashboardWidgetOverrideInfosDTO {
   hiddenCode: string;
   meta: { [key: string]: string };
 }

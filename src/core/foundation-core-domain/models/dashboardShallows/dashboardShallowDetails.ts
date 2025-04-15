@@ -1,7 +1,7 @@
 import { type CreateDashboardShallowEntityPresetDTO, DashboardShallowEntityPresetInfos, type DashboardShallowEntityPresetInfosDTO } from "../dashboardShallowEntityPresets";
 import { type CreateDashboardShallowDatePresetDTO, DashboardShallowDatePresetInfos, type DashboardShallowDatePresetInfosDTO } from "../dashboardShallowDatePresets";
 import { type CreateDashboardShallowVariableDTO, DashboardShallowVariableInfos, type DashboardShallowVariableInfosDTO } from "../dashboardShallowVariables";
-import { type CreateDashboardShallowWidgetDTO, DashboardShallowWidgetInfos, type DashboardShallowWidgetInfosDTO } from "../dashboardShallowWidgets";
+import { type CreateDashboardWidgetOverrideDTO, DashboardWidgetOverrideInfos, type DashboardWidgetOverrideInfosDTO } from "../dashboardWidgetOverrides";
 import { DashboardEntityPresetInfos, type DashboardEntityPresetInfosDTO } from "../dashboardEntityPresets";
 import { DashboardDatePresetInfos, type DashboardDatePresetInfosDTO } from "../dashboardDatePresets";
 import { DashboardVariableInfos, type DashboardVariableInfosDTO } from "../dashboardVariables";
@@ -26,7 +26,7 @@ export class DashboardShallowDetails extends DashboardShallowInfos {
   overrideDatePresets: DashboardShallowDatePresetInfos[];
   overrideEntityPresets: DashboardShallowEntityPresetInfos[];
   overrideVariables: DashboardShallowVariableInfos[];
-  overrideWidgets: DashboardShallowWidgetInfos[];
+  overrideWidgets: DashboardWidgetOverrideInfos[];
 
   get datePresets() : DashboardDatePresetInfos[] {
     return this.defaultDatePresets.map(d => {
@@ -66,7 +66,7 @@ export class DashboardShallowDetails extends DashboardShallowInfos {
     this.overrideDatePresets = params.overrideDatePresets.map(dto => new DashboardShallowDatePresetInfos(dto));
     this.overrideEntityPresets = params.overrideEntityPresets.map(dto => new DashboardShallowEntityPresetInfos(dto));
     this.overrideVariables = params.overrideVariables.map(dto => new DashboardShallowVariableInfos(dto));
-    this.overrideWidgets = params.overrideWidgets.map(dto => new DashboardShallowWidgetInfos(dto));
+    this.overrideWidgets = params.overrideWidgets.map(dto => new DashboardWidgetOverrideInfos(dto));
 
     this.entityPresetCode = params.entityPresetCode;
     this.datePresetCode = params.datePresetCode;
@@ -84,7 +84,7 @@ export interface DashboardShallowDetailsDTO extends DashboardShallowInfosDTO {
   overrideDatePresets: DashboardShallowDatePresetInfosDTO[];
   overrideEntityPresets: DashboardShallowEntityPresetInfosDTO[];
   overrideVariables: DashboardShallowVariableInfosDTO[];
-  overrideWidgets: DashboardShallowWidgetInfosDTO[];
+  overrideWidgets: DashboardWidgetOverrideInfosDTO[];
   translations: DashboardTranslationDTO[];
   dashboardId: string;
   scope: number;
@@ -113,7 +113,7 @@ export interface UpdateDashboardShallowDTO {
   overrideDatePresets: CreateDashboardShallowDatePresetDTO[];
   overrideEntityPresets: CreateDashboardShallowEntityPresetDTO[];
   overrideVariables: CreateDashboardShallowVariableDTO[];
-  overrideWidgets: CreateDashboardShallowWidgetDTO[];
+  overrideWidgets: CreateDashboardWidgetOverrideDTO[];
   translations: DashboardTranslationDTO[];
 }
 
