@@ -179,7 +179,7 @@ export default defineComponent({
   },
   emits: ["update", "update:startDate", "update:endDate"],
   setup(props, { emit }) {
-    const { parseForPicker, epochToISO, todayToPicker, yesterdayToPicker } = useDateFormat();
+    const { parseForPicker, epochToISO } = useDateFormat();
     const { getMessages } = useRules();
 
     const innerDateSetting = ref<DateSetting>(DateSetting.PastDays);

@@ -44,8 +44,10 @@
   <FSDateTimeRangeDialog
     :title="$props.label"
     :submitButtonColor="$props.color"
-    v-model:dialog="dialog"
+    :dialog="dialog"
     :modelValue="$props.modelValue"
+    :color="$props.color"
+    @cancel="dialog = false"
     @update:modelValue="onSubmit($event)"
   />
 </template>

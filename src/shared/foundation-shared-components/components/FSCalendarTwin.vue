@@ -1,7 +1,5 @@
 <template>
-  <FSCol
-    width="hug"
-  >
+  <FSCol>
     <FSRow>
       <FSSelectField
         :hideHeader="true"
@@ -22,8 +20,6 @@
     <FSRow
       class="fs-calendar-twin"
       align="top-center"
-      width="hug"
-      :height="['380px', '375px']"
       :style="style"
     >
       <FSCol
