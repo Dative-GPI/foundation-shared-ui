@@ -14,7 +14,6 @@ const meta = {
   component: FSDateField,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSDateField>;
 
@@ -70,10 +69,9 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSDateField
-        label="Uneditable date, error color, with description"
-        description="Uneditable description"
+        label="Disabled date, error color, with description"
         color="error"
-        :editable="false"
+        :disabled="true"
         v-model="args.value3"
       />
     </FSCol>`

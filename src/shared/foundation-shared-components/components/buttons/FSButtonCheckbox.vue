@@ -1,6 +1,6 @@
 <template>
   <FSButton
-    :editable="$props.editable"
+    :disabled="$props.disabled"
     :prependIcon="prependIcon"
     :load="$props.load"
     :variant="variant"
@@ -40,10 +40,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -57,7 +57,7 @@ export default defineComponent({
     });
 
     const onClick = (): void => {
-      if (props.editable && !props.load) {
+      if (!props.disabled && !props.load) {
         emit("update:modelValue", !props.modelValue);
       }
     };

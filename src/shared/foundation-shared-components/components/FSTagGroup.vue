@@ -6,7 +6,7 @@
     <FSTag
       v-for="(tag, index) in $props.tags"
       :variant="$props.tagVariant"
-      :editable="$props.editable"
+      :showRemove="$props.showRemove"
       :color="$props.color"
       :label="tag"
       :key="index"
@@ -21,7 +21,7 @@
     <FSTag
       v-for="(tag, index) in $props.tags"
       :variant="$props.tagVariant"
-      :editable="$props.editable"
+      :showRemove="$props.showRemove"
       :color="$props.color"
       :label="tag"
       :key="index"
@@ -66,7 +66,7 @@ export default defineComponent({
       required: false,
       default: ColorEnum.Light
     },
-    editable: {
+    showRemove: {
       type: Boolean,
       required: false,
       default: true

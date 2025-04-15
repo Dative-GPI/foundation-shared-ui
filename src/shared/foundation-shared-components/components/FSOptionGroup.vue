@@ -7,7 +7,7 @@
     :style="style"
   >
     <template
-      v-if="props.values.length"
+      v-if="props.values && props.values.length"
     >
       <template
         v-if="!$slots.item"
@@ -15,7 +15,7 @@
         <FSOptionItem
           v-for="(item, index) in props.values"
           :padding="props.optionPadding"
-          :editable="props.editable"
+          :disabled="props.disabled"
           :prependIcon="item.prependIcon"
           :appendIcon="item.appendIcon"
           :variant="getVariant(item)"
@@ -53,7 +53,7 @@
     :style="style"
   >
     <template
-      v-if="props.values.length"
+      v-if="props.values && props.values.length"
     >
       <template
         v-if="!$slots.item"
@@ -61,7 +61,7 @@
         <FSOptionItem
           v-for="(item, index) in props.values"
           :padding="props.optionPadding"
-          :editable="props.editable"
+          :disabled="props.disabled"
           :prependIcon="item.prependIcon"
           :appendIcon="item.appendIcon"
           :variant="getVariant(item)"
@@ -101,7 +101,7 @@
     :wrap="false"
   >
     <template
-      v-if="props.values.length"
+      v-if="props.values && props.values.length"
     >
       <template
         v-if="!$slots.item"
@@ -109,7 +109,7 @@
         <FSOptionItem
           v-for="(item, index) in props.values"
           :padding="props.optionPadding"
-          :editable="props.editable"
+          :disabled="props.disabled"
           :prependIcon="item.prependIcon"
           :appendIcon="item.appendIcon"
           :variant="getVariant(item)"
@@ -245,10 +245,10 @@ export default defineComponent({
       required: false,
       default: true
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],

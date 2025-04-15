@@ -29,7 +29,7 @@
     <v-slider
       class="fs-slider"
       hide-details
-      :disabled="!$props.editable"
+      :disabled="$props.disabled"
       :ripple="false"
       :style="style"
       :elevation="0"
@@ -107,10 +107,10 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   setup(props) {
@@ -121,7 +121,7 @@ export default defineComponent({
     const darks = getColors(ColorEnum.Dark);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-slider-cursor"     : "default",
           "--fs-slider-track-color": lights.base,

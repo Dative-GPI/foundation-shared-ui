@@ -29,7 +29,7 @@ export const Variations: Story = {
           <FSSpan> Create </FSSpan>
         </FSButton>
         <FSButton color="warning">
-          <FSSpan> Disable </FSSpan>
+          <FSSpan> Enable </FSSpan>
         </FSButton>
         <FSButton color="error">
           <FSSpan> Remove </FSSpan>
@@ -42,8 +42,8 @@ export const Variations: Story = {
             <FSIcon size="l"> mdi-pencil </FSIcon>
           </template>
         </FSButton>
-        <FSButton :editable="false">
-          <FSSpan> Enable </FSSpan>
+        <FSButton :disabled="true">
+          <FSSpan> Disabled </FSSpan>
         </FSButton>
       </div>
       <div style="display: flex; gap: 10px;">
@@ -56,7 +56,7 @@ export const Variations: Story = {
         <FSButton
           color="warning"
           variant="full"
-          label="Disable"
+          label="Enable"
         />
         <FSButton
           color="error"
@@ -71,8 +71,8 @@ export const Variations: Story = {
         />
         <FSButton
           variant="full"
-          label="Enable"
-          :editable="false"
+          label="Disabled"
+          :disabled="true"
         />
       </div>
       <div style="display: flex; gap: 10px;">
@@ -99,7 +99,7 @@ export const Variations: Story = {
         <FSButton
           variant="icon"
           icon="mdi-cancel"
-          :editable="false"
+          :disabled="true"
         />
       </div>
     </div>`

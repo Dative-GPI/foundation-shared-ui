@@ -72,9 +72,8 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSAutocompleteField
-        label="Uneditable select, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled select"
+        :disabled="true"
         :items="args.items"
         v-model="args.value5"
       />

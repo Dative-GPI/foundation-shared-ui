@@ -13,7 +13,6 @@ const meta = {
   component: FSTreeViewField,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   },
 } satisfies Meta<typeof FSTreeViewField>;
 
@@ -82,9 +81,9 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSTreeViewField
-        label="Uneditable tree view, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled tree view, with description"
+        description="description"
+        :disabled="true"
         :items="args.items"
         v-model="args.value4"
       />

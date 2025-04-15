@@ -1,7 +1,7 @@
 <template>
   <FSLoadTile
     v-if="getting"
-    :editable="$props.editable"
+    :selectable="$props.selectable"
     :modelValue="modelValue"
     @update:modelValue="(value) => $emit('update:modelValue', value)"
   />
@@ -13,7 +13,7 @@
     :color="entity.color"
     :address="entity.address.placeLabel"
     :deviceCount="entity.deviceOrganisationsCount"
-    :editable="$props.editable"
+    :selectable="$props.selectable"
     :modelValue="modelValue"
     @update:modelValue="(value) => $emit('update:modelValue', value)"
     v-bind="$attrs"
@@ -44,12 +44,13 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true
     }
   },
+  emits: ['update:modelValue'],
   setup(props) {
     const { get, getting, entity } = useLocation();
 

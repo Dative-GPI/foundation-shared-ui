@@ -25,7 +25,6 @@
       <FSChip
         :color="chartOriginColor(item.type)"
         :label="chartOriginLabel(item.type)"
-        :editable="false"
       />
     </template>
     <template
@@ -46,7 +45,6 @@
           <FSChip
             :color="chartOriginColor(props.item.type)"
             :label="chartOriginLabel(props.item.type)"
-            :editable="false"
           />
         </template>
       </FSButton>

@@ -118,10 +118,10 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    disabled: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   emits: ["update:modelValue"],
@@ -135,7 +135,7 @@ export default defineComponent({
     const darks = getColors(ColorEnum.Dark);
 
     const style = computed((): StyleValue => {
-      if (!props.editable) {
+      if (props.disabled) {
         return {
           "--fs-radio-cursor"     : "default",
           "--fs-radio-radio-color": props.selected ? colors.value.light : lights.base,
@@ -163,7 +163,7 @@ export default defineComponent({
     const messages = computed((): string[] => props.messages ?? getMessages(props.modelValue, props.rules));
 
     const onToggle = (): void => {
-      if (!props.editable) {
+      if (props.disabled) {
         return;
       }
       if (!props.selected) {

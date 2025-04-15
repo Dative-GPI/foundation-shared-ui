@@ -40,7 +40,7 @@
       />
     </FSRow>
     <FSCard
-      v-if="$props.editable"
+      v-if="$props.selectable"
       class="fs-tile-checkbox"
       :height="['40px', '32px']"
       :width="['40px', '32px']"
@@ -48,6 +48,7 @@
     >
       <FSCheckbox
         :modelValue="$props.modelValue"
+        :disabled="true"
         @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
       />
     </FSCard>
@@ -81,7 +82,7 @@ export default defineComponent({
       required: false,
       default: false
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: false

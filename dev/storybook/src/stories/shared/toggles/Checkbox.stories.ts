@@ -48,11 +48,11 @@ export const Variations: Story = {
         <FSCheckbox v-model="args.value6" color="error" label="Third checkbox"  description="Description of the third checkbox" />
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSText> Primary color, uneditable </FSText>
+      <FSText> Primary color, disabled </FSText>
       <div style="display: flex; flex-direction: column; gap: 8px;">
-        <FSCheckbox :modelValue="false" :editable="false" />
-        <FSCheckbox :modelValue="true"  :editable="false" label="Second checkbox (disabled)" />
-        <FSCheckbox :modelValue="false" :editable="false" label="Third checkbox (disabled)" description="Description of the third checkbox" />
+        <FSCheckbox :modelValue="false" :disabled="true" />
+        <FSCheckbox :modelValue="true" :disabled="true" label="Second checkbox (disabled)" />
+        <FSCheckbox :modelValue="false" :disabled="true" label="Third checkbox (disabled)" description="Description of the third checkbox" />
       </div>
     </div>`
   })

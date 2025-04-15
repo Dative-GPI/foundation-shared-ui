@@ -3,7 +3,7 @@
     defaultMode="iterator"
     :loading="fetchingGroups"
     :items="groups"
-    :showSelect="$props.editable"
+    :showSelect="$props.selectable"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
@@ -48,7 +48,7 @@
     >
       <FSTagGroup
         variant="slide"
-        :editable="false"
+        :disabled="true"
         :tags="item.tags"
       />
     </template>
@@ -56,7 +56,7 @@
       #item.tile="{ item, toggleSelect }"
     >
       <FSGroupTileUI
-        :editable="$props.editable"
+        :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
         v-bind="item"
@@ -101,7 +101,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    editable: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true

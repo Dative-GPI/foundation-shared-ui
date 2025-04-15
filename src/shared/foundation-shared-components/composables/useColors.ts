@@ -5,6 +5,8 @@ import Color from "color";
 import type { ColorBase, ColorVariations } from "@dative-gpi/foundation-shared-components/models";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
+const colorsCache: Map<string, ColorVariations> = new Map();
+
 export const useColors = () => {
     const theme = useTheme().current.value;
     const baseMinSaturation = 0;
@@ -40,17 +42,17 @@ export const useColors = () => {
     };
 
     const getContrast = (color: Color): Color => {
-        if(isGrayScale(color)){
+        if (isGrayScale(color)) {
             const coeff = 4
             return color
                 .value(color.value() < 70 ? 100 : Math.max(color.value() / coeff, 0));
         }
 
-        if(isPastel(color)){
+        if (isPastel(color)) {
             return color.darken(0.6);
         }
 
-        if(color.darken(0.15).isLight()){
+        if (color.darken(0.15).isLight()) {
             return color.darken(0.8);
         }
 
@@ -59,7 +61,7 @@ export const useColors = () => {
 
     const parseColor = (color: ColorBase): Color => {
         const themed = (Object as any).values(ColorEnum).includes(color);
-        
+
         try {
             return themed ? new Color(theme.colors[color as ColorEnum]) : new Color(color);
         }
@@ -70,7 +72,7 @@ export const useColors = () => {
 
     const getColors = (color: ColorBase): ColorVariations => {
         const base = parseColor(color);
-        
+
         const light = getLight(base);
         const soft = getSoft(base);
         const dark = getDark(base);
@@ -88,7 +90,7 @@ export const useColors = () => {
     };
 
     const getGradients = (colors: ColorBase | ColorBase[], rotation: number = 90): ColorVariations => {
-        const variations = Array.isArray(colors) ? colors.map(getColors) : [getColors(colors)];
+        const variations = Array.isArray(colors) ? colors.map(getColorsCached) : [getColorsCached(colors)];
 
         if (variations.length === 1) {
             return variations[0];
@@ -121,9 +123,16 @@ export const useColors = () => {
         return colors;
     }
 
+    const getColorsCached = (color: ColorBase): ColorVariations => {
+        if (!colorsCache.has(color)) {
+            const variations = getColors(color);
+            colorsCache.set(color, variations);
+        }
+        return colorsCache.get(color) as ColorVariations;
+    };
 
     return {
-        getColors,
+        getColors : getColorsCached,
         getGradients,
         getBasePaletteColors
     };

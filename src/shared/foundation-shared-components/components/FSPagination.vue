@@ -32,7 +32,7 @@ export default defineComponent({
   props: {
     width: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
+      required: true,
       default: null
     },
     gap: {

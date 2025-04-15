@@ -69,9 +69,9 @@ export const Variations: Story = {
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSSelectField
-        label="Uneditable select, with description"
-        description="Uneditable description"
-        :editable="false"
+        label="Disabled select, with description"
+        description="description"
+        :disabled="true"
         :items="args.items"
         v-model="args.value5"
       />
