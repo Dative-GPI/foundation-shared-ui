@@ -2,7 +2,7 @@
   <FSDataTable
     defaultMode="iterator"
     :singleSelect="$props.singleSelect"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :loading="fetchingModels"
     :items="models"
@@ -63,6 +63,7 @@
     >
       <FSModelTileUI
         :to="$props.itemTo && $props.itemTo(item)"
+        :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"
         :imageId="item.imageId"
         :label="item.label"

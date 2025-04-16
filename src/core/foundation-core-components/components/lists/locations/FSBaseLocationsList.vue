@@ -3,7 +3,7 @@
     defaultMode="iterator"
     :loading="fetchingLocations"
     :items="locations"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"

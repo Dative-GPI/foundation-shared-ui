@@ -3,7 +3,7 @@
     :items="roleOrganisationTypes"
     :itemTo="$props.itemTo"
     :loading="fetchingRoleOrganisations"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"

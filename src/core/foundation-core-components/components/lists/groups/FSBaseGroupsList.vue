@@ -3,7 +3,7 @@
     defaultMode="iterator"
     :loading="fetchingGroups"
     :items="groups"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"

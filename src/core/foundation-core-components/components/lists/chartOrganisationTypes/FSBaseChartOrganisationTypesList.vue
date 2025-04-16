@@ -7,7 +7,7 @@
     :headersOptions="headersOptions"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :singleSelect="$props.singleSelect"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"

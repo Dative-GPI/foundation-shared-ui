@@ -3,7 +3,7 @@
     :items="scenarioOrganisationTypes"
     :itemTo="$props.itemTo"
     :loading="fetchingScenarioOrganisationTypes"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"

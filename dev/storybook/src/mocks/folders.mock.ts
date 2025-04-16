@@ -2,7 +2,7 @@ import type { FolderDetailsDTO } from "@dative-gpi/foundation-core-domain/models
 
 export const FOLDERS: FolderDetailsDTO[] = [
     {
-        id: "1",
+        id: "folder1",
         label: "Folder 1",
         code: "code 1",
         colors: ["#FF0000"],
@@ -16,7 +16,7 @@ export const FOLDERS: FolderDetailsDTO[] = [
         parentIcon: null
     },
     {
-        id: "2",
+        id: "folder2",
         label: "Folder 2",
         code: "code 2",
         colors: ["#FF0000", "#00FF00", "#0000FF"],
@@ -30,7 +30,7 @@ export const FOLDERS: FolderDetailsDTO[] = [
         parentIcon: null
     },
     {
-        id: "3",
+        id: "folder3",
         label: "Folder 3",
         code: "code 3",
         colors: [],
@@ -44,13 +44,13 @@ export const FOLDERS: FolderDetailsDTO[] = [
         parentIcon: null
     },
     {
-        id: "4",
+        id: "folder4",
         label: "Folder 4",
         code: "code 4",
         colors: [],
         icon: "mdi-folder-outline",
         path: [{
-            id: "1",
+            id: "folder1",
             label: "Folder 1",
             index: 0
         }],
@@ -62,17 +62,17 @@ export const FOLDERS: FolderDetailsDTO[] = [
         parentIcon: null
     },
     {
-        id: "5",
+        id: "folder5",
         label: "Folder 5",
         code: "code 5",
         colors: [],
         icon: "mdi-folder-outline",
         path: [{
-            id: "1",
+            id: "folder1",
             label: "Folder 1",
             index: 0
         }, {
-            id: "4",
+            id: "folder4",
             label: "Folder 4",
             index: 1
         }],
@@ -84,7 +84,7 @@ export const FOLDERS: FolderDetailsDTO[] = [
         parentIcon: null
     },
     {
-        id: "6",
+        id: "folder6",
         label: "Folder 6",
         code: "code 6",
         colors: ["#000000", "#FFFFFF", "#cffcc7"],
@@ -98,7 +98,7 @@ export const FOLDERS: FolderDetailsDTO[] = [
         parentIcon: null
     },
     {
-        id: "7",
+        id: "folder7",
         label: "Folder 7",
         code: "code 7",
         colors: ["#FFFFFF", "#000000", "#15520b"],

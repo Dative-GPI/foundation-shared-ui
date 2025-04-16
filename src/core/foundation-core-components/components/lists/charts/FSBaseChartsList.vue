@@ -4,7 +4,7 @@
     :loading="fetchingChartOrganisationTypes || fetchingChartOrganisations"
     :headersOptions="headersOptions"
     :items="charts"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :singleSelect="$props.singleSelect"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"

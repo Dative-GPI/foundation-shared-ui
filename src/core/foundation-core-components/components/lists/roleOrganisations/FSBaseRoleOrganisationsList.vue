@@ -1,7 +1,7 @@
 <template>
   <FSDataTable
     :loading="fetchingRoleOrganisations"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :items="roleOrganisations"
     :itemTo="$props.itemTo"
