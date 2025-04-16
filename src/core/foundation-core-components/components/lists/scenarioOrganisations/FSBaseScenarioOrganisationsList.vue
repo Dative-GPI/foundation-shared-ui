@@ -3,7 +3,7 @@
     :items="scenarioOrganisations"
     :itemTo="$props.itemTo"
     :loading="fetchingScenarioOrganisations"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     :headersOptions="headersOptions"

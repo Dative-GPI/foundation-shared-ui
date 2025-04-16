@@ -4,7 +4,7 @@
     :loading="fetchingDeviceExplorerElements"
     :singleSelect="$props.singleSelect"
     :items="deviceExplorerElements"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :itemTo="$props.itemTo"
     :noSearch="$props.recursiveSearch"

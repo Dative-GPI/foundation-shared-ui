@@ -7,7 +7,7 @@
     :loading="fetchingAlerts"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >

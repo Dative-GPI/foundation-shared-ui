@@ -6,7 +6,7 @@
     :loading="fetchingFolders || fetchingDashboardOrganisations || fetchingDashboardShallows"
     :tableCode="$props.tableCode"
     :modelValue="selecteds"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     @update:modelValue="onSelect"
     v-bind="$attrs"
   >

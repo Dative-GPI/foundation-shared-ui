@@ -135,7 +135,7 @@
         :headers="extraHeaders.concat(innerHeaders)"
         :sortBy="innerSortBy ? [innerSortBy] : []"
         :itemsPerPage="innerRowsPerPage"
-        :showSelect="$props.showSelect"
+        :selectable="$props.selectable"
         :hover="!$props.sortDraggable"
         :itemValue="$props.itemValue"
         :loading="$props.loading"
@@ -258,7 +258,7 @@
                     width="hug"
                   >
                     <FSCheckbox
-                      v-if="$props.showSelect"
+                      v-if="$props.selectable"
                       :modelValue="props.item.items.every((item) => $props.modelValue.includes(item.key))"
                       :indeterminate="$props.modelValue.some((id) => props.item.items.some((item) => item.key === id)) && !props.item.items.every((item) => $props.modelValue.includes(item.key))"
                       @update:modelValue="toggleSelectGroup(props.item)"
@@ -480,7 +480,7 @@
                   v-if="item.type === 'item'"
                   :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
-                  :selectable="$props.showSelect"
+                  :selectable="$props.selectable"
                   :singleSelect="$props.singleSelect"
                   :to="$props.itemTo"
                   :bottomColor="$props.color"
@@ -653,7 +653,7 @@
                 <FSDataIteratorItem
                   :leftColor="$props.rowColor ? $props.rowColor(item.raw) : null"
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
-                  :selectable="$props.showSelect"
+                  :selectable="$props.selectable"
                   :singleSelect="$props.singleSelect"
                   :to="$props.itemTo"
                   :bottomColor="$props.color"
@@ -833,7 +833,7 @@ export default defineComponent({
       required: false,
       default: ColorEnum.Primary
     },
-    showSelect: {
+    selectable: {
       type: Boolean,
       required: false,
       default: true
@@ -1035,7 +1035,7 @@ export default defineComponent({
           width: "0%"
         });
       }
-      if (props.showSelect) {
+      if (props.selectable) {
         extra.push({
           key: "data-table-select",
           width: "0%"

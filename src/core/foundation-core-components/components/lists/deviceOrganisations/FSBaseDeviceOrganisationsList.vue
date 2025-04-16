@@ -4,7 +4,7 @@
     :loading="fetchingDeviceOrganisations"
     :singleSelect="$props.singleSelect"
     :headersOptions="headersOptions"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :items="deviceOrganisations"
     :itemTo="$props.itemTo"

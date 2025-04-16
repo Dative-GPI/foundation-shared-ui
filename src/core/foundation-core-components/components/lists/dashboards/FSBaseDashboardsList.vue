@@ -5,7 +5,7 @@
     :itemTo="$props.itemTo"
     :loading="fetchingDashboardOrganisationTypes || fetchingDashboardOrganisations || fetchingDashboardShallows"
     :tableCode="$props.tableCode"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :singleSelect="$props.singleSelect"
     :modelValue="selecteds"
     @update:modelValue="onSelect"

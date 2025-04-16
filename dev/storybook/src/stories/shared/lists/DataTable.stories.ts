@@ -107,7 +107,7 @@ export const Variations: Story = {
     template: `
     <div style="display: flex; flex-direction: column; gap: 10px;">
         <FSDataTableUI
-          :showSelect="true"
+          :selectable="true"
           :showSearch="false"
           :disableIterator="true"
           :items="args.items1"
@@ -119,7 +119,7 @@ export const Variations: Story = {
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
         <FSDataTableUI
-          :showSelect="true"
+          :selectable="true"
           :items="args.items1"
           :sneakyHeaders="['column1']"
           :disableIterator="true"
@@ -131,7 +131,7 @@ export const Variations: Story = {
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
         <FSDataTableUI
-          :showSelect="false"
+          :selectable="false"
           :showSearch="false"
           :items="args.items1"
           :sneakyHeaders="['column1']"
@@ -142,7 +142,7 @@ export const Variations: Story = {
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
         <FSDataTableUI
-          :showSelect="true"
+          :selectable="true"
           :items="args.items1"
           :sneakyHeaders="['column1']"
           @click:row="args.clickRow"
@@ -153,7 +153,7 @@ export const Variations: Story = {
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
         <FSDataTableUI
-          :showSelect="true"
+          :selectable="true"
           :items="args.items2"
           :singleSelect="true"
           :sneakyHeaders="['column1']"
@@ -165,7 +165,7 @@ export const Variations: Story = {
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
         <FSDataTableUI
-        :showSelect="true"
+        :selectable="true"
         :items="args.items2"
         @click:row="args.clickRow"
         v-model:headers="args.headers2"
@@ -189,7 +189,7 @@ export const Variations: Story = {
 export const DragAndDrop: Story = {
   args: {
     showSearch: false,
-    showSelect: true,
+    selectable: true,
     singleSelect: false,
     disableIterator: false,
     disableTable: false,
@@ -219,7 +219,7 @@ export const DragAndDrop: Story = {
     template: `
     <div style="display: flex; flex-direction: column; gap: 10px;">
       <FSDataTableUI
-        :showSelect="args.showSelect"
+        :selectable="args.selectable"
         :showSearch="args.showSearch"
         :disableIterator="args.disableIterator"
         :disableTable="args.disableTable"
@@ -367,7 +367,7 @@ export const Carousel: Story = {
     template: `
     <div style="display: flex; flex-direction: column; gap: 10px;">
       <FSDataTableUI
-        :showSelect="true"
+        :selectable="true"
         :showSearch="false"
         :disableIterator="true"
         :items="args.items1"

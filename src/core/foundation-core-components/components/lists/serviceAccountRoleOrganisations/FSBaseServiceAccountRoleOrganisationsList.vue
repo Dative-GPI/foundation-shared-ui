@@ -2,7 +2,7 @@
   <FSDataTable
     :loading="fetchingServiceAccountRoleOrganisations"
     :items="serviceAccountRoleOrganisations"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     :tableCode="$props.tableCode"
     :itemTo="$props.itemTo"
     :modelValue="$props.modelValue"

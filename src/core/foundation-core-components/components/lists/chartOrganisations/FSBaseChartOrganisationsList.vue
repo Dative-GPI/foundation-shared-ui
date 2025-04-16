@@ -8,7 +8,7 @@
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     :singleSelect="$props.singleSelect"
-    :showSelect="$props.selectable"
+    :selectable="$props.selectable"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
