@@ -68,16 +68,23 @@
             />
           </FSRow>
         </template>
-        <FSDateTimeRangeField
+        <template
           v-else-if="innerDateSetting === DateSetting.Pick"
-          :width="['350px', '310px']"
-          :rules="[DateRules.required()]"
-          :disabled="$props.disabled"
-          :hideHeader="true"
-          :clearable="false"
-          :modelValue="actualValue"
-          @update:modelValue="onPickDates"
-        />
+        >
+          <FSDateTimeRangeField
+            :width="['350px', '310px']"
+            :disabled="$props.disabled"
+            :hideHeader="true"
+            :clearable="false"
+            :modelValue="actualValue"
+            @update:modelValue="onPickDates"
+          />
+          <FSDateTimeRangeDialog
+            :dialog="dateTimeRangeDialog"
+            @cancel="onCancelPickDates"
+            @update:modelValue="onPickDates"
+          />
+        </template>
       </FSRow>
     </FSForm>
   </FSBaseField>
@@ -93,6 +100,7 @@ import { useRules } from "@dative-gpi/foundation-shared-components/composables";
 import { DateSetting } from "@dative-gpi/foundation-shared-domain/enums";
 
 import FSSelectDateSetting from "../selects/FSSelectDateSetting.vue";
+import FSDateTimeRangeDialog from './FSDateTimeRangeDialog.vue';
 import FSDateTimeRangeField from "./FSDateTimeRangeField.vue";
 import FSNumberField from "./FSNumberField.vue";
 import FSBaseField from "./FSBaseField.vue";
@@ -104,6 +112,7 @@ import FSRow from "../FSRow.vue";
 export default defineComponent({
   name: "FSTermField",
   components: {
+    FSDateTimeRangeDialog,
     FSDateTimeRangeField,
     FSSelectDateSetting,
     FSNumberField,
@@ -170,13 +179,14 @@ export default defineComponent({
   },
   emits: ["update", "update:startDate", "update:endDate"],
   setup(props, { emit }) {
-    const { parseForPicker, epochToISO, todayToPicker, yesterdayToPicker } = useDateFormat();
+    const { parseForPicker, epochToISO } = useDateFormat();
     const { getMessages } = useRules();
 
     const innerDateSetting = ref<DateSetting>(DateSetting.PastDays);
     const innerDateValue = ref<number>(1);
     const innerStartDate = ref<string>("now - 1d");
     const innerEndDate = ref<string>("now");
+    const dateTimeRangeDialog = ref(false);
 
     const valid = ref<boolean>(false);
 
@@ -353,9 +363,8 @@ export default defineComponent({
           }
           break;
         case DateSetting.Pick:
-          innerEndDate.value = todayToPicker();
-          innerStartDate.value = yesterdayToPicker();
-          break;
+          dateTimeRangeDialog.value = true;
+          return;
       }
       emit("update:startDate", innerStartDate.value);
       emit("update:endDate", innerEndDate.value);
@@ -426,32 +435,30 @@ export default defineComponent({
       emit("update", { startDate: innerStartDate.value, endDate: innerEndDate.value });
     };
 
-    const onPickDates = (value: number[] | null) => {
-      if (!value) {
-        innerEndDate.value = todayToPicker();
-        innerStartDate.value = yesterdayToPicker();
-        if (valid.value) {
+    const onPickDates = (value: number[]) => {
+      dateTimeRangeDialog.value = false;
+
+      if(value.length < 2) {
+        return;
+      }
+
+      innerStartDate.value = epochToISO(value[0]);
+      innerEndDate.value = epochToISO(value[1]);
+
+      if (valid.value !== false) {
+        if(props.startDate !== innerStartDate.value) {
           emit("update:startDate", innerStartDate.value);
+        }
+        if (props.endDate !== innerEndDate.value) {
           emit("update:endDate", innerEndDate.value);
-          emit("update", { startDate: innerStartDate.value, endDate: innerEndDate.value });
         }
+        emit("update", { startDate: innerStartDate.value, endDate: innerEndDate.value });
       }
-      else {
-        if (value && value[0] != null && epochToISO(value[0]) !== innerStartDate.value) {
-          innerStartDate.value = epochToISO(value[0]);
-          if (valid.value) {
-            emit("update:startDate", innerStartDate.value);
-            emit("update", { startDate: innerStartDate.value, endDate: props.endDate });
-          }
-        }
-        if (value && value[1] != null && epochToISO(value[1]) !== innerEndDate.value) {
-          innerEndDate.value = epochToISO(value[1]);
-          if (valid.value) {
-            emit("update:endDate", innerEndDate.value);
-            emit("update", { startDate: props.startDate, endDate: innerEndDate.value });
-          }
-        }
-      }
+    };
+
+    const onCancelPickDates = () => {
+      dateTimeRangeDialog.value = false;
+      reset();
     };
 
     const reset = (): void => {
@@ -663,6 +670,7 @@ export default defineComponent({
     });
 
     return {
+      dateTimeRangeDialog,
       innerDateSetting,
       innerDateValue,
       innerStartDate,
@@ -679,6 +687,7 @@ export default defineComponent({
       innerDateValueChange,
       innerStartDateChange,
       innerEndDateChange,
+      onCancelPickDates,
       parseForPicker,
       onPickDates
     };
