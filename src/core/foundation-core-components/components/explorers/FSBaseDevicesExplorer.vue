@@ -135,6 +135,7 @@
         v-if="item.type === DeviceExplorerElementType.Group"
         :to="$props.itemTo && $props.itemTo(item)"
         :modelValue="isSelected(item.id)"
+        :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
         v-bind="item"
       />
@@ -147,6 +148,7 @@
         :deviceAlerts="item.alerts"
         :alertTo="$props.alertTo"
         :modelValue="isSelected(item.id)"
+        :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
         v-bind="item"
       />

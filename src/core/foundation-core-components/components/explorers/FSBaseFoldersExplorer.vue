@@ -6,6 +6,7 @@
     :loading="fetchingFolders || fetchingDashboardOrganisations || fetchingDashboardShallows"
     :tableCode="$props.tableCode"
     :modelValue="selecteds"
+    :showSelect="$props.selectable"
     @update:modelValue="onSelect"
     v-bind="$attrs"
   >
@@ -80,6 +81,7 @@
         v-if="item.type == FoldersListType.Folder"
         :bottomColor="item.colors"
         v-bind="item"
+        :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
         :to="$props.itemTo && $props.itemTo(item)"
@@ -87,6 +89,7 @@
       <FSDashboardOrganisationTileUI
         v-if="item.type == FoldersListType.Dashboard && item.dashboardType == DashboardType.Organisation"
         :bottomColor="item.colors"
+        :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
         :to="$props.itemTo && $props.itemTo(item)"
@@ -95,6 +98,7 @@
       <FSDashboardShallowTileUI
         v-if="item.type == FoldersListType.Dashboard && item.dashboardType == DashboardType.Shallow"
         :bottomColor="item.colors"
+        :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
         :to="$props.itemTo && $props.itemTo(item)"
@@ -166,6 +170,11 @@ export default defineComponent({
     tableCode: {
       type: String,
       required: true
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   emits: ["update", "update:modelValue", "update:type", "update:dashboard-type"],

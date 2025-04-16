@@ -63,6 +63,7 @@
     >
       <FSModelTileUI
         :to="$props.itemTo && $props.itemTo(item)"
+        :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"
         :imageId="item.imageId"
         :label="item.label"

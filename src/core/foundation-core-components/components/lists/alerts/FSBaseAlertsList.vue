@@ -7,6 +7,7 @@
     :loading="fetchingAlerts"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
+    :showSelect="$props.selectable"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
@@ -196,16 +197,19 @@
       </FSSpan>
     </template>
     <template
-      #item.tile="{ item }"
+      #item.tile="{ item, toggleSelect }"
     >
       <FSAlertTileUI
         variant="standard"
         :label="item.label"
         :deviceOrganisationLabel="item.deviceOrganisationLabel"
         :icon="item.icon"
+        :selectable="$props.selectable"
         :triggerProcessedTimestamp="item.triggerProcessedTimestamp"
         :to="$props.itemTo && $props.itemTo(item)"
+        :modelValue="isSelected(item.id)"
         :color="alertColorByCriticity(item.criticity)"
+        @update:modelValue="toggleSelect(item)"
       />
     </template>
   </FSDataTable>
@@ -280,6 +284,11 @@ export default defineComponent({
       type: Function as PropType<(item: AlertInfos) => Partial<RouteLocation>>,
       required: false
     },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
   },
   emits: ["update:modelValue"],
   setup(props) {
@@ -293,6 +302,10 @@ export default defineComponent({
 
     const alertColorByCriticity = (criticity: Criticity | number) => {
       return AlertTools.criticityColor(criticity);
+    };
+
+    const isSelected = (id: string): boolean => {
+      return props.modelValue.includes(id);
     };
 
     const alertsOrdered = computed(() => {
@@ -331,7 +344,8 @@ export default defineComponent({
       ColorEnum,
       epochToShortTimeFormat,
       alertColorByCriticity,
-      criticityColor
+      criticityColor,
+      isSelected
     };
   }
 });
