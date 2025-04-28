@@ -10,12 +10,31 @@ const meta = {
   component: FSChip,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    
   },
 } satisfies Meta<typeof FSChip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    color: 'primary',
+    variant: 'standard',
+    label: 'I am a chip'
+  },
+  render: (args) => ({
+    components: { FSChip, FSText, FSSpan, FSIcon },
+    setup() {
+      return { args }
+    },
+    template: `
+      <FSChip 
+        v-bined="args"
+      >
+      `
+  })
+}
 
 export const Variations: Story = {
   render: () => ({
