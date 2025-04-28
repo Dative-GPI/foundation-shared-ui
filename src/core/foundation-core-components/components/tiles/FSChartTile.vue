@@ -4,6 +4,7 @@
     :label="chart.label"
     :icon="chart.icon"
     :type="chart.chartType"
+    :scope="chart.scope"
     :imageId="chart.imageId"
     v-bind="$attrs"
   />

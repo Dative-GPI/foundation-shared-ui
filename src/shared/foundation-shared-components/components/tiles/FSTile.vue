@@ -97,6 +97,7 @@ import FSCard from "../FSCard.vue";
 
 export default defineComponent({
   name: "FSTile",
+  inheritAttrs: false,
   components: {
     FSClickable,
     FSCheckbox,
