@@ -13,8 +13,8 @@ import _ from "lodash";
 import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useDashboardOrganisations, useDashboardOrganisationTypes, useDashboardShallows } from "@dative-gpi/foundation-core-services/composables";
 
-import { DashboardType } from '@/shared/foundation-shared-domain/enums';
-import type { DashboardsListItem } from '@/core/foundation-core-components/utils';
+import { DashboardType } from '@dative-gpi/foundation-shared-domain/enums';
+import type { DashboardsListItem } from '@dative-gpi/foundation-core-components/utils';
 
 import FSSimpleList from "@dative-gpi/foundation-shared-components/components/lists/FSSimpleList.vue";
 
