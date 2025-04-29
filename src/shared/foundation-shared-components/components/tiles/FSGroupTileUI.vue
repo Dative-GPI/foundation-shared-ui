@@ -74,6 +74,8 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType } from "vue";
 
+import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
+
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSSimpleTileUI from './FSSimpleTileUI.vue';
@@ -133,13 +135,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const groupsLabel = computed((): string => {
-      return props.recursiveGroupsIds.length > 99 ? "99+" : props.recursiveGroupsIds.length.toString();
-    });
+    const groupsLabel = computed(() => capNumberToString(props.recursiveGroupsIds.length));
 
-    const deviceOrganisationsLabel = computed((): string => {
-      return props.recursiveDeviceOrganisationsIds.length > 99 ? "99+" : props.recursiveDeviceOrganisationsIds.length.toString();
-    });
+    const deviceOrganisationsLabel = computed(() => capNumberToString(props.recursiveDeviceOrganisationsIds.length));
 
     return {
       deviceOrganisationsLabel,

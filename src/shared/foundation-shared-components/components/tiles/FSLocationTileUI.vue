@@ -32,7 +32,7 @@
               <FSSpan
                 font="text-overline"
               >
-                {{ $props.deviceCount <= 99 ? $props.deviceCount : "99+" }}
+                {{ capNumberToString($props.deviceCount) }}
               </FSSpan>
             </FSRow>
           </FSColor>
@@ -76,6 +76,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
+import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSSimpleTileUI from './FSSimpleTileUI.vue';
@@ -137,7 +138,8 @@ export default defineComponent({
   setup() {
 
     return {
-      ColorEnum
+      ColorEnum,
+      capNumberToString
     };
   }
 });
