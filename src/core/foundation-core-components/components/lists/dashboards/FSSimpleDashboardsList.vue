@@ -35,7 +35,7 @@ export default defineComponent({
       default: () => ({})
     },
     dashboardShallowFilters: {
-      type: Object as PropType<DashboardOrganisationTypeFilters>,
+      type: Object as PropType<DashboardShallowFilters>,
       required: false,
       default: () => ({})
     }

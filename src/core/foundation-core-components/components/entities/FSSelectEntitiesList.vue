@@ -114,7 +114,8 @@ export default defineComponent({
         case EntityType.Dashboard:
           return {
             dashboardOrganisationsIds: props.modelValue,
-            dashboardOrganisationTypesIds: props.modelValue
+            dashboardOrganisationTypesIds: props.modelValue,
+            dashboardShallowsIds: props.modelValue
           } satisfies DashboardOrganisationFilters & DashboardOrganisationTypeFilters;
         case EntityType.Group:
           return {
