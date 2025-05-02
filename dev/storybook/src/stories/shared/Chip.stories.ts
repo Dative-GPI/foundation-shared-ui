@@ -10,7 +10,6 @@ const meta = {
   component: FSChip,
   tags: ['autodocs'],
   argTypes: {
-    
   },
 } satisfies Meta<typeof FSChip>;
 
@@ -30,7 +29,7 @@ export const Default: Story = {
     },
     template: `
       <FSChip 
-        v-bined="args"
+        v-bind="args"
       >
       `
   })

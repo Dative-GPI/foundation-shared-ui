@@ -68,6 +68,7 @@ export default defineComponent({
     FSSpan,
     FSRow
   },
+  inheritsAttrs: false,
   props: {
     prependIcon: {
       type: String as PropType<string | null>,
