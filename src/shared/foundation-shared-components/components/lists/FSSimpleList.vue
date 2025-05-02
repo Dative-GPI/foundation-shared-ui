@@ -50,6 +50,7 @@
     >
       <FSRow
         v-if="$props.loading"
+        :wrap="false"
       >
         <FSLoader
           v-for="i in 4"
@@ -60,6 +61,7 @@
       </FSRow>
       <FSRow
         v-else
+        :wrap="false"
       >
         <FSSimpleListItem 
           v-for="item in filteredItems"

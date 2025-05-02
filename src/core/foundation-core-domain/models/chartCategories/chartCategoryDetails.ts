@@ -23,11 +23,13 @@ export interface ChartCategoryDetailsDTO extends ChartCategoryInfosDTO {
 export interface CreateChartCategoryDTO {
   labelDefault: string;
   code: string;
+  index: number;
   translations: ChartCategoryTranslationDTO[];
 }
 
 export interface UpdateChartCategoryDTO {
   labelDefault: string;
   code: string;
+  index: number;
   translations: ChartCategoryTranslationDTO[];
 }
