@@ -4,12 +4,15 @@ import FSText from "@dative-gpi/foundation-shared-components/components/FSText.v
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
+import { addSubcomponentsArgTypes } from '@/utils/properties';
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 
 const meta = {
   title: 'Foundation/Shared/Chip',
   component: FSChip,
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSRow], FSChip)
   },
 } satisfies Meta<typeof FSChip>;
 
