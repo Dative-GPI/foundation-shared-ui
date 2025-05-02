@@ -31,7 +31,7 @@
               <FSSpan
                 font="text-overline"
               >
-                {{ groupsLabel }}
+                {{ groupsBadgeContent }}
               </FSSpan>
             </FSRow>
           </FSColor>
@@ -56,7 +56,7 @@
               <FSSpan
                 font="text-overline"
               >
-                {{ deviceOrganisationsLabel }}
+                {{ deviceOrganisationsBadgeContent }}
               </FSSpan>
             </FSRow>
           </FSColor>
@@ -135,13 +135,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const groupsLabel = computed(() => capNumberToString(props.recursiveGroupsIds.length));
+    const groupsBadgeContent = computed(() => capNumberToString(props.recursiveGroupsIds.length));
 
-    const deviceOrganisationsLabel = computed(() => capNumberToString(props.recursiveDeviceOrganisationsIds.length));
+    const deviceOrganisationsBadgeContent = computed(() => capNumberToString(props.recursiveDeviceOrganisationsIds.length));
 
     return {
-      deviceOrganisationsLabel,
-      groupsLabel,
+      deviceOrganisationsBadgeContent,
+      groupsBadgeContent,
       ColorEnum,
     };
   }
