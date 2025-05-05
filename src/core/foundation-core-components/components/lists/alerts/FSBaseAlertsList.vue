@@ -316,7 +316,7 @@ export default defineComponent({
       }); 
     });
 
-    watch(() => [props.alertFilters, props.notAcknowledged, props.hidePending], (next, previous) => {
+    watch([() => props.alertFilters, () => props.notAcknowledged, () => props.hidePending], (next, previous) => {
       if (!_.isEqual(next, previous)) {
         getManyAlerts({
           ...props.alertFilters,
