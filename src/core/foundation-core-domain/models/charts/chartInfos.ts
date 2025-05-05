@@ -8,6 +8,7 @@ export class ChartInfos {
   imageId: string | null;
   chartCategoryId: string | null;
   chartCategoryLabel: string | null;
+  chartCategoryIndex: number | null;
   scope: ApplicationScope;
   label: string;
   title: string;
@@ -24,6 +25,7 @@ export class ChartInfos {
     this.imageId = params.imageId;
     this.chartCategoryId = params.chartCategoryId;
     this.chartCategoryLabel = params.chartCategoryLabel;
+    this.chartCategoryIndex = params.chartCategoryIndex;
     this.scope = params.scope;
     this.label = params.label;
     this.title = params.title;
@@ -42,6 +44,7 @@ export interface ChartInfosDTO {
   imageId: string | null;
   chartCategoryId: string | null;
   chartCategoryLabel: string | null;
+  chartCategoryIndex: number | null;
   scope: ApplicationScope;
   label: string;
   title: string;
