@@ -1,50 +1,56 @@
 <template>
-  <FSRow
-    :align="$props.align"
-    :width="$props.width"
-    :class="classes"
-    :style="style"
-    :wrap="false"
-    v-bind="$attrs"
+  <component
+    :is="$props.to ? 'FSRouterLink' : 'div'"
+    v-bind="$props.to ? { to: $props.to } : {}"
   >
-    <slot
-      name="prepend"
-      v-bind="{ color: $props.color, colors }"
+    <FSRow
+      :align="$props.align"
+      :width="$props.width"
+      :class="classes"
+      :style="style"
+      :wrap="false"
+      v-bind="$attrs"
     >
-      <FSIcon
-        v-if="$props.prependIcon"
-        size="s"
+      <slot
+        name="prepend"
+        v-bind="{ color: $props.color, colors }"
       >
-        {{ $props.prependIcon }}
-      </FSIcon>
-    </slot>
-    <slot
-      v-bind="{ color: $props.color, colors }"
-    >
-      <FSSpan
-        v-if="$props.label"
-        font="text-overline"
-        class="fs-chip-label"
+        <FSIcon
+          v-if="$props.prependIcon"
+          size="s"
+        >
+          {{ $props.prependIcon }}
+        </FSIcon>
+      </slot>
+      <slot
+        v-bind="{ color: $props.color, colors }"
       >
-        {{ $props.label }}
-      </FSSpan>
-    </slot>
-    <slot
-      name="append"
-      v-bind="{ color: $props.color, colors }"
-    >
-      <FSIcon
-        v-if="$props.appendIcon"
-        size="s"
+        <FSSpan
+          v-if="$props.label"
+          font="text-overline"
+          class="fs-chip-label"
+        >
+          {{ $props.label }}
+        </FSSpan>
+      </slot>
+      <slot
+        name="append"
+        v-bind="{ color: $props.color, colors }"
       >
-        {{ $props.appendIcon }}
-      </FSIcon>
-    </slot>
-  </FSRow>
+        <FSIcon
+          v-if="$props.appendIcon"
+          size="s"
+        >
+          {{ $props.appendIcon }}
+        </FSIcon>
+      </slot>
+    </FSRow>
+  </component>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, type PropType, type StyleValue } from "vue";
+import { type RouteLocation } from "vue-router";
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
@@ -53,6 +59,7 @@ import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 import FSIcon from "./FSIcon.vue";
 import FSSpan from "./FSSpan.vue";
 import FSRow from "./FSRow.vue";
+import FSRouterLink from '@dative-gpi/foundation-shared-components/components/FSRouterLink.vue';
 
 export default defineComponent({
   name: "FSChip",
@@ -61,6 +68,7 @@ export default defineComponent({
     FSSpan,
     FSRow
   },
+  inheritsAttrs: false,
   props: {
     prependIcon: {
       type: String as PropType<string | null>,
@@ -106,7 +114,12 @@ export default defineComponent({
       type: String as PropType<"center-center" | "center-left">,
       required: false,
       default: "center-center"
-    }
+    },
+    to: {
+      type: Object as PropType<RouteLocation | null>,
+      required: false,
+      default: null
+    },
   },
   setup(props) {
     const { getColors } = useColors();
@@ -165,6 +178,7 @@ export default defineComponent({
     });
 
     return {
+      FSRouterLink,
       classes,
       colors,
       style
