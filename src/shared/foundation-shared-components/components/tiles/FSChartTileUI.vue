@@ -1,8 +1,8 @@
 <template>
   <FSTile
-    :width="['312px','275px']"
-    :height="['156px', '124px']"
-    padding="16px"
+    :width="['324px','272px']"
+    :height="['132px', '116px']"
+    :padding="['16px', '12px']"
     borderRadius="8px"
     v-bind="$attrs"
   >
@@ -13,7 +13,7 @@
     >
       <FSCol
         align="center-left"
-        gap="12px"
+        :gap="['12px', '8px']"
       >
         <FSSpan
           font="text-overline"
@@ -23,11 +23,11 @@
         </FSSpan>
         <FSRow
           align="center-left"
-          gap="12px"
+          :gap="['12px', '8px']"
         >
           <FSIcon
             :color="ColorEnum.Primary"
-            size="18px"
+            :size="['18px', '16px']"
           >
             {{ chartIcon(type) }}
           </FSIcon>
