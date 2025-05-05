@@ -318,21 +318,11 @@ export default defineComponent({
 
     watch(() => [props.alertFilters, props.notAcknowledged, props.hidePending], (next, previous) => {
       if (!_.isEqual(next, previous)) {
-        if(props.notAcknowledged){
-          getManyAlerts({
-            ...props.alertFilters,
-            acknowledged: false,
-            statuses: [AlertStatus.Unresolved, AlertStatus.Triggered, AlertStatus.Resolved],
-          });
-        }
-        else{
-          getManyAlerts({
-            ...props.alertFilters,
-            statuses: props.hidePending ?
-              [AlertStatus.Unresolved, AlertStatus.Resolved, AlertStatus.Triggered, AlertStatus.Untriggered, AlertStatus.Triggered] : props.alertFilters?.statuses
-          }); // TODO, gérer les conditions pour que les alertes s'affichent ici notamment lorsqu'elles sont acquittées
-          // la FilterFactory gère pas ces conditions correctement
-        }
+        getManyAlerts({
+          ...props.alertFilters,
+          acknowledged: props.notAcknowledged ? false : undefined,
+          statuses: props.hidePending ? [AlertStatus.Unresolved, AlertStatus.Triggered, AlertStatus.Resolved, AlertStatus.Untriggered, AlertStatus.Abandoned] : undefined
+        });
       }
     }, { immediate: true });
 
