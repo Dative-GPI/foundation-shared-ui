@@ -35,7 +35,7 @@ export class AlertInfos {
   currentSourceTimestamp: number | null;
   currentEnqueuedTimestamp: number | null;
   currentProcessedTimestamp: number | null;
-  status: AlertStatus;
+  currentStatus: AlertStatus;
   tags: string[];
   history: AlertState[];
   groupByValues: AlertDataDefinition[];
@@ -76,7 +76,7 @@ export class AlertInfos {
       isoToEpoch(params.currentEnqueuedTimestamp) : null;
     this.currentProcessedTimestamp = params.currentProcessedTimestamp ?
       isoToEpoch(params.currentProcessedTimestamp) : null;
-    this.status = params.status;
+    this.currentStatus = params.currentStatus;
     this.tags = params.tags;
     this.history = params.history.map(dto => new AlertState(dto));
     this.groupByValues = params.groupByValues.map(dto => new AlertDataDefinition(dto));
@@ -112,7 +112,7 @@ export interface AlertInfosDTO {
   currentSourceTimestamp: string | null;
   currentEnqueuedTimestamp: string | null;
   currentProcessedTimestamp: string | null;
-  status: AlertStatus;
+  currentStatus: AlertStatus;
   tags: string[];
   history: AlertStateDTO[];
   groupByValues: AlertDataDefinitionDTO[];

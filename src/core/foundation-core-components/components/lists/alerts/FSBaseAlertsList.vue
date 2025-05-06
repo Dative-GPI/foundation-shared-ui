@@ -197,6 +197,15 @@
       </FSSpan>
     </template>
     <template
+      #item.currentStatus="{ item }"
+    >
+      <FSSpan
+        font="text-overline"
+      >
+        {{ AlertTools.statusLabel(item.currentStatus) }}
+      </FSSpan>
+    </template>
+    <template
       #item.tile="{ item, toggleSelect }"
     >
       <FSAlertTileUI
