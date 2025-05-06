@@ -2,7 +2,17 @@
   <component 
     :is="component"
     v-bind="$attrs"
-  />
+  >
+    <template
+      v-for="(_, name) in $slots"
+      v-slot:[getNameSlot(name)]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData"
+      />
+    </template>
+  </component>
 </template>
 
 <script lang="ts">
@@ -42,8 +52,13 @@ export default defineComponent({
       };
     });
 
+    const getNameSlot = (name: string | number) => {
+      return name.toString().replace("base-list-", "");
+    }
+
     return {
       component,
+      getNameSlot
     }
   }
 });
