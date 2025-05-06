@@ -1,4 +1,4 @@
-import { RoleTranslation, type RoleTranslationDTO } from '@/core/foundation-core-domain/models';
+import { RoleTranslation, type RoleTranslationDTO } from '@dative-gpi/foundation-core-domain/models';
 import { RoleOrganisationInfos, type RoleOrganisationInfosDTO } from "./roleOrganisationInfos";
 import { type RoleType } from "@dative-gpi/foundation-shared-domain/enums";
 
