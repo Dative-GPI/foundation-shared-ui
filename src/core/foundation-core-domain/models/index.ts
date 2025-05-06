@@ -40,6 +40,7 @@ export * from "./organisations";
 export * from "./permissionCategories";
 export * from "./roleOrganisations";
 export * from "./roleOrganisationTypes";
+export * from "./roles";
 export * from "./routes";
 export * from "./scenarioDeviceOrganisations";
 export * from "./scenarioOrganisations";
