@@ -44,7 +44,7 @@
       >
         <FSTextField
           :label="$tr('ui.common.default-value', 'Default value')"
-          :disabled="$props.disabled"
+          :disabled="true"
           :modelValue="$props.modelValue"
         />
         <FSCol
