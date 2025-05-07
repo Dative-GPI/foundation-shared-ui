@@ -11,6 +11,7 @@ export class ChartOrganisationTypeInfos {
   organisationTypeLabel: string;
   chartCategoryId: string | null;
   chartCategoryLabel: string | null;
+  chartCategoryIndex: number | null;
   scope: ApplicationScope;
   label: string;
   title: string;
@@ -30,6 +31,7 @@ export class ChartOrganisationTypeInfos {
     this.organisationTypeLabel = params.organisationTypeLabel;
     this.chartCategoryId = params.chartCategoryId;
     this.chartCategoryLabel = params.chartCategoryLabel;
+    this.chartCategoryIndex = params.chartCategoryIndex;
     this.scope = params.scope;
     this.label = params.label;
     this.title = params.title;
@@ -50,6 +52,7 @@ export interface ChartOrganisationTypeInfosDTO {
   organisationTypeLabel: string;
   chartCategoryId: string | null;
   chartCategoryLabel: string | null;
+  chartCategoryIndex: number | null;
   scope: ApplicationScope;
   label: string;
   title: string;

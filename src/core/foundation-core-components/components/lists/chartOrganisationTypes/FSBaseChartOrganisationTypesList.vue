@@ -51,8 +51,8 @@
     >
       <FSTagGroup
         variant="slide"
-        :disabled="true"
         :tags="item.tags"
+        :showRemove="false"
       />
     </template>
     <template
@@ -73,8 +73,9 @@
       #item.modelsLabels="{ item }"
     >
       <FSTagGroup
-        :disabled="true"
+        variant="slide"
         :tags="item.modelsLabels.map((d: any) => d.label)"
+        :showRemove="false"
       />
     </template>
     <template
