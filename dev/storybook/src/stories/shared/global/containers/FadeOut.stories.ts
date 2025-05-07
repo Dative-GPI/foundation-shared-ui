@@ -17,7 +17,6 @@ export const Default: Story = {
   render: () => ({
     components: { FSFadeOut, FSCol, FSButton, FSRow },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 80px;">
       <FSRow gap="80px">
         <div style="display: flex; flex-direction: column;">
           <pre>&lt;FSFadeOut height="200px"&gt;
