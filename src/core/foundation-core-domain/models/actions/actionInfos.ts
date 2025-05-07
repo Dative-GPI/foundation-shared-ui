@@ -7,6 +7,7 @@ export class ActionInfos {
     uri: string;
     label: string;
     icon: string;
+    color: string | null;
     
     constructor(params: ActionInfosDTO) {
         this.extensionId = params.extensionId;
@@ -15,6 +16,7 @@ export class ActionInfos {
         this.uri = params.uri;
         this.label = params.label;
         this.icon = params.icon;
+        this.color = params.color;
     }
 }
 
@@ -25,6 +27,7 @@ export interface ActionInfosDTO {
     uri: string;
     label: string;
     icon: string;
+    color: string | null;
 }
 
 export interface ActionFilters {
