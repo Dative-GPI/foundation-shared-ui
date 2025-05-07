@@ -1,5 +1,5 @@
 <template>
-  <v-menu
+  <FSMenu
     :closeOnContentClick="false"
     v-model="expanded"
   >
@@ -55,7 +55,7 @@
         </FSFadeOut>
       </FSCol>
     </FSCard>
-  </v-menu>
+  </FSMenu>
 </template>
 
 <script lang="ts">
@@ -66,6 +66,7 @@ import { type ColorBase, ColorEnum, type FSDataTableColumn } from "@dative-gpi/f
 import FSCard from "../FSCard.vue";
 import FSChip from "../FSChip.vue";
 import FSSpan from "../FSSpan.vue";
+import FSMenu from '../FSMenu.vue';
 import FSCol from "../FSCol.vue";
 
 export default defineComponent({
@@ -74,6 +75,7 @@ export default defineComponent({
     FSCard,
     FSChip,
     FSSpan,
+    FSMenu,
     FSCol
   },
   props: {

@@ -131,7 +131,7 @@
       <template
         v-else
       >
-        <v-menu
+        <FSMenu
           :closeOnContentClick="false"
           :modelValue="menu && !$props.disabled"
           @update:modelValue="menu = $event"
@@ -233,7 +233,7 @@
               #title
             />
           </v-treeview>
-        </v-menu>
+        </FSMenu>
       </template>
     </FSCol>
   </template>
@@ -253,6 +253,7 @@ import FSFadeOut from "../FSFadeOut.vue";
 import FSLoader from "../FSLoader.vue";
 import FSRadio from "../FSRadio.vue";
 import FSSpan from "../FSSpan.vue";
+import FSMenu from '../FSMenu.vue';
 import FSCol from "../FSCol.vue";
 
 export default defineComponent({
@@ -266,6 +267,7 @@ export default defineComponent({
     FSLoader,
     FSRadio,
     FSSpan,
+    FSMenu,
     FSCol,
   },
   props: {

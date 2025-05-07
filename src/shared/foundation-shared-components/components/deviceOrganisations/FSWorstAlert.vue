@@ -1,5 +1,5 @@
 <template>
-  <v-menu
+  <FSMenu
     :closeOnContentClick="false"
     v-model="menu"
     location="bottom center"
@@ -28,7 +28,7 @@
       :alertTo="$props.alertTo"
       @close="menu = false"
     />
-  </v-menu>
+  </FSMenu>
 </template>
 
 <script lang="ts">
@@ -42,13 +42,15 @@ import { type FSDeviceAlert } from "@dative-gpi/foundation-shared-components/mod
 import FSWorstAlertCard from "./FSWorstAlertCard.vue";
 import FSColorIcon from "../FSColorIcon.vue";
 import FSBadge from "../FSBadge.vue";
+import FSMenu from '../FSMenu.vue';
 
 export default defineComponent({
   name: "FSWorstAlert",
   components: {
     FSWorstAlertCard,
     FSColorIcon,
-    FSBadge
+    FSBadge,
+    FSMenu
   },
   props: {
     deviceWorstAlert: {
