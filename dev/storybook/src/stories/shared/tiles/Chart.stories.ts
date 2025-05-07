@@ -1,13 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSChartTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSChartTileUI.vue";
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+import FSSimpleTileUI from '@dative-gpi/foundation-shared-components/components/tiles/FSSimpleTileUI.vue';
+import { ChartType } from '@dative-gpi/foundation-shared-domain/enums';
 
 const meta = {
   title: 'Foundation/Shared/Tiles/Chart',
   component: FSChartTileUI,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addSubcomponentsArgTypes([FSSimpleTileUI], FSChartTileUI),
+    ...addComponentEmits(FSChartTileUI)
   },
 } satisfies Meta<typeof FSChartTileUI>;
 
@@ -16,45 +20,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Variations: Story = {
   args: {
-    args: {
-      values: [{
-        id: "1",
-        label: "Tile 1",
-        icon: "mdi-wifi",
-        type: 2
-      }, {
-        id: "2",
-        label: "Chart Icon tile 2",
-        icon: "mdi-account",
-        type: 4
-      }, {
-        id: "3",
-        label: "Chart Icon tile with color",
-        icon: "mdi-chart-line",
-        type: 3
-      }
-      ],
-      selected: [
-        false,
-        false,
-        false
-      ]
-    }
+    label: 'Chart',
+    icon: 'mdi-chart-bar',
+    type: ChartType.Heatmap
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSChartTileUI },
-    props: Object.keys(argTypes),
     setup() {
-      return { ...args };
+      return { args };
     },
     template: `
-    <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100vw;">
-      <FSChartTileUI
-        v-for="(entity, index) in args.values"
-        :key="index"
-        v-bind="entity"
-      />
-    </div>`
+    <FSChartTileUI
+      v-bind="args"
+    />`
   })
 }
 

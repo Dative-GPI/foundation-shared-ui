@@ -1,135 +1,95 @@
 <template>
-  <FSTile
+  <FSSimpleTileUI
     :activeColor="ColorEnum.Primary"
     :bottomColor="ColorEnum.Error"
     :width="$props.width"
     :modelValue="$props.modelValue"
+    :label="$props.label"
+    :code="$props.code"
+    :imageId="$props.imageId"
+    :icon="$props.icon"
     v-bind="$attrs"
   >
-    <FSCol
-      align="center-center"
-      width="fill"
+    <template
+      #append-info
     >
-      <FSRow
-        align="center-center"
-        gap="24px"
-        :height="imageSize"
-        :wrap="false"
+      <FSCol
+        gap="6px"
       >
-        <FSCol
-          gap="12px"
-          :width="infoWidth"
+        <FSRow
+          align="center-left"
         >
-          <FSCol
-            gap="6px"
-          >
-            <FSSpan
-              font="text-button"
-              :lineClamp="1"
-            >
-              {{ $props.label }}
-            </FSSpan>
-            <FSSpan
-              font="text-overline"
-              variant="soft"
-            >
-              {{ $props.code }}
-            </FSSpan>
-          </FSCol>
-          <FSCol
-            gap="6px"
+          <FSColor
+            height="24px"
+            width="24px"
+            :color="ColorEnum.Primary"
+            :border="false"
           >
             <FSRow
-              align="center-left"
+              align="center-center"
             >
-              <FSColor
-                padding="0 8px"
-                height="24px"
-                :color="ColorEnum.Primary"
-                :border="false"
-              >
-                <FSRow
-                  align="center-center"
-                >
-                  <FSSpan
-                    font="text-overline"
-                  >
-                    {{ groupsLabel }}
-                  </FSSpan>
-                </FSRow>
-              </FSColor>
               <FSSpan
                 font="text-overline"
               >
-                {{ $tr("ui.common.groups", "Group(s)") }}
+                {{ groupsBadgeContent }}
               </FSSpan>
             </FSRow>
+          </FSColor>
+          <FSSpan
+            font="text-overline"
+          >
+            {{ $tr("ui.common.groups", "Group(s)") }}
+          </FSSpan>
+        </FSRow>
+        <FSRow
+          align="center-left"
+        >
+          <FSColor
+            height="24px"
+            width="24px"
+            :color="ColorEnum.Success"
+            :border="false"
+          >
             <FSRow
-              align="center-left"
+              align="center-center"
             >
-              <FSColor
-                padding="0 8px"
-                height="24px"
-                :color="ColorEnum.Success"
-                :border="false"
-              >
-                <FSRow
-                  align="center-center"
-                >
-                  <FSSpan
-                    font="text-overline"
-                  >
-                    {{ deviceOrganisationsLabel }}
-                  </FSSpan>
-                </FSRow>
-              </FSColor>
               <FSSpan
                 font="text-overline"
               >
-                {{ $tr("ui.common.devices", "Device(s)") }}
+                {{ deviceOrganisationsBadgeContent }}
               </FSSpan>
             </FSRow>
-          </FSCol>
-        </FSCol>
-        <FSImage
-          v-if="$props.imageId"
-          :imageId="$props.imageId"
-          :width="imageSize"
-        />
-        <FSIconCard
-          v-else-if="$props.icon"
-          backgroundVariant="standard"
-          :backgroundColor="ColorEnum.Background"
-          :icon="$props.icon"
-          :size="imageSize"
-        />
-      </FSRow>
-    </FSCol>
-  </FSTile>
+          </FSColor>
+          <FSSpan
+            font="text-overline"
+          >
+            {{ $tr("ui.common.devices", "Device(s)") }}
+          </FSSpan>
+        </FSRow>
+      </FSCol>
+    </template>
+  </FSSimpleTileUI>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, type PropType } from "vue";
 
-import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composables";
+import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
+
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
-import FSIconCard from "../FSIconCard.vue";
-import FSImage from "../FSImage.vue";
+import FSSimpleTileUI from './FSSimpleTileUI.vue';
 import FSColor from "../FSColor.vue";
 import FSSpan from "../FSSpan.vue";
-import FSTile from "./FSTile.vue";
 import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
 
 export default defineComponent({
   name: "FSGroupTileUI",
   components: {
-    FSIconCard,
-    FSImage,
+    FSSimpleTileUI,
     FSColor,
     FSSpan,
-    FSTile,
     FSCol,
     FSRow
   },
@@ -175,33 +135,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { isMobileSized } = useBreakpoints();
+    const groupsBadgeContent = computed(() => capNumberToString(props.recursiveGroupsIds.length));
 
-    const groupsLabel = computed((): string => {
-      return props.recursiveGroupsIds.length > 99 ? "99+" : props.recursiveGroupsIds.length.toString();
-    });
-
-    const deviceOrganisationsLabel = computed((): string => {
-      return props.recursiveDeviceOrganisationsIds.length > 99 ? "99+" : props.recursiveDeviceOrganisationsIds.length.toString();
-    });
-
-    const imageSize = computed((): number => {
-      return isMobileSized.value ? 90 : 100;
-    });
-
-    const infoWidth = computed((): string => {
-      if (!props.imageId && !props.icon) {
-        return "100%";
-      }
-      return `calc(100% - ${imageSize.value}px - 24px)`;
-    });
+    const deviceOrganisationsBadgeContent = computed(() => capNumberToString(props.recursiveDeviceOrganisationsIds.length));
 
     return {
-      deviceOrganisationsLabel,
-      groupsLabel,
+      deviceOrganisationsBadgeContent,
+      groupsBadgeContent,
       ColorEnum,
-      imageSize,
-      infoWidth
     };
   }
 });

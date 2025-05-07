@@ -89,6 +89,7 @@
         :icon="item.icon"
         :imageId="item.imageId"
         :type="item.chartType"
+        :scope="item.scope"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
         :to="$props.itemTo && $props.itemTo(item)"

@@ -87,6 +87,7 @@
         :singleSelect="$props.singleSelect"
         :selectable="$props.selectable"
         :icon="item.icon"
+        :scope="item.scope"
         :imageId="item.imageId"
         :type="item.chartType"
         :modelValue="isSelected(item.id)"

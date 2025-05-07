@@ -17,21 +17,29 @@
         :wrap="false"
       >
         <FSCol
-          gap="6px"
+          gap="12px"
           :width="infoWidth"
         >
-          <FSSpan
-            font="text-button"
-            :lineClamp="2"
+          <FSCol
+            gap="4px"
           >
-            {{ $props.label }}
-          </FSSpan>
-          <FSSpan
-            font="text-overline"
-            variant="soft"
-          >
-            {{ $props.code }}
-          </FSSpan>
+            <FSSpan
+              font="text-button"
+              :lineClamp="2"
+            >
+              {{ $props.label }}
+            </FSSpan>
+            <FSSpan
+              font="text-overline"
+              variant="soft"
+            >
+              {{ $props.code }}
+            </FSSpan>
+          </FSCol>
+          <slot
+            name="append-info"
+            v-bind="$attrs"
+          />
         </FSCol>
         <FSImage
           v-if="$props.imageId"
@@ -78,7 +86,7 @@ export default defineComponent({
   },
   props: {
     imageId: {
-      type: String as PropType<string>,
+      type: String as PropType<string | null>,
       required: false,
       default: null
     },
@@ -93,8 +101,9 @@ export default defineComponent({
       default: null
     },
     icon: {
-      type: String as PropType<string>,
+      type: String as PropType<string | null>,
       required: false,
+      default: null
     },
     iconBackgroundVariant: {
       type: String as PropType<"background" | "standard" | "full" | "gradient">,
