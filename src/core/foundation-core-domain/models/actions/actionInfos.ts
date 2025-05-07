@@ -16,7 +16,7 @@ export class ActionInfos {
         this.uri = params.uri;
         this.label = params.label;
         this.icon = params.icon;
-        this.color = params.color;
+        this.color = params.color ?? null;
     }
 }
 
@@ -27,7 +27,7 @@ export interface ActionInfosDTO {
     uri: string;
     label: string;
     icon: string;
-    color: string | null;
+    color?: string | null;
 }
 
 export interface ActionFilters {
