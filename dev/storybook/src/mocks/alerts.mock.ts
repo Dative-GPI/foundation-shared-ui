@@ -117,7 +117,7 @@ export const ALERTS: AlertInfosDTO[] = [
       "currentSourceTimestamp": "2024-09-07T07:38:55.574Z",
       "currentEnqueuedTimestamp": "2024-09-07T07:43:20.882Z",
       "currentProcessedTimestamp": "2024-09-07T07:43:21.04357Z",
-      "currentStatus": 2
+      "currentStatus": 1
   },
   {
       "id": "02f263cf-4b4d-47e6-a7e7-89e2b1b3444d",
