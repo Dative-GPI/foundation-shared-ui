@@ -7,7 +7,7 @@ export function addSubcomponentsArgTypes(subcomponents: any[], component: any): 
     const subcomponentArgTypes = Object.entries(subcomponent.props).reduce(
       
       (propAcc, [propName, propOptions]: [string, any]) => {
-        if(component.props[propName]) return propAcc;
+        if(component.props && component.props[propName]) return propAcc;
         if (propAcc[propName]) return propAcc;
         
         propAcc[propName] = {
