@@ -1,6 +1,8 @@
 <template>
   <v-menu
     :modelValue="$props.modelValue"
+    :scrollStrategy="$props.scrollStrategy"
+    :offset="$props.offset"
     @update:modelValue="$emit('update:modelValue', $event)"
   >
     <template
@@ -17,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 
 export default defineComponent({
   name: "FSMenu",
@@ -25,7 +27,15 @@ export default defineComponent({
     modelValue: {
       type: Boolean,
       default: false
-    }
+    },
+    scrollStrategy: {
+      type: String,
+      default: "close"
+    },
+    offset: {
+      type: [String, Number] as PropType<string | number | null>,
+      default: "4px"
+    },
   },
   emits: ["update:modelValue"],
   setup() {
