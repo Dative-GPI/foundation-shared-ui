@@ -21,4 +21,11 @@
     &-gradient {
         background: var(--fs-card-background-color);
     }
+
+    .fs-card-top-right {
+        position: absolute;
+        line-height: normal;
+        right: var(--fs-card-top-right-padding);
+        top: var(--fs-card-top-right-padding);
+    }
 }
