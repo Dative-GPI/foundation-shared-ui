@@ -64,6 +64,7 @@ import FSRouterLink from '@dative-gpi/foundation-shared-components/components/FS
 export default defineComponent({
   name: "FSChip",
   components: {
+    FSRouterLink,
     FSIcon,
     FSSpan,
     FSRow
