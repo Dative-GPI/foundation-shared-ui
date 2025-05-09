@@ -1,5 +1,5 @@
 <template>
-  <v-menu
+  <FSMenu
     :closeOnContentClick="false"
     v-model="menu"
     location="bottom center"
@@ -22,7 +22,7 @@
       :deviceConnectivity="$props.deviceConnectivity"
       @close="menu = false"
     />
-  </v-menu>
+  </FSMenu>
 </template>
 
 <script lang="ts">
@@ -33,12 +33,14 @@ import type { FSDeviceConnectivity } from "@dative-gpi/foundation-shared-compone
 
 import FSConnectivityCard from "./FSConnectivityCard.vue";
 import FSColorIcon from "../FSColorIcon.vue";
+import FSMenu from '../FSMenu.vue';
 
 export default defineComponent({
   name: "FSConnectivity",
   components: {
     FSConnectivityCard,
-    FSColorIcon
+    FSColorIcon,
+    FSMenu
   },
   props: {
     deviceConnectivity: {

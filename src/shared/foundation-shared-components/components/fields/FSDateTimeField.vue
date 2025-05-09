@@ -91,7 +91,8 @@
     <template
       v-else
     >
-      <v-menu
+      <FSMenu
+        min-width="300px"
         :closeOnContentClick="false"
         :modelValue="menu && !$props.disabled"
         @update:modelValue="menu = $event"
@@ -187,7 +188,7 @@
             </FSCol>
           </FSCard>
         </FSWindow>
-      </v-menu>
+      </FSMenu>
     </template>
   </FSCol>
 </template>
@@ -206,6 +207,7 @@ import FSWindow from "../FSWindow.vue";
 import FSButton from "../FSButton.vue";
 import FSClock from "../FSClock.vue";
 import FSCard from "../FSCard.vue";
+import FSMenu from '../FSMenu.vue';
 import FSCol from "../FSCol.vue";
 
 export default defineComponent({
@@ -218,6 +220,7 @@ export default defineComponent({
     FSButton,
     FSClock,
     FSCard,
+    FSMenu,
     FSCol
   },
   props: {

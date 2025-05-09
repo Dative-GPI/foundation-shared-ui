@@ -116,7 +116,7 @@
         >
           mdi-link
         </FSIcon>
-        <v-menu
+        <FSMenu
           v-if="$props.variableReferences && $props.variableReferences.length > 0"
           :closeOnContentClick="false"
           v-model="menuVariable"
@@ -146,7 +146,7 @@
               @update:modelValue="insertVariable($event)"
             />
           </FSCard>
-        </v-menu>
+        </FSMenu>
         <v-divider
           vertical
         />
@@ -246,6 +246,7 @@ import FSTextField from "./FSTextField.vue";
 import FSIcon from "../FSIcon.vue";
 import FSCard from "../FSCard.vue";
 import FSText from "../FSText.vue";
+import FSMenu from '../FSMenu.vue';
 import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
 
@@ -257,6 +258,7 @@ export default defineComponent({
     FSText,
     FSIcon,
     FSCard,
+    FSMenu,
     FSCol,
     FSRow
   },

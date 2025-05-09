@@ -71,7 +71,7 @@
     <template
       v-else
     >
-      <v-menu
+      <FSMenu
         min-width="300px"
         :closeOnContentClick="false"
         :modelValue="menu && !$props.disabled"
@@ -142,7 +142,7 @@
             />
           </FSCol>
         </FSCard>
-      </v-menu>
+      </FSMenu>
     </template>
   </FSCol>
 </template>
@@ -160,6 +160,7 @@ import FSTextField from "./FSTextField.vue";
 import FSCalendar from "../FSCalendar.vue";
 import FSButton from "../FSButton.vue";
 import FSCard from "../FSCard.vue";
+import FSMenu from '../FSMenu.vue';
 import FSCol from "../FSCol.vue";
 
 export default defineComponent({
@@ -170,6 +171,7 @@ export default defineComponent({
     FSCalendar,
     FSButton,
     FSCard,
+    FSMenu,
     FSCol
   },
   props: {

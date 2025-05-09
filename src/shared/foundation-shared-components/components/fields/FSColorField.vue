@@ -1,5 +1,4 @@
 <template>
-
   <FSBaseField
     class="fs-color-field"
     :description="$props.description"
@@ -34,7 +33,7 @@
       </FSRow>
     </FSCard>
   </FSBaseField>
-  <v-menu
+  <FSMenu
     origin="top left"
     min-width="300px"
     :activator="`#${activatorId}`"
@@ -73,7 +72,7 @@
         />
       </FSCol>
     </FSCard>
-  </v-menu>
+  </FSMenu>
 </template>
 
 <script lang="ts">
@@ -87,6 +86,7 @@ import FSBaseField from "./FSBaseField.vue";
 import FSCard from "../FSCard.vue";
 import FSIcon from "../FSIcon.vue";
 import FSText from "../FSText.vue";
+import FSMenu from "../FSMenu.vue";
 import FSRow from "../FSRow.vue";
 import FSCol from "../FSCol.vue";
 
@@ -94,6 +94,7 @@ export default defineComponent({
   name: "FSColorField",
   components: {
     FSBaseField,
+    FSMenu,
     FSText,
     FSCard,
     FSIcon,
