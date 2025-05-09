@@ -14,6 +14,7 @@
   .fs-hide-x-scrollbar {
     overflow-x: scroll !important;
 
+    // Styles pour WebKit (Chrome, Safari)
     &::-webkit-scrollbar {
       height: 8px;
     }
@@ -30,6 +31,7 @@
   .fs-hide-y-scrollbar {
     overflow-y: scroll !important;
 
+    // Styles pour WebKit (Chrome, Safari)
     &::-webkit-scrollbar {
       width: 8px;
     }
@@ -47,19 +49,9 @@
 @include touchscreen {
   .fs-hide-x-scrollbar {
     overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    scrollbar-width: none;
   }
 
   .fs-hide-y-scrollbar {
     overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    scrollbar-width: none;
   }
 }
