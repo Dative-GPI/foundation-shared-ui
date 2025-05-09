@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const DeviceOrganisations: Story = {
   render: (args) => ({
-    components: { FSSelectEntitiesList },
+    components: { FSSelectEntitiesList, FSButton },
     setup() {
       return { args };
     },
@@ -30,7 +30,15 @@ export const DeviceOrganisations: Story = {
         :entityType="args.entityType"
         :showRemove="true"
         v-model="args.modelValue"
-      />
+      >
+        <template 
+          #base-list-toolbar
+        >
+          <FSButton
+            label='Non affecté'
+          />
+        </template>
+      </FSSelectEntitiesList>
     `,
   }),
   args: {
@@ -72,7 +80,13 @@ export const Dialog: Story = {
         v-model:modelValue="args.modelValue"
         @update:selecteds="args['onUpdate:selecteds']"
         @update:modelValue="args['onUpdate:modelValue']"
-      />
+      >
+        <template #base-list-toolbar>
+          <FSButton
+            label='Non affecté'
+          />
+        </template>
+      </FSDialogSelectEntities>
       <FSButton
         @click="args.modelValue = true"
         label="Open Dialog"
