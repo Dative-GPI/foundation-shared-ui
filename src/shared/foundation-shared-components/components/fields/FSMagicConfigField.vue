@@ -17,7 +17,7 @@
       gap="24px"
     >
       <FSTranslateField
-        :label="$tr('ui.common.label', 'Label')"
+        :label="$tr('entity.common.label', 'Label')"
         :disabled="$props.disabled"
         :modelValue="$props.labelDefault"
         :translations="$props.translations"

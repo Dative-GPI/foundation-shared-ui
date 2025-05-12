@@ -208,7 +208,7 @@ export default defineComponent({
       const items = [
         {
           id: EntityType.Model,
-          label: $tr("ui.common.models", "Models")
+          label: $tr("ui.common.models", "Model(s)")
         },
         {
           id: EntityType.Group,
