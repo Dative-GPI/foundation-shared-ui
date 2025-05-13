@@ -48,7 +48,7 @@
       >
         <template
           v-for="(_, name) in $slots"
-          v-slot:[name]="slotData"
+          v-slot:[getNameSlot(name)]="slotData"
         >
           <slot
             :name="name"
@@ -209,11 +209,16 @@ export default defineComponent({
       emit("update:modelValue", props.modelValue.filter((i) => i !== id));
     }
 
+    const getNameSlot = (name: string | number) => {
+      return name.toString().replace("base-list-", "");
+    }
+
     return {
       simpleListFilters,
       baseTableAttrs,
       tableCode,
-      onRemove
+      onRemove,
+      getNameSlot
     }
   }
 });
