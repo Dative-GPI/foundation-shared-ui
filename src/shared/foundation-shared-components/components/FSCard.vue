@@ -30,6 +30,14 @@
         </FSRow>
       </FSCol>
     </slot>
+    <FSRow
+      v-if="$slots['top-right']"
+      class="fs-card-top-right"
+    >
+      <slot
+        name="top-right"
+      />
+    </FSRow>
   </div>
 </template>
 
@@ -99,6 +107,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
+    },
+    topRightPadding: {
+      type: [String, Number],
+      required: false,
+      default: "4px"
     }
   },
   setup(props) {
@@ -143,7 +156,8 @@ export default defineComponent({
           "--fs-card-width"           : sizeToVar(props.width),
           "--fs-card-background-color": backgrounds.base,
           "--fs-card-border-color"    : borderColor.value,
-          "--fs-card-color"           : darks.base
+          "--fs-card-color"           : darks.base,
+          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
         }
         case "standard": return {
           "--fs-card-border-size"     : props.border ? "1px" : "0",
@@ -154,7 +168,8 @@ export default defineComponent({
           "--fs-card-width"           : sizeToVar(props.width),
           "--fs-card-background-color": colors.value.light,
           "--fs-card-border-color"    : borderColor.value,
-          "--fs-card-color"           : colors.value.lightContrast!
+          "--fs-card-color"           : colors.value.lightContrast!,
+          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
         }
         case "full": return {
           "--fs-card-border-size"     : props.border ? "1px" : "0",
@@ -165,7 +180,8 @@ export default defineComponent({
           "--fs-card-width"           : sizeToVar(props.width),
           "--fs-card-background-color": colors.value.base,
           "--fs-card-border-color"    : borderColor.value,
-          "--fs-card-color"           : colors.value.baseContrast!
+          "--fs-card-color"           : colors.value.baseContrast!,
+          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
         }
         case "gradient": return {
           "--fs-card-border-size"     : props.border ? "1px" : "0",
@@ -176,7 +192,8 @@ export default defineComponent({
           "--fs-card-width"           : sizeToVar(props.width),
           "--fs-card-background-color": gradients.value.base,
           "--fs-card-border-color"    : borderColor.value,
-          "--fs-card-color"           : colors.value.lightContrast!
+          "--fs-card-color"           : colors.value.lightContrast!,
+          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
         }
       }
     });

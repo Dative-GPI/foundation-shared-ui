@@ -12,23 +12,26 @@
       :href="$props.href"
       width="100%"
       height="100%"
+      topRightPadding="1px"
       :to="$props.to"
       :style="style"
       v-bind="$attrs"
     >
       <slot />
-      <FSCard
+      <template 
         v-if="$props.selectable"
-        class="fs-tile-checkbox"
-        :height="['40px', '32px']"
-        :width="['40px', '32px']"
-        :border="false"
+        #top-right
       >
-        <FSCheckbox
-          :modelValue="$props.modelValue"
-          @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
-        />
-      </FSCard>
+        <FSCard
+          padding="8px"
+          :border="false"
+        >
+          <FSCheckbox
+            :modelValue="$props.modelValue"
+            @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
+          />
+        </FSCard>
+      </template>
     </FSClickable>
 
     <FSClickable
@@ -53,22 +56,24 @@
       :style="style"
       width="100%"
       height="100%"
+      topRightPadding="1px"
       v-bind="$attrs"
     >
       <slot />
-      <FSCard
+      <template 
         v-if="$props.selectable"
-        class="fs-tile-checkbox"
-        variant="background"
-        :height="['40px', '32px']"
-        :width="['40px', '32px']"
-        :border="false"
+        #top-right
       >
-        <FSCheckbox
-          :modelValue="$props.modelValue"
-          @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
-        />
-      </FSCard>
+        <FSCard
+          padding="8px"
+          :border="false"
+        >
+          <FSCheckbox
+            :modelValue="$props.modelValue"
+            @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
+          />
+        </FSCard>
+      </template>
     </FSCard>  
     
     <div
@@ -105,7 +110,7 @@ export default defineComponent({
   },
   props: {
     to: {
-      type: [String, Object] as PropType<string | RouteLocation | null>,
+      type: [String, Object] as PropType<RouteLocation | null>,
       required: false,
       default: null
     },

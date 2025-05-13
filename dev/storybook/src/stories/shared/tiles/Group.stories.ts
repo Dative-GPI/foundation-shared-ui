@@ -4,6 +4,7 @@ import { addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FSTile.vue';
 import FSGroupTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSGroupTileUI.vue";
+import FSLoadTile from '@dative-gpi/foundation-shared-components/components/tiles/FSLoadTile.vue';
 
 const meta = {
   title: 'Foundation/Shared/Tiles/Group',
@@ -26,19 +27,21 @@ export const Default: Story = {
       recursiveDeviceOrganisationsIds: Array.from(Array(100).keys()).map((i) => i.toString()),
     },
     render: (args) => ({
-    components: { FSGroupTileUI },
+    components: { FSGroupTileUI, FSLoadTile },
     setup() {
       return { args };
     },
     template: `
+    Card : 
     <FSGroupTileUI
-      :imageId="args.imageId"
-      :label="args.label"
-      :code="args.code"
-      :recursiveGroupsIds="args.recursiveGroupsIds"
-      :recursiveDeviceOrganisationsIds="args.recursiveDeviceOrganisationsIds"
       v-model="args.modelValue"
-    />`
+      v-bind="args"
+    />
+    Loading :
+    <FSLoadTile
+      v-bind="args"
+    />
+    `
   })
 }
 

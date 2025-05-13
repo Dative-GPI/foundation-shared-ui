@@ -1,5 +1,5 @@
 <template>
-  <v-menu
+  <FSMenu
     v-model="expanded"
   >
     <template
@@ -61,7 +61,7 @@
         </FSCol>
       </FSCol>
     </FSCard>
-  </v-menu>
+  </FSMenu>
 </template>
 
 <script lang="ts">
@@ -73,6 +73,7 @@ import FSButton from "../FSButton.vue";
 import FSCard from "../FSCard.vue";
 import FSSpan from "../FSSpan.vue";
 import FSChip from "../FSChip.vue";
+import FSMenu from '../FSMenu.vue';
 import FSCol from "../FSCol.vue";
 
 export default defineComponent({
@@ -82,6 +83,7 @@ export default defineComponent({
     FSCard,
     FSChip,
     FSSpan,
+    FSMenu,
     FSCol
   },
   props: {

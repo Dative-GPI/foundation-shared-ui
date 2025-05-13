@@ -2,6 +2,7 @@
   <FSCard
     class="fs-load-tile"
     padding="11px"
+    topRightPadding="1px"
     :height="heights.card"
     :width="widths.card"
     :style="style"
@@ -39,19 +40,21 @@
         :width="widths.image"
       />
     </FSRow>
-    <FSCard
+    <template 
       v-if="$props.selectable"
-      class="fs-tile-checkbox"
-      :height="['40px', '32px']"
-      :width="['40px', '32px']"
-      :border="false"
+      #top-right
     >
-      <FSCheckbox
-        :modelValue="$props.modelValue"
-        :disabled="true"
-        @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
-      />
-    </FSCard>
+      <FSCard
+        padding="8px"
+        :border="false"
+      >
+        <FSCheckbox
+          :modelValue="$props.modelValue"
+          :disabled="true"
+          @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
+        />
+      </FSCard>
+    </template>
   </FSCard>
 </template>
 
