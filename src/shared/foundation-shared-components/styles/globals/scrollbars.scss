@@ -26,6 +26,9 @@
     &:hover {
       --scrollbar-x-color: #00000022;
     }
+    &:not(:hover) {
+      --scrollbar-y-color: #00000000;
+    }
   }
 
   .fs-hide-y-scrollbar {
@@ -42,6 +45,9 @@
 
     &:hover {
       --scrollbar-y-color: #00000022;
+    }
+    &:not(:hover) {
+      --scrollbar-y-color: #00000000;
     }
   }
 }
