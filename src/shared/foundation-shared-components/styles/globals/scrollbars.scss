@@ -14,6 +14,7 @@
   .fs-hide-x-scrollbar {
     overflow-x: scroll !important;
 
+    // Styles pour WebKit (Chrome, Safari)
     &::-webkit-scrollbar {
       height: 8px;
     }
@@ -25,11 +26,15 @@
     &:hover {
       --scrollbar-x-color: #00000022;
     }
+    &:not(:hover) {
+      --scrollbar-y-color: #00000000;
+    }
   }
 
   .fs-hide-y-scrollbar {
     overflow-y: scroll !important;
 
+    // Styles pour WebKit (Chrome, Safari)
     &::-webkit-scrollbar {
       width: 8px;
     }
@@ -41,25 +46,18 @@
     &:hover {
       --scrollbar-y-color: #00000022;
     }
+    &:not(:hover) {
+      --scrollbar-y-color: #00000000;
+    }
   }
 }
 
 @include touchscreen {
   .fs-hide-x-scrollbar {
     overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    scrollbar-width: none;
   }
 
   .fs-hide-y-scrollbar {
     overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    scrollbar-width: none;
   }
 }
