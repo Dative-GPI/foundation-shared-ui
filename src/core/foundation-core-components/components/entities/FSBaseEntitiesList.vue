@@ -2,7 +2,17 @@
   <component 
     :is="component"
     v-bind="$attrs"
-  />
+  >
+    <template
+      v-for="(_, name) in $slots"
+      v-slot:[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData"
+      />
+    </template>
+  </component>
 </template>
 
 <script lang="ts">
@@ -43,7 +53,7 @@ export default defineComponent({
     });
 
     return {
-      component,
+      component
     }
   }
 });

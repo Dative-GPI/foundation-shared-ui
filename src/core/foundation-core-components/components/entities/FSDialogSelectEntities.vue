@@ -15,7 +15,17 @@
         :modelValue="actualSelecteds"
         :filters="$props.filters"
         @update:modelValue="actualSelecteds = $event"
-      />
+      >
+        <template
+          v-for="(_, name) in $slots"
+          v-slot:[name]="slotData"
+        >
+          <slot
+            :name="name"
+            v-bind="slotData"
+          />
+        </template>
+      </FSSelectEntitiesList>
     </template>
   </FSDialogSubmit>
 </template>
