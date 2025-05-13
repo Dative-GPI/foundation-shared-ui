@@ -9,6 +9,7 @@
     >
       <FSRow
         gap="24px"
+        :height="actualImageSize"
         :wrap="false"
       >
         <template 
@@ -54,7 +55,7 @@
             >
               <slot
                 name="subtitle"
-                v-if="topOffset < 60"
+                v-if="topOffset < 64"
               >
                 <FSText
                   v-if="$props.subtitle"
@@ -65,10 +66,11 @@
               </slot>
               <slot
                 name="description"
-                v-if="topOffset < 20"
+                v-if="topOffset < 24"
               >
                 <FSText
                   v-if="$props.description"
+                  :lineClamp="2"
                   font="text-body"
                 >
                   {{ $props.description }}
@@ -146,9 +148,9 @@ export default defineComponent({
       default: () => ["124px", "96px", "80px"]
     },
     icon: {
-      type: String as PropType<string>,
+      type: String as PropType<string | null>,
       required: false,
-      default: "mdi-ab-testing"
+      default: null
     },
     iconColor: {
       type: String as PropType<ColorBase>,
