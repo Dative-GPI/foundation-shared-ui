@@ -57,6 +57,7 @@ export const chartIcon = (value: ChartType): string => {
     case ChartType.Slider: return "mdi-ruler";
     case ChartType.Table: return "mdi-table";
     case ChartType.XY: return "mdi-chart-line";
+    case ChartType.Sankey: return "mdi-chart-sankey";
     default: return $tr("ui.common.none", "None");
   }
 }

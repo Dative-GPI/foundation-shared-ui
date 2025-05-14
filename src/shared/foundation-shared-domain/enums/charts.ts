@@ -12,7 +12,8 @@ export enum ChartType {
   Slider    = 4,
   Gauge     = 5,
   ScoreCard = 6,
-  Table     = 7
+  Table     = 7,
+  Sankey    = 8
 }
 
 export enum ColorSets {
