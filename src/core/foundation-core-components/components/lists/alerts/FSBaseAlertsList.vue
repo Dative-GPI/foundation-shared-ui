@@ -134,25 +134,7 @@
       </FSSpan>
     </template>
     <template
-      #item.triggerSourceTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.triggerSourceTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.triggerEnqueuedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.triggerEnqueuedTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.triggerProcessedTimestamp="{ item }"
+      #item.triggerActualTimestamp="{ item }"
     >
       <FSSpan
         font="text-overline"
@@ -170,30 +152,12 @@
       </FSSpan>
     </template>
     <template
-      #item.currentSourceTimestamp="{ item }"
+      #item.currentActualTimestamp="{ item }"
     >
       <FSSpan
         font="text-overline"
       >
-        {{ epochToShortTimeFormat(item.currentSourceTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.currentEnqueuedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.currentEnqueuedTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.currentProcessedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.currentProcessedTimestamp) }}
+        {{ epochToShortTimeFormat(item.currentActualTimestamp) }}
       </FSSpan>
     </template>
     <template
@@ -321,7 +285,7 @@ export default defineComponent({
       const als = [...alerts.value]
       return  als.sort((a: AlertInfos, b: AlertInfos) => {
         return (a.acknowledged === b.acknowledged) ?
-          +b.currentSourceTimestamp! - +a.currentSourceTimestamp! : a.acknowledged ? 1 : -1
+          +b.currentActualTimestamp! - +a.currentActualTimestamp! : a.acknowledged ? 1 : -1
       }); 
     });
 

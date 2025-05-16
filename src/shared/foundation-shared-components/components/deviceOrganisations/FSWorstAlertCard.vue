@@ -82,7 +82,7 @@ export default defineComponent({
 
     const deviceTimestamp = computed((): string => {
       if (props.deviceAlert.sourceTimestamp) {
-        return epochToLongTimeFormat(props.deviceAlert.sourceTimestamp);
+        return epochToLongTimeFormat(props.deviceAlert.actualTimestamp);
       }
       return "";
     });

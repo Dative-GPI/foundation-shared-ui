@@ -7,4 +7,5 @@ export interface FSDeviceAlert {
     criticity: Criticity;
     sourceTimestamp?: number | null;
     enqueuedTimestamp?: number | null;
+    actualTimestamp?: number | null;
 }

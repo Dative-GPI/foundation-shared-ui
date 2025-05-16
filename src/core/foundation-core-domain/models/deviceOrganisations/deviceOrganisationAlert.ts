@@ -8,6 +8,7 @@ export class DeviceOrganisationAlert {
     criticity: Criticity;
     sourceTimestamp?: number;
     enqueuedTimestamp?: number;
+    actualTimestamp: number;
 
   constructor(params: DeviceOrganisationAlertDTO) {
     this.id = params.id;
@@ -16,6 +17,7 @@ export class DeviceOrganisationAlert {
     this.criticity = params.criticity;
     this.sourceTimestamp = params.sourceTimestamp ? isoToEpoch(params.sourceTimestamp) : undefined;
     this.enqueuedTimestamp = params.enqueuedTimestamp ? isoToEpoch(params.enqueuedTimestamp) : undefined;
+    this.actualTimestamp =  isoToEpoch(params.actualTimestamp);
   }
 }
 
@@ -26,4 +28,5 @@ export interface DeviceOrganisationAlertDTO {
   criticity: Criticity;
   sourceTimestamp?: string;
   enqueuedTimestamp?: string;
+  actualTimestamp: string;
 }
