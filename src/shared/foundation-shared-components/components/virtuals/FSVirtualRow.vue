@@ -1,17 +1,20 @@
 <template>
-  <FSCol
+  <FSRow
     ref="root"
-    :height="$props.height"
+    :width="$props.width || 'hug'"
     v-bind="$attrs"
     v-resize="resize"
   >
     <FSFadeOut
-      height="100%"
-      @scroll="onScroll"
+      :hideHorizontalOverflow="false"
+      :hideVerticalOverflow="true"
       :scrollOutside="$props.scrollOutside"
+      height="100%"
+      width="100%"
+      @scroll="onScroll"
     >
       <div 
-        class="fs-virtual-col__container"
+        class="fs-virtual-row__container"
         :style="containerStyle"
       >
         <div
@@ -19,9 +22,9 @@
           :key="item.key"
           :style="{
             position: 'absolute',
-            top: sizeToVar(item.y),
-            width: '100%',
-            height: sizeToVar(item.height)
+            left: sizeToVar(item.x),
+            height: '100%',
+            width: sizeToVar(item.width)
           }"
         >
           <slot
@@ -31,7 +34,7 @@
         </div>
       </div>
     </FSFadeOut>
-  </FSCol>
+  </FSRow>
 </template>
   
 <script lang="ts">
@@ -41,35 +44,32 @@ import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, 
 import { sizeToVar, varToSize } from "../../utils";
 
 import FSFadeOut from "../FSFadeOut.vue";
-import FSCol from "../FSCol.vue";
+import FSRow from "../FSRow.vue";
   
 export default defineComponent({
-  name: "FSVirtualCol",
+  name: "FSVirtualRow",
   components: {
     FSFadeOut,
-    FSCol
+    FSRow
   },
   props: {
     items: {
       type: Array as PropType<{
-        height: number;
+        width: number;
         [key: string]: unknown
       }[]>,
       required: true
     },
     gap: {
       type: Number,
-      required: false,
       default: 0
     },
-    height: {
+    width: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
       default: null
     },
-    bufferHeight: {
+    bufferWidth: {
       type: Number,
-      required: false,
       default: 150
     },
     scrollOutside: {
@@ -78,51 +78,51 @@ export default defineComponent({
     },
     scrollableParentSelectors: {
       type: Array as PropType<string[]>,
-      required: false,
       default: () => []
     },
   },
   setup(props) {
-    const parents : Element[] = []
-    const root = ref<typeof FSCol | null>(null);
+    const parents: Element[] = [];
+    const root = ref<typeof FSRow | null>(null);
     
     const scrollOffset = ref(0);
-    
-    const actualTop = ref(0);
-    const actualHeight = ref(varToSize(props.height));
+    const actualLeft = ref(0);
+    const actualWidth = ref(varToSize(props.width));
 
     let intersectionObserver: IntersectionObserver | null = null;
 
+    // calcul des positions X de chaque item
     const computedItems = computed(() => {
       if (!props.items.length) {
         return [];
       }
 
       const result = [];
-      let currentY = 0;
+      let currentX = 0;
 
-      for (let index = 0; index < props.items.length; index++) {
-        const item = props.items[index];
+      for (let i = 0; i < props.items.length; i++) {
+        const it = props.items[i];
         result.push({
-          key: index,
-          x: 0,
-          y: currentY,
-          width: '100%',
-          height: item.height,
-          item: item
+          key: i,
+          x: currentX,
+          y: 0,
+          width: it.width,
+          height: '100%',
+          item: it
         });
-        currentY += item.height + varToSize(props.gap);
+        currentX += it.width + varToSize(props.gap);
       }
 
       return result;
     });
 
+    // filtre ce qui est dans le buffer horizontal
     const renderedItems = computed(() => {
       return computedItems.value.filter(item => {
         let offset = 0;
 
-        if(!props.height){
-          offset = actualTop.value;
+        if(!props.width){
+          offset = actualLeft.value;
         }
         else 
         {
@@ -130,91 +130,94 @@ export default defineComponent({
         }
 
         return (
-          offset + item.y < actualHeight.value + props.bufferHeight && 
-          offset + item.y + item.height > 0 - props.bufferHeight
+          offset + item.x < actualWidth.value + props.bufferWidth &&
+          offset + item.x + item.width > 0 - props.bufferWidth
         );
       });
-    })
+    });
 
-    const containerHeight = computed(() => {
-      if(!computedItems.value.length) {
-        return 0
+    // largeur totale du container
+    const containerWidth = computed(() => {
+      if (!computedItems.value.length) {
+        return 0;
       }
 
-      const lastItem = computedItems.value[computedItems.value.length - 1];
+      const last = computedItems.value[computedItems.value.length - 1];
 
-      return lastItem.y + lastItem.height;
+      return last.x + last.width;
     });
 
     const containerStyle = computed((): StyleValue => {
       return {
-        '--fs-virtual-col-height': sizeToVar(containerHeight.value),
+        '--fs-virtual-row-width': sizeToVar(containerWidth.value),
       }
-    })
+    });
 
-    const onScroll = (event: Event): void => {
-      const target = event.target as HTMLElement;
-      scrollOffset.value = target.scrollTop;
-    }
+    // scroll horizontal
+    const onScroll = (e: Event): void => {
+      const t = e.target as HTMLElement;
+      scrollOffset.value = t.scrollLeft;
+    };
 
+    // recalcul de la taille & position
     const resize = _.throttle((): void => {
-      if(!root.value) {
+      if (!root.value) {
         return;
       }
-      const element = root.value.$el as HTMLElement;
-      const rect = element.getBoundingClientRect();
-  
-      actualHeight.value = props.height ? rect.height : window.innerHeight;
-      actualTop.value = rect.top;
+
+      const el = root.value.$el as HTMLElement;
+      const rect = el.getBoundingClientRect();
+
+      actualWidth.value = props.width ? rect.width : window.innerWidth;
+      actualLeft.value = rect.left
     }, 16, { leading: true });
 
-
     onMounted(() => {
-      if(!root.value || props.height) {
+      if (!root.value || props.width) {
         return;
       }
 
       const element = root.value.$el as HTMLElement;
       const selectors = [ ".fs-fade-out", ...props.scrollableParentSelectors ];
 
-      for(const selector of selectors) {
+      for (const selector of selectors) {
         let node = element.closest(selector);
 
-        while(node)
+        while (node) 
         {
           parents.push(node);
           node = node.parentElement?.closest(selector) || null;
         }
       }
 
-      // petit hack pour le cas où le composant est pas visible dans le viewport, on modifie le DOM et le fait appareil sans déclencher
-      // un seul event de scroll.
-      intersectionObserver = new IntersectionObserver(resize, { root: null, threshold: Array.from({ length: 10 }, (_, i) => i / 10) });
+      intersectionObserver = new IntersectionObserver(resize, {
+        root: null,
+        threshold: Array.from({ length: 10 }, (_, i) => i / 10)
+      });
       intersectionObserver.observe(element);
 
       document.addEventListener("scroll", resize);
-
-      for(const node of parents) {
-        node.addEventListener("scroll", resize);
+      for (const p of parents) {
+        p.addEventListener("scroll", resize);
       }
-    })
+    });
 
     onUnmounted(() => {
-      if(!root.value || props.height) {
+      if (!root.value || props.width) {
         return;
       }
 
-      if(intersectionObserver) {
+      if(intersectionObserver){
         intersectionObserver.disconnect();
         intersectionObserver = null;
       }
 
       document.removeEventListener("scroll", resize);
 
-      for(const node of parents) {
-        node.removeEventListener("scroll", resize);
+      for (const p of parents) {
+        p.removeEventListener("scroll", resize);
       }
-    })
+    });
 
     return {
       root,
