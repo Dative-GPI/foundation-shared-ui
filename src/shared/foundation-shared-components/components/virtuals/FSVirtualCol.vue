@@ -36,7 +36,7 @@
   
 <script lang="ts">
 import _ from "lodash";
-import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, type StyleValue, nextTick } from "vue";
+import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, type StyleValue } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";
 
@@ -86,6 +86,8 @@ export default defineComponent({
     
     const actualTop = ref(0);
     const actualHeight = ref(varToSize(props.height) || 100);
+
+    let intersectionObserver: IntersectionObserver | null = null;
 
     const computedItems = computed(() => {
       if (!props.items.length) {
@@ -152,7 +154,6 @@ export default defineComponent({
     }
 
     const resize = _.throttle((): void => {
-      console.log("resize");
       if(!root.value) {
         return;
       }
@@ -182,6 +183,11 @@ export default defineComponent({
         }
       }
 
+      // petit hack pour le cas où le composant est pas visible dans le viewport, on modifie le DOM et le fait appareil sans déclencher
+      // un seul event de scroll.
+      intersectionObserver = new IntersectionObserver(resize, { root: null, threshold: Array.from({ length: 10 }, (_, i) => i / 10) });
+      intersectionObserver.observe(element);
+
       document.addEventListener("scroll", resize);
 
       for(const node of parents) {
@@ -192,6 +198,11 @@ export default defineComponent({
     onUnmounted(() => {
       if(!root.value || props.height) {
         return;
+      }
+
+      if(intersectionObserver) {
+        intersectionObserver.disconnect();
+        intersectionObserver = null;
       }
 
       document.removeEventListener("scroll", resize);
