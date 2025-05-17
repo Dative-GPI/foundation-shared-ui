@@ -26,7 +26,7 @@
         >
           <slot
             name="item"
-            v-bind="{ item: item.item }"
+            v-bind="item"
           />
         </div>
       </div>
@@ -35,7 +35,8 @@
 </template>
   
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, type StyleValue } from "vue";
+import _ from "lodash";
+import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, type StyleValue, nextTick } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";
 
@@ -69,7 +70,7 @@ export default defineComponent({
     bufferHeight: {
       type: Number,
       required: false,
-      default: 0
+      default: 100
     },
     scrollableParentSelectors: {
       type: Array as PropType<string[]>,
@@ -78,13 +79,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const deltaOffsetY = ref(0);
-    const localOffsetY = ref(0);
-    const globalOffsetY = ref(0);
-
-    const actualTop = ref(0);
-    const actualHeight = ref(varToSize(props.height));
+    const parents : Element[] = []
     const root = ref<typeof FSCol | null>(null);
+    
+    const scrollOffset = ref(0);
+    
+    const actualTop = ref(0);
+    const actualHeight = ref(varToSize(props.height) || 100);
 
     const computedItems = computed(() => {
       if (!props.items.length) {
@@ -110,17 +111,21 @@ export default defineComponent({
       return result;
     });
 
-    const offsetY = computed(() => localOffsetY.value + globalOffsetY.value + deltaOffsetY.value);
-
     const renderedItems = computed(() => {
       return computedItems.value.filter(item => {
-        
-        // console.log(item.item.name, "item.y", item.y, "<", offsetY.value + actualHeight.value + props.bufferHeight);
-        // console.log(item.item.name, "item.y + item.height", item.y + item.height, ">", offsetY.value - props.bufferHeight);
+        let offset = 0;
+
+        if(!props.height){
+          offset = actualTop.value;
+        }
+        else 
+        {
+          offset = -scrollOffset.value
+        }
 
         return (
-          item.y < offsetY.value + actualHeight.value + props.bufferHeight && 
-          item.y + item.height > offsetY.value - props.bufferHeight
+          offset + item.y < actualHeight.value + props.bufferHeight && 
+          offset + item.y + item.height > 0 - props.bufferHeight
         );
       });
     })
@@ -143,44 +148,21 @@ export default defineComponent({
 
     const onScroll = (event: Event): void => {
       const target = event.target as HTMLElement;
-      localOffsetY.value = target.scrollTop;
+      scrollOffset.value = target.scrollTop;
     }
 
-    const resize = (): void => {
+    const resize = _.throttle((): void => {
+      console.log("resize");
       if(!root.value) {
         return;
       }
-
-      console.log("resizing");
-
       const element = root.value.$el as HTMLElement;
-      const visible = getVisiblePart(element);
+      const rect = element.getBoundingClientRect();
+  
+      actualHeight.value = Math.max(100, Math.min(rect.height, window.innerHeight));
+      actualTop.value = rect.top;
+    }, 16, {leading: true});
 
-      actualHeight.value = visible.height;
-
-      if(!actualTop.value) {
-        actualTop.value = visible.top;
-      }
-
-      // console.log(visible);
-    }
-
-    const computePosition = () => {
-      let scrollTop = 0;
-
-      console.log(window.scrollY  || document.documentElement.scrollTop);
-      console.log(actualTop.value);
-
-      scrollTop += window.scrollY || document.documentElement.scrollTop;
-
-      for(const node of parents) {
-        scrollTop += node.scrollTop;
-      }
-
-      globalOffsetY.value = scrollTop - actualTop.value;
-    }
-
-    const parents : Element[] = []
 
     onMounted(() => {
       if(!root.value || props.height) {
@@ -200,10 +182,10 @@ export default defineComponent({
         }
       }
 
-      document.addEventListener("scroll", computePosition);
+      document.addEventListener("scroll", resize);
 
       for(const node of parents) {
-        node.addEventListener("scroll", computePosition);
+        node.addEventListener("scroll", resize);
       }
     })
 
@@ -212,37 +194,15 @@ export default defineComponent({
         return;
       }
 
-      document.removeEventListener("scroll", computePosition);
+      document.removeEventListener("scroll", resize);
 
       for(const node of parents) {
-        node.removeEventListener("scroll", computePosition);
+        node.removeEventListener("scroll", resize);
       }
     })
 
-    const getVisiblePart = (el: HTMLElement) => {
-      const rect = el.getBoundingClientRect();
-
-      // Calcul des bornes horizontales visibles
-      const visibleLeft   = rect.left;
-      // Calcul des bornes verticales visibles
-      const visibleTop    = rect.top;
-
-      const visibleWidth  = Math.min(rect.width, window.innerWidth);
-      const visibleHeight = Math.min(rect.height, window.innerHeight);
-
-      return {
-        left:   visibleLeft,
-        top:    visibleTop,
-        width:  visibleWidth,
-        height: visibleHeight,
-        // ratio de visibilité (0 à 1)
-        ratio: (visibleWidth * visibleHeight) / (rect.width * rect.height)
-      };
-    }
-
     return {
       root,
-      offsetY,
       renderedItems,
       containerStyle,
       sizeToVar,

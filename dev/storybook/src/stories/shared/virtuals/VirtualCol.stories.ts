@@ -10,6 +10,9 @@ import FSVirtualCol from '@dative-gpi/foundation-shared-components/components/vi
 import FSFadeOut from '@dative-gpi/foundation-shared-components/components/FSFadeOut.vue';
 
 import { addSubcomponentsArgTypes } from '@/utils/properties';
+import FSButtonEdit from '@dative-gpi/foundation-shared-components/components/buttons/FSButtonEdit.vue';
+import FSButtonRemove from '@dative-gpi/foundation-shared-components/components/buttons/FSButtonRemove.vue';
+import { ref } from 'vue';
 
 const meta = {
   title: 'Foundation/Shared/Virtuals/Col',
@@ -173,19 +176,24 @@ export const FullView: Story = {
     gap: 10
   },
   render: (args) => ({
-    components: { FSVirtualCol, FSText, FSSpan, FSIcon, FSRow, FSCol, FSEntityView },
+    components: { FSVirtualCol, FSText, FSSpan, FSIcon, FSRow, FSCol, FSEntityView, FSButtonEdit, FSButtonRemove },
     setup() {
-      return { args }
+      const show1 = ref(true);
+      const show2 = ref(true);
+      return { args, show1, show2 }
     },
     template: `
       <FSEntityView title="Mizard" subtitle="8214485222" description="Description sur une ligne" imageId="1" :imageCover="true">
         <template #toolbar>
-          <FSButtonEdit />
-          <FSButtonRemove />
+          <FSButtonEdit @click="show1 = !show1" />
+          <FSButtonRemove @click="show2 = !show2" />
         </template>
 
         <FSCol gap="32px">
-          <FSCol height="600" style="background-color: lightgrey">
+          <FSCol v-if="show1" height="600" style="background-color: lightgrey">
+          </FSCol>
+          
+          <FSCol v-if="show2" height="200" style="background-color: lightgrey">
           </FSCol>
           
           <FSVirtualCol 
