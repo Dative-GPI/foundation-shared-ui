@@ -28,6 +28,7 @@
 
     <FSMapLayerButton
       v-if="$props.allowedLayers?.length && $props.allowedLayers.length > 1"
+      :disabled="$props.disabled"
       :layers="mapLayers.filter((layer) => $props.allowedLayers?.includes(layer.name) ?? true)"
       :modelValue="$props.currentLayer"
       @update:model-value="$emit('update:currentLayer', $event)"
@@ -39,6 +40,7 @@
     >
       <FSButton
         v-if="$props.showMyLocation"
+        :disabled="$props.disabled"
         icon="mdi-crosshairs-gps"
         color="primary"
         variant="full"
@@ -53,12 +55,14 @@
           gap="0"
         >
           <FSButton
+            :disabled="$props.disabled"
             class="fs-map-zoom-plus-button"
             icon="mdi-plus"
             @click="() => map!.zoomIn()"
             :border="false"
           />
           <FSButton
+            :disabled="$props.disabled"
             class="fs-map-zoom-minus-button"
             icon="mdi-minus"
             @click="() => map!.zoomOut()"
@@ -129,6 +133,16 @@ export default defineComponent({
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
       required: false,
       default: '100%'
+    },
+    lockZoomOnFlyTo: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     grayscale: {
       type: Boolean,
@@ -353,14 +367,16 @@ export default defineComponent({
 
       const mapOptions = {
         zoomControl: false,
-        scrollWheelZoom: props.enableScrollWheelZoom,
+        scrollWheelZoom: props.enableScrollWheelZoom && !props.disabled,
+        dragging: !props.disabled,
+        doubleClickZoom: false,
         minZoom: 2,
         maxZoom: 22,
         maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
         maxBoundsViscosity: 1.0,
         zoom: defaultZoom.value,
         center: props.center ? latLng(props.center[0], props.center[1]) : latLng(48.85782, 2.29521)
-      };
+      } satisfies L.MapOptions;
 
       map.value = markRaw(createMap(leafletContainer.value, mapOptions));
       
@@ -396,7 +412,9 @@ export default defineComponent({
       if(!map.value || !props.center) {
         return;
       }
-      setView(props.center[0], props.center[1], defaultZoom.value);
+      const zoom = props.lockZoomOnFlyTo ? map.value.getZoom() : defaultZoom.value;
+
+      setView(props.center[0], props.center[1], zoom);
     }, { immediate: true });
 
     watch([() => props.bounds, () => map.value], () => {
@@ -410,6 +428,32 @@ export default defineComponent({
       defaultZoom.value = newZoom;
       if(map.value) {
         map.value.setZoom(newZoom);
+      }
+    }, { immediate: true });
+
+    watch(() => props.enableScrollWheelZoom, (newValue) => {
+      if(!map.value) {
+        return;
+      }
+      if(newValue) {
+        map.value.scrollWheelZoom.enable();
+      } else {
+        map.value.scrollWheelZoom.disable();
+      }
+    }, { immediate: true });
+
+    watch(() => props.disabled, (newValue) => {
+      if(!map.value) {
+        return;
+      }
+      if(newValue) {
+        map.value.dragging.disable();
+        map.value.scrollWheelZoom.disable();
+      } else {
+        map.value.dragging.enable();
+        if(props.enableScrollWheelZoom) {
+          map.value.scrollWheelZoom.enable();
+        }
       }
     }, { immediate: true });
 

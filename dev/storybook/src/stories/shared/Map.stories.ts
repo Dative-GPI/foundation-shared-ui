@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { defineComponent, ref } from 'vue';
 
+import { addComponentEmits } from '@/utils/properties';
+
 import FSMap from "@dative-gpi/foundation-shared-components/components/map/FSMap.vue";
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
@@ -14,9 +16,10 @@ const meta = {
   component: FSMap,
   tags: ['autodocs'],
   argTypes: {
+    ...addComponentEmits(FSMap),
     currentLayer: {
       control: 'select',
-      options: [MapLayers.Map, MapLayers.Imagery],
+      options: [MapLayers.Map, MapLayers.Imagery, MapLayers.Snow],
     },
     overlayMode: {
       control: 'select',
@@ -139,16 +142,11 @@ export const SingleLocationMap: Story = {
       template: `
         <FSRow height="500px">
           <FSMap
-            :width="args.width"
-            :height="args.height"
+            :center="[location.address.latitude, location.address.longitude]"
             v-model:overlayMode="args.overlayMode"
             v-model:currentLayer="args.currentLayer"
             v-model:selectedLocationId="args.selectedLocationId"
-            :grayscale="args.grayscale"
-            :showMyLocation="args.showMyLocation"
-            :showZoomButtons="args.showZoomButtons"
-            :enableScrollWheelZoom="args.enableScrollWheelZoom"
-            :center="[location.address.latitude, location.address.longitude ]"
+            v-bind="args"
           >
             <FSMapMarker
               variant="location"
@@ -186,6 +184,7 @@ export const MultiLocationMap: Story = {
         v-model:currentLayer="args.currentLayer"
         v-model:selectedLocationId="args.selectedLocationId"
         :bounds="bounds"
+        v-bind="args"
       >
         <FSMapMarkerClusterGroup
           :expected-layers="locations.length"
@@ -254,8 +253,8 @@ export const CustomPinMap: Story = {
     template: `
       <FSMap
         v-model:currentLayer="args.currentLayer"
-        :allowed-layers="args.allowedLayers"
         :bounds="bounds"
+        v-bind="args"
       >
         <FSMapMarkerClusterGroup
           :expected-layers="2"
@@ -274,6 +273,54 @@ export const CustomPinMap: Story = {
             label="Les confins"
             variant="pin"
             @click="console.log($event)"
+          />
+        </FSMapMarkerClusterGroup>
+      </FSMap>
+    `,
+  }),
+};
+
+export const ClickablePinMap: Story = {
+  args: {
+    enableScrollWheelZoom: true
+  },
+  render: (args) => ({
+    components: { FSMap, FSMapMarker, FSMapMarkerClusterGroup },
+    setup() {
+      const bounds = ref(null);
+      const center = ref<[number, number] | null>(null);
+
+      const onClick = (event: any) => {
+        console.log(event);
+        center.value = [event.latlng.lat, event.latlng.lng];
+      };
+
+      return { args, bounds, center, onClick };
+    },
+    template: `
+      <FSMap
+        v-model:currentLayer="args.currentLayer"
+        :bounds="bounds"
+        :center="center"
+        v-bind="args"
+      >
+        <FSMapMarkerClusterGroup
+          :expected-layers="2"
+          @update:bounds="bounds = $event"
+        >
+          <FSMapMarker
+            :latlng="{ lat: 45.904565, lng: 6.423869 }"
+            :selected="true"
+            label="Centre station"
+            variant="pin"
+            @click="onClick($event)"
+          />
+          <FSMapMarker
+            :latlng="{ lat: 45.915748, lng: 6.469506 }"
+            :selected="false"
+            label="Les confins"
+            variant="pin"
+            @click="onClick($event)"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>
