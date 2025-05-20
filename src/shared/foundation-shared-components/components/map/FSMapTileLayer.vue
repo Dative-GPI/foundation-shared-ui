@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, onMounted, type Ref, watch } from 'vue';
+import { inject, type PropType, onMounted, type Ref, watch, onUnmounted } from 'vue';
 
 import type { Map, Layer } from 'leaflet';
 
@@ -49,6 +49,17 @@ export default {
     };
 
     onMounted(updateLayer);
+
+    onUnmounted(() => {
+      if (lastLayers && map.value) {
+        lastLayers.forEach(layer => {
+          if (map.value.hasLayer(layer)) {
+            map.value.removeLayer(layer);
+          }
+        });
+        lastLayers = [];
+      }
+    });
 
     watch(() => props.layers, updateLayer);
   }

@@ -10,6 +10,8 @@ import FSFadeOut from '@dative-gpi/foundation-shared-components/components/FSFad
 import FSMapMarker from '@dative-gpi/foundation-shared-components/components/map/FSMapMarker.vue';
 import FSMapMarkerClusterGroup from '@dative-gpi/foundation-shared-components/components/map/FSMapMarkerClusterGroup.vue';
 import { MapLayers, MapOverlayPositions } from '@dative-gpi/foundation-shared-components/models';
+import { uuidv4 } from '@dative-gpi/bones-ui';
+import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
 
 const meta = {
   title: 'Foundation/Shared/Map',
@@ -137,12 +139,21 @@ export const SingleLocationMap: Story = {
       components: { FSMap, FSRow, FSMapMarker },
       inheritAttrs: false,
       setup() {
-        return { args, location : locations[0] };
+        const location = ref(locations[0]);
+
+        const onNewClick = (event: any) => {
+          console.log(event);
+          location.value.address.latitude = event.lat;
+          location.value.address.longitude = event.lng;
+        };
+
+        return { args, location, onNewClick };
       },
       template: `
         <FSRow height="500px">
           <FSMap
             :center="[location.address.latitude, location.address.longitude]"
+            @click:latlng="onNewClick"
             v-model:overlayMode="args.overlayMode"
             v-model:currentLayer="args.currentLayer"
             v-model:selectedLocationId="args.selectedLocationId"
@@ -324,6 +335,67 @@ export const ClickablePinMap: Story = {
           />
         </FSMapMarkerClusterGroup>
       </FSMap>
+    `,
+  }),
+};
+
+export const GeneratePinMap: Story = {
+  args: {
+    enableScrollWheelZoom: true
+  },
+  render: (args) => ({
+    components: { FSMap, FSMapMarker, FSMapMarkerClusterGroup, FSButton },
+    setup() {
+      const pins = ref<{ id: string; label: string; latitude: number; longitude: number }[]>([]);
+      const bounds = ref(null);
+
+      const addRandomPin = () => {
+        const randomIndex = Math.floor(Math.random() * locations.length);
+        const location = locations[randomIndex];
+        const id= uuidv4();
+        const pin = {
+          id: id,
+          label: `Pin ${pins.value.length + 1}`,
+          latitude: location.address.latitude + Math.random() * 10 - 5,
+          longitude: location.address.longitude + Math.random() * 10 - 5,
+        }
+
+        pins.value.push(pin);
+      };
+
+      const removePin = (id: string) => {
+        const index = pins.value.findIndex(pin => pin.id === id);
+        if (index !== -1) {
+          pins.value.splice(index, 1);
+        }
+      }
+
+      return { args, pins, bounds, addRandomPin, removePin };
+    },
+    template: `
+      <FSMap
+        v-model:currentLayer="args.currentLayer"
+        :bounds="bounds"
+        :center="center"
+        v-bind="args"
+      >
+        <FSMapMarkerClusterGroup
+          :expected-layers="pins.length"
+          @update:bounds="bounds = $event"
+        >
+          <FSMapMarker
+            v-for="pin in pins"
+            :key="pin.id"
+            :latlng="{ lat: pin.latitude, lng: pin.longitude }"
+            :label="pin.label"
+            variant="pin"
+            color="#FF0000"
+            @click="removePin(pin.id)"
+          />
+        </FSMapMarkerClusterGroup>
+      </FSMap>
+      <FSButton @click="addRandomPin">Add Random Pin</FSButton>
+      <FSButton @click="removePin(pins[0]?.id)">Remove First Pin</FSButton>
     `,
   }),
 };
