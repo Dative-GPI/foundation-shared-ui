@@ -15,12 +15,14 @@ export class ScenarioDeviceOrganisationInfos {
   deviceOrganisationLabel: string;
   overrideTimeRanges: boolean;
   timeRanges: TimeRange[] | null;
+  overrideDelay: boolean;
   delay: number | null;
   scenarioIcon: string;
   warnDeviceManager: boolean;
   userOrganisationsIds: string[];
   modelId: string;
-  overrideParameters: ScenarioParameterOverride[];
+  overrideParameters: boolean;
+  parameters: ScenarioParameterOverride[] | null;
   defaultParameters: ScenarioParameter[];
   scenarioId: string;
   scenarioScope: ApplicationScope;
@@ -36,11 +38,13 @@ export class ScenarioDeviceOrganisationInfos {
     this.timeRanges = params.timeRanges ?
       params.timeRanges.map(dto => new TimeRange(dto)) : null;
     this.warnDeviceManager = params.warnDeviceManager;
+    this.overrideDelay = params.overrideDelay;
     this.delay = params.delay;
     this.scenarioIcon = params.scenarioIcon;
     this.userOrganisationsIds = params.userOrganisationsIds;
     this.modelId = params.modelId;
-    this.overrideParameters = params.overrideParameters.map(dto => new ScenarioParameterOverride(dto));
+    this.overrideParameters = params.overrideParameters;
+    this.parameters = params.parameters ? params.parameters.map(dto => new ScenarioParameterOverride(dto)) : null;
     this.defaultParameters = params.defaultParameters.map(dto => new ScenarioParameter(dto));
     this.scenarioId = params.scenarioId;
     this.scenarioScope = params.scenarioScope;
@@ -56,12 +60,14 @@ export interface ScenarioDeviceOrganisationInfosDTO {
   deviceOrganisationLabel: string;
   overrideTimeRanges: boolean;
   timeRanges: TimeRangeDTO[] | null;
+  overrideDelay: boolean;
   delay: number | null;
   scenarioIcon: string;
   modelId: string;
   warnDeviceManager: boolean;
   userOrganisationsIds: string[];
-  overrideParameters: ScenarioParameterOverrideDTO[];
+  overrideParameters: boolean;
+  parameters: ScenarioParameterOverrideDTO[] | null;
   defaultParameters: ScenarioParameterDTO[];
   scenarioId: string;
   scenarioScope: ApplicationScope;

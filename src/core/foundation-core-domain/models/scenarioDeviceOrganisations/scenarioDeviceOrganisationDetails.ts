@@ -22,10 +22,12 @@ export interface CreateScenarioDeviceOrganisationDTO {
   deviceOrganisationId: string;
   overrideTimeRanges: boolean;
   timeRanges: CreateTimeRangeDTO[] | null;
+  overrideDelay: boolean;
   delay: number | null;
   warnDeviceManager: boolean;
   userOrganisationsIds: string[];
-  overrideParameters: CreateScenarioParameterOverrideDTO[];
+  overrideParameters: boolean;
+  parameters: CreateScenarioParameterOverrideDTO[] | null;
 }
 
 export interface CreateManyScenarioDeviceOrganisationDTO {
@@ -34,17 +36,21 @@ export interface CreateManyScenarioDeviceOrganisationDTO {
   deviceOrganisationsIds: string[];
   overrideTimeRanges: boolean;
   timeRanges: CreateTimeRangeDTO[] | null;
+  overrideDelay: boolean;
   delay: number | null;
   warnDeviceManager: boolean;
   userOrganisationsIds: string[];
-  overrideParameters: CreateScenarioParameterOverrideDTO[];
+  overrideParameters: boolean;
+  parameters: CreateScenarioParameterOverrideDTO[] | null;
 }
 
 export interface UpdateScenarioDeviceOrganisationDTO {
   overrideTimeRanges: boolean;
   timeRanges: CreateTimeRangeDTO[] | null;
   warnDeviceManager: boolean;
+  overrideDelay: boolean;
   delay: number | null;
   userOrganisationsIds: string[];
-  overrideParameters: CreateScenarioParameterOverrideDTO[];
+  overrideParameters: boolean;
+  parameters: CreateScenarioParameterOverrideDTO[] | null;
 }
