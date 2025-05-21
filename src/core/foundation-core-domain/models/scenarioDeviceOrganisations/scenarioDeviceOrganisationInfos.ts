@@ -14,7 +14,7 @@ export class ScenarioDeviceOrganisationInfos {
   deviceOrganisationCode: string;
   deviceOrganisationLabel: string;
   overrideTimeRanges: boolean;
-  timeRanges: TimeRange[] | null;
+  timeRanges: TimeRange[];
   overrideDelay: boolean;
   delay: number | null;
   scenarioIcon: string;
@@ -22,7 +22,7 @@ export class ScenarioDeviceOrganisationInfos {
   userOrganisationsIds: string[];
   modelId: string;
   overrideParameters: boolean;
-  parameters: ScenarioParameterOverride[] | null;
+  parameters: ScenarioParameterOverride[];
   defaultParameters: ScenarioParameter[];
   scenarioId: string;
   scenarioScope: ApplicationScope;
@@ -35,8 +35,7 @@ export class ScenarioDeviceOrganisationInfos {
     this.deviceOrganisationCode = params.deviceOrganisationCode;
     this.deviceOrganisationLabel = params.deviceOrganisationLabel;
     this.overrideTimeRanges = params.overrideTimeRanges;
-    this.timeRanges = params.timeRanges ?
-      params.timeRanges.map(dto => new TimeRange(dto)) : null;
+    this.timeRanges = params.timeRanges.map(dto => new TimeRange(dto));
     this.warnDeviceManager = params.warnDeviceManager;
     this.overrideDelay = params.overrideDelay;
     this.delay = params.delay;
@@ -44,7 +43,7 @@ export class ScenarioDeviceOrganisationInfos {
     this.userOrganisationsIds = params.userOrganisationsIds;
     this.modelId = params.modelId;
     this.overrideParameters = params.overrideParameters;
-    this.parameters = params.parameters ? params.parameters.map(dto => new ScenarioParameterOverride(dto)) : null;
+    this.parameters = params.parameters.map(dto => new ScenarioParameterOverride(dto));
     this.defaultParameters = params.defaultParameters.map(dto => new ScenarioParameter(dto));
     this.scenarioId = params.scenarioId;
     this.scenarioScope = params.scenarioScope;
@@ -59,7 +58,7 @@ export interface ScenarioDeviceOrganisationInfosDTO {
   deviceOrganisationCode: string;
   deviceOrganisationLabel: string;
   overrideTimeRanges: boolean;
-  timeRanges: TimeRangeDTO[] | null;
+  timeRanges: TimeRangeDTO[];
   overrideDelay: boolean;
   delay: number | null;
   scenarioIcon: string;
@@ -67,7 +66,7 @@ export interface ScenarioDeviceOrganisationInfosDTO {
   warnDeviceManager: boolean;
   userOrganisationsIds: string[];
   overrideParameters: boolean;
-  parameters: ScenarioParameterOverrideDTO[] | null;
+  parameters: ScenarioParameterOverrideDTO[];
   defaultParameters: ScenarioParameterDTO[];
   scenarioId: string;
   scenarioScope: ApplicationScope;
