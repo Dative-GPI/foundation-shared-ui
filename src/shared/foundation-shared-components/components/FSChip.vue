@@ -2,6 +2,7 @@
   <component
     :is="$props.to ? 'FSRouterLink' : 'div'"
     v-bind="$props.to ? { to: $props.to } : {}"
+    @click="$emit('click')"
   >
     <FSRow
       :align="$props.align"
@@ -69,7 +70,6 @@ export default defineComponent({
     FSSpan,
     FSRow
   },
-  inheritsAttrs: false,
   props: {
     prependIcon: {
       type: String as PropType<string | null>,
@@ -122,6 +122,8 @@ export default defineComponent({
       default: null
     },
   },
+  inheritsAttrs: false,
+  emits: ['click'],
   setup(props) {
     const { getColors } = useColors();
 
