@@ -2,7 +2,7 @@
   <component
     :is="$props.to ? 'FSRouterLink' : 'div'"
     v-bind="$props.to ? { to: $props.to } : {}"
-    @click="$emit('click')"
+    @click="$emit('click', $event)"
   >
     <FSRow
       :align="$props.align"
