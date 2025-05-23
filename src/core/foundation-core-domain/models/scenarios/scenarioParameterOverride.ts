@@ -1,20 +1,20 @@
 
 export class ScenarioParameterOverride {
-  scenarioParameterId: string;
+  scenarioParameterHiddenCode: string;
   overrideValue: string | null;
 
   constructor(params: ScenarioParameterOverrideDTO) {
-    this.scenarioParameterId = params.scenarioParameterId;
+    this.scenarioParameterHiddenCode = params.scenarioParameterHiddenCode;
     this.overrideValue = params.overrideValue;
 
   }
 }
 
 export interface ScenarioParameterOverrideDTO {
-  scenarioParameterId: string;
+  scenarioParameterHiddenCode: string;
   overrideValue: string | null;
 }
 export interface CreateScenarioParameterOverrideDTO {
-  scenarioParameterId: string;
+  scenarioParameterHiddenCode: string;
   overrideValue: string | null;
 }
