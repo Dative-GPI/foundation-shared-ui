@@ -1,6 +1,6 @@
 <template>
   <FSTile
-    :width="['324px','272px']"
+    :width="['296px','336px']"
     :height="['132px', '116px']"
     :padding="['16px', '12px']"
     borderRadius="8px"

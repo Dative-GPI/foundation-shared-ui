@@ -107,13 +107,11 @@ export default defineComponent({
     },
     iconBackgroundVariant: {
       type: String as PropType<"background" | "standard" | "full" | "gradient">,
-      required: false,
-      default: "standard"
+      required: false
     },
     iconBackgroundColor: {
       type: [Array, String] as PropType<ColorBase | ColorBase[]>,
-      required: false,
-      default: ColorEnum.Background
+      required: false
     },
     iconBorder: {
       type: Boolean as PropType<boolean>,
@@ -122,8 +120,7 @@ export default defineComponent({
     },
     iconColor: {
       type: String as PropType<ColorBase>,
-      required: false,
-      default: ColorEnum.Light
+      required: false
     },
     activeColor: {
       type: String as PropType<ColorBase>,
