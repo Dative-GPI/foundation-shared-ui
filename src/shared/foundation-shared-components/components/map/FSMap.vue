@@ -134,11 +134,6 @@ export default defineComponent({
       required: false,
       default: '100%'
     },
-    lockZoomOnFlyTo: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     disabled: {
       type: Boolean,
       required: false,
@@ -193,7 +188,12 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 16
-    }
+    },
+    centerChangeZoom: {
+      type: Number as PropType<number | null>,
+      required: false,
+      default: null
+    },
   },
   emits: ["update:modelValue", "update:selectedLocationId", "update:selectedAreaId", 'update:overlayMode', 'update:currentLayer', "click:latlng"],
   setup(props, { emit }) {
@@ -412,9 +412,8 @@ export default defineComponent({
       if(!map.value || !props.center) {
         return;
       }
-      const zoom = props.lockZoomOnFlyTo ? map.value.getZoom() : defaultZoom.value;
 
-      setView(props.center[0], props.center[1], zoom);
+      setView(props.center[0], props.center[1], props.centerChangeZoom ?? map.value.getZoom());
     }, { immediate: true });
 
     watch([() => props.bounds, () => map.value], () => {
