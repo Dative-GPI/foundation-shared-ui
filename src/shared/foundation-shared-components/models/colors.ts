@@ -20,3 +20,4 @@ export interface ColorVariations {
 }
 
 export type ColorBase = (string | ColorEnum);
+export type ColorBaseVariations = "base" | "baseContrast" | "soft" | "softContrast" | "light" | "lightContrast" | "dark" | "darkContrast";

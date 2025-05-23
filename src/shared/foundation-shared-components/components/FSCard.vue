@@ -103,6 +103,11 @@ export default defineComponent({
       required: false,
       default: "solid"
     },
+    borderColor: {
+      type: [Array, String] as PropType<ColorBase | null | string>,
+      required: false,
+      default: null
+    },
     elevation: {
       type: Boolean,
       required: false,
@@ -129,6 +134,10 @@ export default defineComponent({
     const darks = getColors(ColorEnum.Dark);
 
     const borderColor = computed((): ColorBase => {
+      if (props.borderColor) {
+        return getColors(props.borderColor).base;
+      }
+
       switch (props.variant) {
         case "background":
           return lights.dark;
