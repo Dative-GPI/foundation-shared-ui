@@ -15,7 +15,7 @@
       >
         <FSButton
           v-bind="props"
-          :color="lightColors.dark"
+          :color="$props.iconColor"
           :iconSize="$props.iconSize"
           variant="icon"
           icon="mdi-information-outline"
@@ -26,6 +26,7 @@
       name="menuContent"
     >
       <FSCard
+        :maxWidth="$props.maxWidth"
         :width="$props.width"
         :padding="$props.padding"
         :elevation="true"
@@ -38,14 +39,15 @@
             align="center-center"
           >
             <FSText
-              font="text-overline"
-              :lineClamp="4"
+              font="text-body"
+              :lineClamp="$props.lineClamp"
             >
               {{ $props.content }}
             </FSText>
           </FSRow>
         </slot>
         <template
+          v-if="$props.showCloseButton"
           #top-right
         >
           <FSButton
@@ -95,7 +97,11 @@ export default defineComponent({
     },
     width: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      default: 182
+      default: null
+    },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      default: null
     },
     padding: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
@@ -104,6 +110,18 @@ export default defineComponent({
     iconSize: {
       type: String,
       default: "18px"
+    },
+    iconColor: {
+      type: String as PropType<ColorBase>,
+      default: ColorEnum.Primary
+    },
+    showCloseButton: {
+      type: Boolean,
+      default: true
+    },
+    lineClamp: {
+      type: Number,
+      default: 4
     }
   },
   emits: ["update:modelValue"],

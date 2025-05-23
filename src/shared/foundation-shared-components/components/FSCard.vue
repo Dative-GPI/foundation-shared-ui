@@ -68,6 +68,11 @@ export default defineComponent({
       required: false,
       default: null
     },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: null
+    },
     padding: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
       required: false,
@@ -163,6 +168,7 @@ export default defineComponent({
           "--fs-card-padding"         : sizeToVar(props.padding),
           "--fs-card-height"          : sizeToVar(props.height),
           "--fs-card-width"           : sizeToVar(props.width),
+          "--fs-card-max-width"      : sizeToVar(props.maxWidth),
           "--fs-card-background-color": backgrounds.base,
           "--fs-card-border-color"    : borderColor.value,
           "--fs-card-color"           : darks.base,
@@ -175,6 +181,7 @@ export default defineComponent({
           "--fs-card-padding"         : sizeToVar(props.padding),
           "--fs-card-height"          : sizeToVar(props.height),
           "--fs-card-width"           : sizeToVar(props.width),
+          "--fs-card-max-width"      : sizeToVar(props.maxWidth),
           "--fs-card-background-color": colors.value.light,
           "--fs-card-border-color"    : borderColor.value,
           "--fs-card-color"           : colors.value.lightContrast!,
@@ -187,6 +194,7 @@ export default defineComponent({
           "--fs-card-padding"         : sizeToVar(props.padding),
           "--fs-card-height"          : sizeToVar(props.height),
           "--fs-card-width"           : sizeToVar(props.width),
+          "--fs-card-max-width"      : sizeToVar(props.maxWidth),
           "--fs-card-background-color": colors.value.base,
           "--fs-card-border-color"    : borderColor.value,
           "--fs-card-color"           : colors.value.baseContrast!,
@@ -199,6 +207,7 @@ export default defineComponent({
           "--fs-card-padding"         : sizeToVar(props.padding),
           "--fs-card-height"          : sizeToVar(props.height),
           "--fs-card-width"           : sizeToVar(props.width),
+          "--fs-card-max-width"      : sizeToVar(props.maxWidth),
           "--fs-card-background-color": gradients.value.base,
           "--fs-card-border-color"    : borderColor.value,
           "--fs-card-color"           : colors.value.lightContrast!,
