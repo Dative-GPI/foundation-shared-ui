@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, onMounted, type Ref, watch, ref } from 'vue';
+import { inject, type PropType, onMounted, type Ref, watch, ref, onUnmounted } from 'vue';
 
 import { type Map, type LatLng, type Polygon, type FeatureGroup, polygon } from 'leaflet';
 
@@ -75,7 +75,19 @@ export default {
 
     onMounted(updatePolygon);
 
-    watch(() => [props.color, props.latlngs], updatePolygon);
+    onUnmounted(() => {
+      if (lastPolygon.value) {
+        if (featureGroup?.value) {
+          featureGroup.value.removeLayer(lastPolygon.value);
+        } else if (map.value?.hasLayer(lastPolygon.value)) {
+          map.value.removeLayer(lastPolygon.value);
+        }
+        lastPolygon.value = null;
+      }
+    });
+
+
+    watch([() => props.color, () => props.latlngs], updatePolygon);
   }
 };
 </script>

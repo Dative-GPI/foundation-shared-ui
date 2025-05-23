@@ -24,6 +24,8 @@ export class DeviceOrganisationInfos {
   locationId: string | null;
   locationLabel: string | null;
   locationAddress: string | null;
+  locationLatitude: number | null;
+  locationLongitude: number | null;
   groupId: string | null;
   groupLabel: string | null;
   groupIcon: string | null;
@@ -61,6 +63,8 @@ export class DeviceOrganisationInfos {
     this.locationId = params.locationId;
     this.locationLabel = params.locationLabel;
     this.locationAddress = params.locationAddress;
+    this.locationLatitude = params.locationLatitude;
+    this.locationLongitude = params.locationLongitude;
     this.groupId = params.groupId;
     this.groupLabel = params.groupLabel;
     this.groupIcon = params.groupIcon;
@@ -101,6 +105,8 @@ export interface DeviceOrganisationInfosDTO {
   locationId: string | null;
   locationLabel: string | null;
   locationAddress: string | null;
+  locationLatitude: number | null;
+  locationLongitude: number | null;
   groupId: string | null;
   groupLabel: string | null;
   groupIcon: string | null;

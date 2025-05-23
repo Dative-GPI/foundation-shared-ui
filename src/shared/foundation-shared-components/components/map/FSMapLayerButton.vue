@@ -4,6 +4,7 @@
     icon="mdi-layers-outline"
     :elevation="true"
     @click="dialog = true"
+    v-bind="$attrs"
   />
   <FSDialog
     v-model="dialog"

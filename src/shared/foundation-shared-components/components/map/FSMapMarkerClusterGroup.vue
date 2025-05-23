@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, provide, ref, type Ref } from 'vue';
+import { inject, provide, ref, type Ref, onUnmounted } from 'vue';
 
 import { type Map, MarkerClusterGroup, divIcon } from 'leaflet';
 
@@ -64,7 +64,15 @@ export default {
       if(layers.length === props.expectedLayers && !added) {
         markerClusterGroup.value.addTo(map.value);
         added = true;
+      }
+      if(layers.length === props.expectedLayers) {
         emit("update:bounds", markerClusterGroup.value.getBounds());
+      }
+    });
+
+    onUnmounted(() => {
+      if (map.value && map.value.hasLayer(markerClusterGroup.value)) {
+        map.value.removeLayer(markerClusterGroup.value);
       }
     });
   }
