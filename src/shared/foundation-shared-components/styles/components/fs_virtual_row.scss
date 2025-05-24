@@ -1,0 +1,7 @@
+.fs-virtual-row__container {
+    position: relative;
+    height: 100%;
+
+    min-width: var(--fs-virtual-row-width);
+    max-width: var(--fs-virtual-row-width);
+}
