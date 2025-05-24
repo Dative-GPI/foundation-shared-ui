@@ -1,6 +1,7 @@
 <template>
   <FSRow
     ref="root"
+    class="fs-virtual-row"
     :width="$props.width || 'hug'"
     v-bind="$attrs"
     v-resize="resize"

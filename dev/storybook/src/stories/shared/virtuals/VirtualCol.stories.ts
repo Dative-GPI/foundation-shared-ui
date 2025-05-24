@@ -130,6 +130,39 @@ export const Full: Story = {
 }
 
 
+export const WorstCaseRenderViewPort: Story = {
+  args: {
+    items: Array.from({ length: 25 }, (_, i) => ({
+      id: i,
+      name: `Item ${i}`,
+      height: Math.random() > 0.5 ? 50 : 100,
+    })),
+    gap: 10
+  },
+  render: (args) => ({
+    components: { FSVirtualCol, FSFadeOut, FSText, FSSpan, FSIcon, FSRow, FSCol },
+    setup() {
+      return { args }
+    },
+    inheritAttrs: false,
+    template: `
+      <FSFadeOut height="500px">
+        <FSVirtualCol 
+          v-bind="args"
+        >
+          <template #item="{ item }">
+            <FSRow :key="item.id" :height="item.height" width="100%" style="background-color: grey">
+              <FSSpan>{{ item.name }}</FSSpan>
+              <FSIcon>mdi-home</FSIcon>
+            </FSRow>
+          </template>
+        </FSVirtualCol>
+      </FSFadeOut>
+      `
+  })
+}
+
+
 export const FullEmbedded: Story = {
   args: {
     items: Array.from({ length: 25 }, (_, i) => ({

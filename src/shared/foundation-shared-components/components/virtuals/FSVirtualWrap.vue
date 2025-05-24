@@ -1,28 +1,32 @@
 <template>
   <FSCol
     ref="root"
-    class="fs-virtual-col"
+    class="fs-virtual-wrap"
     :height="$props.height"
     v-bind="$attrs"
     v-resize="resize"
   >
     <FSFadeOut
+      ref="rootContainer"
       height="100%"
+      width="100%"
       @scroll="onScroll"
       :scrollOutside="$props.scrollOutside"
     >
       <div 
-        class="fs-virtual-col__container"
+        class="fs-virtual-wrap__container"
         :style="containerStyle"
       >
         <div
           v-for="item in renderedItems"
+          class="fs-virtual-wrap__item"
           :key="item.key"
           :style="{
             position: 'absolute',
+            left: sizeToVar(item.x),
             top: sizeToVar(item.y),
-            width: '100%',
-            height: sizeToVar(item.height)
+            height: sizeToVar($props.itemHeight),
+            width: sizeToVar(item.width)
           }"
         >
           <slot
@@ -45,7 +49,7 @@ import FSFadeOut from "../FSFadeOut.vue";
 import FSCol from "../FSCol.vue";
   
 export default defineComponent({
-  name: "FSVirtualCol",
+  name: "FSVirtualWrap",
   components: {
     FSFadeOut,
     FSCol
@@ -53,25 +57,31 @@ export default defineComponent({
   props: {
     items: {
       type: Array as PropType<{
-        height: number;
         [key: string]: unknown
       }[]>,
       required: true
     },
+    itemWidth: {
+      type: Number,
+      default: 150,
+      required: true
+    },
+    itemHeight: {
+      type: Number,
+      default: 50,
+      required: true
+    },
     gap: {
       type: Number,
-      required: false,
       default: 0
     },
     height: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
       default: null
     },
     bufferHeight: {
       type: Number,
-      required: false,
-      default: 150
+      default: 50
     },
     scrollOutside: {
       type: Boolean,
@@ -79,40 +89,61 @@ export default defineComponent({
     },
     scrollableParentSelectors: {
       type: Array as PropType<string[]>,
-      required: false,
       default: () => []
     },
   },
   setup(props) {
-    const parents : Element[] = []
+    const parents: Element[] = [];
     const root = ref<typeof FSCol | null>(null);
+    const rootContainer = ref<typeof FSFadeOut | null>(null);
     
     const scrollOffset = ref(0);
-    
+    const actualLeft = ref(0);
     const actualTop = ref(0);
     const actualHeight = ref(varToSize(props.height));
+    const actualWidth = ref(0);
 
     let intersectionObserver: IntersectionObserver | null = null;
 
+    const maxItemsPerRow = computed(() => {
+      return Math.floor(actualWidth.value / (props.itemWidth + varToSize(props.gap)));
+    });
+
+    const maxWidthPerItem = computed(() => {
+      if(maxItemsPerRow.value === 0) {
+        return 0;
+      }
+
+      return (actualWidth.value - (maxItemsPerRow.value - 1) * varToSize(props.gap)) / maxItemsPerRow.value;
+    })
+
+    // calcul des positions de chaque item
     const computedItems = computed(() => {
-      if (!props.items.length) {
+      if (!props.items.length || maxItemsPerRow.value === 0) {
         return [];
       }
 
       const result = [];
+      const gap = varToSize(props.gap);
+      let currentX = 0;
       let currentY = 0;
 
-      for (let index = 0; index < props.items.length; index++) {
-        const item = props.items[index];
-        result.push({
-          key: index,
-          x: 0,
-          y: currentY,
-          width: '100%',
-          height: item.height,
-          item: item
-        });
-        currentY += item.height + varToSize(props.gap);
+      for (let i = 0; i < props.items.length; i++) {
+        for(let j = 0; j < maxItemsPerRow.value && i + j < props.items.length; j++) {
+          const item = props.items[i + j];
+          result.push({
+            key: i + j,
+            x: currentX,
+            y: currentY,
+            width: maxWidthPerItem.value,
+            height: props.itemHeight,
+            item: item
+          });
+          currentX += maxWidthPerItem.value + varToSize(props.gap);
+        }
+        i += maxItemsPerRow.value - 1; // on saute les items déjà traités
+        currentX = 0;
+        currentY += props.itemHeight + gap;
       }
 
       return result;
@@ -132,7 +163,7 @@ export default defineComponent({
 
         return (
           offset + item.y < actualHeight.value + props.bufferHeight && 
-          offset + item.y + item.height > 0 - props.bufferHeight
+          offset + item.y + props.itemHeight > 0 - props.bufferHeight
         );
       });
     })
@@ -149,76 +180,83 @@ export default defineComponent({
 
     const containerStyle = computed((): StyleValue => {
       return {
-        '--fs-virtual-col-height': sizeToVar(containerHeight.value),
+        '--fs-virtual-wrap-height': sizeToVar(containerHeight.value),
       }
-    })
+    });
 
-    const onScroll = (event: Event): void => {
-      const target = event.target as HTMLElement;
-      scrollOffset.value = target.scrollTop;
-    }
+    // scroll horizontal
+    const onScroll = _.throttle((e: Event): void => {
+      const t = e.target as HTMLElement;
+      scrollOffset.value = t.scrollTop;
+    }, 16, { leading: false });
 
+    // recalcul de la taille & position
     const resize = _.throttle((): void => {
-      if(!root.value) {
+      if (!root.value) {
         return;
       }
-      const element = root.value.$el as HTMLElement;
-      const rect = element.getBoundingClientRect();
-  
+
+      const el = root.value.$el as HTMLElement;
+      const rect = el.getBoundingClientRect();
+
+      actualWidth.value = rect.width;
       actualHeight.value = props.height ? rect.height : window.innerHeight;
       actualTop.value = rect.top;
-    }, 16, { leading: true });
+      actualLeft.value = rect.left      
+    }, 16, { leading: false });
 
 
     onMounted(() => {
-      if(!root.value || props.height) {
+      if (!root.value || props.height) {
         return;
       }
 
       const element = root.value.$el as HTMLElement;
       const selectors = [ ".fs-fade-out", ...props.scrollableParentSelectors ];
 
-      for(const selector of selectors) {
+      for (const selector of selectors) {
         let node = element.closest(selector);
 
-        while(node)
+        while (node) 
         {
           parents.push(node);
           node = node.parentElement?.closest(selector) || null;
         }
       }
 
-      // petit hack pour le cas où le composant est pas visible dans le viewport, on modifie le DOM et le fait appareil sans déclencher
-      // un seul event de scroll.
-      intersectionObserver = new IntersectionObserver(resize, { root: null, threshold: Array.from({ length: 10 }, (_, i) => i / 10) });
+      intersectionObserver = new IntersectionObserver(resize, {
+        root: null,
+        threshold: Array.from({ length: 10 }, (_, i) => i / 10)
+      });
       intersectionObserver.observe(element);
 
       document.addEventListener("scroll", resize);
-
-      for(const node of parents) {
-        node.addEventListener("scroll", resize);
+      for (const p of parents) {
+        p.addEventListener("scroll", resize);
       }
-    })
+    });
 
     onUnmounted(() => {
-      if(!root.value || props.height) {
+      if (!root.value || props.height) {
         return;
       }
 
-      if(intersectionObserver) {
+      if(intersectionObserver){
         intersectionObserver.disconnect();
         intersectionObserver = null;
       }
 
       document.removeEventListener("scroll", resize);
 
-      for(const node of parents) {
-        node.removeEventListener("scroll", resize);
+      for (const p of parents) {
+        p.removeEventListener("scroll", resize);
       }
-    })
+    });
 
     return {
       root,
+      actualHeight,
+      rootContainer,
       renderedItems,
       containerStyle,
       sizeToVar,

@@ -1,0 +1,7 @@
+.fs-virtual-wrap__container {
+    position: relative;
+    width: 100%;
+
+    min-height: var(--fs-virtual-wrap-height);
+    max-height: var(--fs-virtual-wrap-height);
+}
