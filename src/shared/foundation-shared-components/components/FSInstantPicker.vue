@@ -27,6 +27,7 @@
           width="fill"
         >
           <FSSlider
+            v-if="$props.mode === 'single' && !Array.isArray($props.modelValue)"
             minWidth='min(300px, 90vw)'
             :disabled="$props.disabled"
             :color="ColorEnum.Light"
@@ -71,6 +72,53 @@
               </FSRow>
             </template>
           </FSSlider>
+          <FSRangeSlider
+            v-else-if="$props.mode === 'range' && Array.isArray($props.modelValue)"
+            minWidth='min(300px, 90vw)'
+            :disabled="$props.disabled"
+            :color="ColorEnum.Light"
+            :thumbColor="ColorEnum.Primary"
+            :trackFillColor="ColorEnum.Primary"
+            :trackSize="8"
+            thumb-label="always"
+            :step="$props.stepTime"
+            :min="startTimestamp"
+            :max="endTimestamp"
+            :ticks="ticks"
+            showTicks="always"
+            :tick-size="0"
+            :modelValue="$props.modelValue"
+            @update:modelValue="$emit('update:modelValue', $event)"
+          >
+            <template
+              #thumb-label="{ modelValue }"
+            >
+              <FSSpan
+                font="text-overline"
+              >
+                {{ epochToMonthShortTimeFormat(modelValue) }}
+              </FSSpan>
+            </template>
+            <template
+              #tick-label="{ tick, index }"
+            >
+              <FSRow
+                v-if="index % Math.trunc(ticks.length / maximumTickToShow) === 0 || ticks.length < maximumTickToShow"
+              >
+                <FSText
+                  :color="lightColors.dark"
+                  font="text-overline"
+                >
+                  {{ intervalTime <= 3600000
+                    ?
+                      epochToShortTimeOnlyFormat(tick.value)
+                    :
+                      epochToDayMonthShortOnly(tick.value)
+                  }}
+                </FSText>
+              </FSRow>
+            </template>
+          </FSRangeSlider>
         </FSCol>
         <FSPlayButtons
           v-if="$props.playable"
@@ -97,9 +145,10 @@ import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 import FSSlider from '@dative-gpi/foundation-shared-components/components/FSSlider.vue';
+import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
+import FSRangeSlider from '@dative-gpi/foundation-shared-components/components/FSRangeSlider.vue';
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
-import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
 
 export default defineComponent({
   name: "FSInstantPicker",
@@ -110,17 +159,22 @@ export default defineComponent({
     FSSlider,
     FSTermField,
     FSBaseField,
-    FSPlayButtons
+    FSRangeSlider,
+    FSPlayButtons,
   },
   props: {
     label: {
       type: String,
       required: false,
     },
-    modelValue: {
-      type: Number,
+    mode: {
+      type: String as () => 'single' | 'range',
       required: false,
-      default: 0,
+      default: 'single'
+    },
+    modelValue: {
+      type: Number as () => number | [number, number],
+      required: true
     },
     startDate: {
       type: String,
@@ -226,8 +280,19 @@ export default defineComponent({
     };
 
     watch(() => [props.startDate, props.endDate], () => {
-      if(props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value) {
+      if(!Array.isArray(props.modelValue) && (props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value)) {
         emit('update:modelValue', endTimestamp.value);
+      }
+      else if(Array.isArray(props.modelValue) && (props.modelValue[0] < startTimestamp.value || props.modelValue[1] > endTimestamp.value)) {
+        emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
+      }
+    }, { immediate: true });
+
+    watch(() => props.modelValue, (value) => {
+      if(props.mode === 'single' && (Array.isArray(value) || !value)) {
+        emit('update:modelValue', endTimestamp.value);
+      } else if (props.mode === 'range' && !Array.isArray(value)) {
+        emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
       }
     }, { immediate: true });
 
@@ -236,7 +301,16 @@ export default defineComponent({
         clearInterval(playingInterval.value);
       } else {
         playingInterval.value = setInterval(() => {
-          if(props.modelValue + props.stepTime <= endTimestamp.value) {
+
+          if(Array.isArray(props.modelValue)) {
+            if(props.modelValue[0] + props.stepTime <= endTimestamp.value && props.modelValue[1] + props.stepTime <= endTimestamp.value) {
+              emit('update:modelValue', [props.modelValue[0] + props.stepTime, props.modelValue[1] + props.stepTime]);
+            } else {
+              playing.value = false;
+            }
+          }
+
+          else if(props.modelValue + props.stepTime <= endTimestamp.value) {
             emit('update:modelValue', props.modelValue + props.stepTime);
           } else {
             emit('update:modelValue', endTimestamp.value);

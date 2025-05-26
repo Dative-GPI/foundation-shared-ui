@@ -46,3 +46,33 @@ export const Default: Story = {
     `
   }),
 };
+
+export const Range: Story = {
+  args: {
+    startDate: 'now - 3d',
+    endDate: 'now',
+    mode: 'range',
+    modelValue: [0, 0]
+  },
+  render: (args) => ({
+    components: { FSCol, FSInstantPicker },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSCol
+        gap="20px"
+      >
+        <FSInstantPicker
+          v-bind="args"
+          v-model="args.modelValue"
+          v-model:start-date="args.startDate"
+          v-model:end-date="args.endDate"
+          @update:startDate="args['update:startDate']"
+          @update:endDate="args['update:endDate']"
+          @update:modelValue="args['update:modelValue']"
+        />
+      </FSCol>
+    `
+  }),
+};
