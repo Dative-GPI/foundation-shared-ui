@@ -48,8 +48,8 @@ export default {
     });
 
     onUnmounted(() => {
-      if (map.value && map.value.hasLayer(featureGroup.value)) {
-        map.value.removeLayer(featureGroup.value);
+      if (map.value && map.value.hasLayer(featureGroup.value as unknown as FeatureGroup)) {
+        map.value.removeLayer(featureGroup.value as unknown as FeatureGroup);
       }
     });
   }

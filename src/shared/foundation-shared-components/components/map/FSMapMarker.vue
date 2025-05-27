@@ -117,7 +117,7 @@ export default {
     });
 
     onUnmounted(() => {
-      if(lastMarker.value) {
+      if(lastMarker.value && map.value) {
         if(markerClusterGroup && markerClusterGroup.value) {
           markerClusterGroup.value.removeLayer(lastMarker.value as Marker);
         } else {
@@ -127,7 +127,7 @@ export default {
       lastMarker.value = null;
     })
 
-    watch([() => props.variant, () => props.color, () => props.latlng.lat, () => props.latlng.lng, () => props.selected],
+    watch([() => props.variant, () => props.color, () => props.latlng?.lat, () => props.latlng?.lng, () => props.selected],
           updateMarker,
     );
   }

@@ -385,9 +385,12 @@ export const GeneratePinMap: Story = {
       <FSMap
         v-model:currentLayer="args.currentLayer"
         :bounds="bounds"
-        :center="center"
         v-bind="args"
       >
+        <template #overlay-body>
+          <FSButton @click="addRandomPin">Add Random Pin</FSButton>
+          <FSButton @click="removePin(pins[0]?.id)">Remove First Pin</FSButton>
+        </template>
         <FSMapMarkerClusterGroup
           :expected-layers="pins.length"
           @update:bounds="bounds = $event"
@@ -403,8 +406,6 @@ export const GeneratePinMap: Story = {
           />
         </FSMapMarkerClusterGroup>
       </FSMap>
-      <FSButton @click="addRandomPin">Add Random Pin</FSButton>
-      <FSButton @click="removePin(pins[0]?.id)">Remove First Pin</FSButton>
     `,
   }),
 };
