@@ -21,13 +21,13 @@ jobs:
           # User or organization
           scope: '@dative-gpi'
 
-      - name: Install and Build 🔧
+      - name: Install dependencies and run tests 🧪
         run: |
           npm install
           npm run lint
           npm run test
           
-      - name: Install and Build 🔧
+      - name: Build storybook 🔧
         run: |
           cd dev/storybook
           yarn install --frozen-lockfile --prefer-offline && yarn build-storybook
