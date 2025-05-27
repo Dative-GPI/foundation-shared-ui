@@ -26,12 +26,12 @@
         <FSCol
           width="fill"
         >
-          <FSSlider
+          <FSRangeSlider
             minWidth='min(300px, 90vw)'
             :disabled="$props.disabled"
             :color="ColorEnum.Light"
             :thumbColor="ColorEnum.Primary"
-            :thumbSize="18"
+            :trackFillColor="ColorEnum.Primary"
             :trackSize="8"
             thumb-label="always"
             :step="$props.stepTime"
@@ -39,6 +39,7 @@
             :max="endTimestamp"
             :ticks="ticks"
             showTicks="always"
+            :tick-size="0"
             :modelValue="$props.modelValue"
             @update:modelValue="$emit('update:modelValue', $event)"
           >
@@ -70,7 +71,7 @@
                 </FSText>
               </FSRow>
             </template>
-          </FSSlider>
+          </FSRangeSlider>
         </FSCol>
         <FSPlayButtons
           v-if="$props.playable"
@@ -96,8 +97,8 @@ import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-compone
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
-import FSSlider from '@dative-gpi/foundation-shared-components/components/FSSlider.vue';
 import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
+import FSRangeSlider from '@dative-gpi/foundation-shared-components/components/FSRangeSlider.vue';
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
 
@@ -107,9 +108,9 @@ export default defineComponent({
     FSCol,
     FSSpan,
     FSText,
-    FSSlider,
     FSTermField,
     FSBaseField,
+    FSRangeSlider,
     FSPlayButtons,
   },
   props: {
@@ -117,9 +118,14 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    mode: {
+      type: String as () => 'single' | 'range',
+      required: false,
+      default: 'single'
+    },
     modelValue: {
-      type: Number,
-      required: false
+      type: Array as () => [number, number],
+      required: true
     },
     startDate: {
       type: String,
@@ -225,14 +231,19 @@ export default defineComponent({
     };
 
     watch(() => [props.startDate, props.endDate], () => {
-      if(props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value) {
+      if(!Array.isArray(props.modelValue) && (props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value)) {
         emit('update:modelValue', endTimestamp.value);
+      }
+      else if(Array.isArray(props.modelValue) && (props.modelValue[0] < startTimestamp.value || props.modelValue[1] > endTimestamp.value)) {
+        emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
       }
     }, { immediate: true });
 
     watch(() => props.modelValue, (value) => {
-      if(!value) {
+      if(props.mode === 'single' && (Array.isArray(value) || !value)) {
         emit('update:modelValue', endTimestamp.value);
+      } else if (props.mode === 'range' && !Array.isArray(value)) {
+        emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
       }
     }, { immediate: true });
 
@@ -241,7 +252,16 @@ export default defineComponent({
         clearInterval(playingInterval.value);
       } else {
         playingInterval.value = setInterval(() => {
-          if(props.modelValue + props.stepTime <= endTimestamp.value) {
+
+          if(Array.isArray(props.modelValue)) {
+            if(props.modelValue[0] + props.stepTime <= endTimestamp.value && props.modelValue[1] + props.stepTime <= endTimestamp.value) {
+              emit('update:modelValue', [props.modelValue[0] + props.stepTime, props.modelValue[1] + props.stepTime]);
+            } else {
+              playing.value = false;
+            }
+          }
+
+          else if(props.modelValue + props.stepTime <= endTimestamp.value) {
             emit('update:modelValue', props.modelValue + props.stepTime);
           } else {
             emit('update:modelValue', endTimestamp.value);
