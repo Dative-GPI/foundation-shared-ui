@@ -29,7 +29,7 @@
     <FSMapLayerButton
       v-if="$props.allowedLayers?.length && $props.allowedLayers.length > 1"
       :disabled="$props.disabled"
-      :layers="mapLayers.filter((layer) => $props.allowedLayers?.includes(layer.name) ?? true)"
+      :layers="layers.filter((layer) => $props.allowedLayers?.includes(layer.name) ?? true)"
       :modelValue="$props.currentLayer"
       @update:model-value="$emit('update:currentLayer', $event)"
     />
@@ -96,12 +96,10 @@
 import { computed, defineComponent, onMounted, type Ref, provide, type PropType, ref, type StyleValue, watch, onUnmounted, markRaw } from "vue";
 
 import type {} from "leaflet.markercluster";
-import { map as createMap, control, tileLayer, latLngBounds, latLng, type LatLng, type FitBoundsOptions, type ZoomPanOptions, type LatLngBounds } from "leaflet";
+import { map as createMap, control, latLngBounds, latLng, type LatLng, type FitBoundsOptions, type ZoomPanOptions, type LatLngBounds } from "leaflet";
 
-import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
-
-import { useBreakpoints, useColors, useSlots } from "../../composables";
-import { ColorEnum, MapLayers, MapOverlayPositions, type MapLayer } from "../../models";
+import { useBreakpoints, useColors, useMapLayers, useSlots } from "../../composables";
+import { ColorEnum, MapLayers, MapOverlayPositions } from "../../models";
 
 import FSMapLayerButton from "./FSMapLayerButton.vue";
 import FSMapOverlay from "./FSMapOverlay.vue";
@@ -192,7 +190,7 @@ export default defineComponent({
   },
   emits: ['update:overlayMode', 'update:currentLayer', "click:latlng", "update:zoom", "update:center"],
   setup(props, { emit }) {
-    const { $tr } = useTranslationsProvider();
+    const { layers } = useMapLayers();
     const { isExtraSmall } = useBreakpoints();
     const { getColors } = useColors();
     const { slots } = useSlots();
@@ -211,53 +209,6 @@ export default defineComponent({
       }
       map.value.invalidateSize();
     });
-
-    const mapLayers: MapLayer[] = [ // TODO mettre dans une factory en dehors du composant
-      {
-        name: MapLayers.Map,
-        label: $tr("ui.map-layer.map", "Map"),
-        image: new URL("../../assets/images/map/map.png", import.meta.url).href,
-        layers: [
-          tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
-            maxZoom: 22,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-            attribution: '© Google Map Data',
-            className: 'fs-map-tile-base-layer'
-          })
-        ]
-      },
-      {
-        name: MapLayers.Imagery,
-        label: $tr("ui.map-layer.imagery", "Imagery"),
-        image: new URL("../../assets/images/map/imagery.png", import.meta.url).href,
-        layers: [
-          tileLayer(`https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
-            maxZoom: 22,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-            attribution: '© Google Map Data',
-            className: 'fs-map-tile-base-layer'
-          })
-        ]
-      },
-      {
-        name: MapLayers.Snow,
-        label: $tr("ui.map-layer.snow", "Snow ski map"),
-        image: new URL("../../assets/images/map/snow.png", import.meta.url).href,
-        layers: [
-          tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? ""}`, {
-            maxZoom: 22,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-            attribution: '© Google Map Data',
-            className: 'fs-map-tile-base-layer fs-map-tile-grayscale-layer'
-          }),
-          tileLayer(`https://tiles.opensnowmap.org/pistes/{z}/{x}/{y}.png`, {
-            maxZoom: 18,
-            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & ODbL, &copy; <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-            className: 'fs-map-tile-base-layer'
-          })
-        ]
-      }
-    ];
 
     const bottomOffset = computed(() => {
       if (props.overlayMode !== MapOverlayPositions.Expand && overlayHeight.value && isExtraSmall.value) {
@@ -282,7 +233,7 @@ export default defineComponent({
     }));
 
     const actualLayer = computed(() => {
-      return mapLayers.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers ?? mapLayers[0].layers;
+      return layers.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers ?? layers[0].layers;
     });
 
     const overlaySlots = computed(() => {
@@ -474,7 +425,7 @@ export default defineComponent({
       overlayWidth,
       map,
       actualLayer,
-      mapLayers,
+      layers,
       gpsPosition,
       style,
       overlaySlots

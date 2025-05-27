@@ -4,6 +4,7 @@ export * from "./useBreakpoints";
 export * from "./useColors";
 export * from "./useDebounce";
 export * from "./useMagicFieldProvider";
+export * from "./useMapLayers";
 export * from "./useRules";
 export * from "./useSlots";
 export * from "./useTables";
