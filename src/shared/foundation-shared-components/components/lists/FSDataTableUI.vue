@@ -5,7 +5,7 @@
   >
     <FSRow
       v-if="$props.showSearch || (!isMobileSized && ($slots['prepend-toolbar'] || $slots['toolbar'] || $slots['append-toolbar'])) || (!$props.disableTable && !$props.disableIterator)"
-      align="bottom-left"
+      align="top-left"
       :wrap="isMobileSized ? false : true"
       width="fill"
     >
@@ -13,30 +13,36 @@
         v-if="!isMobileSized"
         name="prepend-toolbar"
       />
-      <template
-        v-if="$props.showSearch"
+      <FSRow
+        align="bottom-left"
       >
-        <FSSearchField
-          :hideHeader="true"
-          v-model="innerSearch"
+        <FSRow
+          v-if="$props.showSearch"
+          :wrap="false"
+        >
+          <FSSearchField
+            :hideHeader="true"
+            maxWidth="600px"
+            v-model="innerSearch"
+          />
+          <FSButton
+            v-if="filterableHeaders.length > 0"
+            prependIcon="mdi-filter-variant"
+            :variant="innerShowFilters ? 'full' : 'standard'"
+            @click="innerShowFilters = !innerShowFilters"
+          />
+        </FSRow>
+        <slot
+          v-if="!isMobileSized"
+          name="toolbar"
         />
-        <FSButton
-          v-if="filterableHeaders.length > 0"
-          prependIcon="mdi-filter-variant"
-          :variant="innerShowFilters ? 'full' : 'standard'"
-          @click="innerShowFilters = !innerShowFilters"
-        />
-      </template>
-      <slot
-        v-if="!isMobileSized"
-        name="toolbar"
-      />
+      </FSRow>
       <template
         v-if="$slots['append-toolbar'] || (!$props.disableTable && !$props.disableIterator)"
       >
         <FSRow
-          align="center-right"
-          :width="isExtraSmall ? 'hug' : 'fill'"
+          align="top-right"
+          width="hug"
         >
           <slot
             v-if="!isMobileSized"
