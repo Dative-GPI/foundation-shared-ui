@@ -300,19 +300,27 @@ export const ClickablePinMap: Story = {
     setup() {
       const bounds = ref(null);
       const center = ref<[number, number] | null>(null);
+      const zoom = ref(10);
 
-      const onClick = (event: any) => {
+      const onClick = (event: any, id: "green" | "blue") => {
         console.log(event);
-        center.value = [event.latlng.lat, event.latlng.lng];
+        if(id === "blue") {
+          zoom.value = 15; // Zoom in on the first marker
+          center.value = [event.latlng.lat, event.latlng.lng];
+        }
+        if(id === "green") {
+          center.value = [event.latlng.lat, event.latlng.lng];
+        }
       };
 
-      return { args, bounds, center, onClick };
+      return { args, bounds, zoom, center, onClick };
     },
     template: `
       <FSMap
         v-model:currentLayer="args.currentLayer"
-        :bounds="bounds"
-        :center="center"
+        v-model:bounds="bounds"
+        v-model:center="center"
+        v-model:zoom="zoom"
         v-bind="args"
       >
         <FSMapMarkerClusterGroup
@@ -324,14 +332,15 @@ export const ClickablePinMap: Story = {
             :selected="true"
             label="Centre station"
             variant="pin"
-            @click="onClick($event)"
+            @click="onClick($event, 'blue')"
           />
           <FSMapMarker
             :latlng="{ lat: 45.915748, lng: 6.469506 }"
             :selected="false"
+            color="green"
             label="Les confins"
             variant="pin"
-            @click="onClick($event)"
+            @click="onClick($event, 'green')"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>

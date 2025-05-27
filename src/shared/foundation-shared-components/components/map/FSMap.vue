@@ -184,18 +184,13 @@ export default defineComponent({
       required: false,
       default: () => [MapLayers.Map, MapLayers.Imagery]
     },
-    dirtyZoom: {
+    zoom: {
       type: Number,
       required: false,
       default: 16
-    },
-    centerChangeZoom: {
-      type: Number as PropType<number | null>,
-      required: false,
-      default: null
-    },
+    }
   },
-  emits: ["update:modelValue", "update:selectedLocationId", "update:selectedAreaId", 'update:overlayMode', 'update:currentLayer', "click:latlng"],
+  emits: ['update:overlayMode', 'update:currentLayer', "click:latlng", "update:zoom", "update:center"],
   setup(props, { emit }) {
     const { $tr } = useTranslationsProvider();
     const { isExtraSmall } = useBreakpoints();
@@ -203,8 +198,6 @@ export default defineComponent({
     const { slots } = useSlots();
 
     const leafletContainer = ref<HTMLElement>();
-    const locationGroupBounds = ref<LatLngBounds>();
-    const areaGroupBounds = ref<LatLngBounds>();
     const gpsPosition : Ref<LatLng | null> = ref(null);
     const map: Ref<L.Map | null> = ref(null);
     const overlayHeight = ref<number>();
@@ -212,7 +205,6 @@ export default defineComponent({
 
     provide('map', map);
 
-    const defaultZoom = ref(props.dirtyZoom);
     const mapResizeObserver = new ResizeObserver(() => {
       if(!map.value) {
         return;
@@ -220,7 +212,7 @@ export default defineComponent({
       map.value.invalidateSize();
     });
 
-    const mapLayers: MapLayer[] = [
+    const mapLayers: MapLayer[] = [ // TODO mettre dans une factory en dehors du composant
       {
         name: MapLayers.Map,
         label: $tr("ui.map-layer.map", "Map"),
@@ -309,7 +301,7 @@ export default defineComponent({
       return map.value.unproject(targetPoint, zoom);
     }
 
-    const flyTo = (lat: number, lng: number, zoom: number = defaultZoom.value, options?: ZoomPanOptions) => {
+    const flyTo = (lat: number, lng: number, zoom: number, options?: ZoomPanOptions) => {
       if(!map.value) {
         return;
       }
@@ -330,7 +322,6 @@ export default defineComponent({
       } else {
         map.value.flyTo(calculateTargetPosition(latLng(lat, lng), zoom), zoom, options);
       }
-      
     }
 
     const setView = (lat: number, lng: number, zoom: number) => {
@@ -343,13 +334,13 @@ export default defineComponent({
     const fitBounds = (bounds: LatLngBounds, options?: FitBoundsOptions) => {
       if (!map.value) {return;}
       const paddingTopLeft: [number, number] = [
-        leftOffset.value,
-        0
+        leftOffset.value + 24,
+        24
       ];
 
       const paddingBottomRight: [number, number] = [
-        0,
-        bottomOffset.value
+        24,
+        bottomOffset.value + 24
       ];
       const paddingOptions = {
         paddingTopLeft,
@@ -374,7 +365,7 @@ export default defineComponent({
         maxZoom: 22,
         maxBounds: latLngBounds(latLng(-90, -180), latLng(90, 180)),
         maxBoundsViscosity: 1.0,
-        zoom: defaultZoom.value,
+        zoom: props.zoom,
         center: props.center ? latLng(props.center[0], props.center[1]) : latLng(48.85782, 2.29521)
       } satisfies L.MapOptions;
 
@@ -382,6 +373,21 @@ export default defineComponent({
       
       map.value.on('click', (e: L.LeafletMouseEvent) => {
         emit('click:latlng', e.latlng);
+      });
+
+      map.value.on('zoomend', () => {
+        if(!map.value) {
+          return;
+        }
+        emit('update:zoom', map.value.getZoom());
+      });
+
+      map.value.on('moveend', () => {
+        if(!map.value) {
+          return;
+        }
+        const center = map.value.getCenter();
+        emit('update:center', [center.lat, center.lng]);
       });
 
       map.value.attributionControl.remove();
@@ -398,7 +404,7 @@ export default defineComponent({
           return;
         }
 
-        flyTo(e.latlng.lat, e.latlng.lng);
+        flyTo(e.latlng.lat, e.latlng.lng, 14);
       });
       
       mapResizeObserver.observe(leafletContainer.value);
@@ -408,27 +414,32 @@ export default defineComponent({
       mapResizeObserver.disconnect();
     });
 
-    watch ([() => props.center, () => map.value], () => {
-      if(!map.value || !props.center) {
+    watch ([() => props.center, () => props.zoom], ([newCenter, newZoom], [oldCenter, oldZoom]) => {
+      if(!map.value || !props.center || !newCenter) {
         return;
       }
 
-      setView(props.center[0], props.center[1], props.centerChangeZoom ?? map.value.getZoom());
+      if(map.value.getZoom() === newZoom && map.value.getCenter().equals(latLng(newCenter[0], newCenter[1]))) {
+        return;
+      }
+
+      if((newCenter[0] !== oldCenter?.[0] || newCenter[1] !== oldCenter?.[1]) && newZoom !== oldZoom) {
+        setView(newCenter[0], newCenter[1], newZoom);
+      }
+      else if ((newCenter[0] !== oldCenter?.[0] || newCenter[1] !== oldCenter?.[1])) {
+        setView(newCenter[0], newCenter[1], map.value.getZoom());
+      }
+      else if(newZoom !== oldZoom) {
+        map.value.setZoom(newZoom);
+      }
     }, { immediate: true });
 
     watch([() => props.bounds, () => map.value], () => {
       if(!map.value || !props.bounds) {
         return;
       }
-      fitBounds(props.bounds, { maxZoom: defaultZoom.value });
+      fitBounds(props.bounds, { maxZoom: 14 });
     });
-
-    watch(() => props.dirtyZoom, (newZoom) => {
-      defaultZoom.value = newZoom;
-      if(map.value) {
-        map.value.setZoom(newZoom);
-      }
-    }, { immediate: true });
 
     watch(() => props.enableScrollWheelZoom, (newValue) => {
       if(!map.value) {
@@ -458,12 +469,9 @@ export default defineComponent({
 
     return {
       ColorEnum,
-      defaultZoom,
       leafletContainer,
-      locationGroupBounds,
       overlayHeight,
       overlayWidth,
-      areaGroupBounds,
       map,
       actualLayer,
       mapLayers,
