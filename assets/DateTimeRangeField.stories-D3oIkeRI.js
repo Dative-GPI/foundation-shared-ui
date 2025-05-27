@@ -1,4 +1,4 @@
-import i from"./FSDateTimeField-DiySyhun.js";import{F as c}from"./FSButton-q8xhuZjd.js";import{F}from"./FSForm-dvZpgI-Y.js";import{F as d}from"./FSCol-D6yYDi9X.js";import{_ as u}from"./FSRow-C-mN1bTt.js";import{u as g}from"./useAppTimeZone-BYltbN9h.js";import{D as b}from"./rules-3eHoDlPl.js";import"./vue.esm-bundler-DtArtqdn.js";import"./VList-BvtMNBCq.js";import"./FSCard-oEcmHswj.js";import"./useColors-P6sW9vWR.js";import"./_commonjsHelpers-BosuxZz1.js";import"./index-DfSX31J9.js";import"./theme-BTycGIF1.js";import"./css-Byt5yd9p.js";import"./useBreakpoints-DjafNA1e.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";import"./VDialog-BTHijwvN.js";import"./VOverlay-Bjkk9AiY.js";import"./forwardRefs-DWGaNmQL.js";import"./color-DKVd81aj.js";import"./proxiedModel-DNPVb8sx.js";import"./anchor-CbVlxldO.js";import"./dimensions-Dt4h5jdR.js";import"./display-H53nrFTM.js";import"./scopeId-DRx9AlMK.js";import"./locale-EnvrzLNX.js";import"./router-DPM6bvc5.js";import"./transition-POm6u0ds.js";import"./VDefaultsProvider-ChCmi1O1.js";import"./index-YdMT2sR1.js";import"./VIcon-_X0ionFS.js";import"./ssrBoot-BOTKrwq8.js";import"./border--9_J8r4E.js";import"./density-96HGjcby.js";import"./elevation-DuPJjm1T.js";import"./rounded-B9giz-GX.js";import"./index-DWcj--5B.js";import"./VImg-DB10nKT8.js";import"./index-ShtRROw2.js";import"./FSTextField-Dwg3bGtr.js";import"./FSBaseField-COfiqIR8.js";import"./FSSpan-Btkwe66a.js";import"./useSlots-DbyfVVj5.js";import"./useRules-eDN7Chft.js";import"./VField-OtS-Js_u.js";import"./VLabel-D5MHSYH0.js";import"./VInput-Dw4F_0vm.js";import"./loader-CJlqftns.js";import"./VProgressCircular-vkSDrwPD.js";import"./resizeObserver-Bx252tqU.js";import"./FSCalendar-DNW2xs-8.js";import"./FSSelectField-CI3nSuyA.js";import"./FSSlideGroup-DaeYUKJp.js";import"./uuid-DTaye2KM.js";import"./FSButtonNextIcon-Bvnrx82W.js";import"./VSlideGroupItem-XSA54cuy.js";import"./group-B-yFvi8t.js";import"./FSToggleSet-CojuCZxM.js";import"./FSWrapGroup-BBSbZNqu.js";import"./FSCheckbox-D615kJWP.js";import"./FSIcon-DAU03b1P.js";import"./VSelectionControl-D_AGLwLV.js";import"./FSFadeOut-okmKwNuP.js";import"./FSLoader-C5CmIvK9.js";import"./FSRadio-K1Efb9Rj.js";import"./VSelect-c638diSh.js";import"./VMenu-Bm-EzALO.js";import"./useDateFormat-BSX7uQO9.js";import"./datesTools-DpylUQoJ.js";import"./startOfWeek-uXTpkxA4.js";import"./startOfDay-C4pDH4rb.js";import"./useAppLanguageCode-xqeUHdoL.js";import"./useTranslations-CEyRES9c.js";import"./VLocaleProvider-DeKAroFB.js";import"./VBtn-YNAwppzK.js";import"./FSWindow-DaTXgSvH.js";import"./FSText-CyTnv_LZ.js";import"./FSClock-B4E53n78.js";import"./FSSlider-C2IxYUb2.js";import"./VSlider-Dm-P4-Ji.js";import"./FSMenu-BUeXiefy.js";import"./FSRouterLink-BnjgQQHT.js";import"./vue-router-D25_MSGh.js";import"./FSClickable-Lp9mb8CD.js";import"./time-DRTq8CQe.js";const Ue={title:"Foundation/Shared/Input fields/DateTimeField",component:i,tags:["autodocs"],argTypes:{onClick:{action:"clicked"}}},e={args:{args:{setTimeZone:g().setAppTimeZone,value1:null,value2:1701234e6,value3:1701234e6}},render:(t,{argTypes:o})=>({components:{FSDateTimeField:i,FSButton:c,FSCol:d,FSRow:u},props:Object.keys(o),setup(){return{...t}},template:`
+import{F as i}from"./FSDateTimeRangeField-BUQYDajh.js";import{F as g}from"./FSButton-q8xhuZjd.js";import{F}from"./FSForm-dvZpgI-Y.js";import{F as d}from"./FSCol-D6yYDi9X.js";import{_ as u}from"./FSRow-C-mN1bTt.js";import{u as c}from"./useAppTimeZone-BYltbN9h.js";import{D as b}from"./rules-DIbMzfIX.js";import"./vue.esm-bundler-DtArtqdn.js";import"./FSDialogSubmit-DmxRWMhE.js";import"./FSFadeOut-okmKwNuP.js";import"./uuid-DTaye2KM.js";import"./useBreakpoints-DjafNA1e.js";import"./useColors-P6sW9vWR.js";import"./_commonjsHelpers-BosuxZz1.js";import"./index-DfSX31J9.js";import"./theme-BTycGIF1.js";import"./css-Byt5yd9p.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";import"./FSDialog-BY4HSEIn.js";import"./FSCard-oEcmHswj.js";import"./FSText-CyTnv_LZ.js";import"./useSlots-DbyfVVj5.js";import"./VDialog-BTHijwvN.js";import"./VOverlay-Bjkk9AiY.js";import"./forwardRefs-DWGaNmQL.js";import"./color-DKVd81aj.js";import"./proxiedModel-DNPVb8sx.js";import"./anchor-CbVlxldO.js";import"./dimensions-Dt4h5jdR.js";import"./display-H53nrFTM.js";import"./scopeId-DRx9AlMK.js";import"./locale-EnvrzLNX.js";import"./router-DPM6bvc5.js";import"./transition-POm6u0ds.js";import"./VDefaultsProvider-ChCmi1O1.js";import"./useTranslations-CEyRES9c.js";import"./FSCalendarTwin-BlcuE7nf.js";import"./FSSelectField-CI3nSuyA.js";import"./VList-BvtMNBCq.js";import"./index-YdMT2sR1.js";import"./VIcon-_X0ionFS.js";import"./ssrBoot-BOTKrwq8.js";import"./border--9_J8r4E.js";import"./density-96HGjcby.js";import"./elevation-DuPJjm1T.js";import"./rounded-B9giz-GX.js";import"./index-DWcj--5B.js";import"./VImg-DB10nKT8.js";import"./index-ShtRROw2.js";import"./FSSlideGroup-DaeYUKJp.js";import"./FSButtonNextIcon-Bvnrx82W.js";import"./VSlideGroupItem-XSA54cuy.js";import"./group-B-yFvi8t.js";import"./resizeObserver-Bx252tqU.js";import"./FSToggleSet-CojuCZxM.js";import"./FSWrapGroup-BBSbZNqu.js";import"./VInput-Dw4F_0vm.js";import"./FSBaseField-COfiqIR8.js";import"./FSSpan-Btkwe66a.js";import"./FSTextField-Dwg3bGtr.js";import"./useRules-eDN7Chft.js";import"./VField-OtS-Js_u.js";import"./VLabel-D5MHSYH0.js";import"./loader-CJlqftns.js";import"./VProgressCircular-vkSDrwPD.js";import"./FSCheckbox-D615kJWP.js";import"./FSIcon-DAU03b1P.js";import"./VSelectionControl-D_AGLwLV.js";import"./FSLoader-C5CmIvK9.js";import"./FSRadio-K1Efb9Rj.js";import"./VSelect-c638diSh.js";import"./VMenu-Bm-EzALO.js";import"./useDateFormat-BSX7uQO9.js";import"./datesTools-DpylUQoJ.js";import"./startOfWeek-uXTpkxA4.js";import"./startOfDay-C4pDH4rb.js";import"./useAppLanguageCode-xqeUHdoL.js";import"./VLocaleProvider-DeKAroFB.js";import"./VBtn-YNAwppzK.js";import"./FSClock-B4E53n78.js";import"./FSSlider-C2IxYUb2.js";import"./VSlider-Dm-P4-Ji.js";import"./FSRouterLink-BnjgQQHT.js";import"./vue-router-D25_MSGh.js";import"./FSClickable-Lp9mb8CD.js";import"./time-DRTq8CQe.js";const Ue={title:"Foundation/Shared/Input fields/DateTimeRangeField",component:i,tags:["autodocs"],argTypes:{onClick:{action:"clicked"}}},e={args:{args:{setTimeZone:c().setAppTimeZone,value1:null,value2:[17040672e5,17356032e5],value3:[17040672e5,17356032e5]}},render:(t,{argTypes:o})=>({components:{FSDateTimeRangeField:i,FSButton:g,FSCol:d,FSRow:u},props:Object.keys(o),setup(){return{...t}},template:`
     <FSCol>
       <FSRow>
         <FSButton
@@ -18,27 +18,27 @@ import i from"./FSDateTimeField-DiySyhun.js";import{F as c}from"./FSButton-q8xhu
           @click="args.setTimeZone('Asia/Kamchatka')"
         />
       </FSRow>
-      <FSDateTimeField
-        label="Date & time, primary color"
+      <FSDateTimeRangeField
+        label="Date & time range, primary color"
         v-model="args.value1"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSDateTimeField
-        label="Required date & time, warning color, with description"
+      <FSDateTimeRangeField
+        label="Required date & time range, warning color, with description"
         description="Description for this field"
         color="warning"
         :required="true"
         v-model="args.value2"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSDateTimeField
-        label="Disabled date & time, error color, with description"
+      <FSDateTimeRangeField
+        label="Disabled date & time range, error color, with description"
         description="Disabled description"
         color="error"
         :disabled="true"
         v-model="args.value3"
       />
-    </FSCol>`})},r={args:{args:{valid:!1,value1:null,value2:null,value3:null,rules:b}},render:(t,{argTypes:o})=>({components:{FSForm:F,FSDateTimeField:i,FSCol:d,FSRow:u},props:Object.keys(o),setup(){return{...t}},template:`
+    </FSCol>`})},r={args:{args:{valid:!1,value1:null,value2:null,value3:null,rules:b}},render:(t,{argTypes:o})=>({components:{FSForm:F,FSDateTimeRangeField:i,FSCol:d,FSRow:u},props:Object.keys(o),setup(){return{...t}},template:`
     <FSForm v-model="args.valid">
       <FSCol>
         <FSRow>
@@ -47,41 +47,41 @@ import i from"./FSDateTimeField-DiySyhun.js";import{F as c}from"./FSButton-q8xhu
           </div>
         </FSRow>
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-        <FSDateTimeField
+        <FSDateTimeRangeField
           label="Rules: required"
           :rules="[args.rules.required()]"
           :required="true"
           v-model="args.value1"
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-        <FSDateTimeField
+        <FSDateTimeRangeField
           label="Rules: before 2024-01-31 00:00"
           :rules="[args.rules.max(1706738400000)]"
           :required="true"
           v-model="args.value2"
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-        <FSDateTimeField
+        <FSDateTimeRangeField
           label="Rules: required & before 2024-01-31 00:00 & after 2024-01-02 00:00"
           :rules="[args.rules.required(), args.rules.max(1706738400000), args.rules.min(1704146400000)]"
           :required="true"
           v-model="args.value3"
         />
       </FSCol>
-    </FSForm>`})};var a,l,n;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`{
+    </FSForm>`})};var a,n,l;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`{
   args: {
     args: {
       setTimeZone: useAppTimeZone().setAppTimeZone,
       value1: null,
-      value2: 1701234000000,
-      value3: 1701234000000
+      value2: [1704067200000, 1735603200000],
+      value3: [1704067200000, 1735603200000]
     }
   },
   render: (args, {
     argTypes
   }) => ({
     components: {
-      FSDateTimeField,
+      FSDateTimeRangeField,
       FSButton,
       FSCol,
       FSRow
@@ -112,21 +112,21 @@ import i from"./FSDateTimeField-DiySyhun.js";import{F as c}from"./FSButton-q8xhu
           @click="args.setTimeZone('Asia/Kamchatka')"
         />
       </FSRow>
-      <FSDateTimeField
-        label="Date & time, primary color"
+      <FSDateTimeRangeField
+        label="Date & time range, primary color"
         v-model="args.value1"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSDateTimeField
-        label="Required date & time, warning color, with description"
+      <FSDateTimeRangeField
+        label="Required date & time range, warning color, with description"
         description="Description for this field"
         color="warning"
         :required="true"
         v-model="args.value2"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSDateTimeField
-        label="Disabled date & time, error color, with description"
+      <FSDateTimeRangeField
+        label="Disabled date & time range, error color, with description"
         description="Disabled description"
         color="error"
         :disabled="true"
@@ -134,7 +134,7 @@ import i from"./FSDateTimeField-DiySyhun.js";import{F as c}from"./FSButton-q8xhu
       />
     </FSCol>\`
   })
-}`,...(n=(l=e.parameters)==null?void 0:l.docs)==null?void 0:n.source}}};var m,s,p;r.parameters={...r.parameters,docs:{...(m=r.parameters)==null?void 0:m.docs,source:{originalSource:`{
+}`,...(l=(n=e.parameters)==null?void 0:n.docs)==null?void 0:l.source}}};var m,s,p;r.parameters={...r.parameters,docs:{...(m=r.parameters)==null?void 0:m.docs,source:{originalSource:`{
   args: {
     args: {
       valid: false,
@@ -149,7 +149,7 @@ import i from"./FSDateTimeField-DiySyhun.js";import{F as c}from"./FSButton-q8xhu
   }) => ({
     components: {
       FSForm,
-      FSDateTimeField,
+      FSDateTimeRangeField,
       FSCol,
       FSRow
     },
@@ -168,21 +168,21 @@ import i from"./FSDateTimeField-DiySyhun.js";import{F as c}from"./FSButton-q8xhu
           </div>
         </FSRow>
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-        <FSDateTimeField
+        <FSDateTimeRangeField
           label="Rules: required"
           :rules="[args.rules.required()]"
           :required="true"
           v-model="args.value1"
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-        <FSDateTimeField
+        <FSDateTimeRangeField
           label="Rules: before 2024-01-31 00:00"
           :rules="[args.rules.max(1706738400000)]"
           :required="true"
           v-model="args.value2"
         />
         <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-        <FSDateTimeField
+        <FSDateTimeRangeField
           label="Rules: required & before 2024-01-31 00:00 & after 2024-01-02 00:00"
           :rules="[args.rules.required(), args.rules.max(1706738400000), args.rules.min(1704146400000)]"
           :required="true"
