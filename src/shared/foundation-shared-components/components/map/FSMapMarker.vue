@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, onMounted, type Ref, watch, ref } from 'vue';
+import { inject, type PropType, onMounted, type Ref, watch, ref, onUnmounted } from 'vue';
 
 import { type Map, type DivIcon, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup } from 'leaflet';
 
@@ -112,9 +112,24 @@ export default {
       }
     };
 
-    onMounted(updateMarker);
+    onMounted(() => {
+      updateMarker();
+    });
 
-    watch(() => [props.variant, props.color, props.latlng, props.selected], updateMarker);
+    onUnmounted(() => {
+      if(lastMarker.value && map.value) {
+        if(markerClusterGroup && markerClusterGroup.value) {
+          markerClusterGroup.value.removeLayer(lastMarker.value as Marker);
+        } else {
+          map.value.removeLayer(lastMarker.value as Marker);
+        }
+      }
+      lastMarker.value = null;
+    })
+
+    watch([() => props.variant, () => props.color, () => props.latlng?.lat, () => props.latlng?.lng, () => props.selected],
+          updateMarker,
+    );
   }
 };
 </script>
