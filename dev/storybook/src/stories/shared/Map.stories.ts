@@ -318,14 +318,14 @@ export const ClickablePinMap: Story = {
     template: `
       <FSMap
         v-model:currentLayer="args.currentLayer"
-        v-model:bounds="bounds"
+        :bounds="bounds"
         v-model:center="center"
         v-model:zoom="zoom"
         v-bind="args"
       >
         <FSMapMarkerClusterGroup
-          :expected-layers="2"
-          @update:bounds="bounds = $event"
+          :expected-layers="3"
+          @update:bounds="(event) => {bounds = event; console.log(event)}"
         >
           <FSMapMarker
             :latlng="{ lat: 45.904565, lng: 6.423869 }"
@@ -341,6 +341,14 @@ export const ClickablePinMap: Story = {
             label="Les confins"
             variant="pin"
             @click="onClick($event, 'green')"
+          />
+          <FSMapMarker
+            :latlng="{ lat: 43.915748, lng: 6.469506 }"
+            :selected="false"
+            color="primary"
+            label="Le sud"
+            variant="pin"
+            @click="onClick($event, 'blue')"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>
