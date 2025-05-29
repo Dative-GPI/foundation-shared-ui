@@ -6,7 +6,6 @@ export * from "./useDebounce";
 export * from "./useElementPosition";
 export * from "./useMagicFieldProvider";
 export * from "./useRules";
-export * from "./useScroll";
 export * from "./useSlots";
 export * from "./useTables";
 export * from "./useTreeView";

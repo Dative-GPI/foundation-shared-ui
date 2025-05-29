@@ -43,7 +43,7 @@ import _ from "lodash";
 import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";
-import { useScroll, useElementPosition } from "../../composables";
+import { useElementPosition } from "../../composables";
   
 import FSFadeOut from "../FSFadeOut.vue";
 import FSRow from "../FSRow.vue";
@@ -77,7 +77,7 @@ export default defineComponent({
     },
     bufferWidth: {
       type: Number,
-      default: 150
+      default: 50
     },
     scrollOutside: {
       type: Boolean,
@@ -90,12 +90,16 @@ export default defineComponent({
   },
   setup(props) {
     const root = ref<typeof FSRow | null>(null);
-    const { width, left, scrollLeft, refresh, onScroll } = useElementPosition(root);
-    useScroll(root, refresh, [".fs-fade-out", ...props.scrollableParentSelectors]);
+    // Utilisation du nouveau useElementPosition avec selectors pour parents scrollables
+    const {
+      left, scrollLeft, refresh, onScroll,
+      viewportLeft, viewportRight
+    } = useElementPosition(root, [".fs-fade-out", ...props.scrollableParentSelectors]);
 
-    // Calcul de la largeur effective à utiliser pour le rendu virtuel
-    const renderedWidth = computed(() => {
-      return props.width ? width.value : window.innerWidth;
+    const visibleWindow = computed(() => {
+      let absLeft = viewportLeft.value - props.bufferWidth;
+      let absRight = viewportRight.value + props.bufferWidth;
+      return { absLeft, absRight };
     });
 
     // calcul des positions X de chaque item
@@ -125,19 +129,15 @@ export default defineComponent({
 
     // filtre ce qui est dans le buffer horizontal
     const renderedItems = computed(() => {
+      const { absLeft, absRight } = visibleWindow.value;
       return computedItems.value.filter(item => {
-        let offset = 0;
-
-        if(!props.width){
-          offset = left.value;
-        } else {
-          offset = -scrollLeft.value;
-        }
-
-        return (
-          offset + item.x < renderedWidth.value + props.bufferWidth &&
-          offset + item.x + item.width > 0 - props.bufferWidth
-        );
+        // Position absolue de l'item dans le viewport
+        // item.x = position relative dans le container
+        // scrollLeft.value = scroll interne (0 si pas de scroll)
+        const itemLeft = left.value + item.x - scrollLeft.value;
+        const itemRight = itemLeft + item.width;
+        // L'item est visible s'il intersecte la fenêtre visible
+        return itemRight > absLeft && itemLeft < absRight;
       });
     });
 

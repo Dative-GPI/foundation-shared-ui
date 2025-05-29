@@ -44,7 +44,7 @@ import _ from "lodash";
 import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";
-import { useElementPosition, useScroll } from "../../composables";
+import { useElementPosition } from "../../composables";
 
 import FSFadeOut from "../FSFadeOut.vue";
 import FSCol from "../FSCol.vue";
@@ -101,13 +101,10 @@ export default defineComponent({
   },
   setup(props) {
     const root = ref<typeof FSCol | null>(null);
-    const { width, height, top, scrollTop, refresh, onScroll } = useElementPosition(root);
-    useScroll(root, refresh, [".fs-fade-out", ...props.scrollableParentSelectors]);
-
-    // Calcul de la hauteur effective à utiliser pour le rendu virtuel
-    const renderedHeight = computed(() => {
-      return props.height ? height.value : window.innerHeight;
-    });
+    // Utilisation du nouveau useElementPosition avec selectors pour parents scrollables
+    const {
+      top, width, scrollTop, refresh, onScroll, viewportTop, viewportBottom
+    } = useElementPosition(root, [".fs-fade-out", ...props.scrollableParentSelectors]);
 
     const maxItemsPerRow = computed(() => {
       return Math.floor(width.value / (props.itemWidth + varToSize(props.gap)));
@@ -149,18 +146,23 @@ export default defineComponent({
       return result;
     });
 
+    // Virtualisation verticale robuste
+    const visibleWindow = computed(() => {
+      let absTop = viewportTop.value - props.bufferHeight;
+      let absBottom = viewportBottom.value + props.bufferHeight;
+      return { absTop, absBottom };
+    });
+
     const renderedItems = computed(() => {
+      const { absTop, absBottom } = visibleWindow.value;
       return computedItems.value.filter(item => {
-        let offset = 0;
-        if(!props.height){
-          offset = top.value;
-        } else {
-          offset = -scrollTop.value;
-        }
-        return (
-          offset + item.y < renderedHeight.value + props.bufferHeight &&
-          offset + item.y + props.itemHeight > 0 - props.bufferHeight
-        );
+        // Position absolue de l'item dans le viewport
+        // item.y = position relative dans le container
+        // scrollTop.value = scroll interne (0 si pas de scroll)
+        const itemTop = top.value + item.y - scrollTop.value;
+        const itemBottom = itemTop + props.itemHeight;
+        // L'item est visible s'il intersecte la fenêtre visible
+        return itemBottom > absTop && itemTop < absBottom;
       });
     });
 
