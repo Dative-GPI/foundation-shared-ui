@@ -4,7 +4,7 @@
     class="fs-virtual-row"
     :width="$props.width || 'hug'"
     v-bind="$attrs"
-    v-resize="resize"
+    v-resize="refresh"
   >
     <FSFadeOut
       :hideHorizontalOverflow="false"
@@ -40,10 +40,11 @@
   
 <script lang="ts">
 import _ from "lodash";
-import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, type StyleValue } from "vue";
+import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";
-
+import { useScroll, useElementPosition } from "../../composables";
+  
 import FSFadeOut from "../FSFadeOut.vue";
 import FSRow from "../FSRow.vue";
   
@@ -60,6 +61,11 @@ export default defineComponent({
         [key: string]: unknown
       }[]>,
       required: true
+    },
+    itemKey: {
+      type: String,
+      required: true,
+      default: 'id'
     },
     gap: {
       type: Number,
@@ -83,14 +89,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const parents: Element[] = [];
     const root = ref<typeof FSRow | null>(null);
-    
-    const scrollOffset = ref(0);
-    const actualLeft = ref(0);
-    const actualWidth = ref(varToSize(props.width));
+    const { width, left, scrollLeft, refresh, onScroll } = useElementPosition(root);
+    useScroll(root, refresh, [".fs-fade-out", ...props.scrollableParentSelectors]);
 
-    let intersectionObserver: IntersectionObserver | null = null;
+    // Calcul de la largeur effective à utiliser pour le rendu virtuel
+    const renderedWidth = computed(() => {
+      return props.width ? width.value : window.innerWidth;
+    });
 
     // calcul des positions X de chaque item
     const computedItems = computed(() => {
@@ -101,17 +107,17 @@ export default defineComponent({
       const result = [];
       let currentX = 0;
 
-      for (let i = 0; i < props.items.length; i++) {
-        const it = props.items[i];
+      for (let index = 0; index < props.items.length; index++) {
+        const item = props.items[index];
         result.push({
-          key: i,
+          key: props.itemKey in item ? item[props.itemKey] as string : index,
           x: currentX,
           y: 0,
-          width: it.width,
+          width: item.width,
           height: '100%',
-          item: it
+          item: item
         });
-        currentX += it.width + varToSize(props.gap);
+        currentX += item.width + varToSize(props.gap);
       }
 
       return result;
@@ -123,15 +129,13 @@ export default defineComponent({
         let offset = 0;
 
         if(!props.width){
-          offset = actualLeft.value;
-        }
-        else 
-        {
-          offset = -scrollOffset.value
+          offset = left.value;
+        } else {
+          offset = -scrollLeft.value;
         }
 
         return (
-          offset + item.x < actualWidth.value + props.bufferWidth &&
+          offset + item.x < renderedWidth.value + props.bufferWidth &&
           offset + item.x + item.width > 0 - props.bufferWidth
         );
       });
@@ -154,79 +158,13 @@ export default defineComponent({
       }
     });
 
-    // scroll horizontal
-    const onScroll = (e: Event): void => {
-      const t = e.target as HTMLElement;
-      scrollOffset.value = t.scrollLeft;
-    };
-
-    // recalcul de la taille & position
-    const resize = _.throttle((): void => {
-      if (!root.value) {
-        return;
-      }
-
-      const el = root.value.$el as HTMLElement;
-      const rect = el.getBoundingClientRect();
-
-      actualWidth.value = props.width ? rect.width : window.innerWidth;
-      actualLeft.value = rect.left
-    }, 16, { leading: true });
-
-    onMounted(() => {
-      if (!root.value || props.width) {
-        return;
-      }
-
-      const element = root.value.$el as HTMLElement;
-      const selectors = [ ".fs-fade-out", ...props.scrollableParentSelectors ];
-
-      for (const selector of selectors) {
-        let node = element.closest(selector);
-
-        while (node) 
-        {
-          parents.push(node);
-          node = node.parentElement?.closest(selector) || null;
-        }
-      }
-
-      intersectionObserver = new IntersectionObserver(resize, {
-        root: null,
-        threshold: Array.from({ length: 10 }, (_, i) => i / 10)
-      });
-      intersectionObserver.observe(element);
-
-      document.addEventListener("scroll", resize);
-      for (const p of parents) {
-        p.addEventListener("scroll", resize);
-      }
-    });
-
-    onUnmounted(() => {
-      if (!root.value || props.width) {
-        return;
-      }
-
-      if(intersectionObserver){
-        intersectionObserver.disconnect();
-        intersectionObserver = null;
-      }
-
-      document.removeEventListener("scroll", resize);
-
-      for (const p of parents) {
-        p.removeEventListener("scroll", resize);
-      }
-    });
-
     return {
       root,
       renderedItems,
       containerStyle,
       sizeToVar,
       onScroll,
-      resize
+      refresh
     };
   }
 });

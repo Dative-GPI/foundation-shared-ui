@@ -4,7 +4,7 @@
     class="fs-virtual-wrap"
     :height="$props.height"
     v-bind="$attrs"
-    v-resize="resize"
+    v-resize="refresh"
   >
     <FSFadeOut
       ref="rootContainer"
@@ -41,12 +41,14 @@
   
 <script lang="ts">
 import _ from "lodash";
-import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, type StyleValue } from "vue";
+import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";
+import { useElementPosition, useScroll } from "../../composables";
 
 import FSFadeOut from "../FSFadeOut.vue";
 import FSCol from "../FSCol.vue";
+import { uuidv4 } from "@dative-gpi/bones-ui";
   
 export default defineComponent({
   name: "FSVirtualWrap",
@@ -59,6 +61,11 @@ export default defineComponent({
       type: Array as PropType<{
         [key: string]: unknown
       }[]>,
+      required: true
+    },
+    itemKey: {
+      type: String,
+      default: "id",
       required: true
     },
     itemWidth: {
@@ -93,28 +100,24 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const parents: Element[] = [];
     const root = ref<typeof FSCol | null>(null);
-    const rootContainer = ref<typeof FSFadeOut | null>(null);
-    
-    const scrollOffset = ref(0);
-    const actualLeft = ref(0);
-    const actualTop = ref(0);
-    const actualHeight = ref(varToSize(props.height));
-    const actualWidth = ref(0);
+    const { width, height, top, scrollTop, refresh, onScroll } = useElementPosition(root);
+    useScroll(root, refresh, [".fs-fade-out", ...props.scrollableParentSelectors]);
 
-    let intersectionObserver: IntersectionObserver | null = null;
+    // Calcul de la hauteur effective à utiliser pour le rendu virtuel
+    const renderedHeight = computed(() => {
+      return props.height ? height.value : window.innerHeight;
+    });
 
     const maxItemsPerRow = computed(() => {
-      return Math.floor(actualWidth.value / (props.itemWidth + varToSize(props.gap)));
+      return Math.floor(width.value / (props.itemWidth + varToSize(props.gap)));
     });
 
     const maxWidthPerItem = computed(() => {
       if(maxItemsPerRow.value === 0) {
         return 0;
       }
-
-      return (actualWidth.value - (maxItemsPerRow.value - 1) * varToSize(props.gap)) / maxItemsPerRow.value;
+      return (width.value - (maxItemsPerRow.value - 1) * varToSize(props.gap)) / maxItemsPerRow.value;
     })
 
     // calcul des positions de chaque item
@@ -122,17 +125,15 @@ export default defineComponent({
       if (!props.items.length || maxItemsPerRow.value === 0) {
         return [];
       }
-
       const result = [];
       const gap = varToSize(props.gap);
       let currentX = 0;
       let currentY = 0;
-
       for (let i = 0; i < props.items.length; i++) {
         for(let j = 0; j < maxItemsPerRow.value && i + j < props.items.length; j++) {
           const item = props.items[i + j];
           result.push({
-            key: i + j,
+            key: props.itemKey in item ? item[props.itemKey] as string : uuidv4(),
             x: currentX,
             y: currentY,
             width: maxWidthPerItem.value,
@@ -145,28 +146,23 @@ export default defineComponent({
         currentX = 0;
         currentY += props.itemHeight + gap;
       }
-
       return result;
     });
 
     const renderedItems = computed(() => {
       return computedItems.value.filter(item => {
         let offset = 0;
-
         if(!props.height){
-          offset = actualTop.value;
+          offset = top.value;
+        } else {
+          offset = -scrollTop.value;
         }
-        else 
-        {
-          offset = -scrollOffset.value
-        }
-
         return (
-          offset + item.y < actualHeight.value + props.bufferHeight && 
+          offset + item.y < renderedHeight.value + props.bufferHeight &&
           offset + item.y + props.itemHeight > 0 - props.bufferHeight
         );
       });
-    })
+    });
 
     const containerHeight = computed(() => {
       if(!computedItems.value.length) {
@@ -184,84 +180,13 @@ export default defineComponent({
       }
     });
 
-    // scroll horizontal
-    const onScroll = _.throttle((e: Event): void => {
-      const t = e.target as HTMLElement;
-      scrollOffset.value = t.scrollTop;
-    }, 16, { leading: false });
-
-    // recalcul de la taille & position
-    const resize = _.throttle((): void => {
-      if (!root.value) {
-        return;
-      }
-
-      const el = root.value.$el as HTMLElement;
-      const rect = el.getBoundingClientRect();
-
-      actualWidth.value = rect.width;
-      actualHeight.value = props.height ? rect.height : window.innerHeight;
-      actualTop.value = rect.top;
-      actualLeft.value = rect.left      
-    }, 16, { leading: false });
-
-
-    onMounted(() => {
-      if (!root.value || props.height) {
-        return;
-      }
-
-      const element = root.value.$el as HTMLElement;
-      const selectors = [ ".fs-fade-out", ...props.scrollableParentSelectors ];
-
-      for (const selector of selectors) {
-        let node = element.closest(selector);
-
-        while (node) 
-        {
-          parents.push(node);
-          node = node.parentElement?.closest(selector) || null;
-        }
-      }
-
-      intersectionObserver = new IntersectionObserver(resize, {
-        root: null,
-        threshold: Array.from({ length: 10 }, (_, i) => i / 10)
-      });
-      intersectionObserver.observe(element);
-
-      document.addEventListener("scroll", resize);
-      for (const p of parents) {
-        p.addEventListener("scroll", resize);
-      }
-    });
-
-    onUnmounted(() => {
-      if (!root.value || props.height) {
-        return;
-      }
-
-      if(intersectionObserver){
-        intersectionObserver.disconnect();
-        intersectionObserver = null;
-      }
-
-      document.removeEventListener("scroll", resize);
-
-      for (const p of parents) {
-        p.removeEventListener("scroll", resize);
-      }
-    });
-
     return {
       root,
-      actualHeight,
-      rootContainer,
       renderedItems,
       containerStyle,
       sizeToVar,
       onScroll,
-      resize
+      refresh
     };
   }
 });

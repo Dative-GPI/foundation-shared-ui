@@ -4,7 +4,7 @@
     class="fs-virtual-col"
     :height="$props.height"
     v-bind="$attrs"
-    v-resize="resize"
+    v-resize="refresh"
   >
     <FSFadeOut
       height="100%"
@@ -37,9 +37,10 @@
   
 <script lang="ts">
 import _ from "lodash";
-import { computed, defineComponent, onMounted, onUnmounted, ref, type PropType, type StyleValue } from "vue";
+import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";
+import { useElementPosition, useScroll } from "../../composables";
 
 import FSFadeOut from "../FSFadeOut.vue";
 import FSCol from "../FSCol.vue";
@@ -57,6 +58,11 @@ export default defineComponent({
         [key: string]: unknown
       }[]>,
       required: true
+    },
+    itemKey: {
+      type: String,
+      required: true,
+      default: 'id',
     },
     gap: {
       type: Number,
@@ -84,15 +90,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const parents : Element[] = []
     const root = ref<typeof FSCol | null>(null);
-    
-    const scrollOffset = ref(0);
-    
-    const actualTop = ref(0);
-    const actualHeight = ref(varToSize(props.height));
+    const { height, top, scrollTop, refresh, onScroll } = useElementPosition(root);
+    useScroll(root, refresh, [".fs-fade-out", ...props.scrollableParentSelectors]);
 
-    let intersectionObserver: IntersectionObserver | null = null;
+    // Calcul de la hauteur effective à utiliser pour le rendu virtuel
+    const renderedHeight = computed(() => {
+      return props.height ? height.value : window.innerHeight;
+    });
 
     const computedItems = computed(() => {
       if (!props.items.length) {
@@ -105,7 +110,7 @@ export default defineComponent({
       for (let index = 0; index < props.items.length; index++) {
         const item = props.items[index];
         result.push({
-          key: index,
+          key: props.itemKey in item ? item[props.itemKey] as string : index,
           x: 0,
           y: currentY,
           width: '100%',
@@ -123,15 +128,13 @@ export default defineComponent({
         let offset = 0;
 
         if(!props.height){
-          offset = actualTop.value;
-        }
-        else 
-        {
-          offset = -scrollOffset.value
+          offset = top.value;
+        } else {
+          offset = -scrollTop.value;
         }
 
         return (
-          offset + item.y < actualHeight.value + props.bufferHeight && 
+          offset + item.y < renderedHeight.value + props.bufferHeight && 
           offset + item.y + item.height > 0 - props.bufferHeight
         );
       });
@@ -153,77 +156,13 @@ export default defineComponent({
       }
     })
 
-    const onScroll = (event: Event): void => {
-      const target = event.target as HTMLElement;
-      scrollOffset.value = target.scrollTop;
-    }
-
-    const resize = _.throttle((): void => {
-      if(!root.value) {
-        return;
-      }
-      const element = root.value.$el as HTMLElement;
-      const rect = element.getBoundingClientRect();
-  
-      actualHeight.value = props.height ? rect.height : window.innerHeight;
-      actualTop.value = rect.top;
-    }, 16, { leading: true });
-
-
-    onMounted(() => {
-      if(!root.value || props.height) {
-        return;
-      }
-
-      const element = root.value.$el as HTMLElement;
-      const selectors = [ ".fs-fade-out", ...props.scrollableParentSelectors ];
-
-      for(const selector of selectors) {
-        let node = element.closest(selector);
-
-        while(node)
-        {
-          parents.push(node);
-          node = node.parentElement?.closest(selector) || null;
-        }
-      }
-
-      // petit hack pour le cas où le composant est pas visible dans le viewport, on modifie le DOM et le fait appareil sans déclencher
-      // un seul event de scroll.
-      intersectionObserver = new IntersectionObserver(resize, { root: null, threshold: Array.from({ length: 10 }, (_, i) => i / 10) });
-      intersectionObserver.observe(element);
-
-      document.addEventListener("scroll", resize);
-
-      for(const node of parents) {
-        node.addEventListener("scroll", resize);
-      }
-    })
-
-    onUnmounted(() => {
-      if(!root.value || props.height) {
-        return;
-      }
-
-      if(intersectionObserver) {
-        intersectionObserver.disconnect();
-        intersectionObserver = null;
-      }
-
-      document.removeEventListener("scroll", resize);
-
-      for(const node of parents) {
-        node.removeEventListener("scroll", resize);
-      }
-    })
-
     return {
       root,
       renderedItems,
       containerStyle,
       sizeToVar,
       onScroll,
-      resize
+      refresh
     };
   }
 });
