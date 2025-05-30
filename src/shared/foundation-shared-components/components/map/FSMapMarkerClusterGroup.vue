@@ -58,27 +58,30 @@ export default {
       if (!map.value) {
         return;
       }
+
       const layers = markerClusterGroup.value.getLayers();
-      if (layers.length === props.expectedLayers && !added) {
-        markerClusterGroup.value.addTo(map.value);
-        added = true;
-      }
 
       if (layers.length === 0 && added) {
         map.value.removeLayer(markerClusterGroup.value as unknown as L.Layer);
         added = false;
+        return;
       }
-
-      const bounds = new LatLngBounds([]);
-      for (const layer of layers as any[]) {
-        if (layer.getBounds) {
-          bounds.extend(layer.getBounds());
-        } else if (layer.getLatLng) {
-          bounds.extend(layer.getLatLng());
+      if (layers.length === props.expectedLayers && !added) {
+        markerClusterGroup.value.addTo(map.value);
+        added = true;
+      }
+      if (layers.length === props.expectedLayers) {
+        const bounds = new LatLngBounds([]);
+        for (const layer of layers as any[]) {
+          if (layer.getBounds) {
+            bounds.extend(layer.getBounds());
+          } else if (layer.getLatLng) {
+            bounds.extend(layer.getLatLng());
+          }
         }
-      }
 
-      emit("update:bounds", layers.length > 0 ? bounds : null);
+        emit("update:bounds", layers.length > 0 ? bounds : null);
+      }
     };
 
     markerClusterGroup.value.on("layeradd", handleLayerChange);
