@@ -15,7 +15,7 @@
         <FSRow
           style="position: sticky; top: 0px; z-index: 3;"
           :style="{ backgroundColor, marginTop: $props.stickyTitleTopOffset }"
-          :padding="`24px ${isTouchScreenEnabled ? '24px' : '16px'} 16px 24px`"
+          :padding="`16px ${isTouchScreenEnabled ? '20px' : '12px'} 12px 12px`"
         >
           <slot
             name="title"
@@ -29,7 +29,7 @@
         </FSRow>
         <FSCol
           v-if="$props.breadcrumbs && $props.breadcrumbs.length > 0"
-          :padding="$slots.toolbar ? '0px 24px 8px 24px' : '0px 24px'"
+          :padding="`0px ${isTouchScreenEnabled ? '20px' : '12px'} ${$slots.toolbar ? '12px' : '0px'} 12px`"
           gap="16px"
         >
           <FSCol>
@@ -45,7 +45,7 @@
         <FSRow
           v-if="$slots.toolbar"
           :style="stickyToolbar ? `position: sticky; top: ${$props.toolbarTopOffset}; z-index: 3; background-color: ${backgroundColor}` : undefined"
-          :padding="`0px ${isTouchScreenEnabled ? '24px' : '16px'} 8px 24px`"
+          :padding="`0px ${isTouchScreenEnabled ? '20px' : '12px'} 12px 12px`"
         >
           <FSSlideGroup>
             <slot
@@ -58,7 +58,7 @@
       <FSCol
         height="fill"
         gap="0px"
-        :padding="`${$slots.toolbar ? '8px' : '16px'} ${isTouchScreenEnabled ? '24px' : '16px'} 24px 24px`"
+        :padding="`0px ${isTouchScreenEnabled ? '20px' : '12px'} 16px 12px`"
       >
         <slot />
       </FSCol>
