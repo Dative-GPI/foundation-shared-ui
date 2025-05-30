@@ -299,21 +299,23 @@ export const ClickablePinMap: Story = {
     components: { FSMap, FSMapMarker, FSMapMarkerClusterGroup },
     setup() {
       const bounds = ref(null);
+      const selectedIndex = ref<number | null>(null);
       const center = ref<[number, number] | null>(null);
       const zoom = ref(10);
 
-      const onClick = (event: any, id: "green" | "blue") => {
+      const onClick = (event: any, color: "green" | "blue", index: number) => {
         console.log(event);
-        if(id === "blue") {
+        if(color === "blue") {
           zoom.value = 15; // Zoom in on the first marker
           center.value = [event.latlng.lat, event.latlng.lng];
         }
-        if(id === "green") {
+        if(color === "green") {
           center.value = [event.latlng.lat, event.latlng.lng];
         }
+        selectedIndex.value = index;
       };
 
-      return { args, bounds, zoom, center, onClick };
+      return { args, bounds, zoom, center, selectedIndex, onClick };
     },
     template: `
       <FSMap
@@ -329,26 +331,26 @@ export const ClickablePinMap: Story = {
         >
           <FSMapMarker
             :latlng="{ lat: 45.904565, lng: 6.423869 }"
-            :selected="true"
+            :selected="selectedIndex === 0"
             label="Centre station"
             variant="pin"
-            @click="onClick($event, 'blue')"
+            @click="onClick($event, 'blue', 0)"
           />
           <FSMapMarker
             :latlng="{ lat: 45.915748, lng: 6.469506 }"
-            :selected="false"
+            :selected="selectedIndex === 1"
             color="green"
             label="Les confins"
             variant="pin"
-            @click="onClick($event, 'green')"
+            @click="onClick($event, 'green', 1)"
           />
           <FSMapMarker
             :latlng="{ lat: 43.915748, lng: 6.469506 }"
-            :selected="false"
+            :selected="selectedIndex === 2"
             color="primary"
             label="Le sud"
             variant="pin"
-            @click="onClick($event, 'blue')"
+            @click="onClick($event, 'blue', 2)"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>

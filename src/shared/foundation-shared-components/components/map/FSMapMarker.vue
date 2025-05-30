@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, onMounted, type Ref, watch, ref, onUnmounted } from 'vue';
+import { inject, type PropType, type Ref, watch, ref, onUnmounted, onMounted } from 'vue';
 
-import { type Map, type DivIcon, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup } from 'leaflet';
+import { type Map, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup, type LeafletMouseEvent } from 'leaflet';
 
 import { useColors } from "../../composables";
 
@@ -49,8 +49,37 @@ export default {
     const markerClusterGroup = inject<Ref<MarkerClusterGroup | null>>(MARKERCLUSTERGROUP, ref(null));
 
     const { getColors } = useColors();
+    const getMarkerIcon = () => {
+      if(props.variant === 'gps') {
+        const size = 16;
+        return divIcon({
+          html: gpsMarkerHtml(),
+          className: 'fs-map-mylocation',
+          iconSize: [size, size],
+          iconAnchor: [size / 2, size / 2],
+        });
+      }
 
-    const lastMarker = ref<Marker | null>(null); 
+      if(props.variant === 'location') {
+        const size = 36;
+        return divIcon({
+          html: locationMarkerHtml(props.icon ?? "mdi-map-marker", getColors(props.color).base, props.label),
+          iconSize: [size, size],
+          className: props.selected ? 'fs-map-marker fs-map-location fs-map-location-selected' : 'fs-map-marker fs-map-location',
+          iconAnchor: [size / 2, size / 2],
+        });
+      }
+
+      const size = 16;
+      return divIcon({
+        html: pinMarkerHtml(getColors(props.color).base, props.label),
+        iconSize: [size, size],
+        className: props.selected ? 'fs-map-marker fs-map-pin fs-map-pin-selected' : 'fs-map-marker fs-map-pin',
+        iconAnchor: [size / 2, size / 2],
+      });
+    }
+
+    const actualMarker = ref(marker(props.latlng ?? [0, 0], { icon: getMarkerIcon() }));
 
     if(!map) {
       throw new Error('FSMapTileLayer must be used inside a FSMap component');
@@ -60,76 +89,50 @@ export default {
       throw new Error('FSMapTileLayer must be used inside a FSMap component with a map');
     }
 
-    const updateMarker = () => {
-      if(!map.value || !props.latlng) {
+    watch(map, () => {
+      if(!map.value) {
         return;
       }
 
-      if(lastMarker.value) {
-        if(markerClusterGroup && markerClusterGroup.value) {
-          markerClusterGroup.value.removeLayer(lastMarker.value as Marker);
-        } else {
-          map.value.removeLayer(lastMarker.value as Marker);
-        }
-      }
-
-      let icon: DivIcon | null = null;
-      if(props.variant === 'gps') {
-        const size = 16;
-        icon = divIcon({
-          html: gpsMarkerHtml(),
-          className: 'fs-map-mylocation',
-          iconSize: [size, size],
-          iconAnchor: [size / 2, size / 2],
-        });
-      } else if(props.variant === 'location') {
-        const size = 36;
-        icon = divIcon({
-          html: locationMarkerHtml(props.icon ?? "mdi-map-marker", getColors(props.color).base, props.label),
-          iconSize: [size, size],
-          className: props.selected ? 'fs-map-marker fs-map-location fs-map-location-selected' : 'fs-map-marker fs-map-location',
-          iconAnchor: [size / 2, size / 2],
-        });
-      } else {
-        const size = 16;
-        icon = divIcon({
-          html: pinMarkerHtml(getColors(props.color).base, props.label),
-          iconSize: [size, size],
-          className: props.selected ? 'fs-map-marker fs-map-pin fs-map-pin-selected' : 'fs-map-marker fs-map-pin',
-          iconAnchor: [size / 2, size / 2],
-        });
-      }
-      
-      lastMarker.value = marker(props.latlng, { icon });
-      lastMarker.value.on('click', (e) => {
-        emit('click', e);
-      });
-
       if(markerClusterGroup && markerClusterGroup.value) {
-        lastMarker.value.addTo(markerClusterGroup.value);
+        actualMarker.value.addTo(markerClusterGroup.value);
       } else {
-        lastMarker.value.addTo(map.value);
+        actualMarker.value.addTo(map.value);
       }
-    };
+    }, { immediate: true });
+
+    watch([() => props.variant, () => props.color, () => props.selected], () => {
+      if(!actualMarker.value || !map.value) {
+        return;
+      }
+
+      const icon = getMarkerIcon();
+      actualMarker.value?.setIcon(icon);
+    });
+
+    watch([() => props.latlng?.lat, () => props.latlng?.lng], () => {
+      if(!actualMarker.value || !map.value || !props.latlng) {
+        return;
+      }
+
+      actualMarker.value.setLatLng(props.latlng);
+    });
 
     onMounted(() => {
-      updateMarker();
+      actualMarker.value.on('click', (event: LeafletMouseEvent) => {
+        emit('click', event);
+      });
     });
 
     onUnmounted(() => {
-      if(lastMarker.value && map.value) {
+      if(actualMarker.value && map.value) {
         if(markerClusterGroup && markerClusterGroup.value) {
-          markerClusterGroup.value.removeLayer(lastMarker.value as Marker);
+          markerClusterGroup.value.removeLayer(actualMarker.value as Marker);
         } else {
-          map.value.removeLayer(lastMarker.value as Marker);
+          map.value.removeLayer(actualMarker.value as Marker);
         }
       }
-      lastMarker.value = null;
     })
-
-    watch([() => props.variant, () => props.color, () => props.latlng?.lat, () => props.latlng?.lng, () => props.selected],
-          updateMarker,
-    );
   }
 };
 </script>
