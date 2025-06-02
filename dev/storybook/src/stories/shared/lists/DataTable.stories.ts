@@ -5,6 +5,7 @@ import FSStatusesCarousel from '@dative-gpi/foundation-shared-components/compone
 import FSDataTableUI from "@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue";
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 
 const meta = {
   title: 'Foundation/Shared/Lists/DataTable',
@@ -261,7 +262,7 @@ export const WithToolbarSlot: Story = {
     sortDraggable: true
   },
   render: (args) => ({
-    components: { FSDataTableUI, FSButton },
+    components: { FSDataTableUI, FSButton, FSRow },
     setup() {
       return { args };
     },
@@ -276,12 +277,48 @@ export const WithToolbarSlot: Story = {
         :sortDraggable="args.sortDraggable"
       >
         <template #toolbar>
+          <FSRow>
+            <FSButton>Toolbar 1</FSButton>
+            <FSButton>Toolbar button 2</FSButton>
+            <FSButton>Toolbar button 3</FSButton>
+            <FSButton>Toolbar button 4</FSButton>
+            <FSButton>Toolbar button 5</FSButton>
+            <FSButton>Toolbar button 6</FSButton>
+          </FSRow>
+        </template>
+      </FSDataTableUI>`
+  })
+};
+
+export const WithToolbarSlot2: Story = {
+  args: {
+    headers: headers2,
+    items: items2,
+    modelValue: value1,
+    selectable: true,
+    includeDraggable: true,
+    sortDraggable: true
+  },
+  render: (args) => ({
+    components: { FSDataTableUI, FSButton },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSDataTableUI
+        :selectable="args.selectable"
+        :items="args.items"
+        @click:row="args.onClickRow"
+        v-model:headers="args.headers"
+        v-model="args.modelValue"
+        :includeDraggable="args.includeDraggable"
+        :sortDraggable="args.sortDraggable"
+      >
+        <template #append-toolbar>
           <FSButton>Toolbar 1</FSButton>
           <FSButton>Toolbar button 2</FSButton>
           <FSButton>Toolbar button 3</FSButton>
           <FSButton>Toolbar button 4</FSButton>
-          <FSButton>Toolbar button 5</FSButton>
-          <FSButton>Toolbar button 6</FSButton>
         </template>
       </FSDataTableUI>`
   })

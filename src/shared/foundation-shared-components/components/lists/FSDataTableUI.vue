@@ -14,21 +14,30 @@
         name="prepend-toolbar"
       />
       <FSRow
-        align="bottom-left"
+        align="top-left"
       >
         <FSRow
-          v-if="$props.showSearch"
-          :wrap="false"
+          v-if="$props.showSearch || filterableHeaders.length > 0 || $slots['append-toolbar']"
+          align="bottom-left"
         >
-          <FSSearchField
-            :hideHeader="true"
-            v-model="innerSearch"
-          />
-          <FSButton
-            v-if="filterableHeaders.length > 0"
-            prependIcon="mdi-filter-variant"
-            :variant="innerShowFilters ? 'full' : 'standard'"
-            @click="innerShowFilters = !innerShowFilters"
+          <FSRow
+            v-if="$props.showSearch"
+            :wrap="false"
+          >
+            <FSSearchField
+              :hideHeader="true"
+              v-model="innerSearch"
+            />
+            <FSButton
+              v-if="filterableHeaders.length > 0"
+              prependIcon="mdi-filter-variant"
+              :variant="innerShowFilters ? 'full' : 'standard'"
+              @click="innerShowFilters = !innerShowFilters"
+            />
+          </FSRow>
+          <slot
+            v-if="!isMobileSized"
+            name="append-toolbar"
           />
         </FSRow>
         <slot
@@ -42,11 +51,8 @@
         <FSRow
           align="top-right"
           width="hug"
+          :wrap="false"
         >
-          <slot
-            v-if="!isMobileSized"
-            name="append-toolbar"
-          />
           <FSOptionGroup
             v-if="!$props.disableTable && !$props.disableIterator"
             :values="modeOptions"
