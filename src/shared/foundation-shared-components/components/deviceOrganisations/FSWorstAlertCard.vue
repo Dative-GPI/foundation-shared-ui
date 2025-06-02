@@ -17,7 +17,7 @@
         gap="0px"
       >
         <FSText>
-          {{ $tr('ui.alert.status', 'Status') }} : {{ AlertTools.statusLabel($props.deviceAlert?.status) }}
+          {{ $tr('entity.alert.current-status', 'Status') }} : {{ AlertTools.statusLabel($props.deviceAlert?.status) }}
         </FSText>
         <FSText
           font="text-button"
@@ -82,7 +82,7 @@ export default defineComponent({
 
     const deviceTimestamp = computed((): string => {
       if (props.deviceAlert.sourceTimestamp) {
-        return epochToLongTimeFormat(props.deviceAlert.sourceTimestamp);
+        return epochToLongTimeFormat(props.deviceAlert.actualTimestamp);
       }
       return "";
     });

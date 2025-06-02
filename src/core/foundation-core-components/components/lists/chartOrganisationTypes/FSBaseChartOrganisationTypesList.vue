@@ -51,8 +51,8 @@
     >
       <FSTagGroup
         variant="slide"
-        :disabled="true"
         :tags="item.tags"
+        :showRemove="false"
       />
     </template>
     <template
@@ -73,8 +73,9 @@
       #item.modelsLabels="{ item }"
     >
       <FSTagGroup
-        :disabled="true"
+        variant="slide"
         :tags="item.modelsLabels.map((d: any) => d.label)"
+        :showRemove="false"
       />
     </template>
     <template
@@ -86,6 +87,7 @@
         :singleSelect="$props.singleSelect"
         :selectable="$props.selectable"
         :icon="item.icon"
+        :scope="item.scope"
         :imageId="item.imageId"
         :type="item.chartType"
         :modelValue="isSelected(item.id)"

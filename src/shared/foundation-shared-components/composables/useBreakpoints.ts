@@ -21,7 +21,7 @@ export const useBreakpoints = () => {
     };
 
     const isTouchScreenEnabled = computed((): boolean => {
-        return navigator.maxTouchPoints > 0;
+        return window.matchMedia('(hover: none), (pointer: coarse), (pointer: none)').matches;
     });
 
     const isMobileSized = computed((): boolean => {

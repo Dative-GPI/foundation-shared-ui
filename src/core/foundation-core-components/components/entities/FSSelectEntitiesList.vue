@@ -45,7 +45,17 @@
         :modelValue="$props.modelValue"
         @update:modelValue="$emit('update:modelValue', $event)"
         v-bind="baseTableAttrs"
-      />
+      >
+        <template
+          v-for="(_, name) in $slots"
+          v-slot:[getNameSlot(name)]="slotData"
+        >
+          <slot
+            :name="name"
+            v-bind="slotData"
+          />
+        </template>
+      </FSBaseEntitiesList>
     </FSCol>
   </FSCol>
 </template>
@@ -54,7 +64,7 @@
 import { defineComponent, type PropType, computed } from "vue";
 
 import { EntityType } from "@dative-gpi/foundation-shared-domain/enums";
-import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, LocationFilters, ModelFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DashboardShallowFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, LocationFilters, ModelFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
 
 import { TABLES as T } from "../../utils";
 
@@ -114,8 +124,9 @@ export default defineComponent({
         case EntityType.Dashboard:
           return {
             dashboardOrganisationsIds: props.modelValue,
-            dashboardOrganisationTypesIds: props.modelValue
-          } satisfies DashboardOrganisationFilters & DashboardOrganisationTypeFilters;
+            dashboardOrganisationTypesIds: props.modelValue,
+            dashboardShallowsIds: props.modelValue
+          } satisfies DashboardOrganisationFilters & DashboardOrganisationTypeFilters & DashboardShallowFilters;
         case EntityType.Group:
           return {
             groupsIds: props.modelValue
@@ -198,11 +209,16 @@ export default defineComponent({
       emit("update:modelValue", props.modelValue.filter((i) => i !== id));
     }
 
+    const getNameSlot = (name: string | number) => {
+      return name.toString().replace("base-list-", "");
+    }
+
     return {
       simpleListFilters,
       baseTableAttrs,
       tableCode,
-      onRemove
+      onRemove,
+      getNameSlot
     }
   }
 });

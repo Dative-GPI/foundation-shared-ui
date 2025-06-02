@@ -1,132 +1,96 @@
 <template>
-  <FSTile
+  <FSSimpleTileUI
     :activeColor="$props.color"
     :bottomColor="$props.color"
     :modelValue="$props.modelValue"
     :width="$props.width"
+    :label="$props.label"
+    :icon="$props.icon"
+    :code="$props.code"
     v-bind="$attrs"
   >
-    <FSCol
-      align="center-center"
-      width="fill"
+    <template
+      #append-info
     >
-      <FSRow
-        align="center-left"
-        gap="24px"
-        :height="imageSize"
-        :wrap="false"
+      <FSCol
+        gap="8px"
       >
-        <FSCol 
-          gap="12px"
-          :width="infoWidth"
+        <FSRow
+          v-if="$props.deviceCount"
+          :wrap="false"
+          align="center-left"
         >
-          <FSCol
-            gap="4px"
-          >
-            <FSSpan
-              font="text-button"
-              :lineClamp="1"
-            >
-              {{ $props.label }}
-            </FSSpan>
-            <FSSpan
-              v-if="$props.code"
-              font="text-overline"
-              variant="soft"
-            >
-              {{ $props.code }}
-            </FSSpan>
-          </FSCol>
-          <FSCol
-            gap="8px"
+          <FSColor
+            width="24px"
+            height="24px"
+            :color="ColorEnum.Primary"
+            :border="false"
           >
             <FSRow
-              v-if="$props.deviceCount"
-              :wrap="false"
-              align="center-left"
+              align="center-center"
             >
-              <FSColor
-                padding="0 8px"
-                height="24px"
-                :color="ColorEnum.Light"
-                :border="false"
-              >
-                <FSRow
-                  align="center-center"
-                >
-                  <FSSpan
-                    font="text-overline"
-                  >
-                    {{ $props.deviceCount <= 99 ? $props.deviceCount : "99+" }}
-                  </FSSpan>
-                </FSRow>
-              </FSColor>
               <FSSpan
                 font="text-overline"
               >
-                {{ $tr("ui.common.devices", "Equipment(s)") }}
+                {{ capNumberToString($props.deviceCount) }}
               </FSSpan>
             </FSRow>
+          </FSColor>
+          <FSSpan
+            font="text-overline"
+          >
+            {{ $tr("ui.common.devices", "Equipment(s)") }}
+          </FSSpan>
+        </FSRow>
+        <FSRow
+          v-if="$props.address"
+          :wrap="false"
+          align="center-left"
+        >
+          <FSColor
+            width="24px"
+            height="24px"
+            :color="ColorEnum.Primary"
+            :border="false"
+          >
             <FSRow
-              v-if="$props.address"
-              :wrap="false"
-              align="center-left"
+              align="center-center"
             >
-              <FSColor
-                width="24px"
-                height="24px"
-                :color="ColorEnum.Light"
-                :border="false"
-              >
-                <FSRow
-                  align="center-center"
-                >
-                  <FSIcon
-                    icon="mdi-map-marker"
-                    size="16px"
-                  />
-                </FSRow>
-              </FSColor>
-              <FSSpan
-                font="text-overline"
-              >
-                {{ $props.address }}
-              </FSSpan>
+              <FSIcon
+                icon="mdi-map-marker-radius-outline"
+                size="16px"
+              />
             </FSRow>
-          </FSCol>
-        </FSCol>
-        <FSIconCard
-          backgroundVariant="standard"
-          :backgroundColor="ColorEnum.Background"
-          :iconColor="$props.color"
-          :icon="$props.icon"
-          :size="imageSize"
-        />
-      </FSRow>
-    </FSCol>
-  </FSTile>
+          </FSColor>
+          <FSSpan
+            font="text-overline"
+          >
+            {{ $props.address }}
+          </FSSpan>
+        </FSRow>
+      </FSCol>
+    </template>
+  </FSSimpleTileUI>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType } from "vue";
+import { defineComponent, type PropType } from "vue";
 
+import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composables";
 
-import FSIconCard from "../FSIconCard.vue";
+import FSSimpleTileUI from './FSSimpleTileUI.vue';
 import FSColor from "../FSColor.vue";
 import FSSpan from "../FSSpan.vue";
-import FSTile from "./FSTile.vue";
 import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
 
 export default defineComponent({
   name: "FSLocationTileUI",
   components: {
-    FSIconCard,
+    FSSimpleTileUI,
     FSColor,
     FSSpan,
-    FSTile,
     FSCol,
     FSRow
   },
@@ -172,20 +136,10 @@ export default defineComponent({
     }
   },
   setup() {
-    const { isMobileSized } = useBreakpoints();
-
-    const imageSize = computed((): number => {
-      return isMobileSized.value ? 90 : 100;
-    });
-
-    const infoWidth = computed((): string => {
-      return `calc(100% - ${imageSize.value}px - 24px)`;
-    });
 
     return {
       ColorEnum,
-      imageSize,
-      infoWidth
+      capNumberToString
     };
   }
 });

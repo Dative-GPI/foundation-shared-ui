@@ -495,7 +495,15 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: true
-        }],
+        },{
+          columnId: "11",
+          text: "Status",
+          value: "currentStatus",
+          index: 10,
+          hidden: false,
+          sortable: false,
+          filterable: true
+      }],
         sortByKey: null,
         sortByOrder: null
     },

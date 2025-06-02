@@ -4,6 +4,8 @@
     padding: var(--fs-card-padding);
     height: var(--fs-card-height);
     width: var(--fs-card-width);
+    max-width: var(--fs-card-max-width);
+    position: relative;
     display: flex;
     
     border-color: var(--fs-card-border-color);
@@ -20,5 +22,12 @@
 
     &-gradient {
         background: var(--fs-card-background-color);
+    }
+
+    .fs-card-top-right {
+        position: absolute;
+        line-height: normal;
+        right: var(--fs-card-top-right-padding);
+        top: var(--fs-card-top-right-padding);
     }
 }

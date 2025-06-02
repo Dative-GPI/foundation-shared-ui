@@ -1,6 +1,7 @@
 <template>
   <FSCard
     :variant="$props.backgroundVariant"
+    :borderColor="$props.backgroundVariant === 'background' ? ColorEnum.Light : null"
     :color="$props.backgroundColor"
     :border="$props.border"
     :height="$props.size"
@@ -10,8 +11,8 @@
       align="center-center"
     >
       <FSIcon
-        :variant="$props.iconVariant"
-        :color="contrastedIconColor"
+        :variant="iconVariant"
+        :color="iconColor"
         :size="actualIconSize"
       >
         {{ $props.icon }}
@@ -23,10 +24,9 @@
 <script lang="ts">
 import { defineComponent, type PropType, computed } from "vue";
 
-import { ColorEnum, type ColorBase } from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum, type ColorBase, type ColorBaseVariations } from "@dative-gpi/foundation-shared-components/models";
 
 import { sizeToVar } from "../utils";
-import { useColors } from "../composables";
 
 import FSCard from "./FSCard.vue";
 import FSIcon from "./FSIcon.vue";
@@ -46,7 +46,7 @@ export default defineComponent({
     backgroundColor: {
       type: [Array, String] as PropType<ColorBase | ColorBase[]>,
       required: false,
-      default: null
+      default: ColorEnum.Background
     },
     backgroundVariant: {
       type: String as PropType<"background" | "standard" | "full" | "gradient">,
@@ -60,13 +60,12 @@ export default defineComponent({
     },
     iconColor: {
       type: String as PropType<ColorBase>,
-      required: false,
-      default: ColorEnum.Light
+      required: false
     },
     iconVariant: {
-      type: String as PropType<"base" | "baseContrast" | "soft" | "softContrast" | "light" | "lightContrast" | "dark" | "darkContrast">,
+      type: String as PropType<ColorBaseVariations | null>,
       required: false,
-      default: "base"
+      default: null
     },
     iconSize: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
@@ -80,14 +79,6 @@ export default defineComponent({
     }
   },
   setup(props){
-    const { getColors } = useColors();
-    
-    const colors = computed(() => {
-      return Array.isArray(props.backgroundColor) 
-        ? getColors(props.backgroundColor[Math.floor(props.backgroundColor.length/2)]) 
-        : getColors(props.backgroundColor)
-    });
-
     const actualIconSize = computed(() => {
       if (props.iconSize){
         return props.iconSize;
@@ -98,22 +89,47 @@ export default defineComponent({
       return "42px";
     });
 
-    const contrastedIconColor = computed(() => {
+    const iconVariant = computed((): ColorBaseVariations | undefined => {
+      if (props.iconVariant) {
+        return props.iconVariant;
+      }
+      if (props.iconColor) {
+        return "base";
+      }
+
       switch (props.backgroundVariant) {
+        case "background":
+          return "lightContrast";
         case "standard":
-          switch (props.iconColor) {
-            case ColorEnum.Dark :
-            case ColorEnum.Light:
-            default: return colors.value.lightContrast!
-          };
-        case "background": return colors.value.base
-        default: return colors.value.baseContrast!
+          return "lightContrast";
+        case "full":
+          return "baseContrast";
+        case "gradient":
+          return "baseContrast";
+        default:
+          return "base";
       }
     });
 
+    const iconColor = computed((): ColorBase | undefined => {
+      if (props.iconColor) {
+        return props.iconColor;
+      }
+      
+      if(Array.isArray(props.backgroundColor)) {
+        return props.backgroundColor[Math.floor(props.backgroundColor.length/2)];
+      }
+      if(props.backgroundVariant === "background") {
+        return ColorEnum.Light;
+      }
+      return props.backgroundColor;
+    });
+
     return {
-      contrastedIconColor,
-      actualIconSize
+      actualIconSize,
+      iconVariant,
+      ColorEnum,
+      iconColor,
     };
   }
 });

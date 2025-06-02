@@ -4,18 +4,40 @@ import FSText from "@dative-gpi/foundation-shared-components/components/FSText.v
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
+import { addSubcomponentsArgTypes } from '@/utils/properties';
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 
 const meta = {
   title: 'Foundation/Shared/Chip',
   component: FSChip,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addSubcomponentsArgTypes([FSRow], FSChip)
   },
 } satisfies Meta<typeof FSChip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    color: 'primary',
+    variant: 'standard',
+    label: 'I am a chip',
+    to: { name: 'About' }
+  },
+  render: (args) => ({
+    components: { FSChip, FSText, FSSpan, FSIcon },
+    setup() {
+      return { args }
+    },
+    template: `
+      <FSChip 
+        v-bind="args"
+      />
+      `
+  })
+}
 
 export const Variations: Story = {
   render: () => ({

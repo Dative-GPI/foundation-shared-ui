@@ -31,11 +31,13 @@ export class AlertInfos {
   triggerSourceTimestamp: number | null;
   triggerEnqueuedTimestamp: number | null;
   triggerProcessedTimestamp: number | null;
+  triggerActualTimestamp: number | null;
   lastState: AlertState;
   currentSourceTimestamp: number | null;
   currentEnqueuedTimestamp: number | null;
   currentProcessedTimestamp: number | null;
-  status: AlertStatus;
+  currentActualTimestamp: number | null;
+  currentStatus: AlertStatus;
   tags: string[];
   history: AlertState[];
   groupByValues: AlertDataDefinition[];
@@ -69,6 +71,8 @@ export class AlertInfos {
       isoToEpoch(params.triggerEnqueuedTimestamp) : null;
     this.triggerProcessedTimestamp = params.triggerProcessedTimestamp ?
       isoToEpoch(params.triggerProcessedTimestamp) : null;
+    this.triggerActualTimestamp = params.triggerActualTimestamp ?
+      isoToEpoch(params.triggerActualTimestamp) : null;
     this.lastState = new AlertState(params.lastState);
     this.currentSourceTimestamp = params.currentSourceTimestamp ?
       isoToEpoch(params.currentSourceTimestamp) : null;
@@ -76,7 +80,9 @@ export class AlertInfos {
       isoToEpoch(params.currentEnqueuedTimestamp) : null;
     this.currentProcessedTimestamp = params.currentProcessedTimestamp ?
       isoToEpoch(params.currentProcessedTimestamp) : null;
-    this.status = params.status;
+    this.currentActualTimestamp = params.currentActualTimestamp ?
+      isoToEpoch(params.currentActualTimestamp) : null;
+    this.currentStatus = params.currentStatus;
     this.tags = params.tags;
     this.history = params.history.map(dto => new AlertState(dto));
     this.groupByValues = params.groupByValues.map(dto => new AlertDataDefinition(dto));
@@ -108,11 +114,13 @@ export interface AlertInfosDTO {
   triggerSourceTimestamp: string | null;
   triggerEnqueuedTimestamp: string | null;
   triggerProcessedTimestamp: string | null;
+  triggerActualTimestamp: string | null;
   lastState: AlertStateDTO;
   currentSourceTimestamp: string | null;
   currentEnqueuedTimestamp: string | null;
   currentProcessedTimestamp: string | null;
-  status: AlertStatus;
+  currentActualTimestamp: string | null;
+  currentStatus: AlertStatus;
   tags: string[];
   history: AlertStateDTO[];
   groupByValues: AlertDataDefinitionDTO[];

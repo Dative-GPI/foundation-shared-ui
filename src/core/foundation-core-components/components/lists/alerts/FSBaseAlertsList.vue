@@ -134,25 +134,7 @@
       </FSSpan>
     </template>
     <template
-      #item.triggerSourceTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.triggerSourceTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.triggerEnqueuedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.triggerEnqueuedTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.triggerProcessedTimestamp="{ item }"
+      #item.triggerActualTimestamp="{ item }"
     >
       <FSSpan
         font="text-overline"
@@ -170,30 +152,21 @@
       </FSSpan>
     </template>
     <template
-      #item.currentSourceTimestamp="{ item }"
+      #item.currentActualTimestamp="{ item }"
     >
       <FSSpan
         font="text-overline"
       >
-        {{ epochToShortTimeFormat(item.currentSourceTimestamp) }}
+        {{ epochToShortTimeFormat(item.currentActualTimestamp) }}
       </FSSpan>
     </template>
     <template
-      #item.currentEnqueuedTimestamp="{ item }"
+      #item.currentStatus="{ item }"
     >
       <FSSpan
         font="text-overline"
       >
-        {{ epochToShortTimeFormat(item.currentEnqueuedTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.currentProcessedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.currentProcessedTimestamp) }}
+        {{ AlertTools.statusLabel(item.currentStatus) }}
       </FSSpan>
     </template>
     <template
@@ -312,27 +285,17 @@ export default defineComponent({
       const als = [...alerts.value]
       return  als.sort((a: AlertInfos, b: AlertInfos) => {
         return (a.acknowledged === b.acknowledged) ?
-          +b.currentSourceTimestamp! - +a.currentSourceTimestamp! : a.acknowledged ? 1 : -1
+          +b.currentActualTimestamp! - +a.currentActualTimestamp! : a.acknowledged ? 1 : -1
       }); 
     });
 
-    watch(() => [props.alertFilters, props.notAcknowledged, props.hidePending], (next, previous) => {
+    watch([() => props.alertFilters, () => props.notAcknowledged, () => props.hidePending], (next, previous) => {
       if (!_.isEqual(next, previous)) {
-        if(props.notAcknowledged){
-          getManyAlerts({
-            ...props.alertFilters,
-            acknowledged: false,
-            statuses: [AlertStatus.Unresolved, AlertStatus.Triggered],
-          });
-        }
-        else{
-          getManyAlerts({
-            ...props.alertFilters,
-            statuses: props.hidePending ?
-              [AlertStatus.Unresolved, AlertStatus.Resolved, AlertStatus.Triggered] : props.alertFilters?.statuses
-          }); // TODO, gérer les conditions pour que les alertes s'affichent ici notamment lorsqu'elles sont acquittées
-          // la FilterFactory gère pas ces conditions correctement
-        }
+        getManyAlerts({
+          ...props.alertFilters,
+          acknowledged: props.notAcknowledged ? false : undefined,
+          statuses: props.hidePending ? [AlertStatus.Unresolved, AlertStatus.Triggered, AlertStatus.Resolved, AlertStatus.Untriggered, AlertStatus.Abandoned] : undefined
+        });
       }
     }, { immediate: true });
 

@@ -3,11 +3,15 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 import FSEntityField from "@dative-gpi/foundation-core-components/components/entities/FSEntityField.vue";
+import { addComponentEmits } from '@/utils/properties';
 
 const meta = {
   title: 'Foundation/Core/EntityField',
   component: FSEntityField,
   tags: ['autodocs'],
+  argTypes: {
+    ...addComponentEmits(FSEntityField)
+  }
 } satisfies Meta<typeof FSEntityField>;
 
 export default meta;
@@ -23,27 +27,14 @@ const BaseStory: Story = {
   render: (args) => ({
     components: { FSEntityField },
     setup() {
-      const entityType = ref(args.entityType)
-      const value = ref<string[]>(args.modelValue)
-
-      watch(() => args.entityType, (value) => {
-        entityType.value = value;
-      }, { immediate: true });
-
-      watch(() => args.modelValue, (value) => {
-        value.value = value;
-      }, { immediate: true });
-
-      return { args, entityType, value };
+      return { args };
     },
     template: `
-    <div style="display: flex; flex-direction: column; gap: 10px; width: 400px;">
       <FSEntityField
         v-bind="args" 
-        v-model="value" 
-        v-model:entityType="entityType"
-      />
-    </div>`
+        v-model="args.modelValue" 
+        v-model:entityType="args.entityType"
+      />`
   })
 }
 

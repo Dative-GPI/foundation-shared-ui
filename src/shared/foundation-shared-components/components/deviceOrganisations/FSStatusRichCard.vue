@@ -2,6 +2,7 @@
   <component
     v-if="$props.modelStatus"
     class="fs-status-rich-card"
+    topRightPadding="2px"
     variant="standard"
     :is="$attrs.onClick ? FSClickable : FSCard"
     :padding="$props.padding"
@@ -41,14 +42,14 @@
         v-bind="{ color }"
       />
     </FSCol>
-    <div
-      class="fs-status-rich-card-corner"
+    <template
+      #top-right
     >
       <slot
         name="corner"
         v-bind="{ color }"
       />
-    </div>
+    </template>
   </component>
 </template>
 
@@ -135,7 +136,7 @@ export default defineComponent({
     });
 
     const title = computed((): string => {
-      return props.title ?? props.modelStatus?.label;
+      return props.title ?? props.modelStatus?.label ?? "";
     });
 
     const value = computed((): string | null => {

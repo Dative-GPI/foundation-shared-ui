@@ -1,5 +1,5 @@
 <template>
-  <v-menu
+  <FSMenu
     :closeOnContentClick="false"
     v-model="menu"
     location="bottom center"
@@ -23,7 +23,7 @@
       :statusGroup="$props.statusGroup"
       @close="menu = false"
     />
-  </v-menu>
+  </FSMenu>
 </template>
 
 <script lang="ts">
@@ -34,12 +34,14 @@ import type { FSDeviceStatusGroup, FSModelStatus } from "@dative-gpi/foundation-
 
 import FSStatusCard from "./FSStatusCard.vue";
 import FSColorIcon from "../FSColorIcon.vue";
+import FSMenu from '../FSMenu.vue';
 
 export default defineComponent({
   name: "FSStatus",
   components: {
     FSStatusCard,
-    FSColorIcon
+    FSColorIcon,
+    FSMenu
   },
   props: {
     modelStatus: {

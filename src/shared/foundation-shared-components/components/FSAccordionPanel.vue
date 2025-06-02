@@ -6,32 +6,47 @@
     :disabled="false"
     :elevation="0"
     :style="style"
+    :hideActions="$props.actionPosition === 'start'"
     v-bind="$attrs"
   >
-    <template
-      #title
-    >
-      <slot
-        name="title"
+    <v-expansion-panel-title>
+      <template
+        v-slot:default="{ expanded, collapseIcon, expandIcon }"
       >
-        <FSRow>
-          <FSIcon
-            v-if="$props.prependIcon"
+        <FSRow
+          gap="4px"
+        >
+          <FSCol
+            v-if="$props.actionPosition === 'start'"
+            width="hug"
+            align="center-center"
           >
-            {{ $props.prependIcon }}
-          </FSIcon>
-          <FSSpan
-            class="fs-accordion-panel-title"
-            :lineClamp="$props.lineClampTitle"
+            <FSIcon
+              size="22.5px"
+              :icon="expanded ? collapseIcon : expandIcon"
+            />
+          </FSCol>
+          <slot
+            name="title"
           >
-            {{ $props.title }}
-          </FSSpan>
+            <FSRow>
+              <FSIcon
+                v-if="$props.prependIcon"
+              >
+                {{ $props.prependIcon }}
+              </FSIcon>
+              <FSSpan
+                class="fs-accordion-panel-title"
+                :lineClamp="$props.lineClampTitle"
+              >
+                {{ $props.title }}
+              </FSSpan>
+            </FSRow>
+          </slot>
         </FSRow>
-      </slot>
-    </template>
-    <template
-      #text
-    >
+      </template>
+    </v-expansion-panel-title>
+    <v-expansion-panel-text>
       <slot
         name="content"
       >
@@ -47,7 +62,7 @@
           :modelValue="$props.content"
         />
       </slot>
-    </template>
+    </v-expansion-panel-text>
   </v-expansion-panel>
 </template>
 
@@ -128,6 +143,10 @@ export default defineComponent({
       type: String as PropType<"standard" | "rich-text">,
       required: false,
       default: "standard"
+    },
+    actionPosition: {
+      type: String as () => "start" | "end",
+      default: "end"
     }
   },
   setup(props) {

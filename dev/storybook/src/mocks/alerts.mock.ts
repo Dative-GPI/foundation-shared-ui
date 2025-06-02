@@ -13,6 +13,12 @@ export const ALERTS: AlertInfosDTO[] = [
       "code": "",
       "icon": "mdi-alert-circle",
       "tags": [],
+      "acknowledgingTimestamp": null,
+      "acknowledgingUserId": null,
+      "acknowledgingUserImageId": null,
+      "deviceOrganisationLocationLabel": null,
+      "deviceOrganisationOwnerLabel": null,
+      "scenarioScope": 1,
       "history": [
           {
               "id": "d4d8c4c9-27ad-4401-ab20-d6392a02ea22",
@@ -33,6 +39,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-07T07:38:55.574Z",
               "enqueuedTimestamp": "2024-09-07T07:43:20.882Z",
               "processedTimestamp": "2024-09-07T07:43:21.04357Z",
+              "actualTimestamp": "2024-09-07T07:43:21.04357Z",
               "status": 2
           },
           {
@@ -54,6 +61,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-07T07:09:48.22Z",
               "enqueuedTimestamp": "2024-09-07T07:13:21.025Z",
               "processedTimestamp": "2024-09-07T07:13:21.248132Z",
+              "actualTimestamp": "2024-09-07T07:43:21.04357Z",
               "status": 1
           }
       ],
@@ -88,11 +96,13 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-07T07:09:48.22Z",
           "enqueuedTimestamp": "2024-09-07T07:13:21.025Z",
           "processedTimestamp": "2024-09-07T07:13:21.248132Z",
+          "actualTimestamp": "2024-09-07T07:43:21.04357Z",
           "status": 1
       },
       "triggerSourceTimestamp": "2024-09-07T07:09:48.22Z",
       "triggerEnqueuedTimestamp": "2024-09-07T07:13:21.025Z",
       "triggerProcessedTimestamp": "2024-09-07T07:13:21.248132Z",
+      "triggerActualTimestamp": "2024-09-07T07:13:21.248132Z",
       "lastState": {
           "id": "d4d8c4c9-27ad-4401-ab20-d6392a02ea22",
           "metadataValues": [
@@ -112,12 +122,14 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-07T07:38:55.574Z",
           "enqueuedTimestamp": "2024-09-07T07:43:20.882Z",
           "processedTimestamp": "2024-09-07T07:43:21.04357Z",
+          "actualTimestamp": "2024-09-07T07:43:21.04357Z",
           "status": 2
       },
       "currentSourceTimestamp": "2024-09-07T07:38:55.574Z",
       "currentEnqueuedTimestamp": "2024-09-07T07:43:20.882Z",
       "currentProcessedTimestamp": "2024-09-07T07:43:21.04357Z",
-      "currentStatus": 2
+      "currentActualTimestamp": "2024-09-07T07:43:21.04357Z",
+      "currentStatus": 1
   },
   {
       "id": "02f263cf-4b4d-47e6-a7e7-89e2b1b3444d",
@@ -131,6 +143,12 @@ export const ALERTS: AlertInfosDTO[] = [
       "code": "",
       "icon": "mdi-alert-circle",
       "tags": [],
+      "acknowledgingTimestamp": null,
+      "acknowledgingUserId": null,
+      "acknowledgingUserImageId": null,
+      "deviceOrganisationLocationLabel": null,
+      "deviceOrganisationOwnerLabel": null,
+      "scenarioScope": 1,
       "history": [
           {
               "id": "35914f30-ae58-427c-be5a-d22b37503e01",
@@ -151,6 +169,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-06T07:50:25.515Z",
               "enqueuedTimestamp": "2024-09-06T07:53:19.402Z",
               "processedTimestamp": "2024-09-06T07:53:19.646868Z",
+              "actualTimestamp": "2024-09-06T07:53:19.646868Z",
               "status": 2
           },
           {
@@ -172,6 +191,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-06T05:58:15.733Z",
               "enqueuedTimestamp": "2024-09-06T06:03:19.282Z",
               "processedTimestamp": "2024-09-06T06:03:19.479182Z",
+              "actualTimestamp": "2024-09-06T07:53:19.646868Z",
               "status": 1
           }
       ],
@@ -206,11 +226,13 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-06T05:58:15.733Z",
           "enqueuedTimestamp": "2024-09-06T06:03:19.282Z",
           "processedTimestamp": "2024-09-06T06:03:19.479182Z",
+          "actualTimestamp": "2024-09-06T07:53:19.646868Z",
           "status": 1
       },
       "triggerSourceTimestamp": "2024-09-06T05:58:15.733Z",
       "triggerEnqueuedTimestamp": "2024-09-06T06:03:19.282Z",
       "triggerProcessedTimestamp": "2024-09-06T06:03:19.479182Z",
+      "triggerActualTimestamp": "2024-09-06T07:53:19.646868Z",
       "lastState": {
           "id": "35914f30-ae58-427c-be5a-d22b37503e01",
           "metadataValues": [
@@ -230,11 +252,13 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-06T07:50:25.515Z",
           "enqueuedTimestamp": "2024-09-06T07:53:19.402Z",
           "processedTimestamp": "2024-09-06T07:53:19.646868Z",
+          "actualTimestamp": "2024-09-06T07:53:19.646868Z",
           "status": 2
       },
       "currentSourceTimestamp": "2024-09-06T07:50:25.515Z",
       "currentEnqueuedTimestamp": "2024-09-06T07:53:19.402Z",
       "currentProcessedTimestamp": "2024-09-06T07:53:19.646868Z",
+      "currentActualTimestamp": "2024-09-06T07:53:19.646868Z",
       "currentStatus": 2
   },
   {
@@ -249,6 +273,12 @@ export const ALERTS: AlertInfosDTO[] = [
       "code": "",
       "icon": "mdi-alert-circle",
       "tags": [],
+      "acknowledgingTimestamp": null,
+      "acknowledgingUserId": null,
+      "acknowledgingUserImageId": null,
+      "deviceOrganisationLocationLabel": null,
+      "deviceOrganisationOwnerLabel": null,
+      "scenarioScope": 1,
       "history": [
           {
               "id": "96b8d0da-d5d7-49d2-9e2a-7bd48c51ecb7",
@@ -269,6 +299,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-06T02:22:33.774Z",
               "enqueuedTimestamp": "2024-09-06T02:23:19.639Z",
               "processedTimestamp": "2024-09-06T02:23:20.075759Z",
+              "actualTimestamp": "2024-09-06T02:23:20.075759Z",
               "status": 2
           },
           {
@@ -290,6 +321,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-06T01:55:14.913Z",
               "enqueuedTimestamp": "2024-09-06T02:03:19.055Z",
               "processedTimestamp": "2024-09-06T02:03:19.39776Z",
+              "actualTimestamp": "2024-09-06T02:23:20.075759Z",
               "status": 1
           }
       ],
@@ -324,11 +356,13 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-06T01:55:14.913Z",
           "enqueuedTimestamp": "2024-09-06T02:03:19.055Z",
           "processedTimestamp": "2024-09-06T02:03:19.39776Z",
+          "actualTimestamp": "2024-09-06T02:23:20.075759Z",
           "status": 1
       },
       "triggerSourceTimestamp": "2024-09-06T01:55:14.913Z",
       "triggerEnqueuedTimestamp": "2024-09-06T02:03:19.055Z",
       "triggerProcessedTimestamp": "2024-09-06T02:03:19.39776Z",
+      "triggerActualTimestamp": "2024-09-06T02:23:20.075759Z",
       "lastState": {
           "id": "96b8d0da-d5d7-49d2-9e2a-7bd48c51ecb7",
           "metadataValues": [
@@ -348,11 +382,13 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-06T02:22:33.774Z",
           "enqueuedTimestamp": "2024-09-06T02:23:19.639Z",
           "processedTimestamp": "2024-09-06T02:23:20.075759Z",
+          "actualTimestamp": "2024-09-06T02:23:20.075759Z",
           "status": 2
       },
       "currentSourceTimestamp": "2024-09-06T02:22:33.774Z",
       "currentEnqueuedTimestamp": "2024-09-06T02:23:19.639Z",
       "currentProcessedTimestamp": "2024-09-06T02:23:20.075759Z",
+      "currentActualTimestamp": "2024-09-06T02:23:20.075759Z",
       "currentStatus": 2
   },
   {
@@ -367,6 +403,12 @@ export const ALERTS: AlertInfosDTO[] = [
       "code": "",
       "icon": "mdi-alert-circle",
       "tags": [],
+      "acknowledgingTimestamp": null,
+      "acknowledgingUserId": null,
+      "acknowledgingUserImageId": null,
+      "deviceOrganisationLocationLabel": null,
+      "deviceOrganisationOwnerLabel": null,
+      "scenarioScope": 1,
       "history": [
           {
               "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
@@ -387,6 +429,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-07T01:59:50.975Z",
               "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
               "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 2
           },
           {
@@ -408,6 +451,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "sourceTimestamp": "2024-09-07T01:41:58.928Z",
               "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
               "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 1
           }
       ],
@@ -442,11 +486,13 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-07T01:41:58.928Z",
           "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
           "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 1
       },
       "triggerSourceTimestamp": "2024-09-07T01:41:58.928Z",
       "triggerEnqueuedTimestamp": "2024-09-07T01:43:20.576Z",
       "triggerProcessedTimestamp": "2024-09-07T01:43:20.886202Z",
+      "triggerActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "lastState": {
           "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
           "metadataValues": [
@@ -466,11 +512,13 @@ export const ALERTS: AlertInfosDTO[] = [
           "sourceTimestamp": "2024-09-07T01:59:50.975Z",
           "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
           "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 2
       },
       "currentSourceTimestamp": "2024-09-07T01:59:50.975Z",
       "currentEnqueuedTimestamp": "2024-09-07T02:03:20.705Z",
       "currentProcessedTimestamp": "2024-09-07T02:03:20.94841Z",
+      "currentActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "currentStatus": 2
   },
   {
@@ -485,9 +533,15 @@ export const ALERTS: AlertInfosDTO[] = [
       "code": "",
       "icon": "mdi-alert-circle",
       "tags": [],
+      "acknowledgingTimestamp": null,
+      "acknowledgingUserId": null,
+      "acknowledgingUserImageId": null,
+      "deviceOrganisationLocationLabel": null,
+      "deviceOrganisationOwnerLabel": null,
+      "scenarioScope": 1,
       "history": [
           {
-              "id": "11040703-e0b3-4a4b-979f-d1a3d6f70ce3",
+              "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
               "metadataValues": [
                   {
                       "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -497,18 +551,19 @@ export const ALERTS: AlertInfosDTO[] = [
                   },
                   {
                       "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                      "value": "3",
+                      "value": "2",
                       "unit": "",
                       "label": "Etage"
                   }
               ],
-              "sourceTimestamp": "2024-09-09T04:58:45.485Z",
-              "enqueuedTimestamp": "2024-09-09T05:03:23.749Z",
-              "processedTimestamp": "2024-09-09T05:03:23.954995Z",
+              "sourceTimestamp": "2024-09-07T01:59:50.975Z",
+              "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+              "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 2
           },
           {
-              "id": "aa8a224a-2c20-4339-96a6-2d36f1c5c090",
+              "id": "ef910e5c-2b1c-4592-8139-694160c381b5",
               "metadataValues": [
                   {
                       "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -518,21 +573,22 @@ export const ALERTS: AlertInfosDTO[] = [
                   },
                   {
                       "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                      "value": "3",
+                      "value": "2",
                       "unit": "",
                       "label": "Etage"
                   }
               ],
-              "sourceTimestamp": "2024-09-09T03:13:34.848Z",
-              "enqueuedTimestamp": "2024-09-09T03:23:23.587Z",
-              "processedTimestamp": "2024-09-09T03:23:23.84042Z",
+              "sourceTimestamp": "2024-09-07T01:41:58.928Z",
+              "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+              "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 1
           }
       ],
       "groupByValues": [
           {
               "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-              "value": "3",
+              "value": "2",
               "unit": "",
               "label": "Etage"
           }
@@ -542,7 +598,7 @@ export const ALERTS: AlertInfosDTO[] = [
       "label": "Un étage est en régulation depuis plus de 15 min.",
       "scenarioLabel": "Etage en régulation",
       "initialState": {
-          "id": "aa8a224a-2c20-4339-96a6-2d36f1c5c090",
+          "id": "ef910e5c-2b1c-4592-8139-694160c381b5",
           "metadataValues": [
               {
                   "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -552,21 +608,23 @@ export const ALERTS: AlertInfosDTO[] = [
               },
               {
                   "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                  "value": "3",
+                  "value": "2",
                   "unit": "",
                   "label": "Etage"
               }
           ],
-          "sourceTimestamp": "2024-09-09T03:13:34.848Z",
-          "enqueuedTimestamp": "2024-09-09T03:23:23.587Z",
-          "processedTimestamp": "2024-09-09T03:23:23.84042Z",
+          "sourceTimestamp": "2024-09-07T01:41:58.928Z",
+          "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+          "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 1
       },
-      "triggerSourceTimestamp": "2024-09-09T03:13:34.848Z",
-      "triggerEnqueuedTimestamp": "2024-09-09T03:23:23.587Z",
-      "triggerProcessedTimestamp": "2024-09-09T03:23:23.84042Z",
+      "triggerSourceTimestamp": "2024-09-07T01:41:58.928Z",
+      "triggerEnqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+      "triggerProcessedTimestamp": "2024-09-07T01:43:20.886202Z",
+      "triggerActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "lastState": {
-          "id": "11040703-e0b3-4a4b-979f-d1a3d6f70ce3",
+          "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
           "metadataValues": [
               {
                   "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -576,19 +634,21 @@ export const ALERTS: AlertInfosDTO[] = [
               },
               {
                   "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                  "value": "3",
+                  "value": "2",
                   "unit": "",
                   "label": "Etage"
               }
           ],
-          "sourceTimestamp": "2024-09-09T04:58:45.485Z",
-          "enqueuedTimestamp": "2024-09-09T05:03:23.749Z",
-          "processedTimestamp": "2024-09-09T05:03:23.954995Z",
+          "sourceTimestamp": "2024-09-07T01:59:50.975Z",
+          "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+          "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 2
       },
-      "currentSourceTimestamp": "2024-09-09T04:58:45.485Z",
-      "currentEnqueuedTimestamp": "2024-09-09T05:03:23.749Z",
-      "currentProcessedTimestamp": "2024-09-09T05:03:23.954995Z",
+      "currentSourceTimestamp": "2024-09-07T01:59:50.975Z",
+      "currentEnqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+      "currentProcessedTimestamp": "2024-09-07T02:03:20.94841Z",
+      "currentActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "currentStatus": 2
   },
   {
@@ -599,13 +659,19 @@ export const ALERTS: AlertInfosDTO[] = [
       "deviceOrganisationImageId": "88a023d2-90f7-4789-9bca-cc90f3095d40",
       "deviceOrganisationCode": "9300000000108957",
       "deviceOrganisationLabel": "NUOVO FORNO PANCI - Forno Orion EVO 802/5-220",
-      "criticity": 3,
+      "criticity": 2,
       "code": "",
       "icon": "mdi-alert-circle",
       "tags": [],
+      "acknowledgingTimestamp": null,
+      "acknowledgingUserId": null,
+      "acknowledgingUserImageId": null,
+      "deviceOrganisationLocationLabel": null,
+      "deviceOrganisationOwnerLabel": null,
+      "scenarioScope": 1,
       "history": [
           {
-              "id": "0ab1d13c-f241-4ff1-b646-ba01ea591972",
+              "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
               "metadataValues": [
                   {
                       "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -615,18 +681,19 @@ export const ALERTS: AlertInfosDTO[] = [
                   },
                   {
                       "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                      "value": "1",
+                      "value": "2",
                       "unit": "",
                       "label": "Etage"
                   }
               ],
-              "sourceTimestamp": "2024-09-09T00:32:00.684Z",
-              "enqueuedTimestamp": "2024-09-09T00:33:23.462Z",
-              "processedTimestamp": "2024-09-09T00:33:23.735483Z",
+              "sourceTimestamp": "2024-09-07T01:59:50.975Z",
+              "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+              "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 2
           },
           {
-              "id": "cb6fc69b-cf1d-401c-ab95-b1071a60afa4",
+              "id": "ef910e5c-2b1c-4592-8139-694160c381b5",
               "metadataValues": [
                   {
                       "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -636,31 +703,32 @@ export const ALERTS: AlertInfosDTO[] = [
                   },
                   {
                       "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                      "value": "1",
+                      "value": "2",
                       "unit": "",
                       "label": "Etage"
                   }
               ],
-              "sourceTimestamp": "2024-09-09T00:27:25.044Z",
-              "enqueuedTimestamp": "2024-09-09T00:33:23.462Z",
-              "processedTimestamp": "2024-09-09T00:33:23.722049Z",
+              "sourceTimestamp": "2024-09-07T01:41:58.928Z",
+              "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+              "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 1
           }
       ],
       "groupByValues": [
           {
               "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-              "value": "1",
+              "value": "2",
               "unit": "",
               "label": "Etage"
           }
       ],
       "acknowledged": false,
       "acknowledgingUserName": "",
-      "label": "Un étage est en régulation depuis plus de 30 min.",
+      "label": "Un étage est en régulation depuis plus de 15 min.",
       "scenarioLabel": "Etage en régulation",
       "initialState": {
-          "id": "cb6fc69b-cf1d-401c-ab95-b1071a60afa4",
+          "id": "ef910e5c-2b1c-4592-8139-694160c381b5",
           "metadataValues": [
               {
                   "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -670,21 +738,23 @@ export const ALERTS: AlertInfosDTO[] = [
               },
               {
                   "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                  "value": "1",
+                  "value": "2",
                   "unit": "",
                   "label": "Etage"
               }
           ],
-          "sourceTimestamp": "2024-09-09T00:27:25.044Z",
-          "enqueuedTimestamp": "2024-09-09T00:33:23.462Z",
-          "processedTimestamp": "2024-09-09T00:33:23.722049Z",
+          "sourceTimestamp": "2024-09-07T01:41:58.928Z",
+          "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+          "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 1
       },
-      "triggerSourceTimestamp": "2024-09-09T00:27:25.044Z",
-      "triggerEnqueuedTimestamp": "2024-09-09T00:33:23.462Z",
-      "triggerProcessedTimestamp": "2024-09-09T00:33:23.722049Z",
+      "triggerSourceTimestamp": "2024-09-07T01:41:58.928Z",
+      "triggerEnqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+      "triggerProcessedTimestamp": "2024-09-07T01:43:20.886202Z",
+      "triggerActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "lastState": {
-          "id": "0ab1d13c-f241-4ff1-b646-ba01ea591972",
+          "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
           "metadataValues": [
               {
                   "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -694,19 +764,21 @@ export const ALERTS: AlertInfosDTO[] = [
               },
               {
                   "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                  "value": "1",
+                  "value": "2",
                   "unit": "",
                   "label": "Etage"
               }
           ],
-          "sourceTimestamp": "2024-09-09T00:32:00.684Z",
-          "enqueuedTimestamp": "2024-09-09T00:33:23.462Z",
-          "processedTimestamp": "2024-09-09T00:33:23.735483Z",
+          "sourceTimestamp": "2024-09-07T01:59:50.975Z",
+          "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+          "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 2
       },
-      "currentSourceTimestamp": "2024-09-09T00:32:00.684Z",
-      "currentEnqueuedTimestamp": "2024-09-09T00:33:23.462Z",
-      "currentProcessedTimestamp": "2024-09-09T00:33:23.735483Z",
+      "currentSourceTimestamp": "2024-09-07T01:59:50.975Z",
+      "currentEnqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+      "currentProcessedTimestamp": "2024-09-07T02:03:20.94841Z",
+      "currentActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "currentStatus": 2
   },
   {
@@ -721,9 +793,15 @@ export const ALERTS: AlertInfosDTO[] = [
       "code": "",
       "icon": "mdi-alert-circle",
       "tags": [],
+      "acknowledgingTimestamp": null,
+      "acknowledgingUserId": null,
+      "acknowledgingUserImageId": null,
+      "deviceOrganisationLocationLabel": null,
+      "deviceOrganisationOwnerLabel": null,
+      "scenarioScope": 1,
       "history": [
           {
-              "id": "2bd26f9f-5b41-4fa3-ad48-80bbab744558",
+              "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
               "metadataValues": [
                   {
                       "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -733,18 +811,19 @@ export const ALERTS: AlertInfosDTO[] = [
                   },
                   {
                       "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                      "value": "3",
+                      "value": "2",
                       "unit": "",
                       "label": "Etage"
                   }
               ],
-              "sourceTimestamp": "2024-09-07T05:01:14.47Z",
-              "enqueuedTimestamp": "2024-09-07T05:03:20.737Z",
-              "processedTimestamp": "2024-09-07T05:03:20.979959Z",
+              "sourceTimestamp": "2024-09-07T01:59:50.975Z",
+              "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+              "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 2
           },
           {
-              "id": "0f132e25-9cd9-4f21-9b62-2e5d4b68f982",
+              "id": "ef910e5c-2b1c-4592-8139-694160c381b5",
               "metadataValues": [
                   {
                       "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -754,33 +833,32 @@ export const ALERTS: AlertInfosDTO[] = [
                   },
                   {
                       "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                      "value": "3",
+                      "value": "2",
                       "unit": "",
                       "label": "Etage"
                   }
               ],
-              "sourceTimestamp": "2024-09-07T03:12:33.627Z",
-              "enqueuedTimestamp": "2024-09-07T03:13:20.634Z",
-              "processedTimestamp": "2024-09-07T03:13:20.84426Z",
+              "sourceTimestamp": "2024-09-07T01:41:58.928Z",
+              "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+              "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+              "actualTimestamp": "2024-09-07T02:03:20.94841Z",
               "status": 1
           }
       ],
       "groupByValues": [
           {
               "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-              "value": "3",
+              "value": "2",
               "unit": "",
               "label": "Etage"
           }
       ],
-      "acknowledged": true,
-      "acknowledgingUserName": "Hanan Acci",
-      "acknowledgingTimestamp": "2024-09-07T05:03:20.979959Z",
-      "acknowledgingUserImageId": "1",
+      "acknowledged": false,
+      "acknowledgingUserName": "",
       "label": "Un étage est en régulation depuis plus de 15 min.",
       "scenarioLabel": "Etage en régulation",
       "initialState": {
-          "id": "0f132e25-9cd9-4f21-9b62-2e5d4b68f982",
+          "id": "ef910e5c-2b1c-4592-8139-694160c381b5",
           "metadataValues": [
               {
                   "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -790,21 +868,23 @@ export const ALERTS: AlertInfosDTO[] = [
               },
               {
                   "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                  "value": "3",
+                  "value": "2",
                   "unit": "",
                   "label": "Etage"
               }
           ],
-          "sourceTimestamp": "2024-09-07T03:12:33.627Z",
-          "enqueuedTimestamp": "2024-09-07T03:13:20.634Z",
-          "processedTimestamp": "2024-09-07T03:13:20.84426Z",
+          "sourceTimestamp": "2024-09-07T01:41:58.928Z",
+          "enqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+          "processedTimestamp": "2024-09-07T01:43:20.886202Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 1
       },
-      "triggerSourceTimestamp": "2024-09-07T03:12:33.627Z",
-      "triggerEnqueuedTimestamp": "2024-09-07T03:13:20.634Z",
-      "triggerProcessedTimestamp": "2024-09-07T03:13:20.84426Z",
+      "triggerSourceTimestamp": "2024-09-07T01:41:58.928Z",
+      "triggerEnqueuedTimestamp": "2024-09-07T01:43:20.576Z",
+      "triggerProcessedTimestamp": "2024-09-07T01:43:20.886202Z",
+      "triggerActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "lastState": {
-          "id": "2bd26f9f-5b41-4fa3-ad48-80bbab744558",
+          "id": "ab5f3a21-00c8-49c4-8bcf-68adc4eaf440",
           "metadataValues": [
               {
                   "dataDefinitionId": "056e278a-b023-46f0-8865-e83f1ff9bfc3",
@@ -814,19 +894,21 @@ export const ALERTS: AlertInfosDTO[] = [
               },
               {
                   "dataDefinitionId": "f1f6a97b-f44b-49d9-bef7-ff8e328ad84e",
-                  "value": "3",
+                  "value": "2",
                   "unit": "",
                   "label": "Etage"
               }
           ],
-          "sourceTimestamp": "2024-09-07T05:01:14.47Z",
-          "enqueuedTimestamp": "2024-09-07T05:03:20.737Z",
-          "processedTimestamp": "2024-09-07T05:03:20.979959Z",
+          "sourceTimestamp": "2024-09-07T01:59:50.975Z",
+          "enqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+          "processedTimestamp": "2024-09-07T02:03:20.94841Z",
+          "actualTimestamp": "2024-09-07T02:03:20.94841Z",
           "status": 2
       },
-      "currentSourceTimestamp": "2024-09-07T05:01:14.47Z",
-      "currentEnqueuedTimestamp": "2024-09-07T05:03:20.737Z",
-      "currentProcessedTimestamp": "2024-09-07T05:03:20.979959Z",
+      "currentSourceTimestamp": "2024-09-07T01:59:50.975Z",
+      "currentEnqueuedTimestamp": "2024-09-07T02:03:20.705Z",
+      "currentProcessedTimestamp": "2024-09-07T02:03:20.94841Z",
+      "currentActualTimestamp": "2024-09-07T02:03:20.94841Z",
       "currentStatus": 3
   }
 ]

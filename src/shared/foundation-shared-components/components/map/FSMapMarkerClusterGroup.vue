@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
-import { inject, provide, ref, type Ref } from 'vue';
+import { inject, provide, ref, type Ref, onUnmounted } from 'vue';
 
-import { type Map, MarkerClusterGroup, divIcon } from 'leaflet';
+import { LatLngBounds, type Map, MarkerClusterGroup, divIcon } from 'leaflet';
 
 import { clusterMarkerHtml } from '../../utils/leafletMarkers';
 import { MAP } from './keys';
@@ -54,17 +54,42 @@ export default {
 
     provide('markerClusterGroup', markerClusterGroup);
 
-    markerClusterGroup.value.on("layeradd", () => {
-      if(!map.value) {
+    const handleLayerChange = () => {
+      if (!map.value) {
         return;
       }
 
       const layers = markerClusterGroup.value.getLayers();
 
-      if(layers.length === props.expectedLayers && !added) {
+      if (layers.length === 0 && added) {
+        map.value.removeLayer(markerClusterGroup.value as unknown as L.Layer);
+        added = false;
+        return;
+      }
+      if (layers.length === props.expectedLayers && !added) {
         markerClusterGroup.value.addTo(map.value);
         added = true;
-        emit("update:bounds", markerClusterGroup.value.getBounds());
+      }
+      if (layers.length === props.expectedLayers) {
+        const bounds = new LatLngBounds([]);
+        for (const layer of layers as any[]) {
+          if (layer.getBounds) {
+            bounds.extend(layer.getBounds());
+          } else if (layer.getLatLng) {
+            bounds.extend(layer.getLatLng());
+          }
+        }
+
+        emit("update:bounds", layers.length > 0 ? bounds : null);
+      }
+    };
+
+    markerClusterGroup.value.on("layeradd", handleLayerChange);
+    markerClusterGroup.value.on("layerremove", handleLayerChange);
+
+    onUnmounted(() => {
+      if (map.value && map.value.hasLayer(markerClusterGroup.value as unknown as L.Layer)) {
+        map.value.removeLayer(markerClusterGroup.value as unknown as L.Layer);
       }
     });
   }

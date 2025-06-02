@@ -1,5 +1,5 @@
 <template>
-  <v-menu
+  <FSMenu
     :closeOnContentClick="false"
     v-model="menu"
     location="bottom center"
@@ -28,25 +28,29 @@
       :alertTo="$props.alertTo"
       @close="menu = false"
     />
-  </v-menu>
+  </FSMenu>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, type PropType, ref } from "vue";
 
-import { type FSDeviceAlert } from "@dative-gpi/foundation-shared-components/models";
+import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
 import { AlertTools } from "@dative-gpi/foundation-shared-components/tools";
+
+import { type FSDeviceAlert } from "@dative-gpi/foundation-shared-components/models";
 
 import FSWorstAlertCard from "./FSWorstAlertCard.vue";
 import FSColorIcon from "../FSColorIcon.vue";
 import FSBadge from "../FSBadge.vue";
+import FSMenu from '../FSMenu.vue';
 
 export default defineComponent({
   name: "FSWorstAlert",
   components: {
     FSWorstAlertCard,
     FSColorIcon,
-    FSBadge
+    FSBadge,
+    FSMenu
   },
   props: {
     deviceWorstAlert: {
@@ -79,10 +83,8 @@ export default defineComponent({
       if (!props.deviceAlerts || props.deviceAlerts.length < 1) {
         return null;
       }
-      if (props.deviceAlerts.length > 9) {
-        return "9+";
-      }
-      return props.deviceAlerts.length.toString();
+
+      return capNumberToString(props.deviceAlerts.length, 9);
     });
 
     return {

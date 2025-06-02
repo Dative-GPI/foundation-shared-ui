@@ -51,16 +51,17 @@
     >
       <FSTagGroup
         variant="slide"
-        :disabled="true"
         :tags="item.tags"
+        :showRemove="false"
       />
     </template>
     <template
       #item.modelsLabels="{ item }"
     >
       <FSTagGroup
-        :disabled="true"
+        variant="slide"
         :tags="item.modelsLabels.map((d: any) => d.label)"
+        :showRemove="false"
       />
     </template>
     <template
@@ -88,6 +89,7 @@
         :icon="item.icon"
         :imageId="item.imageId"
         :type="item.chartType"
+        :scope="item.scope"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"
         :to="$props.itemTo && $props.itemTo(item)"

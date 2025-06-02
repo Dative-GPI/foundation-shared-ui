@@ -55,6 +55,7 @@ export interface DashboardShallowInfosDTO {
 }
 
 export interface DashboardShallowFilters {
+  dashboardShallowsIds?: string[] | null;
   root?: boolean | null;
   folderId?: string | null;
   search?: string | null;

@@ -51,6 +51,9 @@ export function mockApp() {
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/locations/1", LOCATIONS[0]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/locations/2", LOCATIONS[1]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/locations/3", LOCATIONS[2]);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/models", MODELS);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/models/1", MODELS[0]);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/models/2", MODELS[1]);
 
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/alerts1", USERORGANISATIONTABLES[9]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/authTokens1", USERORGANISATIONTABLES[8]);
@@ -97,7 +100,6 @@ export function mockApp() {
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/languages", LANGUAGES);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/comments", COMMENTS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/alerts", ALERTS);
-    onGetWithRegex("/api/foundation/core/v1/organisations/dative/models", MODELS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/groups", GROUPS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/service-account-organisations", SERVICEACCOUNTORGANISATIONS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/scenario-organisations", SCENARIOORGANISATIONS);
