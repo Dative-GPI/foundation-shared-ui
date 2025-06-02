@@ -22,7 +22,6 @@
         >
           <FSSearchField
             :hideHeader="true"
-            maxWidth="600px"
             v-model="innerSearch"
           />
           <FSButton

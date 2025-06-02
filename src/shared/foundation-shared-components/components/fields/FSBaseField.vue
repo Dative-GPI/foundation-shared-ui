@@ -1,7 +1,6 @@
 <template>
   <FSCol
     :style="style"
-    :width="$props.maxWidth ? `min(100%, ${$props.maxWidth ?? '100%'})` : 'fill'"
   >
     <slot
       v-if="!$props.hideHeader"
@@ -115,10 +114,6 @@ export default defineComponent({
       type: String,
       required: false,
       default: "120px"
-    },
-    maxWidth: {
-      type: String,
-      required: false
     }
   },
   setup(props) {
