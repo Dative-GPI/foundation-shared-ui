@@ -6,7 +6,6 @@
     :required="$props.required"
     :disabled="$props.disabled"
     :messages="messages"
-    maxWidth="600px"
   >
     <template
       v-if="$slots.label"

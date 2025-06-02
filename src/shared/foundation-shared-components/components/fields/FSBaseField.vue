@@ -1,5 +1,6 @@
 <template>
   <FSCol
+    :maxWidth="$props.maxWidth"
     :style="style"
   >
     <slot
@@ -114,6 +115,11 @@ export default defineComponent({
       type: String,
       required: false,
       default: "120px"
+    },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: "600px"
     }
   },
   setup(props) {
