@@ -46,17 +46,17 @@ export class NotificationInfos {
       return false;
     }
 
-    let show = false;
+    let showNotification = false;
     for (const a of n.audiences) {
       switch (a.targetScope) {
-      case Scope.Organisation    :
-      case Scope.UserOrganisation: show = show || (organisationId && n.organisationId && n.organisationId === organisationId) as boolean;
-      case Scope.User            : show = show || (userId && a.targetId === userId) as boolean;
-      case Scope.Application     :
-      case Scope.Public          : show = show || application as boolean;
+        case Scope.Organisation:
+        case Scope.UserOrganisation: showNotification = showNotification || (organisationId && n.organisationId && n.organisationId === organisationId) as boolean;
+        case Scope.User: showNotification = showNotification || (userId && a.targetId === userId) as boolean;
+        case Scope.Application:
+        case Scope.Public: showNotification = showNotification || application as boolean;
       }
     }
-    return false;
+    return showNotification;
   });
 
   static getForDrawer = (
