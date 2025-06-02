@@ -1,0 +1,71 @@
+import{d as D,b as L,c as $,B as N,m as j,I as q,J as B}from"./vue.esm-bundler-CqZ6aK3I.js";import{_ as h}from"./lodash-BrWYvtk2.js";import{A as w}from"./address-CE2z3AEI.js";import{u as J}from"./useAppLanguageCode-D1PzUORY.js";import{F as K}from"./FSAutocompleteField-D7kTrWBx.js";import{u as M}from"./useAutocomplete-7at5cGp9.js";import{_ as G}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{F as T}from"./FSCol-DIPgj7wU.js";import"./_commonjsHelpers-BosuxZz1.js";import"./FSSearchField-VvMfG9Mz.js";import"./FSTextField-CEJP76Sx.js";import"./FSBaseField-eUR0iGRU.js";import"./FSSpan-B7HDTlg9.js";import"./useBreakpoints-DMrtgY61.js";import"./useSlots-BgbXyH5p.js";import"./FSRow-udQVJR1p.js";import"./css-BZjDzSZ1.js";import"./useColors-BIkRBR7C.js";import"./index-DfSX31J9.js";import"./theme-CCooKRqg.js";import"./FSButton-2OKi08_r.js";import"./FSRouterLink-CyH3F3Zz.js";import"./vue-router-RJKW7Wfw.js";import"./FSClickable-CBfoSsDs.js";import"./FSCard-BH9I8ruU.js";import"./VProgressCircular-cB7gdjsO.js";import"./color-iZFxpsFf.js";import"./resizeObserver-C7qOORSR.js";import"./VIcon-ZzEkeSRE.js";import"./FSIcon-8KcAAKgU.js";import"./useRules-Cutg_0Yh.js";import"./VField-B2nfi808.js";import"./index-BHk1SuU0.js";import"./transition-C13qRIR1.js";import"./VLabel-D1qNLyt7.js";import"./VInput-f1leR0eo.js";import"./locale-BJmdjC_5.js";import"./density-B3EUR5Bv.js";import"./dimensions-CuS7VcMO.js";import"./proxiedModel-BirLikdP.js";import"./loader-Bh1R7Z2A.js";import"./anchor-DiyvyHyx.js";import"./rounded-T_eKj2ZY.js";import"./VDefaultsProvider-3cG3_dFO.js";import"./forwardRefs-DWGaNmQL.js";import"./index-0XvVa1kA.js";import"./useTranslations-D4m4SVfo.js";import"./VList-BdRSj6hM.js";import"./VDialog-BjO_95QL.js";import"./VOverlay-CrPt6Ctk.js";import"./display-Cs3Y1ygD.js";import"./scopeId-BQSHBqq_.js";import"./router-C0dK7NvB.js";import"./ssrBoot-B76fNmmB.js";import"./border-DGybV2oK.js";import"./elevation-DCJceMeT.js";import"./index-BSoBU6Pm.js";import"./VImg-UKGkvK5A.js";import"./FSSlideGroup-FM6r_xNQ.js";import"./uuid-DTaye2KM.js";import"./FSButtonNextIcon-BR7gWMZw.js";import"./VSlideGroupItem-DMC4DYA5.js";import"./group-1sntWZNj.js";import"./FSToggleSet-CzuJHIxU.js";import"./FSWrapGroup-Dpc14vID.js";import"./FSCheckbox-tSiw0lhZ.js";import"./VSelectionControl-Dw5vpEc6.js";import"./FSFadeOut-B817LR1t.js";import"./FSLoader-0ho3eZau.js";import"./FSRadio-DU7kdJ5e.js";import"./VSelect-Bvdm_LMp.js";import"./VMenu-B5kDinlh.js";import"./filter-DhzaDDBp.js";const Y=()=>{const{languageCode:t}=J();let n=!1,g,f,i,d;const p=async()=>{await window.initMap,g=await y(),f=new google.maps.places.AutocompleteService,i=new google.maps.places.PlacesService(document.createElement("div")),d=new google.maps.places.AutocompleteSessionToken,n=!0},u=async r=>(n||await p(),(await e(r)).map(a=>({id:a.place_id,label:a.description}))),c=async r=>{var a,l;n||await p();const o=await v(r.id);if(d=new google.maps.places.AutocompleteSessionToken,o.address_components&&o.formatted_address&&o.geometry)return new w({formattedAddress:o.formatted_address,locality:F(o.address_components,"locality"),country:F(o.address_components,"country"),latitude:((a=o.geometry.location)==null?void 0:a.lat())??0,longitude:((l=o.geometry.location)==null?void 0:l.lng())??0,placeId:r.id,placeLabel:r.label});throw new Error("missing informations")},A=async(r,o)=>(n||await p(),S(r,o).then(a=>{var l,m;if(a.length>0){const s=a[0];if(s.address_components&&s.formatted_address&&s.geometry)return new w({formattedAddress:s.formatted_address,locality:F(s.address_components,"locality"),country:F(s.address_components,"country"),latitude:((l=s.geometry.location)==null?void 0:l.lat())??0,longitude:((m=s.geometry.location)==null?void 0:m.lng())??0,placeId:s.place_id,placeLabel:s.formatted_address})}throw new Error("missing informations")})),y=async()=>navigator.geolocation?new Promise(r=>{navigator.geolocation.getCurrentPosition(o=>{r({lat:o.coords.latitude,lng:o.coords.longitude})},()=>r(null))}):null,e=r=>new Promise((o,a)=>{var m;const l=(m=t.value)==null?void 0:m.split("-")[0];f.getPlacePredictions({input:r,region:l,language:l,sessionToken:d,locationBias:g},function(s,_){_!=google.maps.places.PlacesServiceStatus.OK||!s?a(_):o(s)})}),S=(r,o)=>new Promise((a,l)=>{new google.maps.Geocoder().geocode({location:{lat:r,lng:o}},(m,s)=>{s!=google.maps.GeocoderStatus.OK||!m?l(s):a(m)})}),v=r=>new Promise((o,a)=>{i.getDetails({placeId:r,sessionToken:d,fields:["formatted_address","geometry","address_components","name"]},(l,m)=>{m!=google.maps.places.PlacesServiceStatus.OK||!l?a(m):o(l)})}),F=(r,o)=>{const a=h.find(r,l=>h.some(l.types,m=>m===o));return(a==null?void 0:a.long_name)??""};return{search:u,get:c,reverseSearch:A}},U=D({name:"FSAutocompleteAddress",components:{FSAutocompleteField:K},props:{modelValue:{type:Object,required:!1,default:null},label:{type:String,required:!1,default:null}},emits:["update:modelValue"],setup(t,{emit:n}){const{search:g,get:f}=Y(),i=L([]),d=$(()=>{if(t.modelValue){const e=y(t.modelValue),S=i.value.filter(v=>v.id!==e.id);return[e,...S]}return i.value}),p=async e=>e===null?Promise.resolve([]):(i.value=await g(e),Promise.resolve([])),u=async e=>{if(e===null){n("update:modelValue",null);return}Array.isArray(e)&&(e=e[0]);const S=await f(e);n("update:modelValue",S)},{search:c,onUpdate:A}=M(i,[],n,p,u,e=>e.id,e=>e.label,!0,!1,0,500),y=e=>({id:e.placeId,label:e.placeLabel});return{places:i,items:d,search:c,onUpdate:A}}});function z(t,n,g,f,i,d){var u;const p=q("FSAutocompleteField");return B(),N(p,j({label:t.$props.label??t.$tr("ui.common.address","Address"),clearable:!1,toggleSet:!1,multiple:!1,items:t.items,customFilter:(c,A,y)=>{var e;return y.value!==((e=t.$props.modelValue)==null?void 0:e.placeId)},modelValue:(u=t.$props.modelValue)==null?void 0:u.placeId,"onUpdate:modelValue":t.onUpdate,search:t.search,"onUpdate:search":n[0]||(n[0]=c=>t.search=c)},t.$attrs),null,16,["label","items","customFilter","modelValue","onUpdate:modelValue","search"])}const C=G(U,[["render",z]]);U.__docgenInfo={displayName:"FSAutocompleteAddress",exportName:"default",description:"",tags:{},props:[{name:"modelValue",type:{name:"Object as () => Address | null"},required:!1,defaultValue:{func:!1,value:"null"}},{name:"label",type:{name:"string"},required:!1,defaultValue:{func:!1,value:"null"}}],events:[{name:"update:modelValue"}],sourceFiles:["/home/runner/work/foundation-shared-ui/foundation-shared-ui/src/shared/foundation-shared-components/components/autocompletes/FSAutoCompleteAddress.vue"]};const go={title:"Foundation/Shared/Autocompletes/AutocompleteAddress",component:C,tags:["autodocs"],argTypes:{"onUpdate:modelValue":{action:"update:modelValue"}}},V={args:{modelValue:new w({placeId:"ChIJg7vu-43P9EcRRNrbyDxFMDY",placeLabel:"Dative, Rue de Norvège, Colombier-Saugnieu, France",formattedAddress:" 100 Rue de Norvège, 69125 Colombier-Saugnieu",locality:"Colombier-Saugnieu",country:"France",latitude:45.711741,longitude:5.071675})},render:(t,{argTypes:n})=>({components:{FSAutocompleteAddress:C,FSCol:T},props:Object.keys(n),setup(){return{args:t}},template:`
+    <FSCol>
+      <FSAutocompleteAddress
+        v-model="args.modelValue"
+        @update:modelValue="args['onUpdate:modelValue']"
+      />
+    </FSCol>`})},b={args:{modelValue:null},render:(t,{argTypes:n})=>({components:{FSAutocompleteAddress:C,FSCol:T},props:Object.keys(n),setup(){return{args:t}},template:`
+    <FSCol>
+      <FSAutocompleteAddress
+        v-model="args.modelValue"
+        @update:modelValue="args['onUpdate:modelValue']"
+      />
+    </FSCol>`})};var P,I,k;V.parameters={...V.parameters,docs:{...(P=V.parameters)==null?void 0:P.docs,source:{originalSource:`{
+  args: {
+    modelValue: new Address({
+      placeId: "ChIJg7vu-43P9EcRRNrbyDxFMDY",
+      placeLabel: 'Dative, Rue de Norvège, Colombier-Saugnieu, France',
+      formattedAddress: ' 100 Rue de Norvège, 69125 Colombier-Saugnieu',
+      locality: 'Colombier-Saugnieu',
+      country: 'France',
+      latitude: 45.711741,
+      longitude: 5.071675
+    })
+  },
+  render: (args, {
+    argTypes
+  }) => ({
+    components: {
+      FSAutocompleteAddress,
+      FSCol
+    },
+    props: Object.keys(argTypes),
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+    <FSCol>
+      <FSAutocompleteAddress
+        v-model="args.modelValue"
+        @update:modelValue="args['onUpdate:modelValue']"
+      />
+    </FSCol>\`
+  })
+}`,...(k=(I=V.parameters)==null?void 0:I.docs)==null?void 0:k.source}}};var E,O,R;b.parameters={...b.parameters,docs:{...(E=b.parameters)==null?void 0:E.docs,source:{originalSource:`{
+  args: {
+    modelValue: null
+  },
+  render: (args, {
+    argTypes
+  }) => ({
+    components: {
+      FSAutocompleteAddress,
+      FSCol
+    },
+    props: Object.keys(argTypes),
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+    <FSCol>
+      <FSAutocompleteAddress
+        v-model="args.modelValue"
+        @update:modelValue="args['onUpdate:modelValue']"
+      />
+    </FSCol>\`
+  })
+}`,...(R=(O=b.parameters)==null?void 0:O.docs)==null?void 0:R.source}}};const fo=["Default","VariationEmpty"];export{V as Default,b as VariationEmpty,fo as __namedExportsOrder,go as default};
