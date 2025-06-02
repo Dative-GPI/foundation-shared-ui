@@ -58,7 +58,7 @@ export default defineComponent({
       "--fs-col-padding"    : sizeToVar(props.padding),
       "--fs-col-gap"        : sizeToVar(props.gap),
       "--fs-col-width"      : sizeToVar(props.width),
-      "--fs-col-max-width"  : props.maxWidth ? `min(${sizeToVar(props.maxWidth)}, 100%)` : "100%",
+      "--fs-col-max-width"  : props.maxWidth ? sizeToVar(props.maxWidth) : "100%",
       "--fs-col-height"     : sizeToVar(props.height),
     }));
 
