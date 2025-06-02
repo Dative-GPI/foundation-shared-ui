@@ -4,7 +4,7 @@
     overflow-y: var(--fs-col-overflow);
     padding: var(--fs-col-padding);
     gap: var(--fs-col-gap);
-    max-width: 100%;
+    max-width: var(--fs-col-max-width);
 
     &-top-left {
         justify-content: flex-start;

@@ -46,6 +46,7 @@ export const Variations: Story = {
         label="Required color, with description"
         description="Description for this field"
         :required="true"
+        maxWidth="300px"
         v-model="args.value2"
         v-model:opacityValue="args.opacity2"
       />

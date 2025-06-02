@@ -5,7 +5,7 @@
   >
     <FSRow
       v-if="$props.showSearch || (!isMobileSized && ($slots['prepend-toolbar'] || $slots['toolbar'] || $slots['append-toolbar'])) || (!$props.disableTable && !$props.disableIterator)"
-      align="bottom-left"
+      align="top-left"
       :wrap="isMobileSized ? false : true"
       width="fill"
     >
@@ -13,35 +13,41 @@
         v-if="!isMobileSized"
         name="prepend-toolbar"
       />
-      <template
-        v-if="$props.showSearch"
-      >
-        <FSSearchField
-          :hideHeader="true"
-          v-model="innerSearch"
-        />
-        <FSButton
-          v-if="filterableHeaders.length > 0"
-          prependIcon="mdi-filter-variant"
-          :variant="innerShowFilters ? 'full' : 'standard'"
-          @click="innerShowFilters = !innerShowFilters"
-        />
-      </template>
-      <slot
-        v-if="!isMobileSized"
-        name="toolbar"
-      />
-      <template
-        v-if="$slots['append-toolbar'] || (!$props.disableTable && !$props.disableIterator)"
+      <FSRow
+        align="top-left"
       >
         <FSRow
-          align="center-right"
-          :width="isExtraSmall ? 'hug' : 'fill'"
+          v-if="$props.showSearch || filterableHeaders.length > 0 || $slots['append-toolbar']"
+          align="bottom-left"
         >
+          <FSSearchField
+            :hideHeader="true"
+            v-model="innerSearch"
+          />
+          <FSButton
+            v-if="filterableHeaders.length > 0"
+            prependIcon="mdi-filter-variant"
+            :variant="innerShowFilters ? 'full' : 'standard'"
+            @click="innerShowFilters = !innerShowFilters"
+          />
           <slot
             v-if="!isMobileSized"
-            name="append-toolbar"
+            name="toolbar"
           />
+        </FSRow>
+        <slot
+          v-if="!isMobileSized"
+          name="append-toolbar"
+        />
+      </FSRow>
+      <template
+        v-if="(!$props.disableTable && !$props.disableIterator)"
+      >
+        <FSRow
+          align="top-right"
+          width="hug"
+          :wrap="false"
+        >
           <FSOptionGroup
             v-if="!$props.disableTable && !$props.disableIterator"
             :values="modeOptions"

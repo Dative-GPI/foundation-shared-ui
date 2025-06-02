@@ -51,6 +51,7 @@ export const Variations: Story = {
         label="Required text, with description"
         description="Description for this field"
         :required="true"
+        :maxWidth="null"
         v-model="args.value3"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
