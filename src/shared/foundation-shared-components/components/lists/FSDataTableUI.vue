@@ -20,33 +20,28 @@
           v-if="$props.showSearch || filterableHeaders.length > 0 || $slots['append-toolbar']"
           align="bottom-left"
         >
-          <FSRow
-            v-if="$props.showSearch"
-            :wrap="false"
-          >
-            <FSSearchField
-              :hideHeader="true"
-              v-model="innerSearch"
-            />
-            <FSButton
-              v-if="filterableHeaders.length > 0"
-              prependIcon="mdi-filter-variant"
-              :variant="innerShowFilters ? 'full' : 'standard'"
-              @click="innerShowFilters = !innerShowFilters"
-            />
-          </FSRow>
+          <FSSearchField
+            :hideHeader="true"
+            v-model="innerSearch"
+          />
+          <FSButton
+            v-if="filterableHeaders.length > 0"
+            prependIcon="mdi-filter-variant"
+            :variant="innerShowFilters ? 'full' : 'standard'"
+            @click="innerShowFilters = !innerShowFilters"
+          />
           <slot
             v-if="!isMobileSized"
-            name="append-toolbar"
+            name="toolbar"
           />
         </FSRow>
         <slot
           v-if="!isMobileSized"
-          name="toolbar"
+          name="append-toolbar"
         />
       </FSRow>
       <template
-        v-if="$slots['append-toolbar'] || (!$props.disableTable && !$props.disableIterator)"
+        v-if="(!$props.disableTable && !$props.disableIterator)"
       >
         <FSRow
           align="top-right"

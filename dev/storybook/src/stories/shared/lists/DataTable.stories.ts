@@ -277,20 +277,15 @@ export const WithToolbarSlot: Story = {
         :sortDraggable="args.sortDraggable"
       >
         <template #toolbar>
-          <FSRow>
-            <FSButton>Toolbar 1</FSButton>
-            <FSButton>Toolbar button 2</FSButton>
-            <FSButton>Toolbar button 3</FSButton>
-            <FSButton>Toolbar button 4</FSButton>
-            <FSButton>Toolbar button 5</FSButton>
-            <FSButton>Toolbar button 6</FSButton>
-          </FSRow>
+          <FSButton>Toolbar 1</FSButton>
+          <FSButton>Toolbar button 2</FSButton>
+          <FSButton>Toolbar button 3</FSButton>
         </template>
       </FSDataTableUI>`
   })
 };
 
-export const WithToolbarSlot2: Story = {
+export const WithAppendToolbarSlot: Story = {
   args: {
     headers: headers2,
     items: items2,
@@ -315,10 +310,7 @@ export const WithToolbarSlot2: Story = {
         :sortDraggable="args.sortDraggable"
       >
         <template #append-toolbar>
-          <FSButton>Toolbar 1</FSButton>
-          <FSButton>Toolbar button 2</FSButton>
-          <FSButton>Toolbar button 3</FSButton>
-          <FSButton>Toolbar button 4</FSButton>
+          <FSButton>Append Toolbar 1</FSButton>
         </template>
       </FSDataTableUI>`
   })
