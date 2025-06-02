@@ -53,11 +53,9 @@
               </FSSpan>
             </template>
             <template
-              #tick-label="{ tick, index }"
+              #tick-label="{ tick }"
             >
-              <FSRow
-                v-if="index % Math.trunc(ticks.length / maximumTickToShow) === 0 || ticks.length < maximumTickToShow"
-              >
+              <FSRow>
                 <FSText
                   :color="lightColors.dark"
                   font="text-overline"
@@ -103,7 +101,7 @@ import FSBaseField from '@dative-gpi/foundation-shared-components/components/fie
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
 
 export default defineComponent({
-  name: "FSInstantPicker",
+  name: "FSRangePicker",
   components: {
     FSCol,
     FSSpan,
@@ -124,7 +122,7 @@ export default defineComponent({
       default: 'single'
     },
     modelValue: {
-      type: Array as () => [number, number],
+      type: Object as () => [number, number],
       required: true
     },
     startDate: {
@@ -201,19 +199,21 @@ export default defineComponent({
     const ticks = computed(() => {
       const ticks: number[] = [];
 
-      const firstTick = Math.ceil(startTimestamp.value / intervalTime.value) * intervalTime.value;
-      for (let i = firstTick; i <= endTimestamp.value; i += intervalTime.value) {
-        ticks.push(i);
+      const rangeDuration = endTimestamp.value - startTimestamp.value;
+      const interval = rangeDuration / maximumTickToShow.value;
+
+      for (let i = 1; i < maximumTickToShow.value; i++) {
+        ticks.push(startTimestamp.value + i * interval);
       }
       return ticks;
     });
 
     const maximumTickToShow = computed(() => {
-      if (isMobileSized.value) {
-        return 5;
-      }
       if (isExtraSmall.value) {
         return 4;
+      }
+      if (isMobileSized.value) {
+        return 5;
       }
       return 6;
     });
@@ -223,26 +223,17 @@ export default defineComponent({
     };
 
     const onClickBackward = () => {
-      emit('update:modelValue', startTimestamp.value);
+      const rangeDuration = props.modelValue[1] - props.modelValue[0];
+      emit('update:modelValue', [startTimestamp.value, startTimestamp.value + rangeDuration]);
     };
 
     const onClickForward = () => {
-      emit('update:modelValue', endTimestamp.value);
+      const rangeDuration = props.modelValue[1] - props.modelValue[0];
+      emit('update:modelValue', [endTimestamp.value - rangeDuration, endTimestamp.value]);
     };
 
     watch(() => [props.startDate, props.endDate], () => {
-      if(!Array.isArray(props.modelValue) && (props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value)) {
-        emit('update:modelValue', endTimestamp.value);
-      }
-      else if(Array.isArray(props.modelValue) && (props.modelValue[0] < startTimestamp.value || props.modelValue[1] > endTimestamp.value)) {
-        emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
-      }
-    }, { immediate: true });
-
-    watch(() => props.modelValue, (value) => {
-      if(props.mode === 'single' && (Array.isArray(value) || !value)) {
-        emit('update:modelValue', endTimestamp.value);
-      } else if (props.mode === 'range' && !Array.isArray(value)) {
+      if((props.modelValue[0] < startTimestamp.value || props.modelValue[1] > endTimestamp.value)) {
         emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
       }
     }, { immediate: true });
@@ -252,19 +243,9 @@ export default defineComponent({
         clearInterval(playingInterval.value);
       } else {
         playingInterval.value = setInterval(() => {
-
-          if(Array.isArray(props.modelValue)) {
-            if(props.modelValue[0] + props.stepTime <= endTimestamp.value && props.modelValue[1] + props.stepTime <= endTimestamp.value) {
-              emit('update:modelValue', [props.modelValue[0] + props.stepTime, props.modelValue[1] + props.stepTime]);
-            } else {
-              playing.value = false;
-            }
-          }
-
-          else if(props.modelValue + props.stepTime <= endTimestamp.value) {
-            emit('update:modelValue', props.modelValue + props.stepTime);
+          if(props.modelValue[0] + props.stepTime <= endTimestamp.value && props.modelValue[1] + props.stepTime <= endTimestamp.value) {
+            emit('update:modelValue', [props.modelValue[0] + props.stepTime, props.modelValue[1] + props.stepTime]);
           } else {
-            emit('update:modelValue', endTimestamp.value);
             playing.value = false;
           }
         }, props.playingStepDuration);
