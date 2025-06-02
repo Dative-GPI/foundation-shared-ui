@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, provide, ref, type Ref } from 'vue';
+import { inject, provide, ref, type Ref, onUnmounted } from 'vue';
 
 import { type Map, FeatureGroup } from 'leaflet';
 import { MAP } from './keys';
@@ -44,6 +44,12 @@ export default {
         featureGroup.value.addTo(map.value);
         added = true;
         emit("update:bounds", featureGroup.value.getBounds());
+      }
+    });
+
+    onUnmounted(() => {
+      if (map.value && map.value.hasLayer(featureGroup.value as unknown as FeatureGroup)) {
+        map.value.removeLayer(featureGroup.value as unknown as FeatureGroup);
       }
     });
   }
