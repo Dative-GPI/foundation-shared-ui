@@ -1,6 +1,7 @@
 <template>
   <FSCol
     v-if="$props.loading"
+    :maxWidth="$props.maxWidth"
   >
     <FSLoader
       v-if="!$props.hideHeader"
@@ -14,6 +15,7 @@
   </FSCol>
   <FSCol
     v-else-if="isExtraSmall"
+    :maxWidth="$props.maxWidth"
   >
     <FSTextField
       :validationValue="$props.modelValue"
@@ -220,6 +222,7 @@
     :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
+    :maxWidth="$props.maxWidth"
   >
     <FSToggleSet
       v-if="$props.toggleSet"
@@ -588,6 +591,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
+    },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: "600px"
     }
   },
   emits: ["update:modelValue", "update:search", "add:item"],

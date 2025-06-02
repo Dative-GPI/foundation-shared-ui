@@ -6,6 +6,7 @@
     :disabled="$props.disabled"
     :label="$props.label"
     :messages="messages"
+    :maxWidth="$props.maxWidth"
   >
     <FSRow>
       <FSRow
@@ -132,6 +133,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
+    },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: null
     }
   },
   emits: ["update:modelValue"],

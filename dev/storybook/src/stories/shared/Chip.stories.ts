@@ -23,7 +23,8 @@ export const Default: Story = {
   args: {
     color: 'primary',
     variant: 'standard',
-    label: 'I am a chip'
+    label: 'I am a chip',
+    to: { name: 'About' }
   },
   render: (args) => ({
     components: { FSChip, FSText, FSSpan, FSIcon },
@@ -33,7 +34,7 @@ export const Default: Story = {
     template: `
       <FSChip 
         v-bind="args"
-      >
+      />
       `
   })
 }

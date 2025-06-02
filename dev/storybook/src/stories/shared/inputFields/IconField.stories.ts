@@ -59,6 +59,7 @@ export const Variations: Story = {
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSIconField
         label="Disabled icon, with description"
+        :maxWidth="null"
         :disabled="true"
         v-model="args.value4"
       />

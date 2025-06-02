@@ -4,6 +4,7 @@
     :placeholder="placeholder"
     :modelValue="$props.modelValue"
     prependInnerIcon="mdi-magnify"
+    minWidth="200px"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
