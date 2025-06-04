@@ -6,28 +6,32 @@
     :disabled="$props.disabled"
     :style="style"
   >
-    <v-range-slider
-      class="fs-range-slider"
-      hide-details
-      :disabled="$props.disabled"
-      :ripple="false"
-      :style="style"
-      :elevation="0"
-      :tickSize="4"
-      :modelValue="$props.modelValue ?? undefined"
-      @update:modelValue="$emit('update:modelValue', $event)"
-      v-bind="$attrs"
-    >
-      <template
-        v-for="(_, name) in $slots"
-        v-slot:[name]="slotData"
+    <FSRow>
+      <v-range-slider
+        class="fs-range-slider"
+        hide-details
+        width="100%"
+        :disabled="$props.disabled"
+        :ripple="false"
+        :color="$props.color"
+        :style="style"
+        :elevation="0"
+        :tickSize="4"
+        :modelValue="$props.modelValue ?? undefined"
+        @update:modelValue="$emit('update:modelValue', $event)"
+        v-bind="$attrs"
       >
-        <slot
-          :name="name"
-          v-bind="slotData"
-        />
-      </template>
-    </v-range-slider>
+        <template
+          v-for="(_, name) in $slots"
+          v-slot:[name]="slotData"
+        >
+          <slot
+            :name="name"
+            v-bind="slotData"
+          />
+        </template>
+      </v-range-slider>
+    </FSRow>
   </FSBaseField>
 </template>
 

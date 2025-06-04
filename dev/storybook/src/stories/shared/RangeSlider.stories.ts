@@ -23,7 +23,7 @@ export const Variations: Story = {
     modelValue: [0, 50],
     label: 'Range Slider',
     description: 'This is a range slider component that allows users to select a range of values.',
-    color: 'FF5722',
+    color: '#FF5722',
   },
   render: (args) => ({
     components: { FSRangeSlider, FSCol },
