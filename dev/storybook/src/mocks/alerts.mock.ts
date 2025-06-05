@@ -73,7 +73,7 @@ export const ALERTS: AlertInfosDTO[] = [
               "label": "Etage"
           }
       ],
-      "acknowledged": false,
+      "acknowledged": true,
       "acknowledgingUserName": "",
       "label": "Un étage est en régulation depuis plus de 15 min.",
       "scenarioLabel": "Etage en régulation",
