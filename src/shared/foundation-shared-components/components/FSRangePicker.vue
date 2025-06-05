@@ -5,6 +5,7 @@
     :required="$props.required"
     :disabled="$props.disabled"
     :label="$props.label"
+    :maxWidth="$props.maxWidth"
   >
     <FSRow
       align="bottom-center"
@@ -26,12 +27,12 @@
         <FSCol
           width="fill"
         >
-          <FSSlider
+          <FSRangeSlider
             minWidth='min(300px, 90vw)'
             :disabled="$props.disabled"
-            :color="ColorEnum.Light"
+            :color="ColorEnum.Dark"
             :thumbColor="ColorEnum.Primary"
-            :thumbSize="18"
+            :trackFillColor="ColorEnum.Primary"
             :trackSize="8"
             thumb-label="always"
             :step="$props.stepTime"
@@ -39,6 +40,7 @@
             :max="endTimestamp"
             :ticks="ticks"
             showTicks="always"
+            :tick-size="4"
             :modelValue="$props.modelValue"
             @update:modelValue="$emit('update:modelValue', $event)"
           >
@@ -52,25 +54,18 @@
               </FSSpan>
             </template>
             <template
-              #tick-label="{ tick, index }"
+              #tick-label="{ tick }"
             >
-              <FSRow
-                v-if="index % Math.trunc(ticks.length / maximumTickToShow) === 0 || ticks.length < maximumTickToShow"
-              >
+              <FSRow>
                 <FSText
                   :color="lightColors.dark"
                   font="text-overline"
                 >
-                  {{ intervalTime <= 3600000
-                    ?
-                      epochToShortTimeOnlyFormat(tick.value)
-                    :
-                      epochToDayMonthShortOnly(tick.value)
-                  }}
+                  {{ ticksPrecision === TimePrecision.Hours ? epochToShortTimeOnlyFormat(tick.value) : epochToDayMonthShortOnly(tick.value) }}
                 </FSText>
               </FSRow>
             </template>
-          </FSSlider>
+          </FSRangeSlider>
         </FSCol>
         <FSPlayButtons
           v-if="$props.playable"
@@ -86,7 +81,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, ref, watch, type PropType } from "vue";
 
 import { useDateFormat, useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
 
@@ -96,20 +91,26 @@ import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-compone
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
-import FSSlider from '@dative-gpi/foundation-shared-components/components/FSSlider.vue';
 import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
+import FSRangeSlider from '@dative-gpi/foundation-shared-components/components/FSRangeSlider.vue';
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
 
+enum TimePrecision {
+  Hours = 1,
+  Days = 2,
+  Months = 3
+}
+
 export default defineComponent({
-  name: "FSInstantPicker",
+  name: "FSRangePicker",
   components: {
     FSCol,
     FSSpan,
     FSText,
-    FSSlider,
     FSTermField,
     FSBaseField,
+    FSRangeSlider,
     FSPlayButtons,
   },
   props: {
@@ -117,9 +118,14 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    mode: {
+      type: String as () => 'single' | 'range',
+      required: false,
+      default: 'single'
+    },
     modelValue: {
-      type: Number,
-      required: false
+      type: Object as () => [number, number],
+      required: true
     },
     startDate: {
       type: String,
@@ -163,6 +169,11 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 50
+    },
+    maxWidth: {
+      type: String as PropType<string | null>,
+      required: false,
+      default: null
     }
   },
   emits: ['update:modelValue', 'update:startDate', 'update:endDate'],
@@ -179,76 +190,109 @@ export default defineComponent({
     const startTimestamp = computed(() => convertTermToEpoch(props.startDate));
     const endTimestamp = computed(() => convertTermToEpoch(props.endDate));
 
-    const intervalTime = computed(() => {
-      const possibleIntervals = [60000, 3600000, 86400000];
+    
 
-      const interval = possibleIntervals.find(interval => {
-        return (endTimestamp.value - startTimestamp.value) / interval < 100;
-      });
-
-      if (interval) {
-        return interval;
+    const tickCountToShow = computed(() => {
+      if (isExtraSmall.value) {
+        return 3;
       }
-      return 86400000;
+      if (isMobileSized.value) {
+        return 4;
+      }
+      return 5;
+    });
+
+    const ticksPrecision = computed(() => {
+      const rangeDuration = endTimestamp.value - startTimestamp.value;
+      if (rangeDuration <= 86400000 * tickCountToShow.value) {
+        return TimePrecision.Hours;
+      }
+      if (rangeDuration <= 2592000000 * tickCountToShow.value) {
+        return TimePrecision.Days;
+      }
+      return TimePrecision.Months;
     });
 
     const ticks = computed(() => {
       const ticks: number[] = [];
+      const count = tickCountToShow.value;
+      const precision = ticksPrecision.value;
 
-      const firstTick = Math.ceil(startTimestamp.value / intervalTime.value) * intervalTime.value;
-      for (let i = firstTick; i <= endTimestamp.value; i += intervalTime.value) {
-        ticks.push(i);
+      const start = startTimestamp.value;
+      const end = endTimestamp.value;
+      const range = end - start;
+
+      let step: number;
+
+      if (precision === TimePrecision.Hours) {
+        step = Math.ceil(range / count / 3600000) * 3600000;
+        const alignedStart = Math.ceil(start / 3600000) * 3600000;
+
+        for (let i = 0; i < count; i++) {
+          const tick = alignedStart + i * step;
+          if (tick < end) {
+            ticks.push(tick);
+          }
+        }
+
+      } else if (precision === TimePrecision.Days) {
+        step = Math.ceil(range / count / 86400000) * 86400000;
+
+        const date = new Date(start);
+        date.setHours(0, 0, 0, 0);
+        const alignedStart = date.getTime() + (date.getTime() < start ? step : 0);
+
+        for (let i = 0; i < count; i++) {
+          const tick = alignedStart + i * step;
+          if (tick < end) {
+            ticks.push(tick);
+          }
+        }
+
+      } else {
+        const interval = range / count;
+        for (let i = 0; i < count; i++) {
+          ticks.push(start + i * interval);
+        }
       }
+
       return ticks;
     });
 
-    const maximumTickToShow = computed(() => {
-      if (isMobileSized.value) {
-        return 5;
-      }
-      if (isExtraSmall.value) {
-        return 4;
-      }
-      return 6;
-    });
 
     const onPlayingChange = (value: boolean) => {
       playing.value = value;
     };
 
     const onClickBackward = () => {
-      emit('update:modelValue', startTimestamp.value);
+      const modelValueDuration = props.modelValue[1] - props.modelValue[0];
+      emit('update:modelValue', [startTimestamp.value, startTimestamp.value + modelValueDuration]);
     };
 
     const onClickForward = () => {
-      emit('update:modelValue', endTimestamp.value);
+      const modelValueDuration = props.modelValue[1] - props.modelValue[0];
+      emit('update:modelValue', [endTimestamp.value - modelValueDuration, endTimestamp.value]);
     };
 
-    watch(() => [props.startDate, props.endDate], () => {
-      if(props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value) {
-        emit('update:modelValue', endTimestamp.value);
-      }
-    }, { immediate: true });
-
-    watch(() => props.modelValue, (value) => {
-      if(!value) {
-        emit('update:modelValue', endTimestamp.value);
+    watch([() => props.startDate, () => props.endDate, () => props.modelValue], () => {
+      if((props.modelValue[0] < startTimestamp.value || props.modelValue[1] > endTimestamp.value)) {
+        emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
       }
     }, { immediate: true });
 
     watch(playing, (value) => {
       if(!value && playingInterval.value) {
         clearInterval(playingInterval.value);
-      } else {
-        playingInterval.value = setInterval(() => {
-          if(props.modelValue + props.stepTime <= endTimestamp.value) {
-            emit('update:modelValue', props.modelValue + props.stepTime);
-          } else {
-            emit('update:modelValue', endTimestamp.value);
-            playing.value = false;
-          }
-        }, props.playingStepDuration);
+        return;
       }
+
+      playingInterval.value = setInterval(() => {
+        if(props.modelValue[0] + props.stepTime <= endTimestamp.value && props.modelValue[1] + props.stepTime <= endTimestamp.value) {
+          emit('update:modelValue', [props.modelValue[0] + props.stepTime, props.modelValue[1] + props.stepTime]);
+        } else {
+          playing.value = false;
+        }
+      }, props.playingStepDuration);
     });
 
     return {
@@ -256,10 +300,10 @@ export default defineComponent({
       playing,
       ColorEnum,
       lightColors,
-      intervalTime,
       endTimestamp,
+      TimePrecision,
       startTimestamp,
-      maximumTickToShow,
+      ticksPrecision,
       epochToISO,
       onPlayingChange,
       onClickForward,
