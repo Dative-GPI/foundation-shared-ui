@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, type Ref, watch, ref, onUnmounted, onMounted, computed } from 'vue';
+import { inject, type PropType, type Ref, watch, ref, onUnmounted, computed } from 'vue';
 import { type RouteLocation } from "vue-router";
 
 import { type Map, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup } from 'leaflet';
