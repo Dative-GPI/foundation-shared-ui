@@ -2,16 +2,15 @@ import { type MessageType } from "../../enums/messages";
 import { isoToEpoch } from "../../tools/datesTools";
 import { Scope } from "../../enums/applications";
 import { Criticity } from "../../enums/alerts";
+import { NotificationAudience } from "./notificationAudience";
 
 export class NotificationInfos {
   id: string;
   title: string;
   body: string;
   pageUrl: string;
-  audienceId: string;
-  audienceScope: Scope;
+  audiences: NotificationAudience[];
   organisationId?: string;
-  entityId?: string;
   type: MessageType;
   criticity: Criticity;
   timestamp: number;
@@ -23,10 +22,8 @@ export class NotificationInfos {
     this.title = params.title;
     this.body = params.body;
     this.pageUrl = params.pageUrl;
-    this.audienceId = params.audienceId;
-    this.audienceScope = params.audienceScope as Scope;
+    this.audiences = params.audiences.map((a: NotificationAudience) => new NotificationAudience(a));
     this.organisationId = params.organisationId;
-    this.entityId = params.entityId;
     this.type = params.type as MessageType;
     this.criticity = params.criticity as Criticity;
     this.timestamp = isoToEpoch(params.timestamp);
@@ -40,7 +37,7 @@ export class NotificationInfos {
     application: boolean,
     criticity: Criticity,
     organisationId?: string | null,
-    userId?: string | null,
+    userId?: string | null
   ): NotificationInfos[] => notifications.filter((n: NotificationInfos) => {
     if (n.acknowledged) {
       return false;
@@ -48,15 +45,18 @@ export class NotificationInfos {
     if (![Criticity.None, n.criticity].includes(criticity)) {
       return false;
     }
-    switch (n.audienceScope) {
-      case Scope.Organisation    :
-      case Scope.UserOrganisation: return organisationId && n.organisationId && n.organisationId === organisationId;
-      case Scope.User            : return userId && n.audienceId === userId;
-      case Scope.Application     :
-      case Scope.Public          : return application;
-  
+
+    let showNotification = false;
+    for (const a of n.audiences) {
+      switch (a.targetScope) {
+        case Scope.Organisation:
+        case Scope.UserOrganisation: showNotification = showNotification || (organisationId && n.organisationId && n.organisationId === organisationId) as boolean;
+        case Scope.User: showNotification = showNotification || (userId && a.targetId === userId) as boolean;
+        case Scope.Application:
+        case Scope.Public: showNotification = showNotification || application as boolean;
+      }
     }
-    return false;
+    return showNotification;
   });
 
   static getForDrawer = (
@@ -78,10 +78,8 @@ export interface NotificationInfosDTO {
   title: string;
   body: string;
   pageUrl: string;
-  audienceId: string;
-  audienceScope: number;
+  audiences: NotificationAudience[];
   organisationId?: string;
-  entityId?: string;
   type: number;
   criticity: number;
   timestamp: string;

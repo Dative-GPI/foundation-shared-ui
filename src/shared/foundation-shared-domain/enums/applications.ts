@@ -2,6 +2,7 @@ export enum Scope {
   None = 0,
   Public = 0b1111,
   Application = 0b1000,
+  OrganisationType = 0b10000,
   Organisation = 0b0100,
   User = 0b0010,
   UserOrganisation = 0b0001
