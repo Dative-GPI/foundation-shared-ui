@@ -276,14 +276,14 @@ export const CustomPinMap: Story = {
             :selected="true"
             label="Centre station"
             variant="pin"
-            @click="console.log($event)"
+            :to="{ name: 'About' }"
           />
           <FSMapMarker
             :latlng="{ lat: 45.915748, lng: 6.469506 }"
             :selected="false"
             label="Les confins"
             variant="pin"
-            @click="console.log($event)"
+            :to="{ name: 'About' }"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>
@@ -412,7 +412,7 @@ export const GeneratePinMap: Story = {
             :label="pin.label"
             variant="pin"
             color="#FF0000"
-            @click="removePin(pin.id)"
+            @auxclick="removePin(pin.id)"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>
