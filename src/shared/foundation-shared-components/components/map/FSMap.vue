@@ -389,8 +389,6 @@ export default defineComponent({
       if(!map.value || !props.bounds) {
         return;
       }
-
-      //console.log("Bounds changed", props.bounds);
       fitBounds(props.bounds, { maxZoom: 14 });
     });
 

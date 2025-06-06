@@ -13,7 +13,7 @@ export const useMapLayers = () => {
     {
       name: MapLayers.Map,
       label: $tr("ui.map-layer.map", "Map"),
-      image: new URL("../../assets/images/map/map.png", import.meta.url).href,
+      image: new URL("../assets/images/map/map.png", import.meta.url).href,
       layers: [
         tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${apiKey}`, {
           maxZoom: 22,
@@ -26,7 +26,7 @@ export const useMapLayers = () => {
     {
       name: MapLayers.Imagery,
       label: $tr("ui.map-layer.imagery", "Imagery"),
-      image: new URL("../../assets/images/map/imagery.png", import.meta.url).href,
+      image: new URL("../assets/images/map/imagery.png", import.meta.url).href,
       layers: [
         tileLayer(`https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}&key=${apiKey}`, {
           maxZoom: 22,
@@ -39,7 +39,7 @@ export const useMapLayers = () => {
     {
       name: MapLayers.Snow,
       label: $tr("ui.map-layer.snow", "Snow ski map"),
-      image: new URL("../../assets/images/map/snow.png", import.meta.url).href,
+      image: new URL("../assets/images/map/snow.png", import.meta.url).href,
       layers: [
         tileLayer(`https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${apiKey}`, {
           maxZoom: 22,
