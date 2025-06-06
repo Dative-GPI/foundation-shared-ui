@@ -32,6 +32,7 @@ export * from "./deviceOrganisations";
 export * from "./deviceStatuses";
 export * from "./folders";
 export * from "./groups";
+export * from "./groupings";
 export * from "./locations";
 export * from "./manufacturers";
 export * from "./models";
@@ -51,6 +52,8 @@ export * from "./shared";                               // No service
 export * from "./serviceAccountOrganisationAuthTokens";
 export * from "./serviceAccountOrganisations";
 export * from "./serviceAccountRoleOrganisations";
+export * from "./subGroupings";
+export * from "./subGroupingDeviceOrganisations";
 export * from "./userOrganisationColumns";              // No service
 export * from "./userOrganisations";
 export * from "./userOrganisationTables";
