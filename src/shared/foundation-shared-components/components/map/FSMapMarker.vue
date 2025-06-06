@@ -102,27 +102,27 @@ export default {
     });
 
     const onClick = (event: MouseEvent) => {
+      if(props.to) {
+        handleRoutingEvent(event, props.to, true);
+        return;
+      }
+      
       emit('click', {
         ...event,
         latlng: props.latlng
       });
-
-      if(!props.to) {
-        return;
-      }
-      handleRoutingEvent(event, props.to);
     }
 
     const onAuxClick = (event: MouseEvent) => {
+      if(props.to) {
+        handleRoutingEvent(event, props.to);
+        return;
+      }
+
       emit('auxclick', {
         ...event,
         latlng: props.latlng
       });
-
-      if(!props.to) {
-        return;
-      }
-      handleRoutingEvent(event, props.to);
     }
 
     watch(map, () => {

@@ -351,6 +351,7 @@ export const ClickablePinMap: Story = {
             label="Le sud"
             variant="pin"
             @click="onClick($event, 'blue', 2)"
+            @auxclick="onClick($event, 'green', 2)"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>
