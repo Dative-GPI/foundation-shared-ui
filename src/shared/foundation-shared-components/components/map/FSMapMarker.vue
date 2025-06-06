@@ -161,7 +161,7 @@ export default {
 
       newMarkerElement.addEventListener('click', onClick);
       newMarkerElement.addEventListener('auxclick', onAuxClick);
-    });
+    }, { immediate: true });
 
     onUnmounted(() => {
       if(actualMarker.value && map.value) {
