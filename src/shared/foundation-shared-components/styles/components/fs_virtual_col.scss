@@ -1,0 +1,7 @@
+.fs-virtual-col__container {
+    position: relative;
+    width: 100%;
+
+    min-height: var(--fs-virtual-col-height);
+    max-height: var(--fs-virtual-col-height);
+}

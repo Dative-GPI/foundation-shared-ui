@@ -50,6 +50,11 @@ export default defineComponent({
       required: false,
       default: true
     },
+    hideVerticalOverflow: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     hideHorizontalOverflow: {
       type: Boolean,
       required: false,
@@ -90,17 +95,21 @@ export default defineComponent({
     const showOutsideScrollbar = computed(() => props.scrollOutside && !isTouchScreenEnabled.value);
 
     const style = computed((): {[index: string]: string} => ({
-      "--fs-fade-out-height"            : props.height ? sizeToVar(props.height) : "initial",
-      "--fs-fade-out-max-height"        : props.maxHeight ? sizeToVar(props.maxHeight) : "initial",
-      "--fs-fade-out-width"             : sizeToVar(props.width),
-      "--fs-fade-out-padding"           : sizeToVar(props.padding),
-      "--fs-fade-out-width-offset"      : showOutsideScrollbar.value ? '12px' : '0px',
-      "--fs-fade-out-padding-offset"    : showOutsideScrollbar.value ? '4px' : '0px',
-      "--fs-fade-out-margin-right"      : showOutsideScrollbar.value ? '-12px' : '0px',
-      "--fs-fade-out-mask-color"        : backgrounds.base,
-      "--fs-fade-out-top-mask-height"   : props.disableTopMask ? '0px' : topMaskHeight.value,
-      "--fs-fade-out-bottom-mask-height": props.disableBottomMask ? '0px' : bottomMaskHeight.value,
-      "--fs-fade-out-x-overflow"        : props.hideHorizontalOverflow ? 'hidden' : 'auto', 
+      "--fs-fade-out-height"                    : props.height ? sizeToVar(props.height) : "initial",
+      "--fs-fade-out-max-height"                : props.maxHeight ? sizeToVar(props.maxHeight) : "initial",
+      "--fs-fade-out-width"                     : sizeToVar(props.width),
+      "--fs-fade-out-padding"                   : sizeToVar(props.padding),
+      "--fs-fade-out-width-offset"              : !props.hideVerticalOverflow && showOutsideScrollbar.value ? '12px' : '0px',
+      "--fs-fade-out-height-offset"             : !props.hideHorizontalOverflow && showOutsideScrollbar.value ? '12px' : '0px',
+      "--fs-fade-out-padding-right-offset"      : !props.hideVerticalOverflow && showOutsideScrollbar.value ? '4px' : '0px',
+      "--fs-fade-out-padding-bottom-offset"     : !props.hideHorizontalOverflow && showOutsideScrollbar.value ? '4px' : '0px',
+      "--fs-fade-out-margin-right"              : !props.hideVerticalOverflow && showOutsideScrollbar.value ? '-12px' : '0px',
+      "--fs-fade-out-margin-bottom"             : !props.hideHorizontalOverflow && showOutsideScrollbar.value ? '-12px' : '0px',
+      "--fs-fade-out-mask-color"                : backgrounds.base,
+      "--fs-fade-out-top-mask-height"           : props.disableTopMask ? '0px' : topMaskHeight.value,
+      "--fs-fade-out-bottom-mask-height"        : props.disableBottomMask ? '0px' : bottomMaskHeight.value,
+      "--fs-fade-out-x-overflow"                : props.hideHorizontalOverflow ? 'hidden' : 'scroll', 
+      "--fs-fade-out-y-overflow"                : props.hideVerticalOverflow ? 'hidden' : 'scroll', 
       ...props.style
     }));
 

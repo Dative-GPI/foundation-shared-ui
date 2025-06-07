@@ -1,0 +1,33 @@
+.fs-virtual-grid__container {
+    position: relative;
+    display: grid;
+    
+    height: var(--fs-virtual-grid-height);
+
+    gap: var(--fs-virtual-grid-gap);
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--fs-virtual-grid-rows-count), var(--fs-virtual-grid-row-height));
+}
+
+.fs-virtual-grid__header {
+    position: absolute;
+    display: grid;
+    z-index: 1;
+    background-color: white;
+    
+    top: var(--fs-virtual-grid-top);
+
+    gap: var(--fs-virtual-grid-gap);
+    grid-template-columns: var(--fs-virtual-grid-template-columns);
+    grid-template-rows: var(--fs-virtual-grid-row-height);
+}
+
+.fs-virtual-grid__row {
+    display: grid;
+
+    gap: var(--fs-virtual-grid-gap);
+    grid-template-columns: var(--fs-virtual-grid-template-columns);
+    grid-template-rows: var(--fs-virtual-grid-row-height);
+    grid-column: 1 / -1;
+    grid-row: var(--fs-virtual-grid-row);
+}
