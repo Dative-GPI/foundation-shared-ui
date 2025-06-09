@@ -243,6 +243,7 @@ export const FullEmbedded: Story = {
     setup() {
       return { args }
     },
+    inheritAttrs: false,
     template: `
       <div style="height: 600px; background-color: white-smoke">
       </div>
@@ -265,10 +266,10 @@ export const FullEmbedded: Story = {
 export const FullView: Story = {
   args: {
     items: makeItems(1000),
-    columns: table.columns,
+    columns: table.columns.concat(table.columns),
     rowHeight: 40,
     gap: 10,
-    topOffset: 153,
+    topOffset: [152, 140]
   },
   render: (args) => ({
     components: { FSVirtualGrid, FSText, FSSpan, FSIcon, FSRow, FSCol, FSEntityView, FSButtonEdit, FSButtonRemove },
@@ -277,6 +278,7 @@ export const FullView: Story = {
       const show2 = ref(true);
       return { args, show1, show2 }
     },
+    inheritAttrs: false,
     template: `
       <FSEntityView title="Mizard" subtitle="8214485222" description="Description sur une ligne" imageId="1" :imageCover="true">
         <template #toolbar>

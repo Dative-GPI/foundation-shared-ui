@@ -40,7 +40,6 @@
 </template>
   
 <script lang="ts">
-import _ from "lodash";
 import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
 
 import { sizeToVar, varToSize } from "../../utils";

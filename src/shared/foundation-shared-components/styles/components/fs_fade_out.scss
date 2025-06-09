@@ -2,7 +2,7 @@
     @extend .fs-hide-y-scrollbar;
     @extend .fs-hide-x-scrollbar;
     
-    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    // transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-x: var(--fs-fade-out-x-overflow)!important;
     overflow-y: var(--fs-fade-out-y-overflow)!important;
     max-height: var(--fs-fade-out-max-height);

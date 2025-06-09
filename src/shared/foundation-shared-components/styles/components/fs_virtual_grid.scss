@@ -1,3 +1,7 @@
+.fs-virtual-grid {
+    position: relative;
+}
+
 .fs-virtual-grid__container {
     position: relative;
     display: grid;
@@ -30,4 +34,20 @@
     grid-template-rows: var(--fs-virtual-grid-row-height);
     grid-column: 1 / -1;
     grid-row: var(--fs-virtual-grid-row);
+}
+
+.fs-virtual-grid__scrollbar-container {
+    display: grid;
+    position: absolute;
+    background-color: transparent;
+    height: 8px;
+    
+    top: calc(var(--fs-virtual-grid-bottom) - 8px);
+}
+
+.fs-virtual-grid__scrollbar-content {
+    display: grid;
+        
+    gap: var(--fs-virtual-grid-gap);
+    grid-template-columns: var(--fs-virtual-grid-template-columns);
 }

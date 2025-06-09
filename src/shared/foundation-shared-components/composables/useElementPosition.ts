@@ -31,7 +31,7 @@ export function useElementPosition(root: Ref<any>, selectors: string[] = [".fs-f
   let parents: Element[] = [];
 
   // À appeler dans v-resize
-  const refresh = _.throttle(() => {
+  const refresh = () => {
     if (!root.value) { return; }
     const el = root.value.$el ? root.value.$el : root.value;
     const rect = el.getBoundingClientRect();
@@ -69,7 +69,7 @@ export function useElementPosition(root: Ref<any>, selectors: string[] = [".fs-f
     viewportLeft.value = absLeft;
     viewportRight.value = absRight;
     viewportWidth.value = absRight - absLeft;
-  }, 16, { leading: false, trailing: true });
+  }//, 16, { leading: false, trailing: true });
 
   // À utiliser dans @scroll
   const onScroll = (event: Event) => {
