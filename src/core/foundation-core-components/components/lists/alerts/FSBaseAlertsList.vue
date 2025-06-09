@@ -5,6 +5,7 @@
     :itemTo="$props.itemTo"
     :items="alertsOrdered"
     :loading="fetchingAlerts"
+    :headersOptions="headersOptions"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     :selectable="$props.selectable"
@@ -134,25 +135,7 @@
       </FSSpan>
     </template>
     <template
-      #item.triggerSourceTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.triggerSourceTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.triggerEnqueuedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.triggerEnqueuedTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.triggerProcessedTimestamp="{ item }"
+      #item.triggerActualTimestamp="{ item }"
     >
       <FSSpan
         font="text-overline"
@@ -170,30 +153,12 @@
       </FSSpan>
     </template>
     <template
-      #item.currentSourceTimestamp="{ item }"
+      #item.currentActualTimestamp="{ item }"
     >
       <FSSpan
         font="text-overline"
       >
-        {{ epochToShortTimeFormat(item.currentSourceTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.currentEnqueuedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.currentEnqueuedTimestamp) }}
-      </FSSpan>
-    </template>
-    <template
-      #item.currentProcessedTimestamp="{ item }"
-    >
-      <FSSpan
-        font="text-overline"
-      >
-        {{ epochToShortTimeFormat(item.currentProcessedTimestamp) }}
+        {{ epochToShortTimeFormat(item.currentActualTimestamp) }}
       </FSSpan>
     </template>
     <template
@@ -230,11 +195,14 @@ import type { RouteLocation } from "vue-router";
 import { computed, defineComponent, watch } from "vue";
 import _ from "lodash";
 
+import { useTranslations } from "@dative-gpi/bones-ui";
+
 import type { AlertFilters, AlertInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
+import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { useAlerts } from "@dative-gpi/foundation-core-services/composables";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import type { Criticity } from "@dative-gpi/foundation-shared-domain/enums";
+import { Criticity } from "@dative-gpi/foundation-shared-domain/enums";
 import { AlertStatus } from "@dative-gpi/foundation-shared-domain/enums";
 
 import { AlertTools } from "@dative-gpi/foundation-shared-components/tools";
@@ -247,6 +215,7 @@ import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.v
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSAlertTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSAlertTileUI.vue";
+
 
 export default defineComponent({
   name: "FSBaseAlertsList",
@@ -301,6 +270,7 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props) {
+    const { $tr } = useTranslations();
     const { getMany: getManyAlerts, entities: alerts, fetching : fetchingAlerts } = useAlerts();
     const { epochToShortTimeFormat } = useDateFormat();
 
@@ -321,16 +291,40 @@ export default defineComponent({
       const als = [...alerts.value]
       return  als.sort((a: AlertInfos, b: AlertInfos) => {
         return (a.acknowledged === b.acknowledged) ?
-          +b.currentSourceTimestamp! - +a.currentSourceTimestamp! : a.acknowledged ? 1 : -1
+          +b.currentActualTimestamp! - +a.currentActualTimestamp! : a.acknowledged ? 1 : -1
       }); 
     });
+
+    const headersOptions = computed(() => ({
+      currentStatus: {
+        fixedFilters: getEnumEntries(AlertStatus).map(e => ({
+          value: e.value,
+          text: AlertTools.statusLabel(e.value)
+        })),
+        methodFilter: (value: AlertStatus, item: AlertStatus) => value == item
+      },
+      criticity: {
+        fixedFilters: getEnumEntries(Criticity).map(e => ({
+          value: e.value,
+          text: AlertTools.criticityLabel(e.value)
+        })),
+        methodFilter: (value: Criticity, item: Criticity) => value == item
+      },
+      acknowledged: {
+        fixedFilters: [
+          { value: true, text: $tr('entity.alert.acknowledged', 'Acknowledged') },
+          { value: false, text: $tr('ui.alert.not-acknowledged', 'Not acknowledged') }
+        ],
+        methodFilter: (value: boolean, item: boolean) => value === item
+      },
+    }));
 
     watch([() => props.alertFilters, () => props.notAcknowledged, () => props.hidePending], (next, previous) => {
       if (!_.isEqual(next, previous)) {
         getManyAlerts({
           ...props.alertFilters,
           acknowledged: props.notAcknowledged ? false : undefined,
-          statuses: props.hidePending ? [AlertStatus.Unresolved, AlertStatus.Triggered, AlertStatus.Resolved, AlertStatus.Untriggered, AlertStatus.Abandoned] : undefined
+          statuses: props.hidePending ? [AlertStatus.Unresolved, AlertStatus.Triggered, AlertStatus.Resolved, AlertStatus.Abandoned] : undefined
         });
       }
     }, { immediate: true });
@@ -338,6 +332,7 @@ export default defineComponent({
 
     return {
       fetchingAlerts,
+      headersOptions,
       alertsOrdered,
       AlertTools,
       ColorEnum,

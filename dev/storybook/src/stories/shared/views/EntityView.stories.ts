@@ -2,20 +2,27 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { VDivider } from 'vuetify/lib/components/index.mjs';
 
+import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
+import { addSubcomponentsArgTypes } from '@/utils/properties';
+
+import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
+import FSImage from '@dative-gpi/foundation-shared-components/components/FSImage.vue';
+import FSLoader from '@dative-gpi/foundation-shared-components/components/FSLoader.vue';
+import FSBaseView from '@dative-gpi/foundation-shared-components/components/views/FSBaseView.vue';
 import FSEntityView from "@dative-gpi/foundation-shared-components/components/views/FSEntityView.vue";
 import FSButtonEdit from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonEdit.vue";
 import FSButtonRemove from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonRemove.vue";
-import FSLoader from '@dative-gpi/foundation-shared-components/components/FSLoader.vue';
-import FSImage from '@dative-gpi/foundation-shared-components/components/FSImage.vue';
-import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
-
-import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
+import FSBaseMobileView from '@dative-gpi/foundation-shared-components/components/views/mobile/FSBaseMobileView.vue';
+import FSBaseDesktopView from '@dative-gpi/foundation-shared-components/components/views/desktop/FSBaseDesktopView.vue';
+import FSBaseEntityMobileView from '@dative-gpi/foundation-shared-components/components/views/mobile/FSBaseEntityMobileView.vue';
+import FSBaseEntityDesktopView from '@dative-gpi/foundation-shared-components/components/views/desktop/FSBaseEntityDesktopView.vue';
 
 const meta = {
   title: 'Foundation/Shared/views/EntityView',
   component: FSEntityView,
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSBaseView, FSBaseMobileView, FSBaseDesktopView, FSBaseEntityDesktopView, FSBaseEntityMobileView], FSEntityView)
   },
 } satisfies Meta<typeof FSEntityView>;
 
@@ -23,6 +30,35 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  args: {
+    title: 'MIZAR CDC',
+    subtitle: '93000000000000128751',
+    breadcrumbs: [
+      { title: 'Lorem', to: '/' },
+      { title: 'MIZAR CDC', disabled: true }
+    ],
+  },
+  render: (args) => ({
+    components: { FSEntityView },
+    setup() { 
+      return { args };
+    },
+    template: `
+        <FSEntityView
+          v-bind="args"
+        >
+          <template
+            v-for="n in 80"
+            :key="n"
+          >
+            <p>I am a simple text</p>
+          </template>
+        </FSEntityView>
+      `
+  })
+}
+
+export const Variation0: Story = {
   args: {
     title: 'MIZAR CDC',
     subtitle: '93000000000000128751',
@@ -39,9 +75,8 @@ export const Default: Story = {
       { title: 'MIZAR CDC', disabled: true }
     ],
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSEntityView, FSButtonEdit, FSButtonRemove, FSLoader, FSCol },
-    props: Object.keys(argTypes),
     setup() { 
       return { args };
     },
@@ -78,9 +113,8 @@ export const Variation1: Story = {
     color: ColorEnum.Primary,
     iconBackgroundColors: undefined,
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { VDivider, FSEntityView },
-    props: Object.keys(argTypes),
     setup() { 
       return { args };
     },
@@ -114,9 +148,8 @@ export const Variation2: Story = {
     iconBackgroundColors: ['#A0FFA0', '#A0A0FF'],
     iconBackgroundVariant: 'gradient',
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { VDivider, FSEntityView },
-    props: Object.keys(argTypes),
     setup() { 
       return { args };
     },
@@ -153,9 +186,8 @@ export const ExtensionMock: Story = {
       { title: 'MIZAR CDC', disabled: true }
     ],
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSEntityView, FSButtonEdit, FSButtonRemove, FSLoader, FSCol, FSImage },
-    props: Object.keys(argTypes),
     setup() { 
       return { args };
     },

@@ -21,19 +21,19 @@ export const AlertTools = {
   statusLabel(value: AlertStatus): string {
     switch (value) {
       case AlertStatus.Pending:
-        return $tr('ui.alert-status.pending','Pending');
+        return $tr('ui.alert-status.pending', 'Pending');
       case AlertStatus.Untriggered:
-        return $tr('ui.alert-status.untriggered','Untriggered');
+        return $tr('ui.alert-status.untriggered', 'Untriggered');
       case AlertStatus.Unresolved:
-        return $tr('ui.alert-status.unresolved','Unresolved');
+        return $tr('ui.alert-status.unresolved', 'Unresolved');
       case AlertStatus.Resolved:
-        return $tr('ui.alert-status.resolved','Resolved');
+        return $tr('ui.alert-status.resolved', 'Resolved');
       case AlertStatus.Expired:
-        return $tr('ui.alert-status.expired','Expired');
+        return $tr('ui.alert-status.expired', 'Expired');
       case AlertStatus.Triggered:
-        return $tr('ui.alert-status.triggered','Triggered');
+        return $tr('ui.alert-status.triggered', 'Triggered');
       case AlertStatus.Abandoned:
-        return $tr('ui.alert-status.abandoned','Abandoned');
+        return $tr('ui.alert-status.abandoned', 'Abandoned');
       default: return "";
     }
   },
@@ -74,11 +74,44 @@ export const AlertTools = {
   },
   criticityLabel(value: Criticity): string {
     switch (value) {
-      case Criticity.Warning: return $tr('ui.common.warning','Warning');
-      case Criticity.Error: return $tr('ui.common.error','Error');
-      default: return $tr('ui.common.information','Information');
+      case Criticity.Information: return $tr('ui.common.information', 'Information');
+      case Criticity.Warning: return $tr('ui.common.warning', 'Warning');
+      case Criticity.Error: return $tr('ui.common.error', 'Error');
+      default: return $tr("ui.common.none", "None");
+    }
+  },
+  statusColor(status: AlertStatus): ColorEnum {
+    switch (status) {
+      case AlertStatus.None:
+      case AlertStatus.Pending:
+      case AlertStatus.Expired:
+        return ColorEnum.Warning;
+      case AlertStatus.Unresolved:
+      case AlertStatus.Triggered:
+        return ColorEnum.Error;
+      case AlertStatus.Resolved:
+      case AlertStatus.Untriggered:
+        return ColorEnum.Success;
+      default:
+        return ColorEnum.Warning;
+    }
+  },
+
+  formatValue(value: string) {
+    const n = parseFloat(value);
+
+    if (isNaN(n)) {
+      return value;
+    }
+
+    if (Number.isInteger(n)) {
+      return n;
+    }
+    else {
+      return n.toFixed(2);
     }
   }
+
 }
 
 export const prettyDuration = (n: number | undefined) => {

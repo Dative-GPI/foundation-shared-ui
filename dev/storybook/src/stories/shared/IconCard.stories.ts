@@ -43,7 +43,7 @@ export const Variations: Story = {
         }, {
           id: "6",
           icon: "mdi-account",
-          backgroundColor: ["#FFFF8F"],
+          backgroundColor: "#FFFF8F",
           backgroundVariant: "full",
         }, {
           id: "6",

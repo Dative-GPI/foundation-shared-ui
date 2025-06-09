@@ -1,7 +1,42 @@
 const MinusOperator = "-";
 
-// Matches one of the three operators (+, *, /) or the - operator if it is preceded by something that is not another operator
-const operatorsRegex = new RegExp(/[\+\*\/]|(?<=.)(?<![-\+\*\/])[-]/gm);
+/**
+ * Splits an expression by operators while keeping unary minus signs.
+ */
+const splitByOperators = (expression: string): string[] => {
+  const tokens: string[] = [];
+  let current = '';
+  let expectOperand = true;
+
+  for (let i = 0; i < expression.length; i++) {
+    const char = expression[i];
+    if ('+-*/'.includes(char)) {
+      const isUnaryMinus = char === '-' && expectOperand;
+      if (isUnaryMinus) {
+        current += char;
+        expectOperand = true;
+      } else {
+        if (expectOperand) {
+          // 2 consecutive operators or operator at the start
+          return [];
+        }
+        if (current !== '') {
+          tokens.push(current);
+          current = '';
+        }
+        tokens.push(char);
+        expectOperand = true;
+      }
+    } else {
+      current += char;
+      expectOperand = false;
+    }
+  }
+  if (current !== '') {
+    tokens.push(current);
+  }
+  return tokens;
+};
 
 // Matches a nested block of parenthesis
 const parenthesisRegex = new RegExp(/\([^)(]+\)/gm);
@@ -14,7 +49,11 @@ const validateBlock = (block: string, operands: string[] = [], variables: string
   block = block.replaceAll("(", "").replaceAll(")", "");
 
   // Split block on operators (Leave negative signs)
-  const components = block.split(operatorsRegex);
+  const tokens = splitByOperators(block);
+  if (tokens.length === 0) {
+    return false;
+  }
+  const components = tokens.filter(token => !'+-*/'.includes(token));
 
   // Check if each bit is a valid operand
   for (let i = 0; i < components.length; i++) {

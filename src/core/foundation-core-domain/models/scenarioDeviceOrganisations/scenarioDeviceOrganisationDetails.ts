@@ -21,11 +21,13 @@ export interface CreateScenarioDeviceOrganisationDTO {
   scenarioScope: ApplicationScope;
   deviceOrganisationId: string;
   overrideTimeRanges: boolean;
-  timeRanges: CreateTimeRangeDTO[] | null;
+  timeRanges: CreateTimeRangeDTO[];
+  overrideDelay: boolean;
   delay: number | null;
   warnDeviceManager: boolean;
   userOrganisationsIds: string[];
-  overrideParameters: CreateScenarioParameterOverrideDTO[];
+  overrideParameters: boolean;
+  parameters: CreateScenarioParameterOverrideDTO[];
 }
 
 export interface CreateManyScenarioDeviceOrganisationDTO {
@@ -33,18 +35,22 @@ export interface CreateManyScenarioDeviceOrganisationDTO {
   scenarioScope: ApplicationScope;
   deviceOrganisationsIds: string[];
   overrideTimeRanges: boolean;
-  timeRanges: CreateTimeRangeDTO[] | null;
+  timeRanges: CreateTimeRangeDTO[];
+  overrideDelay: boolean;
   delay: number | null;
   warnDeviceManager: boolean;
   userOrganisationsIds: string[];
-  overrideParameters: CreateScenarioParameterOverrideDTO[];
+  overrideParameters: boolean;
+  parameters: CreateScenarioParameterOverrideDTO[];
 }
 
 export interface UpdateScenarioDeviceOrganisationDTO {
   overrideTimeRanges: boolean;
-  timeRanges: CreateTimeRangeDTO[] | null;
+  timeRanges: CreateTimeRangeDTO[];
   warnDeviceManager: boolean;
+  overrideDelay: boolean;
   delay: number | null;
   userOrganisationsIds: string[];
-  overrideParameters: CreateScenarioParameterOverrideDTO[];
+  overrideParameters: boolean;
+  parameters: CreateScenarioParameterOverrideDTO[];
 }

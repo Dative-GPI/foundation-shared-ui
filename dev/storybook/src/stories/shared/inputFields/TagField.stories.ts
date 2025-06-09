@@ -44,6 +44,7 @@ export const Variations: Story = {
       <FSTagField
         label="Tag, standard, light color"
         tagVariant="standard"
+        maxWidth="200px"
         v-model="args.value2"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />

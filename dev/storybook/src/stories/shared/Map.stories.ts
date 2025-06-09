@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { defineComponent, ref } from 'vue';
 
+import { addComponentEmits } from '@/utils/properties';
+
 import FSMap from "@dative-gpi/foundation-shared-components/components/map/FSMap.vue";
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
@@ -8,15 +10,18 @@ import FSFadeOut from '@dative-gpi/foundation-shared-components/components/FSFad
 import FSMapMarker from '@dative-gpi/foundation-shared-components/components/map/FSMapMarker.vue';
 import FSMapMarkerClusterGroup from '@dative-gpi/foundation-shared-components/components/map/FSMapMarkerClusterGroup.vue';
 import { MapLayers, MapOverlayPositions } from '@dative-gpi/foundation-shared-components/models';
+import { uuidv4 } from '@dative-gpi/bones-ui';
+import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
 
 const meta = {
   title: 'Foundation/Shared/Map',
   component: FSMap,
   tags: ['autodocs'],
   argTypes: {
+    ...addComponentEmits(FSMap),
     currentLayer: {
       control: 'select',
-      options: [MapLayers.Map, MapLayers.Imagery],
+      options: [MapLayers.Map, MapLayers.Imagery, MapLayers.Snow],
     },
     overlayMode: {
       control: 'select',
@@ -134,21 +139,25 @@ export const SingleLocationMap: Story = {
       components: { FSMap, FSRow, FSMapMarker },
       inheritAttrs: false,
       setup() {
-        return { args, location : locations[0] };
+        const location = ref(locations[0]);
+
+        const onNewClick = (event: any) => {
+          console.log(event);
+          location.value.address.latitude = event.lat;
+          location.value.address.longitude = event.lng;
+        };
+
+        return { args, location, onNewClick };
       },
       template: `
         <FSRow height="500px">
           <FSMap
-            :width="args.width"
-            :height="args.height"
+            :center="[location.address.latitude, location.address.longitude]"
+            @click:latlng="onNewClick"
             v-model:overlayMode="args.overlayMode"
             v-model:currentLayer="args.currentLayer"
             v-model:selectedLocationId="args.selectedLocationId"
-            :grayscale="args.grayscale"
-            :showMyLocation="args.showMyLocation"
-            :showZoomButtons="args.showZoomButtons"
-            :enableScrollWheelZoom="args.enableScrollWheelZoom"
-            :center="[location.address.latitude, location.address.longitude ]"
+            v-bind="args"
           >
             <FSMapMarker
               variant="location"
@@ -186,6 +195,7 @@ export const MultiLocationMap: Story = {
         v-model:currentLayer="args.currentLayer"
         v-model:selectedLocationId="args.selectedLocationId"
         :bounds="bounds"
+        v-bind="args"
       >
         <FSMapMarkerClusterGroup
           :expected-layers="locations.length"
@@ -254,8 +264,8 @@ export const CustomPinMap: Story = {
     template: `
       <FSMap
         v-model:currentLayer="args.currentLayer"
-        :allowed-layers="args.allowedLayers"
         :bounds="bounds"
+        v-bind="args"
       >
         <FSMapMarkerClusterGroup
           :expected-layers="2"
@@ -266,14 +276,144 @@ export const CustomPinMap: Story = {
             :selected="true"
             label="Centre station"
             variant="pin"
-            @click="console.log($event)"
+            :to="{ name: 'About' }"
           />
           <FSMapMarker
             :latlng="{ lat: 45.915748, lng: 6.469506 }"
             :selected="false"
             label="Les confins"
             variant="pin"
-            @click="console.log($event)"
+            :to="{ name: 'About' }"
+          />
+        </FSMapMarkerClusterGroup>
+      </FSMap>
+    `,
+  }),
+};
+
+export const ClickablePinMap: Story = {
+  args: {
+    enableScrollWheelZoom: true
+  },
+  render: (args) => ({
+    components: { FSMap, FSMapMarker, FSMapMarkerClusterGroup },
+    setup() {
+      const bounds = ref(null);
+      const selectedIndex = ref<number | null>(null);
+      const center = ref<[number, number] | null>(null);
+      const zoom = ref(10);
+
+      const onClick = (event: any, color: "green" | "blue", index: number) => {
+        console.log(event);
+        if(color === "blue") {
+          zoom.value = 15; // Zoom in on the first marker
+          center.value = [event.latlng.lat, event.latlng.lng];
+        }
+        if(color === "green") {
+          center.value = [event.latlng.lat, event.latlng.lng];
+        }
+        selectedIndex.value = index;
+      };
+
+      return { args, bounds, zoom, center, selectedIndex, onClick };
+    },
+    template: `
+      <FSMap
+        v-model:currentLayer="args.currentLayer"
+        :bounds="bounds"
+        v-model:center="center"
+        v-model:zoom="zoom"
+        v-bind="args"
+      >
+        <FSMapMarkerClusterGroup
+          :expected-layers="3"
+          @update:bounds="(event) => {bounds = event; console.log(event)}"
+        >
+          <FSMapMarker
+            :latlng="{ lat: 45.904565, lng: 6.423869 }"
+            :selected="selectedIndex === 0"
+            label="Centre station"
+            variant="pin"
+            @click="onClick($event, 'blue', 0)"
+          />
+          <FSMapMarker
+            :latlng="{ lat: 45.915748, lng: 6.469506 }"
+            :selected="selectedIndex === 1"
+            color="green"
+            label="Les confins"
+            variant="pin"
+            @click="onClick($event, 'green', 1)"
+          />
+          <FSMapMarker
+            :latlng="{ lat: 43.915748, lng: 6.469506 }"
+            :selected="selectedIndex === 2"
+            color="primary"
+            label="Le sud"
+            variant="pin"
+            @click="onClick($event, 'blue', 2)"
+            @auxclick="onClick($event, 'green', 2)"
+          />
+        </FSMapMarkerClusterGroup>
+      </FSMap>
+    `,
+  }),
+};
+
+export const GeneratePinMap: Story = {
+  args: {
+    enableScrollWheelZoom: true
+  },
+  render: (args) => ({
+    components: { FSMap, FSMapMarker, FSMapMarkerClusterGroup, FSButton },
+    setup() {
+      const pins = ref<{ id: string; label: string; latitude: number; longitude: number }[]>([]);
+      const bounds = ref(null);
+
+      const addRandomPin = () => {
+        const randomIndex = Math.floor(Math.random() * locations.length);
+        const location = locations[randomIndex];
+        const id= uuidv4();
+        const pin = {
+          id: id,
+          label: `Pin ${pins.value.length + 1}`,
+          latitude: location.address.latitude + Math.random() * 10 - 5,
+          longitude: location.address.longitude + Math.random() * 10 - 5,
+        }
+
+        pins.value.push(pin);
+      };
+
+      const removePin = (id: string) => {
+        const index = pins.value.findIndex(pin => pin.id === id);
+        if (index !== -1) {
+          pins.value.splice(index, 1);
+        }
+      }
+
+      return { args, pins, bounds, addRandomPin, removePin };
+    },
+    template: `
+      <FSMap
+        v-model:currentLayer="args.currentLayer"
+        :bounds="bounds"
+        v-bind="args"
+      >
+        <template #overlay-body>
+          <FSButton @click="addRandomPin">Add Random Pin</FSButton>
+          <FSButton @click="removePin(pins[0]?.id)">Remove First Pin</FSButton>
+        </template>
+        <FSMapMarkerClusterGroup
+          :expected-layers="pins.length"
+          @update:bounds="bounds = $event"
+        >
+          <FSMapMarker
+            v-for="pin in pins"
+            :key="pin.id"
+            :latlng="{ lat: pin.latitude, lng: pin.longitude }"
+            :label="pin.label"
+            variant="pin"
+            color="#FF0000"
+            @auxclick="removePin(pin.id)"
           />
         </FSMapMarkerClusterGroup>
       </FSMap>

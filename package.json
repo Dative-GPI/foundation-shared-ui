@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "eslint",
     "fix": "eslint --fix",
+    "test": "npm run test -w tests",
     "type-check": "vue-tsc --build --force"
   },
   "workspaces": [
@@ -18,7 +19,7 @@
     "src/shared/foundation-shared-components",
     "src/shared/foundation-shared-loader",
     "dev/storybook",
-    "tests/packages-build"
+    "tests"
   ],
   "dependencies": {
     "axios-mock-adapter": "1.22.0"

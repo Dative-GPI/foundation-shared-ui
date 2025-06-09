@@ -13,7 +13,7 @@
 import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
 import { useBreakpoints, useColors } from "@dative-gpi/foundation-shared-components/composables";
-import { type ColorBase } from "@dative-gpi/foundation-shared-components/models";
+import { type ColorBase, type ColorBaseVariations } from "@dative-gpi/foundation-shared-components/models";
 
 import { sizeToVar } from "../utils";
 
@@ -31,7 +31,7 @@ export default defineComponent({
       default: null
     },
     variant: {
-      type: String as PropType<"base" | "baseContrast" | "soft" | "softContrast" | "light" | "lightContrast" | "dark" | "darkContrast">,
+      type: String as PropType<ColorBaseVariations>,
       required: false,
       default: "base"
     }

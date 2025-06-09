@@ -1,7 +1,9 @@
 <template>
   <component
-    :is="$props.to ? 'FSRouterLink' : 'div'"
+    :is="$props.to && $props.clickable ? 'FSRouterLink' : 'div'"
+    class="fs-chip-container"
     v-bind="$props.to ? { to: $props.to } : {}"
+    @click="$emit('click', $event)"
   >
     <FSRow
       :align="$props.align"
@@ -69,7 +71,6 @@ export default defineComponent({
     FSSpan,
     FSRow
   },
-  inheritsAttrs: false,
   props: {
     prependIcon: {
       type: String as PropType<string | null>,
@@ -122,6 +123,8 @@ export default defineComponent({
       default: null
     },
   },
+  inheritsAttrs: false,
+  emits: ['click'],
   setup(props) {
     const { getColors } = useColors();
 
@@ -136,9 +139,9 @@ export default defineComponent({
           "--fs-chip-background-color"       : backgrounds.base,
           "--fs-chip-border-color"           : colors.value.base,
           "--fs-chip-color"                  : colors.value.base,
-          "--fs-chip-hover-background-color" : backgrounds.base,
+          "--fs-chip-hover-background-color" : colors.value.base,
           "--fs-chip-hover-border-color"     : colors.value.base,
-          "--fs-chip-hover-color"            : colors.value.base,
+          "--fs-chip-hover-color"            : colors.value.baseContrast!,
           "--fs-chip-active-background-color": backgrounds.base,
           "--fs-chip-active-border-color"    : colors.value.dark,
           "--fs-chip-active-color"           : colors.value.dark
@@ -148,8 +151,8 @@ export default defineComponent({
           "--fs-chip-background-color"       : colors.value.base,
           "--fs-chip-border-color"           : colors.value.base,
           "--fs-chip-color"                  : colors.value.baseContrast!,
-          "--fs-chip-hover-background-color" : colors.value.base,
-          "--fs-chip-hover-border-color"     : colors.value.base,
+          "--fs-chip-hover-background-color" : colors.value.soft,
+          "--fs-chip-hover-border-color"     : colors.value.soft,
           "--fs-chip-hover-color"            : colors.value.baseContrast!,
           "--fs-chip-active-background-color": colors.value.dark,
           "--fs-chip-active-border-color"    : colors.value.darkContrast!,

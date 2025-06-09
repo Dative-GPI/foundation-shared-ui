@@ -29,7 +29,7 @@
         </FSRow>
         <FSCol
           v-if="$props.breadcrumbs && $props.breadcrumbs.length > 0"
-          :padding="$slots.toolbar ? '0px 24px 8px 24px' : '0px 24px'"
+          :padding="$slots.toolbar ? '0px 24px 16px 24px' : '0px 24px'"
           gap="16px"
         >
           <FSCol>

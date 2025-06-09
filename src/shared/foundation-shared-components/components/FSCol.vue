@@ -26,6 +26,11 @@ export default defineComponent({
       required: false,
       default: "fill"
     },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: null
+    },
     padding: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
       required: false,
@@ -49,11 +54,12 @@ export default defineComponent({
   },
   setup(props) {
     const style = computed((): StyleValue => ({
-      "--fs-col-overflow": props.overflow,
-      "--fs-col-padding" : sizeToVar(props.padding),
-      "--fs-col-gap"     : sizeToVar(props.gap),
-      "--fs-col-width"   : sizeToVar(props.width),
-      "--fs-col-height"  : sizeToVar(props.height)
+      "--fs-col-overflow"   : props.overflow,
+      "--fs-col-padding"    : sizeToVar(props.padding),
+      "--fs-col-gap"        : sizeToVar(props.gap),
+      "--fs-col-width"      : sizeToVar(props.width),
+      "--fs-col-max-width"  : props.maxWidth ? sizeToVar(props.maxWidth) : "100%",
+      "--fs-col-height"     : sizeToVar(props.height),
     }));
 
     const classes = computed((): string[] => {
