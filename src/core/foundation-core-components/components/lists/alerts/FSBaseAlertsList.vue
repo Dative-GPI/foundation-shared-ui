@@ -5,6 +5,7 @@
     :itemTo="$props.itemTo"
     :items="alertsOrdered"
     :loading="fetchingAlerts"
+    :headersOptions="headersOptions"
     :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     :selectable="$props.selectable"
@@ -194,11 +195,14 @@ import type { RouteLocation } from "vue-router";
 import { computed, defineComponent, watch } from "vue";
 import _ from "lodash";
 
+import { useTranslations } from "@dative-gpi/bones-ui";
+
 import type { AlertFilters, AlertInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
+import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { useAlerts } from "@dative-gpi/foundation-core-services/composables";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import type { Criticity } from "@dative-gpi/foundation-shared-domain/enums";
+import { Criticity } from "@dative-gpi/foundation-shared-domain/enums";
 import { AlertStatus } from "@dative-gpi/foundation-shared-domain/enums";
 
 import { AlertTools } from "@dative-gpi/foundation-shared-components/tools";
@@ -211,6 +215,7 @@ import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.v
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSAlertTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSAlertTileUI.vue";
+
 
 export default defineComponent({
   name: "FSBaseAlertsList",
@@ -265,6 +270,7 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props) {
+    const { $tr } = useTranslations();
     const { getMany: getManyAlerts, entities: alerts, fetching : fetchingAlerts } = useAlerts();
     const { epochToShortTimeFormat } = useDateFormat();
 
@@ -289,12 +295,36 @@ export default defineComponent({
       }); 
     });
 
+    const headersOptions = computed(() => ({
+      currentStatus: {
+        fixedFilters: getEnumEntries(AlertStatus).map(e => ({
+          value: e.value,
+          text: AlertTools.statusLabel(e.value)
+        })),
+        methodFilter: (value: AlertStatus, item: AlertStatus) => value == item
+      },
+      criticity: {
+        fixedFilters: getEnumEntries(Criticity).map(e => ({
+          value: e.value,
+          text: AlertTools.criticityLabel(e.value)
+        })),
+        methodFilter: (value: Criticity, item: Criticity) => value == item
+      },
+      acknowledged: {
+        fixedFilters: [
+          { value: true, text: $tr('entity.alert.acknowledged', 'Acknowledged') },
+          { value: false, text: $tr('ui.alert.not-acknowledged', 'Not acknowledged') }
+        ],
+        methodFilter: (value: boolean, item: boolean) => value === item
+      },
+    }));
+
     watch([() => props.alertFilters, () => props.notAcknowledged, () => props.hidePending], (next, previous) => {
       if (!_.isEqual(next, previous)) {
         getManyAlerts({
           ...props.alertFilters,
           acknowledged: props.notAcknowledged ? false : undefined,
-          statuses: props.hidePending ? [AlertStatus.Unresolved, AlertStatus.Triggered, AlertStatus.Resolved, AlertStatus.Untriggered, AlertStatus.Abandoned] : undefined
+          statuses: props.hidePending ? [AlertStatus.Unresolved, AlertStatus.Triggered, AlertStatus.Resolved, AlertStatus.Abandoned] : undefined
         });
       }
     }, { immediate: true });
@@ -302,6 +332,7 @@ export default defineComponent({
 
     return {
       fetchingAlerts,
+      headersOptions,
       alertsOrdered,
       AlertTools,
       ColorEnum,

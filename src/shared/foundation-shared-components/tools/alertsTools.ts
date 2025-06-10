@@ -74,9 +74,10 @@ export const AlertTools = {
   },
   criticityLabel(value: Criticity): string {
     switch (value) {
+      case Criticity.Information: return $tr('ui.common.information', 'Information');
       case Criticity.Warning: return $tr('ui.common.warning', 'Warning');
       case Criticity.Error: return $tr('ui.common.error', 'Error');
-      default: return $tr('ui.common.information', 'Information');
+      default: return $tr("ui.common.none", "None");
     }
   },
   statusColor(status: AlertStatus): ColorEnum {
