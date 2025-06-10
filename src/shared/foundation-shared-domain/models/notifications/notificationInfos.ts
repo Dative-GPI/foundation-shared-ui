@@ -50,10 +50,10 @@ export class NotificationInfos {
     for (const a of n.audiences) {
       switch (a.targetScope) {
         case Scope.Organisation:
-        case Scope.UserOrganisation: showNotification = showNotification || (organisationId && n.organisationId && n.organisationId === organisationId) as boolean;
-        case Scope.User: showNotification = showNotification || (userId && a.targetId === userId) as boolean;
+        case Scope.UserOrganisation: showNotification = showNotification || Boolean(organisationId && n.organisationId && n.organisationId === organisationId);
+        case Scope.User: showNotification = showNotification || Boolean(userId && a.targetId === userId);
         case Scope.Application:
-        case Scope.Public: showNotification = showNotification || application as boolean;
+        case Scope.Public: showNotification = showNotification || Boolean(application);
       }
     }
     return showNotification;
