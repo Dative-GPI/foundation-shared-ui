@@ -1,4 +1,4 @@
 import { CORE_URL } from "./base";
 
-export const SUB_GROUPINGS_URL = () => `${CORE_URL()}/sub-groupings`;
-export const SUB_GROUPING_URL = (subgroupingId: string) => `${SUB_GROUPINGS_URL()}/${encodeURIComponent(subgroupingId)}`;
+export const SUBGROUPINGS_URL = () => `${CORE_URL()}/subgroupings`;
+export const SUBGROUPING_URL = (subgroupingId: string) => `${SUBGROUPINGS_URL()}/${encodeURIComponent(subgroupingId)}`;

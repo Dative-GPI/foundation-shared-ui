@@ -37,7 +37,7 @@
           <FSSpan
             font="text-overline"
           >
-            {{ $tr("ui.common.sub-groupings", "Categories") }}
+            {{ $tr("ui.common.subgroupings", "Categories") }}
           </FSSpan>
         </FSRow>
       </FSCol>

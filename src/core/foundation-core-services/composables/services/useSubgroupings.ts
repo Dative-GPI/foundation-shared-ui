@@ -1,13 +1,13 @@
 import { SubgroupingDetails, type SubgroupingDetailsDTO, type SubgroupingFilters, SubgroupingInfos, type SubgroupingInfosDTO, type CreateSubgroupingDTO, type UpdateSubgroupingDTO } from "@dative-gpi/foundation-core-domain/models";
 import { ComposableFactory, ServiceFactory } from "@dative-gpi/bones-ui/core";
-import { SUB_GROUPINGS_URL, SUB_GROUPING_URL } from "../../config/urls";
+import { SUBGROUPINGS_URL, SUBGROUPING_URL } from "../../config/urls";
 
 const SubgroupingServiceFactory = new ServiceFactory<SubgroupingDetailsDTO, SubgroupingDetails>("subgrouping", SubgroupingDetails).create(factory => factory.build(
-  factory.addGet(SUB_GROUPING_URL),
-  factory.addGetMany<SubgroupingInfosDTO, SubgroupingInfos, SubgroupingFilters>(SUB_GROUPINGS_URL, SubgroupingInfos),
-  factory.addCreate<CreateSubgroupingDTO>(SUB_GROUPINGS_URL),
-  factory.addUpdate<UpdateSubgroupingDTO>(SUB_GROUPING_URL),
-  factory.addRemove(SUB_GROUPING_URL),
+  factory.addGet(SUBGROUPING_URL),
+  factory.addGetMany<SubgroupingInfosDTO, SubgroupingInfos, SubgroupingFilters>(SUBGROUPINGS_URL, SubgroupingInfos),
+  factory.addCreate<CreateSubgroupingDTO>(SUBGROUPINGS_URL),
+  factory.addUpdate<UpdateSubgroupingDTO>(SUBGROUPING_URL),
+  factory.addRemove(SUBGROUPING_URL),
   factory.addNotify()
 ));
 
