@@ -98,7 +98,6 @@ export default defineComponent({
           "--fs-range-slider-color"      : lights.dark
         };
       }
-      console.log(colors.value);
       return {
         "--fs-range-slider-cursor"     : "pointer",
         "--fs-range-slider-track-color": colors.value.light,
