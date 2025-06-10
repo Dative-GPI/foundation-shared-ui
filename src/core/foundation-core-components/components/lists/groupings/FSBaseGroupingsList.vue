@@ -3,6 +3,7 @@
     defaultMode="iterator"
     :loading="fetchingGroupings"
     :items="groupings"
+    :itemTo="$props.itemTo"
     :selectable="$props.selectable"
     :showSearch="$props.showSearch"
     :disableTable="$props.disableTable"
@@ -33,6 +34,7 @@
       <FSGroupingTileUI
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
+        :to="$props.itemTo && $props.itemTo(item)"
         @update:modelValue="toggleSelect(item)"
         v-bind="item"
       />
@@ -42,10 +44,11 @@
 
 <script lang="ts">
 import { defineComponent, watch } from "vue";
+import { type RouteLocation } from "vue-router";
 import type { PropType} from "vue";
 import _ from "lodash";
 
-import type { GroupingFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { GroupingFilters, GroupingInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useGroupings } from "@dative-gpi/foundation-core-services/composables";
 
 import FSDataTable from "../FSDataTable.vue";
@@ -66,6 +69,10 @@ export default defineComponent({
       type: String as PropType<string | null>,
       required: false,
       default: null
+    },
+    itemTo: {
+      type: Function as PropType<(item: GroupingInfos) => Partial<RouteLocation>>,
+      required: false
     },
     groupingsFilters: {
       type: Object as PropType<GroupingFilters>,
