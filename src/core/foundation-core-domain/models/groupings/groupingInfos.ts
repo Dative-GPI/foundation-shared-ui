@@ -5,7 +5,7 @@ export class GroupingInfos {
   icon: string;
   iconColor: string;
   code: string;
-  subGroupingCount: number;
+  subgroupingCount: number;
 
   constructor(params: GroupingInfosDTO) {
     this.id = params.id;
@@ -14,7 +14,7 @@ export class GroupingInfos {
     this.icon = params.icon;
     this.iconColor = params.iconColor;
     this.code = params.code;
-    this.subGroupingCount = params.subGroupingCount;
+    this.subgroupingCount = params.subgroupingCount;
   }
 }
 
@@ -25,7 +25,7 @@ export interface GroupingInfosDTO {
   icon: string;
   iconColor: string;
   code: string;
-  subGroupingCount: number;
+  subgroupingCount: number;
 }
 
 export interface GroupingFilters {

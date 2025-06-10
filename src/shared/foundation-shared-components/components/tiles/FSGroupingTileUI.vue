@@ -30,7 +30,7 @@
               <FSSpan
                 font="text-overline"
               >
-                {{ subGroupingsBadgeContent }}
+                {{ subgroupingsBadgeContent }}
               </FSSpan>
             </FSRow>
           </FSColor>
@@ -86,7 +86,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    subGroupingCount: {
+    subgroupingCount: {
       type: Number,
       required: false,
       default: null
@@ -103,11 +103,11 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const subGroupingsBadgeContent = computed(() => props.subGroupingCount ? capNumberToString(props.subGroupingCount) : 0);
+    const subgroupingsBadgeContent = computed(() => props.subgroupingCount ? capNumberToString(props.subgroupingCount) : 0);
 
 
     return {
-      subGroupingsBadgeContent,
+      subgroupingsBadgeContent,
       ColorEnum,
     };
   }

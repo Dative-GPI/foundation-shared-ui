@@ -39,8 +39,8 @@ export * from "./useScenarioOrganisationTypes";
 export * from "./useServiceAccountOrganisationAuthTokens";
 export * from "./useServiceAccountOrganisations";
 export * from "./useServiceAccountRoleOrganisations";
-export * from "./useSubGroupingDeviceOrganisations";
-export * from "./useSubGroupings"
+export * from "./useSubgroupingDeviceOrganisations";
+export * from "./useSubgroupings"
 export * from "./useUserOrganisations";
 export * from "./useUserOrganisationTables";
 export * from "./useWidgetTemplates";

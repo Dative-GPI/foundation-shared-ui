@@ -52,8 +52,8 @@ export * from "./shared";                               // No service
 export * from "./serviceAccountOrganisationAuthTokens";
 export * from "./serviceAccountOrganisations";
 export * from "./serviceAccountRoleOrganisations";
-export * from "./subGroupings";
-export * from "./subGroupingDeviceOrganisations";
+export * from "./subgroupings";
+export * from "./subgroupingDeviceOrganisations";
 export * from "./userOrganisationColumns";              // No service
 export * from "./userOrganisations";
 export * from "./userOrganisationTables";

@@ -1,10 +1,10 @@
-export class SubGroupingInfos {
+export class SubgroupingInfos {
   id: string;
   groupingId: string;
   label: string;
   icon: string;
 
-  constructor(params: SubGroupingInfosDTO) {
+  constructor(params: SubgroupingInfosDTO) {
     this.id = params.id;
     this.groupingId = params.groupingId;
     this.label = params.label;
@@ -12,14 +12,14 @@ export class SubGroupingInfos {
   }
 }
 
-export interface SubGroupingInfosDTO {
+export interface SubgroupingInfosDTO {
   id: string;
   groupingId: string;
   label: string;
   icon: string;
 }
 
-export interface SubGroupingFilters {
+export interface SubgroupingFilters {
   groupingId?: string;
   search: string;
 }

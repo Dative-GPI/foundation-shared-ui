@@ -10,5 +10,5 @@ export const GROUPINGS: GroupingInfosDTO[] = Array.from(Array(80).keys()).map(i 
     label: `Grouping ${(i + 1)}`,
     iconColor: i % 2 === 0 ? "primary" : "warning",
     description: `Description for grouping ${(i + 1)}`,
-    subGroupingCount: i % 5,
+    subgroupingCount: i % 5,
 }));

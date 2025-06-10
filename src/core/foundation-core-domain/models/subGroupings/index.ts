@@ -1,2 +1,2 @@
-export * from './subGroupingInfos';
-export * from './subGroupingDetails';
+export * from './subgroupingInfos';
+export * from './subgroupingDetails';

@@ -1,2 +1,2 @@
-export * from './subGroupingDeviceOrganisationInfos';
-export * from './subGroupingDeviceOrganisationDetails';
+export * from './subgroupingDeviceOrganisationInfos';
+export * from './subgroupingDeviceOrganisationDetails';
