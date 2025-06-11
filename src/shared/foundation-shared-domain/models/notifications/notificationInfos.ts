@@ -37,7 +37,8 @@ export class NotificationInfos {
     application: boolean,
     criticity: Criticity,
     organisationId?: string | null,
-    userId?: string | null
+    userId?: string | null,
+    organisationTypeId?: string | null
   ): NotificationInfos[] => notifications.filter((n: NotificationInfos) => {
     if (n.acknowledged) {
       return false;
@@ -49,6 +50,7 @@ export class NotificationInfos {
     return n.audiences.some(a => {
       switch (a.targetScope) {
         case Scope.OrganisationType:
+          return Boolean(organisationTypeId && a.targetId === organisationTypeId);
         case Scope.Organisation:
         case Scope.UserOrganisation:
           return Boolean(organisationId && n.organisationId && n.organisationId === organisationId);
@@ -67,14 +69,16 @@ export class NotificationInfos {
     notifications: NotificationInfos[],
     organisationId: string,
     userId: string,
-    criticity: Criticity = Criticity.None
-  ): NotificationInfos[] => NotificationInfos.getFromAudience(notifications, true, criticity, organisationId, userId);
+    criticity: Criticity = Criticity.None,
+    organisationTypeId?: string | null
+  ): NotificationInfos[] => NotificationInfos.getFromAudience(notifications, true, criticity, organisationId, userId, organisationTypeId);
 
   static getForCard = (
     notifications: NotificationInfos[],
     organisationId: string,
-    criticity: Criticity = Criticity.None
-  ): NotificationInfos[] => NotificationInfos.getFromAudience(notifications, false, criticity, organisationId, null);
+    criticity: Criticity = Criticity.None,
+    organisationTypeId?: string | null
+  ): NotificationInfos[] => NotificationInfos.getFromAudience(notifications, false, criticity, organisationId, null, organisationTypeId);
 }
 
 export interface NotificationInfosDTO {
