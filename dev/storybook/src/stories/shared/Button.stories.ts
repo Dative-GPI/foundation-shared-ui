@@ -498,6 +498,25 @@ export const Checkbox: Story = {
   })
 }
 
+import FSButtonChip from  "@dative-gpi/foundation-shared-components/components/buttons/FSButtonChip.vue";
+
+export const ButtonChip: Story = {
+  args: {
+    label: "Button chip",
+    icon: "mdi-pencil"
+  },
+  render: (args, { argTypes }) => ({
+    components: { FSButtonChip },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSButtonChip
+        v-bind="args"
+      />`
+  })
+}
+
 export const CustomButton: Story = {
   render: () => ({
     components: { FSButton },
