@@ -34,7 +34,7 @@ export class NotificationInfos {
 
   static getFromAudience = (
     notifications: NotificationInfos[],
-    application: boolean,
+    showPublic: boolean,
     criticity: Criticity,
     organisationId?: string | null,
     userId?: string | null,
@@ -50,15 +50,15 @@ export class NotificationInfos {
     return n.audiences.some(a => {
       switch (a.targetScope) {
         case Scope.OrganisationType:
-          return Boolean(organisationTypeId && a.targetId === organisationTypeId);
+          return organisationTypeId && a.targetId === organisationTypeId;
         case Scope.Organisation:
         case Scope.UserOrganisation:
-          return Boolean(organisationId && n.organisationId && n.organisationId === organisationId);
+          return organisationId && n.organisationId && n.organisationId === organisationId;
         case Scope.User:
-          return Boolean(userId && a.targetId === userId);
+          return userId && a.targetId === userId;
         case Scope.Application:
         case Scope.Public:
-          return Boolean(application);
+          return showPublic;
         default:
           return false;
       }
