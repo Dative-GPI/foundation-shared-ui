@@ -479,15 +479,8 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: true
-        }, {
-            columnId: "9",
-            text: "Aknowledged",
-            value: "acknowledgingTimestamp",
-            index: 8,
-            hidden: false,
-            sortable: false,
-            filterable: true
-        }, {
+        },
+        {
             columnId: "10",
             text: "History",
             value: "history",

@@ -1,5 +1,7 @@
 <template>
-  <FSCol>
+  <FSCol
+    :maxWidth="$props.maxWidth"
+  >
     <FSTextField
       :label="$props.label"
       :description="$props.description"
@@ -10,6 +12,7 @@
       :messages="messages"
       :validateOn="validateOn"
       :validationValue="$props.modelValue"
+      :maxWidth="null"
       v-model="innerValue"
       v-bind="$attrs"
     >
@@ -123,7 +126,12 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
-    }
+    },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: "600px"
+    },
   },
   emits: ["update:modelValue"],
   setup(props) {

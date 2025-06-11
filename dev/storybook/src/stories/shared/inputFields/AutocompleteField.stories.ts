@@ -60,6 +60,7 @@ export const Variations: Story = {
         label="Multiple select"
         :items="args.items"
         :multiple="true"
+        :maxWidth="null"
         v-model="args.value3"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />

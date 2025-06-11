@@ -3,11 +3,13 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, type Ref, watch, ref, onUnmounted, onMounted } from 'vue';
+import { inject, type PropType, type Ref, watch, ref, onUnmounted, computed } from 'vue';
+import { type RouteLocation } from "vue-router";
 
-import { type Map, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup, type LeafletMouseEvent } from 'leaflet';
+import { type Map, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup } from 'leaflet';
 
 import { useColors } from "../../composables";
+import { useRouting } from '@dative-gpi/foundation-shared-services/composables';
 
 import { gpsMarkerHtml, locationMarkerHtml, pinMarkerHtml } from '../../utils/leafletMarkers';
 import { MAP, MARKERCLUSTERGROUP } from './keys';
@@ -41,14 +43,28 @@ export default {
     label: {
       type: String,
       required: false
+    },
+    to: {
+      type: Object as PropType<RouteLocation | null>,
+      required: false
     }
   },
-  emits: ['click'],
+  emits: ['click', 'auxclick'],
   setup(props, { emit }) {
     const map = inject<Ref<Map | null>>(MAP);
     const markerClusterGroup = inject<Ref<MarkerClusterGroup | null>>(MARKERCLUSTERGROUP, ref(null));
-
+      
     const { getColors } = useColors();
+    const { handleRoutingEvent } = useRouting();
+
+    if(!map) {
+      throw new Error('FSMapTileLayer must be used inside a FSMap component');
+    }
+
+    if(!map.value) {
+      throw new Error('FSMapTileLayer must be used inside a FSMap component with a map');
+    }
+      
     const getMarkerIcon = () => {
       if(props.variant === 'gps') {
         const size = 16;
@@ -81,12 +97,32 @@ export default {
 
     const actualMarker = ref(marker(props.latlng ?? [0, 0], { icon: getMarkerIcon() }));
 
-    if(!map) {
-      throw new Error('FSMapTileLayer must be used inside a FSMap component');
+    const markerElement = computed(() => {
+      return actualMarker.value.getElement();
+    });
+
+    const onClick = (event: MouseEvent) => {
+      if(props.to) {
+        handleRoutingEvent(event, props.to, true);
+        return;
+      }
+      
+      emit('click', {
+        ...event,
+        latlng: props.latlng
+      });
     }
 
-    if(!map.value) {
-      throw new Error('FSMapTileLayer must be used inside a FSMap component with a map');
+    const onAuxClick = (event: MouseEvent) => {
+      if(props.to) {
+        handleRoutingEvent(event, props.to);
+        return;
+      }
+
+      emit('auxclick', {
+        ...event,
+        latlng: props.latlng
+      });
     }
 
     watch(map, () => {
@@ -118,11 +154,14 @@ export default {
       actualMarker.value.setLatLng(props.latlng);
     });
 
-    onMounted(() => {
-      actualMarker.value.on('click', (event: LeafletMouseEvent) => {
-        emit('click', event);
-      });
-    });
+    watch(markerElement, (newMarkerElement) => {
+      if(!newMarkerElement) {
+        return;
+      }
+
+      newMarkerElement.addEventListener('click', onClick);
+      newMarkerElement.addEventListener('auxclick', onAuxClick);
+    }, { immediate: true });
 
     onUnmounted(() => {
       if(actualMarker.value && map.value) {

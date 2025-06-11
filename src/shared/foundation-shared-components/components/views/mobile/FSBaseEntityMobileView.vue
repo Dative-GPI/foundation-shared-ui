@@ -8,7 +8,8 @@
       #title
     >
       <FSRow
-        gap="24px"
+        gap="12px"
+        :height="actualImageSize"
         :wrap="false"
       >
         <FSImage 
@@ -31,6 +32,7 @@
           style="min-width: 0"
           align="center-left"
           height="fill"
+          :gap="$props.subtitle && $props.description ? '6px' : '8px'"
         >
           <slot
             name="title"
@@ -44,26 +46,31 @@
               name="title-extra"
               v-bind="{ topOffset }"
             >
-              <slot
-                name="subtitle"
+              <FSCol
+                gap="4px"
               >
-                <FSText
-                  v-if="$props.subtitle && topOffset < 60"
-                  font="text-button"
+                <slot
+                  name="subtitle"
                 >
-                  {{ $props.subtitle }}
-                </FSText>
-              </slot>
-              <slot
-                name="description"
-              >
-                <FSText
-                  v-if="$props.description && topOffset < 20"
-                  font="text-body"
+                  <FSText
+                    v-if="$props.subtitle && topOffset < 48"
+                    font="text-button"
+                  >
+                    {{ $props.subtitle }}
+                  </FSText>
+                </slot>
+                <slot
+                  name="description"
                 >
-                  {{ $props.description }}
-                </FSText>
-              </slot>
+                  <FSText
+                    v-if="$props.description && topOffset < 8"
+                    :lineClamp="2"
+                    font="text-body"
+                  >
+                    {{ $props.description }}
+                  </FSText>
+                </slot>
+              </FSCol>
             </slot>
           </slot>
         </FSCol>
@@ -136,9 +143,9 @@ export default defineComponent({
       default: () => ["124px", "96px", "80px"]
     },
     icon: {
-      type: String as PropType<string>,
+      type: String as PropType<string | null>,
       required: false,
-      default: "mdi-ab-testing"
+      default: null
     },
     iconColor: {
       type: String as PropType<ColorBase>,
@@ -183,7 +190,7 @@ export default defineComponent({
       const minSize = sizeToVar(props.minImageSize);
       const actualMinSize = parseInt(minSize);
 
-      topOffset.value = Math.max(0, Math.min(actualScrollTop, actualMinSize + 16 + 24));
+      topOffset.value = Math.max(0, Math.min(actualScrollTop, actualMinSize + 16 + 12));
     }
 
     delete slots.title;
