@@ -2,13 +2,8 @@ import { SubgroupingDeviceOrganisationDetails, type SubgroupingDeviceOrganisatio
 import { ComposableFactory, ServiceFactory } from "@dative-gpi/bones-ui/core";
 import { SUBGROUPING_DEVICE_ORGANISATIONS_URL, SUBGROUPING_DEVICE_ORGANISATION_URL } from "../../config/urls";
 
-const SubgroupingDeviceOrganisationServiceFactory = new ServiceFactory<SubgroupingDeviceOrganisationDetailsDTO, SubgroupingDeviceOrganisationDetails>("subgroupingDeviceOrganisation", SubgroupingDeviceOrganisationDetails).create(factory => factory.build(
-  factory.addGet(SUBGROUPING_DEVICE_ORGANISATION_URL),
-  factory.addGetMany<SubgroupingDeviceOrganisationInfosDTO, SubgroupingDeviceOrganisationInfos, SubgroupingDeviceOrganisationFilters>(SUBGROUPING_DEVICE_ORGANISATIONS_URL, SubgroupingDeviceOrganisationInfos),
-  factory.addCreate<CreateSubgroupingDeviceOrganisationDTO>(SUBGROUPING_DEVICE_ORGANISATIONS_URL),
-  factory.addRemove(SUBGROUPING_DEVICE_ORGANISATION_URL),
-  factory.addNotify()
-));
+const SubgroupingDeviceOrganisationServiceFactory = new ServiceFactory<SubgroupingDeviceOrganisationDetailsDTO, SubgroupingDeviceOrganisationDetails>("subgroupingDeviceOrganisation", SubgroupingDeviceOrganisationDetails)
+  .createComplete<SubgroupingDeviceOrganisationInfos, SubgroupingDeviceOrganisationInfosDTO, CreateSubgroupingDeviceOrganisationDTO, null, SubgroupingDeviceOrganisationFilters>(SUBGROUPING_DEVICE_ORGANISATIONS_URL, SUBGROUPING_DEVICE_ORGANISATION_URL, SubgroupingDeviceOrganisationInfos);
 
 export const useSubgroupingDeviceOrganisation = ComposableFactory.get(SubgroupingDeviceOrganisationServiceFactory);
 export const useSubgroupingDeviceOrganisations = ComposableFactory.getMany(SubgroupingDeviceOrganisationServiceFactory);

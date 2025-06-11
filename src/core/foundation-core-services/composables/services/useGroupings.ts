@@ -2,19 +2,8 @@ import { GroupingDetails, type GroupingDetailsDTO, type GroupingFilters, Groupin
 import { ComposableFactory, ServiceFactory } from "@dative-gpi/bones-ui/core";
 import { GROUPINGS_URL, GROUPING_URL } from "@dative-gpi/foundation-core-services/config/urls";
 
-const GroupingServiceFactory = new ServiceFactory<GroupingDetailsDTO, GroupingDetails>(
-  "grouping",
-  GroupingDetails
-).create(factory =>
-  factory.build(
-    factory.addGet(GROUPING_URL),
-    factory.addGetMany<GroupingInfosDTO, GroupingInfos, GroupingFilters>(GROUPINGS_URL, GroupingInfos),
-    factory.addCreate<CreateGroupingDTO>(GROUPINGS_URL),
-    factory.addUpdate<UpdateGroupingDTO>(GROUPING_URL),
-    factory.addRemove(GROUPING_URL),
-    factory.addNotify()
-  )
-);
+const GroupingServiceFactory = new ServiceFactory<GroupingDetailsDTO, GroupingDetails>("grouping",  GroupingDetails)
+  .createComplete<GroupingInfos, GroupingInfosDTO, CreateGroupingDTO, UpdateGroupingDTO, GroupingFilters>(GROUPINGS_URL, GROUPING_URL, GroupingInfos);
 
 export const useGrouping = ComposableFactory.get(GroupingServiceFactory);
 export const useGroupings = ComposableFactory.getMany(GroupingServiceFactory);

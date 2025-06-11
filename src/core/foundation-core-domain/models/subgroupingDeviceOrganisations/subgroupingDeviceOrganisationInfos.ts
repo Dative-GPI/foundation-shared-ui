@@ -20,7 +20,7 @@ export interface SubgroupingDeviceOrganisationInfosDTO {
 }
 
 export interface SubgroupingDeviceOrganisationFilters {
-  groupingIds: string[];
-  subgroupingIds: string[];
-  search: string;
+  groupingIds?: string[] | null;
+  subgroupingIds?: string[] | null;
+  search?: string | null;
 }

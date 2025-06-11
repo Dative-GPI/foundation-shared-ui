@@ -11,17 +11,17 @@ export interface GroupingDetailsDTO extends GroupingInfosDTO {}
 
 export interface CreateGroupingDTO {
   label: string;
-  description: string;
+  description: string | null;
   icon: string;
-  iconColor: string;
-  code: string;
+  iconColor: string | null;
+  code?: string | null;
 }
 
 export interface UpdateGroupingDTO {
   id: string;
   label: string;
-  description: string;
-  code: string;
+  description?: string | null;
+  code?: string | null;
   icon: string;
-  iconColor: string;
+  iconColor?: string | null;
 }

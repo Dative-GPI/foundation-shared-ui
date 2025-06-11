@@ -20,6 +20,6 @@ export interface SubgroupingInfosDTO {
 }
 
 export interface SubgroupingFilters {
-  groupingId?: string;
-  search: string;
+  groupingId?: string | null;
+  search?: string | null;
 }
