@@ -1,21 +1,24 @@
 <template>
   <component
-    :is="$props.to && $props.clickable ? 'FSRouterLink' : 'div'"
-    class="fs-chip-container"
-    v-bind="$props.to ? { to: $props.to } : {}"
+    :is="$props.clickable ? 'FSClickable' : 'FSCard'"
+    class="fs-chip"
+    padding="2px 20px"
+    :borderRadius="50"
+    :border="showBorder"
+    :color="$props.color"
+    :variant="cardVariant"
+    :height="$props.height"
+    :width="$props.width"
     @click="$emit('click', $event)"
+    v-bind="$attrs"
   >
     <FSRow
       :align="$props.align"
-      :width="$props.width"
-      :class="classes"
-      :style="style"
       :wrap="false"
-      v-bind="$attrs"
     >
       <slot
         name="prepend"
-        v-bind="{ color: $props.color, colors }"
+        v-bind="{ color: $props.color }"
       >
         <FSIcon
           v-if="$props.prependIcon"
@@ -25,19 +28,18 @@
         </FSIcon>
       </slot>
       <slot
-        v-bind="{ color: $props.color, colors }"
+        v-bind="{ color: $props.color }"
       >
         <FSSpan
           v-if="$props.label"
           font="text-overline"
-          class="fs-chip-label"
         >
           {{ $props.label }}
         </FSSpan>
       </slot>
       <slot
         name="append"
-        v-bind="{ color: $props.color, colors }"
+        v-bind="{ color: $props.color }"
       >
         <FSIcon
           v-if="$props.appendIcon"
@@ -51,22 +53,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, type StyleValue } from "vue";
-import { type RouteLocation } from "vue-router";
+import { computed, defineComponent, type PropType } from "vue";
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { useColors } from "@dative-gpi/foundation-shared-components/composables";
-import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
 import FSIcon from "./FSIcon.vue";
 import FSSpan from "./FSSpan.vue";
 import FSRow from "./FSRow.vue";
-import FSRouterLink from '@dative-gpi/foundation-shared-components/components/FSRouterLink.vue';
+import FSClickable from '@dative-gpi/foundation-shared-components/components/FSClickable.vue';
+import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
 
 export default defineComponent({
   name: "FSChip",
   components: {
-    FSRouterLink,
+    FSClickable,
+    FSCard,
     FSIcon,
     FSSpan,
     FSRow
@@ -95,10 +96,10 @@ export default defineComponent({
     width: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
       required: false,
-      default: "hug"
+      default: null
     },
     variant: {
-      type: String as PropType<"standard" | "full" | "borderless">,
+      type: String as PropType<"standard" | "full" | "borderless" | "gradient" | "background">,
       required: false,
       default: "full"
     },
@@ -113,79 +114,39 @@ export default defineComponent({
       default: false
     },
     align: {
-      type: String as PropType<"center-center" | "center-left">,
+      type: String as PropType<"top-left" | "top-center" | "top-right" | "center-left" | "center-center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right">,
       required: false,
       default: "center-center"
-    },
-    to: {
-      type: Object as PropType<RouteLocation | null>,
-      required: false,
-      default: null
-    },
+    }
   },
   inheritsAttrs: false,
   emits: ['click'],
   setup(props) {
-    const { getColors } = useColors();
 
-    const colors = computed(() => getColors(props.color));
-    const backgrounds = getColors(ColorEnum.Background);
-    const darks = getColors(ColorEnum.Dark);
-
-    const style = computed((): StyleValue => {
+    const cardVariant = computed(() => {
       switch (props.variant) {
-        case "standard": return {
-          "--fs-chip-height"                 : sizeToVar(props.height),
-          "--fs-chip-background-color"       : backgrounds.base,
-          "--fs-chip-border-color"           : colors.value.base,
-          "--fs-chip-color"                  : colors.value.base,
-          "--fs-chip-hover-background-color" : colors.value.base,
-          "--fs-chip-hover-border-color"     : colors.value.base,
-          "--fs-chip-hover-color"            : colors.value.baseContrast!,
-          "--fs-chip-active-background-color": backgrounds.base,
-          "--fs-chip-active-border-color"    : colors.value.dark,
-          "--fs-chip-active-color"           : colors.value.dark
-        };
-        case "full": return {
-          "--fs-chip-height"                 : sizeToVar(props.height),
-          "--fs-chip-background-color"       : colors.value.base,
-          "--fs-chip-border-color"           : colors.value.base,
-          "--fs-chip-color"                  : colors.value.baseContrast!,
-          "--fs-chip-hover-background-color" : colors.value.soft,
-          "--fs-chip-hover-border-color"     : colors.value.soft,
-          "--fs-chip-hover-color"            : colors.value.baseContrast!,
-          "--fs-chip-active-background-color": colors.value.dark,
-          "--fs-chip-active-border-color"    : colors.value.darkContrast!,
-          "--fs-chip-active-color"           : colors.value.darkContrast!
-        };
-        case "borderless": return {
-          "--fs-chip-height"                 : sizeToVar(props.height),
-          "--fs-chip-background-color"       : backgrounds.base,
-          "--fs-chip-border-color"           : backgrounds.base,
-          "--fs-chip-color"                  : darks.base,
-          "--fs-chip-hover-background-color" : colors.value.light,
-          "--fs-chip-hover-border-color"     : colors.value.light,
-          "--fs-chip-hover-color"            : colors.value.base,
-          "--fs-chip-active-background-color": colors.value.light,
-          "--fs-chip-active-border-color"    : colors.value.light,
-          "--fs-chip-active-color"           : colors.value.base
-        };
+        case "standard":
+          return "standard";
+        case "full":
+          return "full";
+        case "borderless":
+          return "standard";
+        case "gradient":
+          return "gradient";
+        default:
+          return "background";
       }
     });
 
-    const classes = computed((): string[] => {
-      const classNames: string[] = ["fs-chip"];
-      if (props.clickable) {
-        classNames.push("fs-chip-clickable");
-      }
-      return classNames;
+    const showBorder = computed(() => {
+      return props.variant !== "borderless";
     });
 
     return {
-      FSRouterLink,
-      classes,
-      colors,
-      style
+      FSClickable,
+      FSCard,
+      cardVariant,
+      showBorder
     };
   }
 });

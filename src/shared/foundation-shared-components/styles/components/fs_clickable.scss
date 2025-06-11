@@ -37,18 +37,16 @@
     }
 }
 
-a:has(.fs-clickable) {
-    position: relative !important;
-    text-decoration: none;
-    padding: 0 !important;
-    height: var(--fs-clickable-height);
-    width: var(--fs-clickable-width);
-}
-
-button:has(.fs-clickable) {
-    position: relative;
-    height: var(--fs-clickable-height);
-    width: var(--fs-clickable-width);
+.fs-clickable-wrapper {
+  display: block;
+  position: relative;
+  padding: 0 !important;
+  height: var(--fs-clickable-height);
+  width: var(--fs-clickable-width);
+  background: none;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 
 .fs-clickable-load {

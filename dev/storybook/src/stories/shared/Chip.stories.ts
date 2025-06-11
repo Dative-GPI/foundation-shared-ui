@@ -1,18 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
-import { addSubcomponentsArgTypes } from '@/utils/properties';
-import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
+import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
+import FSClickable from '@dative-gpi/foundation-shared-components/components/FSClickable.vue';
 
 const meta = {
   title: 'Foundation/Shared/Chip',
   component: FSChip,
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSRow], FSChip)
+    ...addSubcomponentsArgTypes([FSCard, FSClickable], FSChip),
+    ...addComponentEmits(FSChip)
   },
 } satisfies Meta<typeof FSChip>;
 
@@ -23,8 +26,9 @@ export const Default: Story = {
   args: {
     color: 'primary',
     variant: 'standard',
-    label: 'I am a chip',
-    to: { name: 'About' }
+    label: 'I am a chip to dative-gpi',
+    clickable: true,
+    href: 'https://www.dative-gpi.com',
   },
   render: (args) => ({
     components: { FSChip, FSText, FSSpan, FSIcon },
@@ -78,14 +82,22 @@ export const Variations: Story = {
         <FSChip color="dark" label="Dark, full, unclickable" />
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
+      <FSText>Variants</FSText>
+      <div style="display: flex; gap: 10px;">
+        <FSChip width="200px" color="primary" variant="standard" label="standard" />
+        <FSChip width="200px" color="primary" variant="full" label="full" />
+        <FSChip width="200px" color="primary" variant="borderless" label="borderless" />
+        <FSChip width="200px" :color="['primary', 'aqua']" variant="gradient" label="gradient" />
+      </div>
+      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText> Text align </FSText>
       <div style="display: flex; gap: 10px;">
         <FSChip width="200px" color="primary" variant="standard" label="200px with long labelllllllllllllllllllllllll" />
         <FSChip width="500px" align="center-center" color="primary" variant="standard" label="500px with align center-center" />
       </div>
       <div style="display: flex; gap: 10px;">
-        <FSChip width="fill" align="center-left" color="primary" variant="standard" label="fill with align center-left" />
-        <FSChip width="fill" color="primary" variant="standard" label="fill without align center-left" />
+        <FSChip width="100%" align="center-left" color="primary" variant="standard" label="100% with align center-left" />
+        <FSChip width="100%" color="primary" variant="standard" label="100% without align center-left" />
       </div>
     </div>`
   })

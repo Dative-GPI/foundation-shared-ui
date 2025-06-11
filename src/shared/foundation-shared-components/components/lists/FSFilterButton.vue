@@ -153,10 +153,10 @@ export default defineComponent({
       return props.filters;
     });
 
-    const getVariant = (filter: FSDataTableFilter): "standard" | "full" | "borderless" => {
+    const getVariant = (filter: FSDataTableFilter): "background" | "full" | "borderless" => {
       if (singlePick.value || props.filters.filter(f => f.hidden).length > 0) {
         if (filter.hidden) {
-          return "borderless";
+          return "background";
         }
         return "full";
       }
