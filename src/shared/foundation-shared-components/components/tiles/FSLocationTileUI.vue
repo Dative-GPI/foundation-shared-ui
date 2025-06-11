@@ -15,33 +15,12 @@
       <FSCol
         gap="8px"
       >
-        <FSRow
-          v-if="$props.deviceCount"
-          :wrap="false"
-          align="center-left"
-        >
-          <FSColor
-            width="24px"
-            height="24px"
-            :color="ColorEnum.Primary"
-            :border="false"
-          >
-            <FSRow
-              align="center-center"
-            >
-              <FSSpan
-                font="text-overline"
-              >
-                {{ capNumberToString($props.deviceCount) }}
-              </FSSpan>
-            </FSRow>
-          </FSColor>
-          <FSSpan
-            font="text-overline"
-          >
-            {{ $tr("ui.common.devices", "Equipment(s)") }}
-          </FSSpan>
-        </FSRow>
+        <FSEntityCountBadge
+          v-if="$props.deviceCount !== undefined"
+          :label="$tr('ui.common.devices', 'Device(s)')"
+          :count="$props.deviceCount"
+          :color="ColorEnum.Primary"
+        />
         <FSRow
           v-if="$props.address"
           :wrap="false"
@@ -79,6 +58,7 @@ import { defineComponent, type PropType } from "vue";
 import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
+import FSEntityCountBadge from './FSEntityCountBadge.vue';
 import FSSimpleTileUI from './FSSimpleTileUI.vue';
 import FSColor from "../FSColor.vue";
 import FSSpan from "../FSSpan.vue";
@@ -88,6 +68,7 @@ import FSRow from "../FSRow.vue";
 export default defineComponent({
   name: "FSLocationTileUI",
   components: {
+    FSEntityCountBadge,
     FSSimpleTileUI,
     FSColor,
     FSSpan,

@@ -13,56 +13,16 @@
       <FSCol
         gap="6px"
       >
-        <FSRow
-          align="center-left"
-        >
-          <FSColor
-            height="24px"
-            width="24px"
-            :color="ColorEnum.Primary"
-            :border="false"
-          >
-            <FSRow
-              align="center-center"
-            >
-              <FSSpan
-                font="text-overline"
-              >
-                {{ foldersBadgeContent }}
-              </FSSpan>
-            </FSRow>
-          </FSColor>
-          <FSSpan
-            font="text-overline"
-          >
-            {{ $tr("ui.common.folders", "Folder(s)") }}
-          </FSSpan>
-        </FSRow>
-        <FSRow
-          align="center-left"
-        >
-          <FSColor
-            height="24px"
-            width="24px"
-            :color="ColorEnum.Success"
-            :border="false"
-          >
-            <FSRow
-              align="center-center"
-            >
-              <FSSpan
-                font="text-overline"
-              >
-                {{ dashboardsBadgeContent }}
-              </FSSpan>
-            </FSRow>
-          </FSColor>
-          <FSSpan
-            font="text-overline"
-          >
-            {{ $tr("ui.common.dashboards", "Dashboard(s)") }}
-          </FSSpan>
-        </FSRow>
+        <FSEntityCountBadge
+          :label="$tr('ui.common.folders', 'Folder(s)')"
+          :count="recursiveFoldersIds.length"
+          :color="ColorEnum.Primary"
+        />
+        <FSEntityCountBadge
+          :label="$tr('ui.common.dashboards', 'Dashboard(s)')"
+          :count="recursiveDashboardsIds.length"
+          :color="ColorEnum.Success"
+        />
       </FSCol>
     </template>
   </FSSimpleTileUI>
@@ -71,15 +31,11 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType } from "vue";
 
-import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
-
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
+import FSEntityCountBadge from './FSEntityCountBadge.vue';
 import FSSimpleTileUI from "./FSSimpleTileUI.vue";
-import FSColor from "../FSColor.vue";
-import FSSpan from "../FSSpan.vue";
 import FSCol from "../FSCol.vue";
-import FSRow from "../FSRow.vue";
 
 export default defineComponent({
   name: "FSFolderTileUI",
@@ -106,11 +62,9 @@ export default defineComponent({
     },
   },
   components: {
+    FSEntityCountBadge,
     FSSimpleTileUI,
-    FSColor,
-    FSSpan,
-    FSCol,
-    FSRow
+    FSCol
   },
   setup(props){
     const color = computed(() => {
@@ -120,15 +74,9 @@ export default defineComponent({
       return props.bottomColor;
     });
 
-    const foldersBadgeContent = computed(() => capNumberToString(props.recursiveFoldersIds.length));
-
-    const dashboardsBadgeContent = computed(() => capNumberToString(props.recursiveDashboardsIds.length));
-
     return {
       color,
-      ColorEnum,
-      foldersBadgeContent,
-      dashboardsBadgeContent,
+      ColorEnum
     };
   }
 });
