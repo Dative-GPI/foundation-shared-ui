@@ -46,17 +46,21 @@ export class NotificationInfos {
       return false;
     }
 
-    let showNotification = false;
-    for (const a of n.audiences) {
+    return n.audiences.some(a => {
       switch (a.targetScope) {
+        case Scope.OrganisationType:
         case Scope.Organisation:
-        case Scope.UserOrganisation: showNotification = showNotification || Boolean(organisationId && n.organisationId && n.organisationId === organisationId);
-        case Scope.User: showNotification = showNotification || Boolean(userId && a.targetId === userId);
+        case Scope.UserOrganisation:
+          return Boolean(organisationId && n.organisationId && n.organisationId === organisationId);
+        case Scope.User:
+          return Boolean(userId && a.targetId === userId);
         case Scope.Application:
-        case Scope.Public: showNotification = showNotification || Boolean(application);
+        case Scope.Public:
+          return Boolean(application);
+        default:
+          return false;
       }
-    }
-    return showNotification;
+    });
   });
 
   static getForDrawer = (
