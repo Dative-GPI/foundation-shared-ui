@@ -34,7 +34,6 @@
       >
         <FSSpan
           v-if="$props.label"
-          :font="$props.font"
         >
           {{ $props.label }}
         </FSSpan>
@@ -72,7 +71,6 @@
       >
         <FSSpan
           v-if="$props.label"
-          :font="$props.font"
         >
           {{ $props.label }}
         </FSSpan>
@@ -123,7 +121,6 @@
         </FSIcon>
         <FSSpan
           v-if="$props.label"
-          :font="$props.font"
         >
           {{ $props.label }}
         </FSSpan>
@@ -143,7 +140,6 @@
         </FSIcon>
         <FSSpan
           v-if="$props.label"
-          :font="$props.font"
         >
           {{ $props.label }}
         </FSSpan>
@@ -160,7 +156,6 @@
       </FSIcon>
       <FSSpan
         v-if="$props.label"
-        :font="$props.font"
       >
         {{ $props.label }}
       </FSSpan>
@@ -263,11 +258,6 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
-    },
-    font: {
-      type: String as PropType<"text-h1" | "text-h2" | "text-h3" | "text-body" | "text-button" | "text-overline">,
-      required: false,
-      default: "text-body"
     }
   },
   emits: ["click"],
