@@ -5,6 +5,7 @@
     :item-to="$props.itemTo"
     :loading="fetchingFolders || fetchingDashboardOrganisations || fetchingDashboardShallows"
     :tableCode="$props.tableCode"
+    :headersOptions="headersOptions"
     :modelValue="selecteds"
     :selectable="$props.selectable"
     @update:modelValue="onSelect"
@@ -75,6 +76,20 @@
       />
     </template>
     <template
+      #item.dashboardType="{ item }"
+    >
+      <FSChip
+        v-if="item.type === FoldersListType.Dashboard"
+        :color="dashboardTypeColor(item.dashboardType)"
+        :label="dashboardTypeLabel(item.dashboardType)"
+      />
+      <FSChip
+        v-else-if="item.type === FoldersListType.Folder"
+        :color="ColorEnum.Light"
+        :label="$tr('ui.common.folder', 'Folder')"
+      />
+    </template>
+    <template
       #item.tile="{ item, toggleSelect }"
     >
       <FSFolderTileUI
@@ -117,10 +132,11 @@ import { useOrganisation } from "@dative-gpi/foundation-shared-services/composab
 import { useDashboardOrganisations, useFolders, useDashboardShallows, useAppOrganisationId, useCurrentUserOrganisation } from "@dative-gpi/foundation-core-services/composables";
 
 import { DashboardType } from "@dative-gpi/foundation-shared-domain/enums";
-import { FoldersListType, type FoldersListItem } from "@dative-gpi/foundation-core-components/utils";
+import { dashboardTypeColor, dashboardTypeLabel, FoldersListType, type FoldersListItem } from "@dative-gpi/foundation-core-components/utils";
 import type { FolderFilters, DashboardOrganisationFilters, DashboardShallowFilters, DashboardInfos } from "@dative-gpi/foundation-core-domain/models";
 
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
+import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSIconCheck from "@dative-gpi/foundation-shared-components/components/FSIconCheck.vue";
@@ -129,6 +145,8 @@ import FSDashboardShallowTileUI from "@dative-gpi/foundation-shared-components/c
 import FSDashboardOrganisationTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDashboardOrganisationTileUI.vue";
 
 import FSDataTable from "../lists/FSDataTable.vue";
+import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
+import { useTranslations } from '@dative-gpi/bones-ui';
 
 export default defineComponent({
   name: "FSBaseFoldersExplorer",
@@ -140,6 +158,7 @@ export default defineComponent({
     FSIconCheck,
     FSTagGroup,
     FSImage,
+    FSChip,
     FSIcon
   },
   props: {
@@ -179,7 +198,7 @@ export default defineComponent({
   },
   emits: ["update", "update:modelValue", "update:type", "update:dashboard-type"],
   setup(props, { emit }) {
-
+    const { $tr } = useTranslations();
     const { fetch: fetchUserOrganisation, entity: userOrganisation } = useCurrentUserOrganisation();
     const { entity: organisation, get: getOrganisation } = useOrganisation();
     const { organisationId } = useAppOrganisationId();
@@ -218,7 +237,37 @@ export default defineComponent({
           })) as FoldersListItem[]
         ], d => d.label)
       ]
-    })
+    });
+
+    const headersOptions = computed(() => ({
+      dashboardType: {
+        fixedFilters: [
+          {
+            value: DashboardType.Organisation,
+            text: dashboardTypeLabel(DashboardType.Organisation)
+          },
+          {
+            value: DashboardType.Shallow,
+            text: dashboardTypeLabel(DashboardType.Shallow)
+          },
+          {
+            value: DashboardType.OrganisationType,
+            text: dashboardTypeLabel(DashboardType.OrganisationType)
+          },
+          {
+            value: 10,
+            text: $tr("ui.common.folder", "Folder")
+          },
+        ],
+        methodFilter: (value: number, dashboardType: DashboardType) => {
+          if(dashboardType !== DashboardType.None) {
+            return value === dashboardType;
+          } else {
+            return value === 10;
+          }
+        }
+      }
+    }));
 
     const onSelect = (values: string[]) => {
       selecteds.value = values;
@@ -274,12 +323,16 @@ export default defineComponent({
       fetchingFolders,
       mainOrganisationDashboardId,
       mainUserDashboardId,
+      headersOptions,
+      ColorEnum,
       selecteds,
       items,
       onSelect,
       isSelected,
       FoldersListType,
-      DashboardType
+      DashboardType,
+      dashboardTypeColor,
+      dashboardTypeLabel
     };
   }
 });
