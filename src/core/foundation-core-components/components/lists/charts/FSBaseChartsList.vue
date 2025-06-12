@@ -77,11 +77,11 @@
       />
     </template>
     <template
-      #item.scope="{ item }"
+      #item.origin="{ item }"
     >
       <FSChip
-        :label="chartScopeLabel(item.scope)"
-        :color="ColorEnum.Light"
+        :label="chartOriginLabel(item.origin)"
+        :color="chartOriginColor(item.origin)"
       />
     </template>
     <template
@@ -107,10 +107,10 @@
 import { defineComponent, type PropType, watch, computed } from "vue";
 import _ from "lodash";
 
-import { ApplicationScope, ChartType } from "@dative-gpi/foundation-shared-domain/enums";
+import { ChartOrigin, ChartType } from "@dative-gpi/foundation-shared-domain/enums";
 import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { chartTypeLabel, chartIcon, chartScopeLabel } from "@dative-gpi/foundation-shared-components/tools";
+import { chartTypeLabel, chartIcon, chartOriginLabel, chartOriginColor } from "@dative-gpi/foundation-shared-components/tools";
 
 import type { ChartModelLabel, ChartOrganisationFilters, ChartOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useChartOrganisations, useChartOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
@@ -198,7 +198,8 @@ export default defineComponent({
         tags: c.tags,
         multiple: c.multiple,
         chartType: c.chartType,
-        modelsLabels: c.modelsLabels
+        modelsLabels: c.modelsLabels,
+        origin: ChartOrigin.Organisation
       })).concat(chartOrganisationTypes.value.map(c => ({
         id: c.id,
         imageId: c.imageId,
@@ -213,7 +214,8 @@ export default defineComponent({
         tags: c.tags,
         multiple: c.multiple,
         chartType: c.chartType,
-        modelsLabels: c.modelsLabels
+        modelsLabels: c.modelsLabels,
+        origin: ChartOrigin.OrganisationType
       })));
     });
 
@@ -242,12 +244,12 @@ export default defineComponent({
         })),
         methodFilter: (value: ChartType, item: ChartType) => value == item
       },
-      scope: {
-        fixedFilters: getEnumEntries(ApplicationScope).filter(e => e.value != ApplicationScope.None).map(e => ({
+      origin: {
+        fixedFilters: getEnumEntries(ChartOrigin).filter(e => e.value != ChartOrigin.None).map(e => ({
           value: e.value,
-          text: chartScopeLabel(e.value)
+          text: chartOriginLabel(e.value)
         })),
-        methodFilter: (value: ApplicationScope, item: ApplicationScope) => value == item
+        methodFilter: (value: ChartOrigin, item: ChartOrigin) => value == item
       }
 
     }));
@@ -294,7 +296,8 @@ export default defineComponent({
       headersOptions,
       ColorEnum,
       charts,
-      chartScopeLabel,
+      chartOriginLabel,
+      chartOriginColor,
       chartTypeLabel,
       isSelected,
       chartIcon,
