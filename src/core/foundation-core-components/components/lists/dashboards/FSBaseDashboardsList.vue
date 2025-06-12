@@ -3,6 +3,7 @@
     defaultMode="iterator"
     :items="items"
     :itemTo="$props.itemTo"
+    :headersOptions="headersOptions"
     :loading="fetchingDashboardOrganisationTypes || fetchingDashboardOrganisations || fetchingDashboardShallows"
     :tableCode="$props.tableCode"
     :selectable="$props.selectable"
@@ -26,6 +27,14 @@
       <FSIcon>
         {{ item.icon }}
       </FSIcon>
+    </template>
+    <template
+      #item.dashboardType="{ item }"
+    >
+      <FSChip
+        :color="dashboardTypeColor(item.dashboardType)"
+        :label="dashboardTypeLabel(item.dashboardType)"
+      />
     </template>
     <template
       #item.main="{ item }"
@@ -96,8 +105,9 @@ import { useAppOrganisationId, useCurrentUserOrganisation, useDashboardOrganisat
 import type { DashboardOrganisationTypeFilters, DashboardOrganisationFilters, DashboardShallowFilters, DashboardInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useOrganisation } from "@dative-gpi/foundation-shared-services/composables";
 
-import type { DashboardsListItem } from "@/core/foundation-core-components/utils";
+import { dashboardTypeColor, dashboardTypeLabel, type DashboardsListItem } from "@dative-gpi/foundation-core-components/utils";
 import { DashboardType } from "@dative-gpi/foundation-shared-domain/enums";
+import { getEnumEntries } from '@dative-gpi/foundation-shared-domain';
 
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
@@ -106,12 +116,14 @@ import FSDashboardOrganisationTileUI from "@dative-gpi/foundation-shared-compone
 import FSDashboardOrganisationTypeTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDashboardOrganisationTypeTileUI.vue";
 
 import FSDataTable from "../FSDataTable.vue";
+import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
 
 export default defineComponent({
   name: "FSBaseDashboardsList",
   components: {
     FSDataTable,
     FSTagGroup,
+    FSChip,
     FSIcon,
     FSDashboardOrganisationTileUI,
     FSDashboardOrganisationTypeTileUI,
@@ -186,6 +198,16 @@ export default defineComponent({
       ], d => d.label);
     });
 
+    const headersOptions = computed(() => ({
+      dashboardType: {
+        fixedFilters: getEnumEntries(DashboardType).filter(e => e.value != DashboardType.None).map(e => ({
+          value: e.value,
+          text: dashboardTypeLabel(e.value)
+        })),
+        methodFilter: (value: DashboardType, item: DashboardType) => value == item
+      }
+    }));
+
     const mainUserDashboardId = computed(() => {
       return userOrganisation.value?.mainDashboardId;
     });
@@ -240,13 +262,16 @@ export default defineComponent({
       fetchingDashboardOrganisationTypes,
       fetchingDashboardOrganisations,
       fetchingDashboardShallows,
+      headersOptions,
       selecteds,
       items,
       mainUserDashboardId,
       mainOrganisationDashboardId,
       onSelect,
       isSelected,
-      DashboardType
+      DashboardType,
+      dashboardTypeColor,
+      dashboardTypeLabel
     };
   }
 });
