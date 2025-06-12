@@ -539,6 +539,15 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: true
+        },
+        {
+            columnId: "6",
+            text: "Chart scope",
+            value: "scope",
+            index: 3,
+            hidden: false,
+            sortable: false,
+            filterable: true
         }],
         sortByKey: null,
         sortByOrder: null
