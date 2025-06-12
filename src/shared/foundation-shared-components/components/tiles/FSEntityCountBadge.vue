@@ -4,12 +4,12 @@
   >
     <FSColor
       height="24px"
-      width="24px"
       :color="$props.color"
       :border="false"
     >
       <FSRow
         align="center-center"
+        width="24px"
       >
         <FSSpan
           font="text-overline"

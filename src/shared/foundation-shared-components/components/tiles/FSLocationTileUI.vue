@@ -27,13 +27,13 @@
           align="center-left"
         >
           <FSColor
-            width="24px"
             height="24px"
             :color="ColorEnum.Primary"
             :border="false"
           >
             <FSRow
               align="center-center"
+              width="24px"
             >
               <FSIcon
                 icon="mdi-map-marker-radius-outline"
