@@ -3,7 +3,7 @@
     v-if="$props.href"
     :href="$props.href"
     :style="style"
-    :class="$props.class"
+    :class="['fs-clickable-wrapper', $props.class]"
     @mouseover="hover = true"
     @mouseleave="hover = false"
     @mousedown="active = true"
@@ -44,7 +44,7 @@
     v-else-if="$props.to"
     :style="style"
     :to="$props.to"
-    :class="$props.class"
+    :class="['fs-clickable-wrapper', $props.class]"
     @mouseover="hover = true"
     @mouseleave="hover = false"
     @mousedown="active = true"
@@ -85,7 +85,7 @@
     v-else
     :type="$props.type"
     :style="style"
-    :class="$props.class"
+    :class="['fs-clickable-wrapper', $props.class]"
     :disabled="$props.load || $props.disabled"
     @click.stop="onClick"
     @mouseover="hover = true"
@@ -130,7 +130,7 @@
 import { computed, defineComponent, type PropType, ref, type StyleValue } from "vue";
 import { type RouteLocation } from "vue-router";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
@@ -175,9 +175,9 @@ export default defineComponent({
       default: null
     },
     variant: {
-      type: String as PropType<"standard" | "background" | "full">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "standard"
+      default: CardVariants.Standard
     },
     type: {
       type: String as PropType<"button" | "submit">,

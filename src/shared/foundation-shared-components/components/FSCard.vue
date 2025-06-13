@@ -44,7 +44,7 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, type ColorBase, ColorEnum, CardVariants } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
@@ -84,9 +84,9 @@ export default defineComponent({
       default: "8px"
     },
     variant: {
-      type: String as PropType<"background" | "standard" | "full" | "gradient">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "background"
+      default: CardVariants.Background
     },
     color: {
       type: [Array, String] as PropType<ColorBase | ColorBase[]>,
