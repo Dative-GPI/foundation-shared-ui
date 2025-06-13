@@ -4,17 +4,15 @@
     :description="$props.description"
     :required="$props.required"
     :disabled="$props.disabled"
-    :style="style"
   >
     <FSRow>
       <v-range-slider
-        class="fs-range-slider"
         hide-details
         width="100%"
         :disabled="$props.disabled"
         :ripple="false"
         :color="$props.color"
-        :style="style"
+        :trackSize="6"
         :elevation="0"
         :tickSize="4"
         :modelValue="$props.modelValue ?? undefined"
@@ -36,17 +34,18 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, type StyleValue } from "vue";
+import { defineComponent, type PropType } from "vue";
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 
 export default defineComponent({
   name: "FSRangeSlider",
   components: {
-    FSBaseField
+    FSBaseField,
+    FSRow
   },
   props: {
     label: {
@@ -81,34 +80,9 @@ export default defineComponent({
     }
   },
   emits: ["update:modelValue"],
-  setup(props) {
-    const { getColors } = useColors();
-
-    const colors = computed(() => getColors(props.color));
-    const lights = getColors(ColorEnum.Light);
-    const darks = getColors(ColorEnum.Dark);
-
-    const style = computed((): StyleValue => {
-      if (props.disabled) {
-        return {
-          "--fs-range-slider-cursor"     : "default",
-          "--fs-range-slider-track-color": lights.base,
-          "--fs-range-slider-thumb-color": lights.dark,
-          "--fs-range-slider-fill-color" : lights.dark,
-          "--fs-range-slider-color"      : lights.dark
-        };
-      }
-      return {
-        "--fs-range-slider-cursor"     : "pointer",
-        "--fs-range-slider-track-color": colors.value.light,
-        "--fs-range-slider-fill-color" : colors.value.base,
-        "--fs-range-slider-thumb-color": colors.value.base,
-        "--fs-range-slider-color"      : darks.base
-      };
-    });
+  setup() {
 
     return {
-      style
     };
   } 
 });

@@ -1,85 +1,55 @@
 <template>
-  <FSCol>
-    <slot
-      name="label"
-    >
-      <FSRow
-        :wrap="false"
+  <FSBaseField
+    :label="$props.label"
+    :description="$props.description"
+    :required="$props.required"
+    :disabled="$props.disabled"
+    :style="style"
+  >
+    <FSRow>
+      <v-slider
+        hide-details
+        class="fs-slider"
+        width="100%"
+        :color="$props.color"
+        :disabled="$props.disabled"
+        :ripple="false"
+        :trackSize="6"
+        :elevation="0"
+        :tickSize="4"
+        :modelValue="$props.modelValue ?? undefined"
+        @update:modelValue="$emit('update:modelValue', $event)"
+        v-bind="$attrs"
       >
-        <FSSpan
-          v-if="$props.label"
-          class="fs-slider-label"
-          font="text-overline"
-          :style="style"
+        <template
+          v-for="(_, name) in $slots"
+          v-slot:[name]="slotData"
         >
-          {{ $props.label }}
-        </FSSpan>
-        <FSSpan
-          v-if="$props.label && $props.required"
-          style="margin-left: -8px;"
-          class="fs-slider-label"
-          font="text-overline"
-          :ellipsis="false"
-          :style="style"
-        >
-          *
-        </FSSpan>
-      </FSRow>
-    </slot>
-    <v-slider
-      class="fs-slider"
-      hide-details
-      :disabled="$props.disabled"
-      :ripple="false"
-      :style="style"
-      :elevation="0"
-      :tickSize="4"
-      :modelValue="$props.modelValue ?? undefined"
-      @update:modelValue="$emit('update:modelValue', $event)"
-      v-bind="$attrs"
-    >
-      <template
-        v-for="(_, name) in $slots"
-        v-slot:[name]="slotData"
-      >
-        <slot
-          :name="name"
-          v-bind="slotData"
-        />
-      </template>
-    </v-slider>
-    <slot
-      name="description"
-    >
-      <FSSpan
-        v-if="$props.description"
-        class="fs-slider-description"
-        font="text-overline"
-        :lineClamp="2"
-        :style="style"
-      >
-        {{ $props.description }}
-      </FSSpan>
-    </slot>
-  </FSCol>
+          <slot
+            :name="name"
+            v-bind="slotData"
+          />
+        </template>
+      </v-slider>
+    </FSRow>
+  </FSBaseField>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { useColors } from "@dative-gpi/foundation-shared-components/composables";
+import { useColors } from '@dative-gpi/foundation-shared-components/composables';
 
-import FSSpan from "./FSSpan.vue";
-import FSCol from "./FSCol.vue";
-import FSRow from "./FSRow.vue";
+import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
+import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 
 export default defineComponent({
   name: "FSSlider",
   components: {
-    FSSpan,
-    FSCol,
-    FSRow
+    FSRow,
+    FSBaseField
   },
   props: {
     label: {
@@ -118,26 +88,20 @@ export default defineComponent({
 
     const colors = computed(() => getColors(props.color));
     const lights = getColors(ColorEnum.Light);
-    const darks = getColors(ColorEnum.Dark);
 
     const style = computed((): StyleValue => {
       if (props.disabled) {
         return {
-          "--fs-slider-cursor"     : "default",
-          "--fs-slider-track-color": lights.base,
-          "--fs-slider-thumb-color": lights.base,
-          "--fs-slider-color"      : lights.dark
+          "--fs-slider-thumb-color": lights.base
         };
       }
       return {
-        "--fs-slider-cursor"     : "pointer",
-        "--fs-slider-track-color": colors.value.light,
-        "--fs-slider-thumb-color": colors.value.base,
-        "--fs-slider-color"      : darks.base
+        "--fs-slider-thumb-color": colors.value.base
       };
     });
 
     return {
+      colors,
       style
     };
   } 

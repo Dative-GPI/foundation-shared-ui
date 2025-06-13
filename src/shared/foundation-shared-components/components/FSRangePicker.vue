@@ -24,13 +24,11 @@
         padding="0 0 2px 0"
         align="center-center"
       >
-        <FSCol
-          width="fill"
-        >
+        <FSCol>
           <FSRangeSlider
             minWidth='min(300px, 90vw)'
             :disabled="$props.disabled"
-            :color="ColorEnum.Dark"
+            :color="ColorEnum.Light"
             :thumbColor="ColorEnum.Primary"
             :trackFillColor="ColorEnum.Primary"
             :trackSize="8"
@@ -40,7 +38,6 @@
             :max="endTimestamp"
             :ticks="ticks"
             showTicks="always"
-            :tick-size="4"
             :modelValue="$props.modelValue"
             @update:modelValue="$emit('update:modelValue', $event)"
           >
@@ -61,7 +58,7 @@
                   :color="lightColors.dark"
                   font="text-overline"
                 >
-                  {{ ticksPrecision === TimePrecision.Hours ? epochToShortTimeOnlyFormat(tick.value) : epochToDayMonthShortOnly(tick.value) }}
+                  {{ tickPrecision === TimePrecision.Hours ? epochToShortTimeOnlyFormat(tick.value) : epochToDayMonthShortOnly(tick.value) }}
                 </FSText>
               </FSRow>
             </template>
@@ -83,10 +80,11 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch, type PropType } from "vue";
 
+import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-components/composables';
 import { useDateFormat, useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
 
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-components/composables';
+import { computeTicks, TimePrecision } from '@dative-gpi/foundation-shared-components/utils';
 
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
@@ -95,12 +93,6 @@ import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/F
 import FSRangeSlider from '@dative-gpi/foundation-shared-components/components/FSRangeSlider.vue';
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
-
-enum TimePrecision {
-  Hours = 1,
-  Days = 2,
-  Months = 3
-}
 
 export default defineComponent({
   name: "FSRangePicker",
@@ -190,75 +182,26 @@ export default defineComponent({
     const startTimestamp = computed(() => convertTermToEpoch(props.startDate));
     const endTimestamp = computed(() => convertTermToEpoch(props.endDate));
 
-    
-
-    const tickCountToShow = computed(() => {
-      if (isExtraSmall.value) {
-        return 3;
-      }
-      if (isMobileSized.value) {
-        return 4;
-      }
+    const tickCount = computed(() => {
+      if (isExtraSmall.value) { return 3; }
+      if (isMobileSized.value) { return 4; }
       return 5;
     });
 
-    const ticksPrecision = computed(() => {
+    const tickPrecision = computed(() => {
       const rangeDuration = endTimestamp.value - startTimestamp.value;
-      if (rangeDuration <= 86400000 * tickCountToShow.value) {
-        return TimePrecision.Hours;
-      }
-      if (rangeDuration <= 2592000000 * tickCountToShow.value) {
-        return TimePrecision.Days;
-      }
+      if (rangeDuration <= 86400000 * tickCount.value) { return TimePrecision.Hours; }
+      if (rangeDuration <= 2592000000 * tickCount.value) { return TimePrecision.Days; }
       return TimePrecision.Months;
     });
 
-    const ticks = computed(() => {
-      const ticks: number[] = [];
-      const count = tickCountToShow.value;
-      const precision = ticksPrecision.value;
-
-      const start = startTimestamp.value;
-      const end = endTimestamp.value;
-      const range = end - start;
-
-      let step: number;
-
-      if (precision === TimePrecision.Hours) {
-        step = Math.ceil(range / count / 3600000) * 3600000;
-        const alignedStart = Math.ceil(start / 3600000) * 3600000;
-
-        for (let i = 0; i < count; i++) {
-          const tick = alignedStart + i * step;
-          if (tick < end) {
-            ticks.push(tick);
-          }
-        }
-
-      } else if (precision === TimePrecision.Days) {
-        step = Math.ceil(range / count / 86400000) * 86400000;
-
-        const date = new Date(start);
-        date.setHours(0, 0, 0, 0);
-        const alignedStart = date.getTime() + (date.getTime() < start ? step : 0);
-
-        for (let i = 0; i < count; i++) {
-          const tick = alignedStart + i * step;
-          if (tick < end) {
-            ticks.push(tick);
-          }
-        }
-
-      } else {
-        const interval = range / count;
-        for (let i = 0; i < count; i++) {
-          ticks.push(start + i * interval);
-        }
-      }
-
-      return ticks;
-    });
-
+    // Génération des ticks via la fonction utilitaire
+    const ticks = computed(() => computeTicks({
+      start: startTimestamp.value,
+      end: endTimestamp.value,
+      tickCount: tickCount.value,
+      precision: tickPrecision.value
+    }));
 
     const onPlayingChange = (value: boolean) => {
       playing.value = value;
@@ -302,8 +245,8 @@ export default defineComponent({
       lightColors,
       endTimestamp,
       TimePrecision,
+      tickPrecision,
       startTimestamp,
-      ticksPrecision,
       epochToISO,
       onPlayingChange,
       onClickForward,
