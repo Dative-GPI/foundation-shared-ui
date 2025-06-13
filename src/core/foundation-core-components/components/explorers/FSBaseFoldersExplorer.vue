@@ -251,10 +251,6 @@ export default defineComponent({
             text: dashboardTypeLabel(DashboardType.Shallow)
           },
           {
-            value: DashboardType.OrganisationType,
-            text: dashboardTypeLabel(DashboardType.OrganisationType)
-          },
-          {
             value: 10,
             text: $tr("ui.common.folder", "Folder")
           },
