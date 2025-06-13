@@ -13,7 +13,9 @@ export const FOLDERS: FolderDetailsDTO[] = [
         imageId: "1",
         parentId: null,
         parentLabel: null,
-        parentIcon: null
+        parentIcon: null,
+        recursiveFoldersIds: ["folder1"],
+        recursiveDashboardsIds: Array.from({ length: 112 }, (_, i) => `dashboard${i + 1}`),
     },
     {
         id: "folder2",
@@ -27,7 +29,9 @@ export const FOLDERS: FolderDetailsDTO[] = [
         imageId: null,
         parentId: null,
         parentLabel: null,
-        parentIcon: null
+        parentIcon: null,
+        recursiveFoldersIds: ["folder1"],
+        recursiveDashboardsIds: Array.from({ length: 85 }, (_, i) => `dashboard${i + 1}`),
     },
     {
         id: "folder3",
