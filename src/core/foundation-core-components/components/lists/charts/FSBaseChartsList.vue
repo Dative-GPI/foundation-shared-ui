@@ -77,10 +77,10 @@
       />
     </template>
     <template
-      #item.origin="{ item }"
+      #item.scope="{ item }"
     >
       <FSChip
-        :label="chartOriginLabel(item.origin)"
+        :label="applicationScopeLabel(item.scope)"
         :color="ColorEnum.Light"
       />
     </template>
@@ -107,7 +107,7 @@
 import { defineComponent, type PropType, watch, computed } from "vue";
 import _ from "lodash";
 
-import { chartTypeLabel, chartIcon, chartOriginLabel } from "@dative-gpi/foundation-shared-components/tools";
+import { chartTypeLabel, chartIcon, applicationScopeLabel } from "@dative-gpi/foundation-shared-components/tools";
 import { ChartOrigin, ChartType } from "@dative-gpi/foundation-shared-domain/enums";
 import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -198,8 +198,7 @@ export default defineComponent({
         tags: c.tags,
         multiple: c.multiple,
         chartType: c.chartType,
-        modelsLabels: c.modelsLabels,
-        origin: ChartOrigin.Organisation
+        modelsLabels: c.modelsLabels
       })).concat(chartOrganisationTypes.value.map(c => ({
         id: c.id,
         imageId: c.imageId,
@@ -214,8 +213,7 @@ export default defineComponent({
         tags: c.tags,
         multiple: c.multiple,
         chartType: c.chartType,
-        modelsLabels: c.modelsLabels,
-        origin: ChartOrigin.OrganisationType
+        modelsLabels: c.modelsLabels
       })));
     });
 
@@ -244,10 +242,10 @@ export default defineComponent({
         })),
         methodFilter: (value: ChartType, item: ChartType) => value == item
       },
-      origin: {
+      scope: {
         fixedFilters: getEnumEntries(ChartOrigin).filter(e => e.value != ChartOrigin.None).map(e => ({
           value: e.value,
-          text: chartOriginLabel(e.value)
+          text: applicationScopeLabel(e.value)
         })),
         methodFilter: (value: ChartOrigin, item: ChartOrigin) => value == item
       }
@@ -296,7 +294,7 @@ export default defineComponent({
       headersOptions,
       ColorEnum,
       charts,
-      chartOriginLabel,
+      applicationScopeLabel,
       chartTypeLabel,
       isSelected,
       chartIcon,

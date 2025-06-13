@@ -551,7 +551,7 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
         {
             columnId: "6",
             text: "Chart scope",
-            value: "origin",
+            value: "scope",
             index: 3,
             hidden: false,
             sortable: false,
