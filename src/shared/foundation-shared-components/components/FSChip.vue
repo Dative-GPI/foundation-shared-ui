@@ -4,9 +4,8 @@
     class="fs-chip"
     padding="2px 20px"
     :borderRadius="50"
-    :border="showBorder"
     :color="$props.color"
-    :variant="cardVariant"
+    :variant="$props.variant"
     :height="$props.height"
     :width="$props.width"
     @click="$emit('click', $event)"
@@ -53,9 +52,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType } from "vue";
+import { defineComponent, type PropType } from "vue";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSIcon from "./FSIcon.vue";
 import FSSpan from "./FSSpan.vue";
@@ -99,9 +98,9 @@ export default defineComponent({
       default: null
     },
     variant: {
-      type: String as PropType<"standard" | "full" | "borderless" | "gradient" | "background">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "full"
+      default: CardVariants.Full
     },
     color: {
       type: String as PropType<ColorBase>,
@@ -121,32 +120,11 @@ export default defineComponent({
   },
   inheritsAttrs: false,
   emits: ['click'],
-  setup(props) {
-
-    const cardVariant = computed(() => {
-      switch (props.variant) {
-        case "standard":
-          return "standard";
-        case "full":
-          return "full";
-        case "borderless":
-          return "standard";
-        case "gradient":
-          return "gradient";
-        default:
-          return "background";
-      }
-    });
-
-    const showBorder = computed(() => {
-      return props.variant !== "borderless";
-    });
+  setup() {
 
     return {
       FSClickable,
-      FSCard,
-      cardVariant,
-      showBorder
+      FSCard
     };
   }
 });

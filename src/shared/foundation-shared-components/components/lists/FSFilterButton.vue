@@ -40,6 +40,7 @@
             :height="['30px', '24px']"
             :variant="getAllVariant()"
             :color="$props.color"
+            align="center-left"
             :clickable="true"
             @click="onToggleAll"
           />
@@ -63,7 +64,9 @@
               :height="['30px', '24px']"
               :color="$props.color"
               :label="filter.text"
+              align="center-left"
               :clickable="true"
+              :border="false"
               :key="index"
               @click="() => onToggle(filter)"
             >
@@ -85,7 +88,7 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType, ref } from "vue";
 
-import { type ColorBase, ColorEnum, type FSDataTableColumn, type FSDataTableFilter } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum, type FSDataTableColumn, type FSDataTableFilter } from "@dative-gpi/foundation-shared-components/models";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 
 import FSSearchField from "../fields/FSSearchField.vue";
@@ -153,21 +156,21 @@ export default defineComponent({
       return props.filters;
     });
 
-    const getVariant = (filter: FSDataTableFilter): "background" | "full" | "borderless" => {
+    const getVariant = (filter: FSDataTableFilter): CardVariant => {
       if (singlePick.value || props.filters.filter(f => f.hidden).length > 0) {
         if (filter.hidden) {
-          return "background";
+          return CardVariants.Background;
         }
-        return "full";
+        return CardVariants.Full;
       }
-      return "borderless";
+      return CardVariants.Background;
     };
 
-    const getAllVariant = (): "standard" | "full" => {
+    const getAllVariant = (): CardVariant => {
       if (singlePick.value || props.filters.filter(f => f.hidden).length > 0) {
-        return "standard";
+        return CardVariants.Background;
       }
-      return "full";
+      return CardVariants.Full;
     };
 
     const onToggle = (filter: FSDataTableFilter): void => {

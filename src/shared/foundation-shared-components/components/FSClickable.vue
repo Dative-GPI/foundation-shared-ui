@@ -130,7 +130,7 @@
 import { computed, defineComponent, type PropType, ref, type StyleValue } from "vue";
 import { type RouteLocation } from "vue-router";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
@@ -175,9 +175,9 @@ export default defineComponent({
       default: null
     },
     variant: {
-      type: String as PropType<"standard" | "background" | "full">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "standard"
+      default: CardVariants.Standard
     },
     type: {
       type: String as PropType<"button" | "submit">,

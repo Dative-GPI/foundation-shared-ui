@@ -84,10 +84,12 @@ export const Variations: Story = {
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText>Variants</FSText>
       <div style="display: flex; gap: 10px;">
-        <FSChip width="200px" color="primary" variant="standard" label="standard" />
-        <FSChip width="200px" color="primary" variant="full" label="full" />
-        <FSChip width="200px" color="primary" variant="borderless" label="borderless" />
+        <FSChip width="200px" color="primary" variant="standard" label="standard" :clickable="true" />
+        <FSChip width="200px" color="primary" variant="standard" :border="false" label="standard no border" :clickable="true" />
+        <FSChip width="200px" color="primary" variant="full" label="full (default)" :clickable="true" />
+        <FSChip width="200px" color="primary" variant="background" label="background" :clickable="true" />
         <FSChip width="200px" :color="['primary', 'aqua']" variant="gradient" label="gradient" />
+        <FSChip width="200px" :color="['primary', 'aqua']" variant="gradient" label="gradient no border" :border="false" />
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText> Text align </FSText>
