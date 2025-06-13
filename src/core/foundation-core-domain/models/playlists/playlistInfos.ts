@@ -8,7 +8,7 @@ export class PlaylistInfos {
   code: string;
   looped: boolean;
   delay: number;
-  dashboard: PlaylistDashboard[];
+  dashboards: PlaylistDashboard[];
 
   constructor(params: PlaylistInfosDTO) {
     this.id = params.id;
@@ -18,7 +18,7 @@ export class PlaylistInfos {
     this.code = params.code;
     this.looped = params.looped;
     this.delay = params.delay;
-    this.dashboard = params.dashboard.map((d: PlaylistDashboardDTO) => new PlaylistDashboard(d));
+    this.dashboards = params.dashboards.map((d: PlaylistDashboardDTO) => new PlaylistDashboard(d));
   }
 }
 
@@ -30,7 +30,7 @@ export interface PlaylistInfosDTO {
   code: string;
   looped: boolean;
   delay: number;
-  dashboard: PlaylistDashboardDTO[];
+  dashboards: PlaylistDashboardDTO[];
 }
 
 export interface PlaylistFilters {

@@ -3,14 +3,14 @@ import type { DashboardType } from '@dative-gpi/foundation-shared-domain/enums';
 export class PlaylistDashboard
 {
   id: string;
-  dashboardScopeId: string;
+  dashboardScopedId: string;
   dashboardType: DashboardType;
   index: number;
 
   constructor(params: PlaylistDashboardDTO)
   {
       this.id = params.id;
-      this.dashboardScopeId = params.dashboardScopeId;
+      this.dashboardScopedId = params.dashboardScopedId;
       this.dashboardType = params.dashboardType as DashboardType;
       this.index = params.index;
   }
@@ -19,13 +19,13 @@ export class PlaylistDashboard
 export interface PlaylistDashboardDTO
 {
     id: string;
-    dashboardScopeId: string;
+    dashboardScopedId: string;
     dashboardType: number;
     index: number;
 }
 
 export interface CreatePlaylistDashboardDTO {
-    dashboardScopeId: string;
+    dashboardScopedId: string;
     dashboardType: number;
     index: number;
 }
