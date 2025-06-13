@@ -8,7 +8,7 @@ import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.v
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 
 const meta: Meta<typeof FSInformationsMenu> = {
-  title: 'Foundation/Shared/InformationsMenu',
+  title: 'Foundation/Shared/Menu/InformationsMenu',
   component: FSInformationsMenu,
   tags: ['autodocs'],
   argTypes: {
