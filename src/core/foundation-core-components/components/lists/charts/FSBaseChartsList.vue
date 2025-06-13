@@ -81,7 +81,7 @@
     >
       <FSChip
         :label="chartOriginLabel(item.origin)"
-        :color="chartOriginColor(item.origin)"
+        :color="ColorEnum.Light"
       />
     </template>
     <template
@@ -107,10 +107,10 @@
 import { defineComponent, type PropType, watch, computed } from "vue";
 import _ from "lodash";
 
+import { chartTypeLabel, chartIcon, chartOriginLabel } from "@dative-gpi/foundation-shared-components/tools";
 import { ChartOrigin, ChartType } from "@dative-gpi/foundation-shared-domain/enums";
 import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { chartTypeLabel, chartIcon, chartOriginLabel, chartOriginColor } from "@dative-gpi/foundation-shared-components/tools";
 
 import type { ChartModelLabel, ChartOrganisationFilters, ChartOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useChartOrganisations, useChartOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
@@ -297,7 +297,6 @@ export default defineComponent({
       ColorEnum,
       charts,
       chartOriginLabel,
-      chartOriginColor,
       chartTypeLabel,
       isSelected,
       chartIcon,

@@ -80,7 +80,7 @@
     >
       <FSChip
         v-if="item.type === FoldersListType.Dashboard"
-        :color="dashboardTypeColor(item.dashboardType)"
+        :color="ColorEnum.Light"
         :label="dashboardTypeLabel(item.dashboardType)"
       />
       <FSChip
@@ -132,7 +132,7 @@ import { useOrganisation } from "@dative-gpi/foundation-shared-services/composab
 import { useDashboardOrganisations, useFolders, useDashboardShallows, useAppOrganisationId, useCurrentUserOrganisation } from "@dative-gpi/foundation-core-services/composables";
 
 import { DashboardType } from "@dative-gpi/foundation-shared-domain/enums";
-import { dashboardTypeColor, dashboardTypeLabel, FoldersListType, type FoldersListItem } from "@dative-gpi/foundation-core-components/utils";
+import { dashboardTypeLabel, FoldersListType, type FoldersListItem } from "@dative-gpi/foundation-core-components/utils";
 import type { FolderFilters, DashboardOrganisationFilters, DashboardShallowFilters, DashboardInfos } from "@dative-gpi/foundation-core-domain/models";
 
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
@@ -331,7 +331,6 @@ export default defineComponent({
       isSelected,
       FoldersListType,
       DashboardType,
-      dashboardTypeColor,
       dashboardTypeLabel
     };
   }

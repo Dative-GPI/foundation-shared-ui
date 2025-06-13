@@ -32,7 +32,7 @@
       #item.dashboardType="{ item }"
     >
       <FSChip
-        :color="dashboardTypeColor(item.dashboardType)"
+        :color="ColorEnum.Light"
         :label="dashboardTypeLabel(item.dashboardType)"
       />
     </template>
@@ -105,7 +105,8 @@ import { useAppOrganisationId, useCurrentUserOrganisation, useDashboardOrganisat
 import type { DashboardOrganisationTypeFilters, DashboardOrganisationFilters, DashboardShallowFilters, DashboardInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useOrganisation } from "@dative-gpi/foundation-shared-services/composables";
 
-import { dashboardTypeColor, dashboardTypeLabel, type DashboardsListItem } from "@dative-gpi/foundation-core-components/utils";
+import { dashboardTypeLabel, type DashboardsListItem } from "@dative-gpi/foundation-core-components/utils";
+import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 import { DashboardType } from "@dative-gpi/foundation-shared-domain/enums";
 import { getEnumEntries } from '@dative-gpi/foundation-shared-domain';
 
@@ -264,13 +265,13 @@ export default defineComponent({
       fetchingDashboardShallows,
       headersOptions,
       selecteds,
+      ColorEnum,
       items,
       mainUserDashboardId,
       mainOrganisationDashboardId,
       onSelect,
       isSelected,
       DashboardType,
-      dashboardTypeColor,
       dashboardTypeLabel
     };
   }
