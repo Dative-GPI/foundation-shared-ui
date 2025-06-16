@@ -15,7 +15,7 @@ export class UserOrganisationDetails extends UserOrganisationInfos {
 
     constructor(params: UserOrganisationDetailsDTO) {
         super(params);
-        
+
         this.mainDashboardType = params.mainDashboardType as DashboardType;
         this.mainDashboardId = params.mainDashboardId;
         this.mainDashboardLabel = params.mainDashboardLabel;
@@ -52,10 +52,12 @@ export interface UpdateUserOrganisationDTO {
     roleId: string | null;
     mainDashboardType: DashboardType;
     mainDashboardId: string | null;
+    startOnKioskMode: boolean;
     tags: string[];
 }
 
 export interface ChangeCurrentUserOrganisationDashboardDTO {
     mainDashboardType: DashboardType;
     mainDashboardId: string | null;
+    startOnKioskMode: boolean;
 }
