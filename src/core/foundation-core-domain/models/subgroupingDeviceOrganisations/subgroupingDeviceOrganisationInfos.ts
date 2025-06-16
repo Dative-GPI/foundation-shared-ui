@@ -11,7 +11,6 @@ export class SubgroupingDeviceOrganisationInfos {
     this.subgroupingId = params.subgroupingId;
   }
 }
-
 export interface SubgroupingDeviceOrganisationInfosDTO {
   id: string;
   groupingId: string;
