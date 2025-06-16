@@ -233,7 +233,7 @@ export default defineComponent({
     }));
 
     const actualLayer = computed(() => {
-      return layers.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers ?? layers[0].layers;
+      return layers.value.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers;
     });
 
     const overlaySlots = computed(() => {
