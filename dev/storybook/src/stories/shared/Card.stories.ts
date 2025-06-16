@@ -1,73 +1,78 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import { VDivider } from 'vuetify/lib/components/index.mjs';
-
-import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
-import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
-import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
+import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
   title: 'Foundation/Shared/Card',
   component: FSCard,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+
   },
 } satisfies Meta<typeof FSCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Variations: Story = {
-  render: () => ({
-    components: { VDivider, FSCard, FSText, FSRow, FSButton },
+export const Default: Story = {
+  render: (args) => ({
+    components: { FSCard },
+    setup() {
+      return { args };
+    },
     template: `
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-        <div style="display: flex; gap: 10px;">
-            <FSCard>
-                <template #header>
-                    <FSText font="text-button">Obiwan kenobi</FSText>
-                </template>
-                <template #body>
-                    <FSText> - Hello there!</FSText>
-                </template>
-            </FSCard>
-        </div>
-        <div style="display: flex; gap: 10px;">
-            <FSCard>
-                <template #header>
-                    <FSText font="text-button">General Grievous</FSText>
-                </template>
-                <template #body>
-                    <FSText> - General Kenobi!</FSText>
-                </template>
-                <template #footer>
-                    <FSText font="text-overline">(suprised)</FSText>
-                </template>
-            </FSCard>
-            <FSCard>
-                <template #header>
-                    <FSText font="text-button">General Grievous</FSText>
-                </template>
-                <template #body>
-                    <FSText> - You are a bold one.</FSText>
-                </template>
-            </FSCard>
-        </div>
-        <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-        <div style="display: flex; gap: 10px;">
-            <FSCard color="primary">
-                <FSRow>
-                    <FSButton color="primary" variant="icon" icon="mdi-format-header-1" />
-                    <FSButton color="primary" variant="icon" icon="mdi-format-header-2" />
-                    <FSButton color="primary" variant="icon" icon="mdi-format-header-3" />
-                    <v-divider vertical />
-                    <FSButton color="primary" variant="icon" icon="mdi-format-bold" />
-                    <FSButton color="primary" variant="icon" icon="mdi-format-italic" />
-                </FSRow>
-            </FSCard>
-        </div>
-    </div>`
-  })
-}
+    <FSCard
+      v-bind="args"
+    >
+      I am a card content
+    </FSCard>`
+  }),
+  args: {
+    padding: '16px'
+  },
+};
+
+export const Variants: Story = {
+  render: (args) => ({
+    components: { FSCard },
+    setup() {
+      return { args, ColorEnum };
+    },
+    template: `
+    <div
+        style="display: flex; flex-direction: row; gap: 16px;"
+    >
+        <FSCard
+        v-bind="args"
+        variant="background"
+        >
+        Variant : background
+        </FSCard>
+        <FSCard
+        v-bind="args"
+        variant="standard"
+        >
+        Variant : standard
+        </FSCard>
+        <FSCard
+        v-bind="args"
+        variant="full"
+        >
+        Variant : full
+        </FSCard>
+        <FSCard
+        v-bind="args"
+        :color="[ColorEnum.Primary, ColorEnum.Error]"
+        variant="gradient"
+        >
+        Variant : gradient
+        </FSCard>
+    </div>
+    `
+  }),
+  args: {
+    padding: '16px',
+    color: ColorEnum.Primary
+  },
+};

@@ -3,33 +3,7 @@
     :class="classes"
     :style="style"
   >
-    <slot>
-      <FSCol
-        :gap="$props.gap"
-      >
-        <FSRow
-          v-if="$slots.header"
-        >
-          <slot
-            name="header"
-          />
-        </FSRow>
-        <FSRow
-          v-if="$slots.body"
-        >
-          <slot
-            name="body"
-          />
-        </FSRow>
-        <FSRow
-          v-if="$slots.footer"
-        >
-          <slot
-            name="footer"
-          />
-        </FSRow>
-      </FSCol>
-    </slot>
+    <slot />
     <FSRow
       v-if="$slots['top-right']"
       class="fs-card-top-right"
@@ -48,13 +22,11 @@ import { type CardVariant, type ColorBase, ColorEnum, CardVariants } from "@dati
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
-import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
 export default defineComponent({
   name: "FSCard",
   components: {
-    FSCol,
     FSRow
   },
   props: {
