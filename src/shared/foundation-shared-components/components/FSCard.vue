@@ -1,28 +1,52 @@
 <template>
-  <div
-    :class="classes"
+  <component
+    :is="wrapperComponent"
+    :class="['fs-card-wrapper', $props.class]"
+    :to="$props.to"
+    :href="$props.href"
+    :disabled="$props.disabled"
+    :load="$props.load"
+    :type="wrapperType"
     :style="style"
+    v-on="wrapperListeners"
   >
-    <slot />
-    <FSRow
-      v-if="$slots['top-right']"
-      class="fs-card-top-right"
+    <div
+      :class="classes"
     >
       <slot
-        name="top-right"
+        name="default"
+        v-bind="{ contentVariant }"
       />
-    </FSRow>
-  </div>
+      <v-progress-circular
+        v-if="$props.load"
+        class="fs-card-load__spinner"
+        width="2"
+        size="24"
+        :indeterminate="true"
+        :color="loadColor"
+      />
+      <FSRow
+        v-if="$slots['top-right']"
+        class="fs-card-top-right"
+      >
+        <slot
+          name="top-right"
+        />
+      </FSRow>
+    </div>
+  </component>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, type StyleValue } from "vue";
+import { computed, defineComponent, ref, type PropType, type StyleValue } from "vue";
+import { type RouteLocation } from "vue-router";
 
-import { type CardVariant, type ColorBase, ColorEnum, CardVariants } from "@dative-gpi/foundation-shared-components/models";
-import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
+import { useColors } from "@dative-gpi/foundation-shared-components/composables";
+import { type CardVariant, type ColorBase, ColorEnum, CardVariants, type ColorBaseVariations } from "@dative-gpi/foundation-shared-components/models";
 
 import FSRow from "./FSRow.vue";
+import FSRouterLink from "./FSRouterLink.vue";
 
 export default defineComponent({
   name: "FSCard",
@@ -32,72 +56,88 @@ export default defineComponent({
   props: {
     height: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
       default: null
     },
     width: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
       default: null
     },
     maxWidth: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
       default: null
     },
     padding: {
       type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
       default: "0"
     },
-    gap: {
-      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
-      default: "8px"
+    class: {
+      type: [String, Array] as PropType<string | string[] | null>,
+      default: null
+    },
+    to: {
+      type: Object as PropType<RouteLocation | null>,
+      default: null
+    },
+    href: {
+      type: String as PropType<string | null>,
+      default: null
     },
     variant: {
       type: String as PropType<CardVariant>,
       required: false,
       default: CardVariants.Background
     },
+    clickable: {
+      type: Boolean,
+      default: false
+    },
+    buttonType: {
+      type: String as PropType<"button" | "submit">,
+      default: "button"
+    },
     color: {
       type: [Array, String] as PropType<ColorBase | ColorBase[]>,
-      required: false,
       default: ColorEnum.Background
     },
     border: {
       type: Boolean,
-      required: false,
       default: true
     },
     borderRadius: {
       type: [String, Number],
-      required: false,
       default: "4px"
     },
     borderStyle: {
       type: String as PropType<"solid" | "dashed" | "dotted" | "double" | "groove" | "ridge" | "inset" | "outset" | "none">,
-      required: false,
       default: "solid"
     },
     borderColor: {
       type: [Array, String] as PropType<ColorBase | null | string>,
-      required: false,
       default: null
     },
     elevation: {
       type: Boolean,
-      required: false,
       default: false
     },
     topRightPadding: {
       type: [String, Number],
-      required: false,
       default: "4px"
+    },
+    load: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
-  setup(props) {
+  emits: ["click"],
+  setup(props, { emit }) {
     const { getColors, getGradients } = useColors();
+
+    const active = ref(false);
+    const hover = ref(false);
 
     const colors = computed(() => {
       if (Array.isArray(props.color)) {
@@ -109,6 +149,40 @@ export default defineComponent({
     const backgrounds = getColors(ColorEnum.Background);
     const lights = getColors(ColorEnum.Light);
     const darks = getColors(ColorEnum.Dark);
+
+    const wrapperComponent = computed(() => {
+      if (!props.clickable) {
+        return "div";
+      }
+      if (props.href) {
+        return "a";
+      }
+      if (props.to) {
+        return FSRouterLink;
+      }
+      return "button";
+    });
+
+    const wrapperType = computed((): "button" | "submit" | undefined => {
+      if (props.clickable && !props.to && !props.href) {
+        return props.buttonType;
+      }
+    });
+
+    const contentVariant = computed((): ColorBaseVariations => {
+      if (active.value) {
+        return "darkContrast";
+      }
+      if (hover.value) {
+        return "baseContrast";
+      }
+      switch (props.variant) {
+        case "standard"  : return "lightContrast";
+        case "background": return "base";
+        case "full"      : return "baseContrast";
+      }
+      return "base";
+    });
 
     const borderColor = computed((): ColorBase => {
       if (props.borderColor) {
@@ -131,59 +205,63 @@ export default defineComponent({
       }
     });
 
+    const loadColor = computed((): string => {
+      return colors.value[contentVariant.value] ?? colors.value.baseContrast!;
+    });
+
     const style = computed((): StyleValue => {
+      const baseStyle = {
+        "--fs-card-border-size"     : props.border ? "1px" : "0",
+        "--fs-card-border-style"    : props.borderStyle,
+        "--fs-card-border-radius"   : sizeToVar(props.borderRadius),
+        "--fs-card-padding"         : sizeToVar(props.padding),
+        "--fs-card-height"          : sizeToVar(props.height),
+        "--fs-card-width"           : sizeToVar(props.width),
+        "--fs-card-max-width"       : sizeToVar(props.maxWidth, "unset"),
+        "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
+      };
+      if (props.disabled) {
+        return {
+          ...baseStyle,
+          "--fs-card-background-color": lights.light,
+          "--fs-card-border-color"    : lights.dark,
+          "--fs-card-color"           : lights.dark
+        };
+      }
+      
       switch (props.variant) {
         case "background": return {
-          "--fs-card-border-size"     : props.border ? "1px" : "0",
-          "--fs-card-border-style"    : props.borderStyle,
-          "--fs-card-border-radius"   : sizeToVar(props.borderRadius),
-          "--fs-card-padding"         : sizeToVar(props.padding),
-          "--fs-card-height"          : sizeToVar(props.height),
-          "--fs-card-width"           : sizeToVar(props.width),
-          "--fs-card-max-width"       : sizeToVar(props.maxWidth, "unset"),
+          ...baseStyle,
           "--fs-card-background-color": backgrounds.base,
           "--fs-card-border-color"    : borderColor.value,
           "--fs-card-color"           : darks.base,
-          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
+          "--fs-card-hover-background-color" : colors.value.base,
+          "--fs-card-hover-border-color"     : colors.value.baseContrast!,
+          "--fs-card-hover-color"            : colors.value.baseContrast!
         }
         case "standard": return {
-          "--fs-card-border-size"     : props.border ? "1px" : "0",
-          "--fs-card-border-style"    : props.borderStyle,
-          "--fs-card-border-radius"   : sizeToVar(props.borderRadius),
-          "--fs-card-padding"         : sizeToVar(props.padding),
-          "--fs-card-height"          : sizeToVar(props.height),
-          "--fs-card-width"           : sizeToVar(props.width),
-          "--fs-card-max-width"       : sizeToVar(props.maxWidth, "unset"),
+          ...baseStyle,
           "--fs-card-background-color": colors.value.light,
           "--fs-card-border-color"    : borderColor.value,
           "--fs-card-color"           : colors.value.lightContrast!,
-          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
+          "--fs-card-hover-background-color" : colors.value.base,
+          "--fs-card-hover-border-color"     : colors.value.base,
+          "--fs-card-hover-color"            : colors.value.baseContrast!
         }
         case "full": return {
-          "--fs-card-border-size"     : props.border ? "1px" : "0",
-          "--fs-card-border-style"    : props.borderStyle,
-          "--fs-card-border-radius"   : sizeToVar(props.borderRadius),
-          "--fs-card-padding"         : sizeToVar(props.padding),
-          "--fs-card-height"          : sizeToVar(props.height),
-          "--fs-card-width"           : sizeToVar(props.width),
-          "--fs-card-max-width"       : sizeToVar(props.maxWidth, "unset"),
+          ...baseStyle,
           "--fs-card-background-color": colors.value.base,
           "--fs-card-border-color"    : borderColor.value,
           "--fs-card-color"           : colors.value.baseContrast!,
-          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
+          "--fs-card-hover-background-color" : colors.value.base,
+          "--fs-card-hover-border-color"     : colors.value.base,
+          "--fs-card-hover-color"            : colors.value.baseContrast!
         }
         case "gradient": return {
-          "--fs-card-border-size"     : props.border ? "1px" : "0",
-          "--fs-card-border-style"    : props.borderStyle,
-          "--fs-card-border-radius"   : sizeToVar(props.borderRadius),
-          "--fs-card-padding"         : sizeToVar(props.padding),
-          "--fs-card-height"          : sizeToVar(props.height),
-          "--fs-card-width"           : sizeToVar(props.width),
-          "--fs-card-max-width"       : sizeToVar(props.maxWidth, "unset"),
+          ...baseStyle,
           "--fs-card-background-color": gradients.value.base,
           "--fs-card-border-color"    : borderColor.value,
-          "--fs-card-color"           : colors.value.lightContrast!,
-          "--fs-card-top-right-padding": sizeToVar(props.topRightPadding)
+          "--fs-card-color"           : colors.value.lightContrast!
         }
       }
     });
@@ -196,21 +274,60 @@ export default defineComponent({
           break;
         case "background":
           classNames.push("fs-card-background");
-          classNames.push("fs-card-clickable");
           break;
         default:
           classNames.push("fs-card-background");
           break;
       }
+
+      if (props.clickable) {
+        classNames.push("fs-card-clickable");
+      }
+      if (props.disabled) {
+        classNames.push("fs-card-disabled");
+      }
+      if (props.load) {
+        classNames.push("fs-card-load");
+      }
       if (props.elevation) {
         classNames.push("fs-card-elevation");
       }
+      
       return classNames;
     });
+    
+    const wrapperListeners = computed(() => {
+      if (props.clickable && !props.disabled) {
+        return {
+          mouseover: () => { hover.value = true },
+          mouseleave: () => { hover.value = false },
+          mousedown: () => { active.value = true },
+          mouseup: () => { active.value = false },
+          click: onClick
+        };
+      }
+      return {};
+    });
+
+    const onClick = (event: MouseEvent) => {
+      if (!props.clickable || props.to || props.href || props.disabled || props.load) {
+        return;
+      }
+      emit("click", event);
+    };
 
     return {
+      wrapperComponent,
+      contentVariant,
+      FSRouterLink,
+      wrapperType,
+      loadColor,
       classes,
-      style
+      active,
+      hover,
+      style,
+      onClick,
+      wrapperListeners
     };
   }
 });

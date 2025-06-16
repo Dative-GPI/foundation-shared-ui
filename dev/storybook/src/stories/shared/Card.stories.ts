@@ -2,13 +2,22 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
+import { CardVariants } from '@dative-gpi/foundation-shared-components/models';
+import FSIcon from '@dative-gpi/foundation-shared-components/components/FSIcon.vue';
+import { addComponentEmits } from '@/utils/properties';
+import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 
 const meta = {
   title: 'Foundation/Shared/Card',
   component: FSCard,
   tags: ['autodocs'],
   argTypes: {
-
+    variant: {
+      control: { type: 'select' },
+      options: [CardVariants.Standard, CardVariants.Background, CardVariants.Gradient, CardVariants.Full],
+      description: 'Mode of the agenda view',
+    },
+    ...addComponentEmits(FSCard)
   },
 } satisfies Meta<typeof FSCard>;
 
@@ -17,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => ({
-    components: { FSCard },
+    components: { FSCard, FSSpan },
     setup() {
       return { args };
     },
@@ -25,7 +34,7 @@ export const Default: Story = {
     <FSCard
       v-bind="args"
     >
-      I am a card content
+      <FSSpan>I am a card content</FSSpan>
     </FSCard>`
   }),
   args: {
@@ -35,7 +44,7 @@ export const Default: Story = {
 
 export const Variants: Story = {
   render: (args) => ({
-    components: { FSCard },
+    components: { FSCard, FSSpan },
     setup() {
       return { args, ColorEnum };
     },
@@ -47,26 +56,26 @@ export const Variants: Story = {
         v-bind="args"
         variant="background"
         >
-        Variant : background
+        <FSSpan>Variant : background</FSSpan>
         </FSCard>
         <FSCard
         v-bind="args"
         variant="standard"
         >
-        Variant : standard
+        <FSSpan>Variant : standard</FSSpan>
         </FSCard>
         <FSCard
         v-bind="args"
         variant="full"
         >
-        Variant : full
+        <FSSpan>Variant : full</FSSpan>
         </FSCard>
         <FSCard
         v-bind="args"
         :color="[ColorEnum.Primary, ColorEnum.Error]"
         variant="gradient"
         >
-        Variant : gradient
+        <FSSpan>Variant : gradient</FSSpan>
         </FSCard>
     </div>
     `
@@ -74,5 +83,75 @@ export const Variants: Story = {
   args: {
     padding: '16px',
     color: ColorEnum.Primary
+  },
+};
+
+export const Clickables: Story = {
+  render: (args) => ({
+    components: {
+      FSCard,
+      FSSpan,
+      FSIcon
+    },
+    setup() {
+      return { args, ColorEnum };
+    },
+    inheritAttrs: false,
+    template: `
+    <div
+        style="display: flex; flex-direction: row; gap: 16px;"
+    >
+        <FSCard
+            v-bind="args"
+            href="https://dative-gpi.com"
+        >
+          <FSSpan>
+            Href
+          </FSSpan>
+        </FSCard>
+        <FSCard
+            v-bind="args"
+            :to="{ name: 'About' }"
+        >
+          <FSSpan>
+            Router Link
+          </FSSpan>
+        </FSCard>
+       <FSCard
+            v-bind="args" 
+            @click="() => console.log('Card clicked')"
+        >
+            <template #default="{ contentVariant }">
+                <FSIcon
+                    icon="mdi-check"
+                    :variant="contentVariant"
+                    color="error"
+                    size="16"
+                />
+                <FSSpan>
+                  Clickable event
+                </FSSpan>
+            </template>
+        </FSCard>
+        <FSCard
+            buttonType="submit"
+            v-bind="args"
+        >
+            <FSIcon
+                icon="mdi-check"
+                size="16"
+            />
+            <FSSpan>
+              Clickable submit
+            </FSSpan>
+        </FSCard>
+    </div>
+    `
+  }),
+  args: {
+    padding: '16px',
+    clickable: true,
+    color: ColorEnum.Primary,
+    variant: 'standard'
   },
 };
