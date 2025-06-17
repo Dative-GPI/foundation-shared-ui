@@ -176,10 +176,10 @@ export default defineComponent({
       if (props.type) {
         return props.type;
       }
-      if (wrapperComponent.value !== "button") {
-        return null;
+      if (wrapperComponent.value === "button") {
+        return "button";
       }
-      return "button";
+      return null;
     });
 
     const contentVariant = computed((): ColorBaseVariations => {

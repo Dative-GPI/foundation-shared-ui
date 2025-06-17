@@ -134,7 +134,7 @@ export const Clickables: Story = {
             </template>
         </FSCard>
         <FSCard
-            buttonType="submit"
+            type="submit"
             v-bind="args"
         >
             <FSIcon
