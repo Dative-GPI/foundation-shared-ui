@@ -7,7 +7,6 @@
     :selectable="$props.selectable"
     :showSearch="$props.showSearch"
     :disableTable="$props.disableTable"
-    :tableCode="$props.tableCode"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -65,11 +64,6 @@ export default defineComponent({
     FSGroupingTileUI
   },
   props: {
-    tableCode: {
-      type: String as PropType<string | null>,
-      required: false,
-      default: null
-    },
     itemTo: {
       type: Function as PropType<(item: GroupingInfos) => Partial<RouteLocation>>,
       required: false

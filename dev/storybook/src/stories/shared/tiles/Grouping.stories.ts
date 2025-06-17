@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import { addSubcomponentsArgTypes } from '@/utils/properties';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FSTile.vue';
+import FSSimpleTileUI from '@dative-gpi/foundation-shared-components/components/tiles/FSSimpleTileUI.vue';
 import FSGroupingTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSGroupingTileUI.vue";
 import FSLoadTile from '@dative-gpi/foundation-shared-components/components/tiles/FSLoadTile.vue';
 
@@ -11,7 +12,8 @@ const meta = {
   component: FSGroupingTileUI,
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSTile], FSGroupingTileUI)
+    ...addSubcomponentsArgTypes([FSTile, FSSimpleTileUI], FSGroupingTileUI),
+    ...addComponentEmits(FSGroupingTileUI),
   },
 } satisfies Meta<typeof FSGroupingTileUI>;
 
