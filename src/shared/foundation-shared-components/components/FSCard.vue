@@ -6,7 +6,7 @@
     :href="$props.href"
     :disabled="$props.disabled"
     :load="$props.load"
-    :type="wrapperType"
+    :type="actualWrapperType"
     :style="style"
     v-on="wrapperListeners"
   >
@@ -91,10 +91,6 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    buttonType: {
-      type: String as PropType<"button" | "submit">,
-      default: "button"
-    },
     color: {
       type: [Array, String] as PropType<ColorBase | ColorBase[]>,
       default: ColorEnum.Background
@@ -123,6 +119,10 @@ export default defineComponent({
       type: [String, Number],
       default: "4px"
     },
+    type: {
+      type: String as PropType<"button" | "submit" | "reset" | null>,
+      default: null
+    },
     load: {
       type: Boolean,
       default: false
@@ -133,11 +133,15 @@ export default defineComponent({
     }
   },
   emits: ["click"],
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const { getColors, getGradients } = useColors();
 
     const active = ref(false);
     const hover = ref(false);
+
+    const backgrounds = getColors(ColorEnum.Background);
+    const lights = getColors(ColorEnum.Light);
+    const darks = getColors(ColorEnum.Dark);
 
     const colors = computed(() => {
       if (Array.isArray(props.color)) {
@@ -145,13 +149,18 @@ export default defineComponent({
       }
       return getColors(props.color);
     });
-    const gradients = computed(() => getGradients(props.color, 135));
-    const backgrounds = getColors(ColorEnum.Background);
-    const lights = getColors(ColorEnum.Light);
-    const darks = getColors(ColorEnum.Dark);
 
+    const gradients = computed(() => getGradients(props.color, 135));
+
+    const actualClickable = computed((): boolean => {
+      if (props.clickable === false) {
+        return false;
+      }
+      return props.clickable || !!props.to || !!props.href || !!attrs.onClick;
+    });
+    
     const wrapperComponent = computed(() => {
-      if (!props.clickable) {
+      if (!actualClickable.value) {
         return "div";
       }
       if (props.href) {
@@ -163,10 +172,14 @@ export default defineComponent({
       return "button";
     });
 
-    const wrapperType = computed((): "button" | "submit" | undefined => {
-      if (props.clickable && !props.to && !props.href) {
-        return props.buttonType;
+    const actualWrapperType = computed(() => {
+      if (props.type) {
+        return props.type;
       }
+      if (wrapperComponent.value !== "button") {
+        return null;
+      }
+      return "button";
     });
 
     const contentVariant = computed((): ColorBaseVariations => {
@@ -280,7 +293,7 @@ export default defineComponent({
           break;
       }
 
-      if (props.clickable) {
+      if (actualClickable.value) {
         classNames.push("fs-card-clickable");
       }
       if (props.disabled) {
@@ -297,7 +310,7 @@ export default defineComponent({
     });
     
     const wrapperListeners = computed(() => {
-      if (props.clickable && !props.disabled) {
+      if (actualClickable.value && !props.disabled) {
         return {
           mouseover: () => { hover.value = true },
           mouseleave: () => { hover.value = false },
@@ -310,17 +323,17 @@ export default defineComponent({
     });
 
     const onClick = (event: MouseEvent) => {
-      if (!props.clickable || props.to || props.href || props.disabled || props.load) {
+      if (!actualClickable.value || props.disabled || props.load || props.href || props.to) {
         return;
       }
       emit("click", event);
     };
 
     return {
+      actualWrapperType,
       wrapperComponent,
       contentVariant,
       FSRouterLink,
-      wrapperType,
       loadColor,
       classes,
       active,

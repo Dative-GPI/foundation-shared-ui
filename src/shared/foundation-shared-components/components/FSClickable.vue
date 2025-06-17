@@ -1,7 +1,6 @@
 <template>
   <FSCard
     :variant="$props.variant"
-    :buttonType="$props.type"
     :color="$props.color"
     :clickable="true"
     v-bind="$attrs"
@@ -39,11 +38,6 @@ export default defineComponent({
       type: String as PropType<CardVariant>,
       required: false,
       default: CardVariants.Standard
-    },
-    type: {
-      type: String as PropType<"button" | "submit">,
-      required: false,
-      default: "button"
     },
     color: {
       type: String as PropType<ColorBase>,
