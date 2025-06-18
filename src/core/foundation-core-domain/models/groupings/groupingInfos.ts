@@ -1,10 +1,10 @@
 export class GroupingInfos {
   id: string;
   label: string;
-  description?: string | null;
+  description: string | null;
   icon: string;
-  iconColor?: string | null;
-  code?: string | null;
+  iconColor: string | null;
+  code: string | null;
   subgroupingCount: number;
 
   constructor(params: GroupingInfosDTO) {
@@ -21,10 +21,10 @@ export class GroupingInfos {
 export interface GroupingInfosDTO {
   id: string;
   label: string;
-  description?: string | null;
+  description: string | null;
   icon: string;
-  iconColor?: string | null;
-  code?: string | null;
+  iconColor: string | null;
+  code: string | null;
   subgroupingCount: number;
 }
 

@@ -27,7 +27,7 @@ export const Default: Story = {
     template: `
       <FSBaseGroupingsList
         v-model:modelValue="args.modelValue"
-        :tableCode="args.tableCode"
+        v-bind="args"
       />
     `,
   }),

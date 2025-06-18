@@ -14,14 +14,14 @@ export interface CreateGroupingDTO {
   description: string | null;
   icon: string;
   iconColor: string | null;
-  code?: string | null;
+  code: string | null;
 }
 
 export interface UpdateGroupingDTO {
   id: string;
   label: string;
-  description?: string | null;
-  code?: string | null;
+  description: string | null;
+  cod: string | null;
   icon: string;
-  iconColor?: string | null;
+  iconColor: string | null;
 }
