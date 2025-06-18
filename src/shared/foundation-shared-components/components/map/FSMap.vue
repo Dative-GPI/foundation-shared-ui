@@ -233,7 +233,7 @@ export default defineComponent({
     }));
 
     const actualLayer = computed(() => {
-      return layers.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers ?? layers[0].layers;
+      return layers.value.find((mapLayer) => mapLayer.name === props.currentLayer)?.layers;
     });
 
     const overlaySlots = computed(() => {
@@ -389,8 +389,6 @@ export default defineComponent({
       if(!map.value || !props.bounds) {
         return;
       }
-
-      //console.log("Bounds changed", props.bounds);
       fitBounds(props.bounds, { maxZoom: 14 });
     });
 
