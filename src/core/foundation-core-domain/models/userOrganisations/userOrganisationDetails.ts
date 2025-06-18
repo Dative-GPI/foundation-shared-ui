@@ -59,5 +59,4 @@ export interface UpdateUserOrganisationDTO {
 export interface ChangeCurrentUserOrganisationDashboardDTO {
     mainDashboardType: DashboardType;
     mainDashboardId: string | null;
-    startOnKioskMode: boolean;
 }
