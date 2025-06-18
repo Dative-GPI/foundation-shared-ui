@@ -508,6 +508,10 @@ export const Carousel: Story = {
         v-model:headers="args.headers"
         v-model="args.modelValue"
       >
+        <template #toolbar>
+          <FSButton>Toolbar 1</FSButton>
+          <FSButton>Toolbar button 2</FSButton>
+        </template>
         <template #item.statuses="{ item }">
           <FSStatusesCarousel
             :modelStatuses="item.modelStatuses"
