@@ -332,6 +332,14 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: true
+        }, {
+            columnId: "5",
+            text: "Type",
+            value: "dashboardType",
+            index: 4,
+            hidden: false,
+            sortable: true,
+            filterable: true
         }],
         sortByKey: null,
         sortByOrder: null
@@ -535,6 +543,15 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             columnId: "5",
             text: "Chart type",
             value: "chartType",
+            index: 3,
+            hidden: false,
+            sortable: false,
+            filterable: true
+        },
+        {
+            columnId: "6",
+            text: "Chart scope",
+            value: "scope",
             index: 3,
             hidden: false,
             sortable: false,
@@ -929,6 +946,14 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
                 "filterable": false,
                 "index": 3,
                 "hidden": false
+            }, {
+                columnId: "5",
+                text: "Type",
+                value: "dashboardType",
+                index: 4,
+                hidden: false,
+                sortable: true,
+                filterable: true
             }
         ],
         sortByKey: null,

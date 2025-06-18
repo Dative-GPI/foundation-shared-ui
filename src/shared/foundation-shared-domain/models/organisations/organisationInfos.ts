@@ -1,5 +1,6 @@
 export class OrganisationInfos {
     id: string;
+    organisationTypeId: string;
     imageId: string | null;
     label: string;
     userOrganisationsCount: number;
@@ -8,6 +9,7 @@ export class OrganisationInfos {
 
     constructor(params: OrganisationInfosDTO) {
         this.id = params.id;
+        this.organisationTypeId = params.organisationTypeId;
         this.imageId = params.imageId;
         this.label = params.label;
         this.userOrganisationsCount = params.userOrganisationsCount;
@@ -18,6 +20,7 @@ export class OrganisationInfos {
 
 export interface OrganisationInfosDTO {
     id: string;
+    organisationTypeId: string;
     imageId: string | null;
     label: string;
     userOrganisationsCount: number;
