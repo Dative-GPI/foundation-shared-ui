@@ -21,7 +21,7 @@ export interface UpdateGroupingDTO {
   id: string;
   label: string;
   description: string | null;
-  cod: string | null;
+  code: string | null;
   icon: string;
   iconColor: string | null;
 }
