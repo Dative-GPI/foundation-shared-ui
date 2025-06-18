@@ -17,7 +17,7 @@
         align="top-left"
       >
         <FSRow
-          v-if="$props.showSearch || filterableHeaders.length > 0 || $slots['toolbar']"
+          v-if="$props.showSearch || $slots['toolbar']"
           align="bottom-left"
         >
           <template
