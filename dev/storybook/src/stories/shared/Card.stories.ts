@@ -17,6 +17,9 @@ const meta = {
       options: [CardVariants.Standard, CardVariants.Background, CardVariants.Gradient, CardVariants.Full],
       description: 'Mode of the agenda view',
     },
+    clickable: {
+      control: { type: 'boolean' }
+    },
     ...addComponentEmits(FSCard)
   },
 } satisfies Meta<typeof FSCard>;
@@ -38,7 +41,8 @@ export const Default: Story = {
     </FSCard>`
   }),
   args: {
-    padding: '16px'
+    padding: '16px',
+    clickable: false,
   },
 };
 
@@ -134,8 +138,9 @@ export const Clickables: Story = {
             </template>
         </FSCard>
         <FSCard
-            type="submit"
-            v-bind="args"
+          :clickable="true"
+          type="submit"
+          v-bind="args"
         >
             <FSIcon
                 icon="mdi-check"
@@ -150,7 +155,6 @@ export const Clickables: Story = {
   }),
   args: {
     padding: '16px',
-    clickable: true,
     color: ColorEnum.Primary,
     variant: 'standard'
   },
