@@ -15,7 +15,7 @@
     <slot />
   </FSWrapGroup>
   <FSSlideGroup
-    v-if="$props.variant === 'slide'"
+    v-else-if="$props.variant === 'slide'"
     v-bind="$attrs"
   >
     <FSTag
@@ -36,12 +36,14 @@ import { defineComponent, type PropType } from "vue";
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
+import FSSlideGroup from '@dative-gpi/foundation-shared-components/components/FSSlideGroup.vue';
 import FSWrapGroup from "./FSWrapGroup.vue";
 import FSTag from "./FSTag.vue";
 
 export default defineComponent({
   name: "FSTagGroup",
   components: {
+    FSSlideGroup,
     FSWrapGroup,
     FSTag
   },

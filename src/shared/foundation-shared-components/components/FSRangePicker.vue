@@ -25,11 +25,12 @@
         align="center-center"
       >
         <FSCol>
-          <FSSlider
+          <FSRangeSlider
             minWidth='min(300px, 90vw)'
             :disabled="$props.disabled"
             :color="ColorEnum.Light"
             :thumbColor="ColorEnum.Primary"
+            :trackFillColor="ColorEnum.Primary"
             :trackSize="8"
             thumb-label="always"
             :step="$props.stepTime"
@@ -57,12 +58,11 @@
                   :color="lightColors.dark"
                   font="text-overline"
                 >
-                  {{ tickPrecision === TimePrecision.Hours ? epochToShortTimeOnlyFormat(tick.value) : epochToDayMonthShortOnly(tick.value)
-                  }}
+                  {{ tickPrecision === TimePrecision.Hours ? epochToShortTimeOnlyFormat(tick.value) : epochToDayMonthShortOnly(tick.value) }}
                 </FSText>
               </FSRow>
             </template>
-          </FSSlider>
+          </FSRangeSlider>
         </FSCol>
         <FSPlayButtons
           v-if="$props.playable"
@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, ref, watch, type PropType } from "vue";
 
 import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-components/composables';
 import { useDateFormat, useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
@@ -89,20 +89,20 @@ import { computeTicks, TimePrecision } from '@dative-gpi/foundation-shared-compo
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
-import FSSlider from '@dative-gpi/foundation-shared-components/components/FSSlider.vue';
 import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
+import FSRangeSlider from '@dative-gpi/foundation-shared-components/components/FSRangeSlider.vue';
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
 
 export default defineComponent({
-  name: "FSInstantPicker",
+  name: "FSRangePicker",
   components: {
     FSCol,
     FSSpan,
     FSText,
-    FSSlider,
     FSTermField,
     FSBaseField,
+    FSRangeSlider,
     FSPlayButtons,
   },
   props: {
@@ -110,9 +110,14 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    mode: {
+      type: String as () => 'single' | 'range',
+      required: false,
+      default: 'single'
+    },
     modelValue: {
-      type: Number,
-      required: false
+      type: Object as () => [number, number],
+      required: true
     },
     startDate: {
       type: String,
@@ -183,7 +188,6 @@ export default defineComponent({
       return 5;
     });
 
-    // Pour la précision, on peut rester sur l'heure ou le jour selon la plage
     const tickPrecision = computed(() => {
       const rangeDuration = endTimestamp.value - startTimestamp.value;
       if (rangeDuration <= 86400000 * tickCount.value) { return TimePrecision.Hours; }
@@ -191,6 +195,7 @@ export default defineComponent({
       return TimePrecision.Months;
     });
 
+    // Génération des ticks via la fonction utilitaire
     const ticks = computed(() => computeTicks({
       start: startTimestamp.value,
       end: endTimestamp.value,
@@ -203,32 +208,34 @@ export default defineComponent({
     };
 
     const onClickBackward = () => {
-      emit('update:modelValue', startTimestamp.value);
+      const modelValueDuration = props.modelValue[1] - props.modelValue[0];
+      emit('update:modelValue', [startTimestamp.value, startTimestamp.value + modelValueDuration]);
     };
 
     const onClickForward = () => {
-      emit('update:modelValue', endTimestamp.value);
+      const modelValueDuration = props.modelValue[1] - props.modelValue[0];
+      emit('update:modelValue', [endTimestamp.value - modelValueDuration, endTimestamp.value]);
     };
 
     watch([() => props.startDate, () => props.endDate, () => props.modelValue], () => {
-      if(!props.modelValue || props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value) {
-        emit('update:modelValue', endTimestamp.value);
+      if((props.modelValue[0] < startTimestamp.value || props.modelValue[1] > endTimestamp.value)) {
+        emit('update:modelValue', [startTimestamp.value, endTimestamp.value]);
       }
     }, { immediate: true });
 
     watch(playing, (value) => {
       if(!value && playingInterval.value) {
         clearInterval(playingInterval.value);
-      } else {
-        playingInterval.value = setInterval(() => {
-          if(props.modelValue && props.modelValue + props.stepTime <= endTimestamp.value) {
-            emit('update:modelValue', props.modelValue + props.stepTime);
-          } else {
-            emit('update:modelValue', endTimestamp.value);
-            playing.value = false;
-          }
-        }, props.playingStepDuration);
+        return;
       }
+
+      playingInterval.value = setInterval(() => {
+        if(props.modelValue[0] + props.stepTime <= endTimestamp.value && props.modelValue[1] + props.stepTime <= endTimestamp.value) {
+          emit('update:modelValue', [props.modelValue[0] + props.stepTime, props.modelValue[1] + props.stepTime]);
+        } else {
+          playing.value = false;
+        }
+      }, props.playingStepDuration);
     });
 
     return {

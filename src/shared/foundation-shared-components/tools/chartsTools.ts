@@ -1,4 +1,4 @@
-import { AxisType, ColorSets, SerieType, ChartType, TimeUnit, ChartOrigin, AggregationType, DisplayAs, FilterType, HeatmapRule, OperationOn, PlanningType, PlotPer } from "@dative-gpi/foundation-shared-domain/enums";
+import { AxisType, ColorSets, SerieType, ChartType, TimeUnit, ChartOrigin, AggregationType, DisplayAs, FilterType, HeatmapRule, OperationOn, PlanningType, PlotPer, ApplicationScope } from "@dative-gpi/foundation-shared-domain/enums";
 
 import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
@@ -13,6 +13,18 @@ export const chartOriginLabel = (type: ChartOrigin): string => {
     case ChartOrigin.OrganisationType: return $tr("ui.common.shared", "Shared");
   }
 };
+
+export const applicationScopeLabel = (type: ApplicationScope): string => {
+  switch (type) {
+    case ApplicationScope.None:
+      return $tr("ui.common.none", "None");
+    case ApplicationScope.Organisation:
+      return $tr("ui.common.custom", "Custom");
+    case ApplicationScope.OrganisationType:
+      return $tr("ui.common.shared", "Shared");
+  }
+};
+
 
 export const chartOriginColor = (type: ChartOrigin): ColorBase => {
   switch (type) {

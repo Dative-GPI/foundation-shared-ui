@@ -29,7 +29,7 @@
         </FSRow>
         <FSCol
           v-if="$props.breadcrumbs && $props.breadcrumbs.length > 0"
-          :padding="`0px ${isTouchScreenEnabled ? '20px' : '12px'} ${$slots.toolbar ? '12px' : '0px'} 12px`"
+          :padding="`0px ${isTouchScreenEnabled ? '20px' : '12px'} 12px 12px`"
           gap="16px"
         >
           <FSCol>
@@ -108,7 +108,7 @@ export default defineComponent({
     toolbarTopOffset: {
       type: String,
       required: false,
-      default: "72px" 
+      default: "52px" 
     },
     stickyTitleTopOffset: {
       type: String,

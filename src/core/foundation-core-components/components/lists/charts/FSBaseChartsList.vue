@@ -77,6 +77,14 @@
       />
     </template>
     <template
+      #item.scope="{ item }"
+    >
+      <FSChip
+        :label="applicationScopeLabel(item.scope)"
+        :color="ColorEnum.Light"
+      />
+    </template>
+    <template
       #item.tile="{ item }"
     >
       <FSChartTileUI
@@ -99,10 +107,10 @@
 import { defineComponent, type PropType, watch, computed } from "vue";
 import _ from "lodash";
 
-import { ChartType } from "@dative-gpi/foundation-shared-domain/enums";
+import { chartTypeLabel, chartIcon, applicationScopeLabel } from "@dative-gpi/foundation-shared-components/tools";
+import { ChartOrigin, ChartType } from "@dative-gpi/foundation-shared-domain/enums";
 import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { chartTypeLabel, chartIcon } from "@dative-gpi/foundation-shared-components/tools";
 
 import type { ChartModelLabel, ChartOrganisationFilters, ChartOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useChartOrganisations, useChartOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
@@ -111,6 +119,8 @@ import FSChartTileUI from "@dative-gpi/foundation-shared-components/components/t
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
+import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
+import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 import FSDataTable from "../FSDataTable.vue";
@@ -122,6 +132,8 @@ export default defineComponent({
     FSDataTable,
     FSTagGroup,
     FSImage,
+    FSText,
+    FSChip,
     FSIcon,
     FSRow
   },
@@ -229,7 +241,15 @@ export default defineComponent({
           text: chartTypeLabel(e.value)
         })),
         methodFilter: (value: ChartType, item: ChartType) => value == item
+      },
+      scope: {
+        fixedFilters: getEnumEntries(ChartOrigin).filter(e => e.value != ChartOrigin.None).map(e => ({
+          value: e.value,
+          text: applicationScopeLabel(e.value)
+        })),
+        methodFilter: (value: ChartOrigin, item: ChartOrigin) => value == item
       }
+
     }));
 
     const update = (value : string) => {
@@ -274,6 +294,7 @@ export default defineComponent({
       headersOptions,
       ColorEnum,
       charts,
+      applicationScopeLabel,
       chartTypeLabel,
       isSelected,
       chartIcon,

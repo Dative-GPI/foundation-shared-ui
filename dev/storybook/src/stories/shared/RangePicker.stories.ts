@@ -1,18 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
-import FSInstantPicker from "@dative-gpi/foundation-shared-components/components/FSInstantPicker.vue";
+import FSRangePicker from "@dative-gpi/foundation-shared-components/components/FSRangePicker.vue";
+import { addComponentEmits } from '@/utils/properties';
 
 const meta = {
-  title: 'Foundation/Shared/InstantPicker',
-  component: FSInstantPicker,
+  title: 'Foundation/Shared/RangePicker',
+  component: FSRangePicker,
   tags: ['autodocs'],
   argTypes: {
-    'onUpdate:startDate': { action: 'update:startDate' },
-    'onUpdate:endDate': { action: 'update:endDate' },
-    'onUpdate:modelValue': { action: 'update:modelValue' },
+    ...addComponentEmits(FSRangePicker)
   },
-} satisfies Meta<typeof FSInstantPicker>;
+} satisfies Meta<typeof FSRangePicker>;
 
 export default meta;
 
@@ -22,10 +21,10 @@ export const Default: Story = {
   args: {
     startDate: 'now - 3d',
     endDate: 'now',
-    modelValue: 0,
+    modelValue: [0, 0]
   },
-  render: (args, { argTypes }) => ({
-    components: { FSCol, FSInstantPicker },
+  render: (args) => ({
+    components: { FSCol, FSRangePicker },
     setup() {
       return { args };
     },
@@ -33,7 +32,7 @@ export const Default: Story = {
       <FSCol
         gap="20px"
       >
-        <FSInstantPicker
+        <FSRangePicker
           v-bind="args"
           v-model="args.modelValue"
           v-model:start-date="args.startDate"
