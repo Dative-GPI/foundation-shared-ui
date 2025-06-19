@@ -52,6 +52,7 @@ export const Variants: Story = {
     setup() {
       return { args, ColorEnum };
     },
+    inheritAttrs: false,
     template: `
     <div
         style="display: flex; flex-direction: row; gap: 16px;"

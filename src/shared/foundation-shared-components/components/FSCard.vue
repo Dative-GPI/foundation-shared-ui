@@ -1,13 +1,11 @@
 <template>
-  <component
-    :is="wrapperComponent"
-    :class="['fs-card-wrapper', $props.class]"
+  <FSNavigate
+    :style="style"
     :to="$props.to"
     :href="$props.href"
-    :disabled="$props.disabled"
-    :load="$props.load"
     :type="actualWrapperType"
-    :style="style"
+    :passive="actualClickable ? false : true"
+    :class="['fs-card-wrapper', $props.class]"
     v-on="wrapperListeners"
   >
     <div
@@ -34,7 +32,7 @@
         />
       </FSRow>
     </div>
-  </component>
+  </FSNavigate>
 </template>
 
 <script lang="ts">
@@ -46,11 +44,13 @@ import { useColors } from "@dative-gpi/foundation-shared-components/composables"
 import { type CardVariant, type ColorBase, ColorEnum, CardVariants, type ColorBaseVariations } from "@dative-gpi/foundation-shared-components/models";
 
 import FSRow from "./FSRow.vue";
+import FSNavigate from './FSNavigate.vue';
 import FSRouterLink from "./FSRouterLink.vue";
 
 export default defineComponent({
   name: "FSCard",
   components: {
+    FSNavigate,
     FSRow
   },
   props: {
@@ -83,7 +83,7 @@ export default defineComponent({
       default: null
     },
     onClick: {
-      type: Function as PropType<() => void | null>,
+      type: Function as PropType<(event: MouseEvent) => void | null>,
       required: false,
       default: null
     },
@@ -157,33 +157,17 @@ export default defineComponent({
     const gradients = computed(() => getGradients(props.color, 135));
 
     const actualClickable = computed((): boolean => {
-      if (props.clickable === false) {
+      if (props.clickable === false || props.disabled) {
         return false;
       }
       return props.clickable || !!props.to || !!props.href || !!props.onClick;
-    });
-    
-    const wrapperComponent = computed(() => {
-      if (!actualClickable.value) {
-        return "div";
-      }
-      if (props.href) {
-        return "a";
-      }
-      if (props.to) {
-        return FSRouterLink;
-      }
-      return "button";
     });
 
     const actualWrapperType = computed(() => {
       if (props.type) {
         return props.type;
       }
-      if (wrapperComponent.value === "button") {
-        return "button";
-      }
-      return null;
+      return "button";
     });
 
     const contentVariant = computed((): ColorBaseVariations => {
@@ -320,7 +304,7 @@ export default defineComponent({
           mouseleave: () => { hover.value = false },
           mousedown: () => { active.value = true },
           mouseup: () => { active.value = false },
-          click: onClick
+          "click": onClick
         };
       }
       return {};
@@ -335,7 +319,7 @@ export default defineComponent({
 
     return {
       actualWrapperType,
-      wrapperComponent,
+      actualClickable,
       contentVariant,
       FSRouterLink,
       loadColor,
