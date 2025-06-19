@@ -7,14 +7,13 @@ import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.v
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
 import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
-import FSClickable from '@dative-gpi/foundation-shared-components/components/FSClickable.vue';
 
 const meta = {
   title: 'Foundation/Shared/Chip',
   component: FSChip,
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSCard, FSClickable], FSChip),
+    ...addSubcomponentsArgTypes([FSCard], FSChip),
     ...addComponentEmits(FSChip)
   },
 } satisfies Meta<typeof FSChip>;
@@ -26,9 +25,7 @@ export const Default: Story = {
   args: {
     color: 'primary',
     variant: 'standard',
-    label: 'I am a chip to dative-gpi',
-    clickable: true,
-    href: 'https://www.dative-gpi.com',
+    label: 'I am a chip to dative-gpi'
   },
   render: (args) => ({
     components: { FSChip, FSText, FSSpan, FSIcon },
@@ -68,7 +65,19 @@ export const Variations: Story = {
           <FSSpan font="text-overline"> Light, full, unclickable </FSSpan>
         </FSChip>
         <FSChip color="dark" variant="standard" :clickable="true">
-          <FSSpan font="text-overline"> Dark, standard, clickable </FSSpan>
+          <template #default="{ contentVariant }">
+            <FSIcon
+              icon="mdi-check"
+              :variant="contentVariant"
+              color="error"
+              size="16"
+            />
+            <FSSpan
+              font="text-button"
+            >
+              contentVariant slot passage
+            </FSSpan>
+        </template>
         </FSChip>
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
@@ -88,8 +97,8 @@ export const Variations: Story = {
         <FSChip width="200px" color="primary" variant="standard" :border="false" label="standard no border" :clickable="true" />
         <FSChip width="200px" color="primary" variant="full" label="full (default)" :clickable="true" />
         <FSChip width="200px" color="primary" variant="background" label="background" :clickable="true" />
-        <FSChip width="200px" :color="['primary', 'aqua']" variant="gradient" label="gradient" />
-        <FSChip width="200px" :color="['primary', 'aqua']" variant="gradient" label="gradient no border" :border="false" />
+        <FSChip width="200px" :color="['primary', 'aqua']" variant="gradient" label="gradient" :clickable="true" />
+        <FSChip width="200px" :color="['primary', 'aqua']" variant="gradient" label="gradient no border" :border="false" :clickable="true" />
       </div>
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText> Text align </FSText>

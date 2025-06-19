@@ -1,54 +1,56 @@
 <template>
-  <component
-    :is="$props.clickable ? 'FSClickable' : 'FSCard'"
+  <FSCard
     class="fs-chip"
     padding="2px 20px"
     :borderRadius="50"
     :color="$props.color"
     :variant="$props.variant"
     :height="$props.height"
-    :width="$props.width"
     @click="$emit('click', $event)"
     v-bind="$attrs"
   >
-    <FSRow
-      :align="$props.align"
-      :wrap="false"
+    <template
+      #default="{ contentVariant }"
     >
-      <slot
-        name="prepend"
-        v-bind="{ color: $props.color }"
+      <FSRow
+        :align="$props.align"
+        :wrap="false"
       >
-        <FSIcon
-          v-if="$props.prependIcon"
-          size="s"
+        <slot
+          name="prepend"
+          v-bind="{ color: $props.color, contentVariant }"
         >
-          {{ $props.prependIcon }}
-        </FSIcon>
-      </slot>
-      <slot
-        v-bind="{ color: $props.color }"
-      >
-        <FSSpan
-          v-if="$props.label"
-          font="text-overline"
+          <FSIcon
+            v-if="$props.prependIcon"
+            size="s"
+          >
+            {{ $props.prependIcon }}
+          </FSIcon>
+        </slot>
+        <slot
+          v-bind="{ color: $props.color, contentVariant }"
         >
-          {{ $props.label }}
-        </FSSpan>
-      </slot>
-      <slot
-        name="append"
-        v-bind="{ color: $props.color }"
-      >
-        <FSIcon
-          v-if="$props.appendIcon"
-          size="s"
+          <FSSpan
+            v-if="$props.label"
+            font="text-overline"
+          >
+            {{ $props.label }}
+          </FSSpan>
+        </slot>
+        <slot
+          name="append"
+          v-bind="{ color: $props.color, contentVariant }"
         >
-          {{ $props.appendIcon }}
-        </FSIcon>
-      </slot>
-    </FSRow>
-  </component>
+          <FSIcon
+            v-if="$props.appendIcon"
+            size="s"
+          >
+            {{ $props.appendIcon }}
+          </FSIcon>
+        </slot>
+      </FSRow>
+    </template>
+  </FSCard>
 </template>
 
 <script lang="ts">
@@ -59,13 +61,11 @@ import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dati
 import FSIcon from "./FSIcon.vue";
 import FSSpan from "./FSSpan.vue";
 import FSRow from "./FSRow.vue";
-import FSClickable from '@dative-gpi/foundation-shared-components/components/FSClickable.vue';
-import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
+import FSCard from './FSCard.vue';
 
 export default defineComponent({
   name: "FSChip",
   components: {
-    FSClickable,
     FSCard,
     FSIcon,
     FSSpan,
@@ -92,11 +92,6 @@ export default defineComponent({
       required: false,
       default: () => [24, 20]
     },
-    width: {
-      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
-      required: false,
-      default: null
-    },
     variant: {
       type: String as PropType<CardVariant>,
       required: false,
@@ -106,11 +101,6 @@ export default defineComponent({
       type: String as PropType<ColorBase>,
       required: false,
       default: ColorEnum.Primary
-    },
-    clickable: {
-      type: Boolean,
-      required: false,
-      default: false
     },
     align: {
       type: String as PropType<"top-left" | "top-center" | "top-right" | "center-left" | "center-center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right">,
@@ -123,8 +113,6 @@ export default defineComponent({
   setup() {
 
     return {
-      FSClickable,
-      FSCard
     };
   }
 });
