@@ -24,7 +24,7 @@
         :color="loadColor"
       />
       <FSRow
-        v-if="$slots['top-right']"
+        v-if="$slots['top-right'] && !$props.load"
         class="fs-card-top-right"
       >
         <slot

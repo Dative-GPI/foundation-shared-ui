@@ -2,7 +2,7 @@
   <FSCard
     :variant="$props.variant"
     :color="$props.color"
-    :clickable="true"
+    :clickable="$props.clickable"
     v-bind="$attrs"
   >
     <template
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 /**
- * @deprecated FSClickable is deprecated. Please use <FSCard :clickable="true" ... /> instead.
+ * @deprecated FSClickable is deprecated. Please use <FSCard  :clickable="true" :variant="CardVariants.Standard" :color="ColorEnum.Light" ... /> instead.
  * This component will be removed in a future release.
  */
 import { defineComponent, type PropType, onMounted } from "vue";
@@ -44,15 +44,15 @@ export default defineComponent({
       required: false,
       default: ColorEnum.Light
     },
-    load: {
+    clickable: {
       type: Boolean,
       required: false,
-      default: false
+      default: true
     }
   },
   setup() {
     onMounted(() => {
-      console.warn('[DEPRECATED] <FSClickable> is deprecated. Please use <FSCard :clickable="true" ... /> instead. This component will be removed in a future release.');
+      console.warn('[DEPRECATED] <FSClickable> is deprecated. Please use <FSCard :clickable="true" :variant="CardVariants.Standard"  :color="ColorEnum.Light" ... /> instead. This component will be removed in a future release.');
     });
     return {
     };
