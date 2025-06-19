@@ -4,16 +4,14 @@
     :description="$props.description"
     :required="$props.required"
     :disabled="$props.disabled"
-    :style="style"
   >
     <FSRow>
-      <v-slider
+      <v-range-slider
         hide-details
-        class="fs-slider"
         width="100%"
-        :color="$props.color"
         :disabled="$props.disabled"
         :ripple="false"
+        :color="$props.color"
         :trackSize="6"
         :elevation="0"
         :tickSize="4"
@@ -30,15 +28,13 @@
             v-bind="slotData"
           />
         </template>
-      </v-slider>
+      </v-range-slider>
     </FSRow>
   </FSBaseField>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, type StyleValue } from "vue";
-
-import { useColors } from '@dative-gpi/foundation-shared-components/composables';
+import { defineComponent, type PropType } from "vue";
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
@@ -46,10 +42,10 @@ import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 
 export default defineComponent({
-  name: "FSSlider",
+  name: "FSRangeSlider",
   components: {
-    FSRow,
-    FSBaseField
+    FSBaseField,
+    FSRow
   },
   props: {
     label: {
@@ -63,7 +59,7 @@ export default defineComponent({
       default: null
     },
     modelValue: {
-      type: [String, Number] as PropType<string | number | null>,
+      type: Object as PropType<[number, number] | null>,
       required: false,
       default: null
     },
@@ -83,27 +79,6 @@ export default defineComponent({
       default: false
     }
   },
-  setup(props) {
-    const { getColors } = useColors();
-
-    const colors = computed(() => getColors(props.color));
-    const lights = getColors(ColorEnum.Light);
-
-    const style = computed((): StyleValue => {
-      if (props.disabled) {
-        return {
-          "--fs-slider-thumb-color": lights.base
-        };
-      }
-      return {
-        "--fs-slider-thumb-color": colors.value.base
-      };
-    });
-
-    return {
-      colors,
-      style
-    };
-  } 
+  emits: ["update:modelValue"]
 });
 </script>
