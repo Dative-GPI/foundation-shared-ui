@@ -79,11 +79,6 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ["update:modelValue"],
-  setup() {
-
-    return {
-    };
-  } 
+  emits: ["update:modelValue"]
 });
 </script>
