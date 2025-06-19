@@ -38,6 +38,7 @@ export * from "./models";
 export * from "./modelStatuses";                        // No service
 export * from "./organisations";
 export * from "./permissionCategories";
+export * from "./playlists";
 export * from "./roleOrganisations";
 export * from "./roleOrganisationTypes";
 export * from "./roles";
