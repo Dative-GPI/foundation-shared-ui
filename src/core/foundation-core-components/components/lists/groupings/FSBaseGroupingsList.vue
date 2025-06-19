@@ -6,6 +6,7 @@
     :itemTo="$props.itemTo"
     :selectable="$props.selectable"
     :showSearch="$props.showSearch"
+    :singleSelect="$props.singleSelect"
     :disableTable="$props.disableTable"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
@@ -33,6 +34,7 @@
       <FSGroupingTileUI
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
+        :singleSelect="$props.singleSelect"
         :to="$props.itemTo && $props.itemTo(item)"
         @update:modelValue="toggleSelect(item)"
         v-bind="item"
@@ -74,6 +76,11 @@ export default defineComponent({
       default: null
     },
     selectable: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    singleSelect: {
       type: Boolean,
       required: false,
       default: false
