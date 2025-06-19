@@ -82,14 +82,19 @@ export default defineComponent({
       type: String as PropType<string | null>,
       default: null
     },
+    onClick: {
+      type: Function as PropType<() => void | null>,
+      required: false,
+      default: null
+    },
     variant: {
       type: String as PropType<CardVariant>,
       required: false,
       default: CardVariants.Background
     },
     clickable: {
-      type: Boolean,
-      default: false
+      type: Boolean as PropType<boolean | null>,
+      default: null
     },
     color: {
       type: [Array, String] as PropType<ColorBase | ColorBase[]>,
@@ -132,8 +137,7 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ["click"],
-  setup(props, { emit, attrs }) {
+  setup(props, { emit }) {
     const { getColors, getGradients } = useColors();
 
     const active = ref(false);
@@ -156,7 +160,7 @@ export default defineComponent({
       if (props.clickable === false) {
         return false;
       }
-      return props.clickable || !!props.to || !!props.href || !!attrs.onClick;
+      return props.clickable || !!props.to || !!props.href || !!props.onClick;
     });
     
     const wrapperComponent = computed(() => {
