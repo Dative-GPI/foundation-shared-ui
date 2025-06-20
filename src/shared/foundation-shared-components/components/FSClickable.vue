@@ -19,7 +19,8 @@
 
 <script lang="ts">
 /**
- * @deprecated FSClickable is deprecated. Please use <FSCard  :clickable="true" :variant="CardVariants.Standard" :color="ColorEnum.Light" ... /> instead.
+ * @deprecated FSClickable is deprecated. Please use <FSCard :clickable="true" :variant="CardVariants.Standard" :color="ColorEnum.Light" ... /> instead.
+ * Clickable prop to true is not necessary as it is will listen to any click listener or href, to prop.
  * This component will be removed in a future release.
  */
 import { defineComponent, type PropType, onMounted } from "vue";
@@ -52,7 +53,7 @@ export default defineComponent({
   },
   setup() {
     onMounted(() => {
-      console.warn('[DEPRECATED] <FSClickable> is deprecated. Please use <FSCard :clickable="true" :variant="CardVariants.Standard"  :color="ColorEnum.Light" ... /> instead. This component will be removed in a future release.');
+      console.warn('[DEPRECATED] <FSClickable> is deprecated. Please use <FSCard :clickable="true" :variant="CardVariants.Standard"  :color="ColorEnum.Light" ... /> instead. Clickable prop to true is not necessary as it is will listen to any click listener or href, to prop. This component will be removed in a future release.');
     });
     return {
     };

@@ -87,15 +87,6 @@
         </FSIcon>
       </slot>
     </FSCol>
-    <template
-      v-for="(_, name) in $slots"
-      v-slot:[name]="slotData"
-    >
-      <slot
-        :name="name"
-        v-bind="{ ...slotData }"
-      />
-    </template>
   </FSCard>
   <FSNavigate
     v-else

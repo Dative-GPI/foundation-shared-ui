@@ -226,7 +226,7 @@ export default defineComponent({
           ...baseStyle,
           "--fs-card-background-color": lights.light,
           "--fs-card-border-color"    : lights.dark,
-          "--fs-card-color"           : lights.dark
+          "--fs-card-color"           : lights.lightContrast!
         };
       }
       
@@ -235,19 +235,32 @@ export default defineComponent({
           ...baseStyle,
           "--fs-card-background-color": backgrounds.base,
           "--fs-card-border-color"    : borderColor.value,
-          "--fs-card-color"           : darks.base,
+          "--fs-card-color"           : backgrounds.baseContrast!,
           "--fs-card-hover-background-color" : colors.value.base,
           "--fs-card-hover-border-color"     : colors.value.baseContrast!,
           "--fs-card-hover-color"            : colors.value.baseContrast!
         }
-        case "standard": return {
-          ...baseStyle,
-          "--fs-card-background-color": colors.value.light,
-          "--fs-card-border-color"    : borderColor.value,
-          "--fs-card-color"           : colors.value.lightContrast!,
-          "--fs-card-hover-background-color" : colors.value.base,
-          "--fs-card-hover-border-color"     : colors.value.base,
-          "--fs-card-hover-color"            : colors.value.baseContrast!
+        case "standard": {
+          if (actualClickable.value && !Array.isArray(props.color) && [ColorEnum.Light, ColorEnum.Dark].includes(props.color as ColorEnum)) {
+            return {
+              ...baseStyle,
+              "--fs-card-background-color": backgrounds.base,
+              "--fs-card-border-color"    : lights.dark,
+              "--fs-card-color"           : backgrounds.baseContrast!,
+              "--fs-card-hover-background-color" : lights.base,
+              "--fs-card-hover-border-color"     : lights.dark,
+              "--fs-card-hover-color"            : lights.baseContrast!
+            };
+          }
+          return {
+            ...baseStyle,
+            "--fs-card-background-color": colors.value.light,
+            "--fs-card-border-color"    : borderColor.value,
+            "--fs-card-color"           : colors.value.lightContrast!,
+            "--fs-card-hover-background-color" : colors.value.base,
+            "--fs-card-hover-border-color"     : colors.value.base,
+            "--fs-card-hover-color"            : colors.value.baseContrast!
+          };
         }
         case "full": return {
           ...baseStyle,
