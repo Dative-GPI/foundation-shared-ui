@@ -145,7 +145,6 @@ export default defineComponent({
 
     const backgrounds = getColors(ColorEnum.Background);
     const lights = getColors(ColorEnum.Light);
-    const darks = getColors(ColorEnum.Dark);
 
     const colors = computed(() => {
       if (Array.isArray(props.color)) {
