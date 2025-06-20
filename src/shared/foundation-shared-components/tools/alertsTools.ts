@@ -83,7 +83,6 @@ export const AlertTools = {
   statusColor(status: AlertStatus): ColorEnum {
     switch (status) {
       case AlertStatus.Pending:
-      case AlertStatus.Untriggered:
         return ColorEnum.Warning;
       case AlertStatus.Expired:
       case AlertStatus.Abandoned:
@@ -92,6 +91,7 @@ export const AlertTools = {
       case AlertStatus.Triggered:
         return ColorEnum.Error;
       case AlertStatus.Resolved:
+      case AlertStatus.Untriggered:
         return ColorEnum.Success;
       default:
         return ColorEnum.Warning;
