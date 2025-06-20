@@ -12,11 +12,13 @@ export interface SubgroupingDetailsDTO extends SubgroupingInfosDTO {}
 export interface CreateSubgroupingDTO {
   groupingId: string;
   label: string;
+  code: string;
   icon: string;
 }
 
 export interface UpdateSubgroupingDTO {
   id: string;
   label: string;
+  code: string;
   icon: string;
 }
