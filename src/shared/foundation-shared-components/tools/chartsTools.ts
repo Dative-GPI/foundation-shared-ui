@@ -178,7 +178,7 @@ export const plotPerLabel = (plotper: PlotPer | number): string => {
     case PlotPer.Group: return $tr("ui.common.group", "Group");
     case PlotPer.Location: return $tr("ui.common.location", "Location");
     case PlotPer.Device: return $tr("ui.common.device", "Device");
-    case PlotPer.Grouping: return $tr("ui.common.grouping", "Grouping");
+    case PlotPer.Grouping: return $tr("ui.plot-per.grouping", "Personalized");
     default: return $tr("ui.common.none", "None");
   }
 };

@@ -27,21 +27,33 @@ export default defineComponent({
       type: Number as PropType<PlotPer>,
       required: false
     },
+    allowedPlotPers: {
+      type: Array as PropType<PlotPer[]>,
+      required: false,
+      default: null
+    },
     label: {
       type: String,
       required: false
     }
   },
   emits: ['update:modelValue'],
-  setup() {
-    
+  setup(props) {
     const plotPerItems = computed(()=>{
+      if (props.allowedPlotPers != null) {
+        return props.allowedPlotPers.map((f)=>{
+          return {
+            id: f,
+            label: plotPerLabel(f)
+          }
+        })
+      }
       return getEnumEntries(PlotPer).filter(f=>f.value != PlotPer.None).map((f)=>{
         return {
           id: f.value,
           label: plotPerLabel(f.value)
         }
-      })
+      });
     });
 
     return {
