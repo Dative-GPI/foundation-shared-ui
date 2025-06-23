@@ -35,7 +35,7 @@ export default defineComponent({
   },
   props: {
     modelValue: {
-      type: Object as PropType<{ plotPer: PlotPer | null, groupingId: string | null }>,
+      type: Object as PropType<{ plotPer: PlotPer, groupingId: string | null }>,
       required: false,
       default: () => ({ plotPer: PlotPer.None, groupingId: null })
     },
@@ -82,8 +82,8 @@ export default defineComponent({
     });
 
     watch(() => props.modelValue, (newVal) => {
-      actualPlotPer.value = newVal.plotPer ?? PlotPer.None;
-      actualGroupingId.value = newVal.groupingId ?? null;
+      actualPlotPer.value = newVal?.plotPer ?? PlotPer.None;
+      actualGroupingId.value = newVal?.groupingId ?? null;
     }, { immediate: true });
 
     watch([actualPlotPer, actualGroupingId], () => {
