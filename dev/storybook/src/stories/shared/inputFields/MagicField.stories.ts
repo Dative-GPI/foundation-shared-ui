@@ -83,7 +83,6 @@ export const Variations: Story = {
         :type="8"
         v-model="args.value8"
       />
-      {{ args.value8 }}
     </FSCol>`
   })
 }
