@@ -12,6 +12,9 @@ export class NotificationInfos {
   organisationId?: string;
   type: MessageType;
   criticity: Criticity;
+  imageId: string | null;
+  icon: string;
+  color: string;
   timestamp: number;
   acknowledged: boolean | null;
   acknowledgingTimestamp: number | null;
@@ -21,6 +24,9 @@ export class NotificationInfos {
     this.title = params.title;
     this.body = params.body;
     this.pageUrl = params.pageUrl;
+    this.imageId = params.imageId;
+    this.icon = params.icon;
+    this.color = params.color;
     this.audiences = params.audiences.map((a: NotificationAudience) => new NotificationAudience(a));
     this.organisationId = params.organisationId;
     this.type = params.type as MessageType;
@@ -39,6 +45,9 @@ export interface NotificationInfosDTO {
   pageUrl: string;
   audiences: NotificationAudience[];
   organisationId?: string;
+  imageId: string | null;
+  icon: string;
+  color: string;
   type: number;
   criticity: number;
   timestamp: string;
