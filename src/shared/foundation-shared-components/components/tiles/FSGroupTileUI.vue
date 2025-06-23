@@ -16,82 +16,36 @@
       <FSCol
         gap="6px"
       >
-        <FSRow
-          align="center-left"
-        >
-          <FSColor
-            height="24px"
-            width="24px"
-            :color="ColorEnum.Primary"
-            :border="false"
-          >
-            <FSRow
-              align="center-center"
-            >
-              <FSSpan
-                font="text-overline"
-              >
-                {{ groupsBadgeContent }}
-              </FSSpan>
-            </FSRow>
-          </FSColor>
-          <FSSpan
-            font="text-overline"
-          >
-            {{ $tr("ui.common.groups", "Group(s)") }}
-          </FSSpan>
-        </FSRow>
-        <FSRow
-          align="center-left"
-        >
-          <FSColor
-            height="24px"
-            width="24px"
-            :color="ColorEnum.Success"
-            :border="false"
-          >
-            <FSRow
-              align="center-center"
-            >
-              <FSSpan
-                font="text-overline"
-              >
-                {{ deviceOrganisationsBadgeContent }}
-              </FSSpan>
-            </FSRow>
-          </FSColor>
-          <FSSpan
-            font="text-overline"
-          >
-            {{ $tr("ui.common.devices", "Device(s)") }}
-          </FSSpan>
-        </FSRow>
+        <FSEntityCountBadge
+          :label="$tr('ui.common.groups', 'Group(s)')"
+          :count="recursiveGroupsIds.length"
+          :color="ColorEnum.Primary"
+        />
+        <FSEntityCountBadge
+          :label="$tr('ui.common.devices', 'Device(s)')"
+          :count="recursiveDeviceOrganisationsIds.length"
+          :color="ColorEnum.Success"
+        />
       </FSCol>
     </template>
   </FSSimpleTileUI>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType } from "vue";
-
-import { capNumberToString } from '@dative-gpi/foundation-shared-components/utils';
+import { defineComponent, type PropType } from "vue";
 
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
+import FSEntityCountBadge from './FSEntityCountBadge.vue';
 import FSSimpleTileUI from './FSSimpleTileUI.vue';
-import FSColor from "../FSColor.vue";
-import FSSpan from "../FSSpan.vue";
 import FSCol from "../FSCol.vue";
-import FSRow from "../FSRow.vue";
 
 export default defineComponent({
   name: "FSGroupTileUI",
   components: {
+    FSEntityCountBadge,
     FSSimpleTileUI,
-    FSColor,
-    FSSpan,
-    FSCol,
-    FSRow
+    FSCol
   },
   props: {
     imageId: {
@@ -134,14 +88,8 @@ export default defineComponent({
       default: () => [352, 336]
     },
   },
-  setup(props) {
-    const groupsBadgeContent = computed(() => capNumberToString(props.recursiveGroupsIds.length));
-
-    const deviceOrganisationsBadgeContent = computed(() => capNumberToString(props.recursiveDeviceOrganisationsIds.length));
-
+  setup() {
     return {
-      deviceOrganisationsBadgeContent,
-      groupsBadgeContent,
       ColorEnum,
     };
   }

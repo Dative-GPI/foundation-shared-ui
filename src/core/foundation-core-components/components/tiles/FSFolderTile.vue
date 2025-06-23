@@ -7,11 +7,13 @@
   />
   <FSFolderTileUI
     v-else-if="entity"
-    :label="entity.label"
     :code="entity.code"
-    :bottomColor="entity.colors"
     :icon="entity.icon"
+    :label="entity.label"
     :imageId="entity.imageId"
+    :bottomColor="entity.colors"
+    :recursiveFoldersIds="entity.recursiveFoldersIds"
+    :recursiveDashboardsIds="entity.recursiveDashboardsIds"
     :selectable="$props.selectable"
     :modelValue="$props.modelValue"
     @update:modelValue="(value) => $emit('update:modelValue', value)"

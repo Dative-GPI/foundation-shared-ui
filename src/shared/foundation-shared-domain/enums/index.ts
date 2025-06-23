@@ -13,6 +13,7 @@ export * from "./filters";
 export * from "./index";
 export * from "./lists";
 export * from "./messages";
+export * from "./playlists";
 export * from "./roles";
 export * from "./times";
 export * from "./users";
