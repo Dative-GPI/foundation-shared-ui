@@ -169,7 +169,7 @@ export default defineComponent({
     }
   },
   emits: ['update:modelValue', 'update:startDate', 'update:endDate'],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const { epochToShortTimeOnlyFormat, epochToShortDateFormat, epochToDayMonthShortOnly, epochToISO, epochToMonthShortTimeFormat } = useDateFormat();
     const { convert : convertTermToEpoch } = useDateExpression();
     const { isMobileSized, isExtraSmall } = useBreakpoints();
@@ -178,9 +178,8 @@ export default defineComponent({
     const lightColors = getColors(ColorEnum.Light);
     const playing = ref(false);
     const playingInterval = ref();
-
-    const startTimestamp = computed(() => convertTermToEpoch(props.startDate));
-    const endTimestamp = computed(() => convertTermToEpoch(props.endDate));
+    const startTimestamp = ref(convertTermToEpoch(props.startDate));
+    const endTimestamp = ref(convertTermToEpoch(props.endDate));
 
     const tickCount = computed(() => {
       if (isExtraSmall.value) { return 3; }
@@ -203,6 +202,11 @@ export default defineComponent({
       precision: tickPrecision.value
     }));
 
+    const refresh = () => {
+      startTimestamp.value = convertTermToEpoch(props.startDate);
+      endTimestamp.value = convertTermToEpoch(props.endDate);
+    };
+
     const onPlayingChange = (value: boolean) => {
       playing.value = value;
     };
@@ -223,6 +227,10 @@ export default defineComponent({
       }
     }, { immediate: true });
 
+    watch([() => props.startDate, () => props.endDate], () => {
+      refresh();
+    }, { immediate: true });
+
     watch(playing, (value) => {
       if(!value && playingInterval.value) {
         clearInterval(playingInterval.value);
@@ -236,6 +244,10 @@ export default defineComponent({
           playing.value = false;
         }
       }, props.playingStepDuration);
+    });
+
+    expose({
+      refresh,
     });
 
     return {
