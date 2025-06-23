@@ -147,7 +147,7 @@ export default defineComponent({
     const { isMobileSized } = useBreakpoints();
 
     const iconBackgroundColor = computed((): ColorBase | ColorBase[] => {
-      return (props.iconBackgroundColor && props.bottomColor) ? props.bottomColor : ColorEnum.Background;
+      return props.iconBackgroundColor ?? ColorEnum.Background;
     });
 
     const imageSize = computed((): number => {

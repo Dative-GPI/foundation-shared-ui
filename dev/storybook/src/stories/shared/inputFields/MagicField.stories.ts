@@ -25,7 +25,7 @@ export const Variations: Story = {
       value5: "",
       value6: "",
       value7: null,
-      value8: 3
+      value8: {plotPer: 3, groupingId: null}
     }
   },
   render: (args, { argTypes }) => ({
@@ -83,6 +83,7 @@ export const Variations: Story = {
         :type="8"
         v-model="args.value8"
       />
+      {{ args.value8 }}
     </FSCol>`
   })
 }
