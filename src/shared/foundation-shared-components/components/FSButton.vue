@@ -88,7 +88,7 @@
       </slot>
     </FSCol>
   </FSCard>
-  <FSNavigate
+  <FSRouterLink
     v-else
     :to="$props.to"
     :href="$props.href"
@@ -129,7 +129,7 @@
         </FSText>
       </template>
     </FSRow>
-  </FSNavigate>
+  </FSRouterLink>
 </template>
 
 <script lang="ts">
@@ -139,7 +139,7 @@ import { type RouteLocation } from "vue-router";
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
-import FSNavigate from "./FSNavigate.vue";
+import FSRouterLink from './FSRouterLink.vue';
 import FSText from "./FSText.vue";
 import FSIcon from "./FSIcon.vue";
 import FSCard from './FSCard.vue';
@@ -155,7 +155,7 @@ const DEFAULT_PADDING = PADDING_ICON_LABEL;
 export default defineComponent({
   name: "FSButton",
   components: {
-    FSNavigate,
+    FSRouterLink,
     FSCard,
     FSText,
     FSIcon,

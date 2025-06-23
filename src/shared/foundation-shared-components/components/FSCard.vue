@@ -1,5 +1,5 @@
 <template>
-  <FSNavigate
+  <FSRouterLink
     :style="style"
     :to="$props.to"
     :href="$props.href"
@@ -32,7 +32,7 @@
         />
       </FSRow>
     </div>
-  </FSNavigate>
+  </FSRouterLink>
 </template>
 
 <script lang="ts">
@@ -44,13 +44,12 @@ import { useColors } from "@dative-gpi/foundation-shared-components/composables"
 import { type CardVariant, type ColorBase, ColorEnum, CardVariants, type ColorBaseVariations } from "@dative-gpi/foundation-shared-components/models";
 
 import FSRow from "./FSRow.vue";
-import FSNavigate from './FSNavigate.vue';
 import FSRouterLink from "./FSRouterLink.vue";
 
 export default defineComponent({
   name: "FSCard",
   components: {
-    FSNavigate,
+    FSRouterLink,
     FSRow
   },
   props: {
