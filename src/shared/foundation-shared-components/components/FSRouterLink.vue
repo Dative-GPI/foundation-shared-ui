@@ -1,10 +1,7 @@
 <template>
   <component
     :is="wrapperComponent"
-    :to="to"
-    :href="href"
-    :type="wrapperComponent === 'button' ? type : undefined"
-    v-bind="attrs"
+    v-bind="mergedProps"
     @click="onClick"
     @auxclick="onAuxClick"
   >
@@ -74,6 +71,23 @@ export default defineComponent({
       return props.defaultWrapper;
     });
 
+    const componentProps = computed(() => {
+      if (wrapperComponent.value === RouterLink) {
+        return { to: props.to };
+      } else if (wrapperComponent.value === "a") {
+        return { href: props.href };
+      } else if (wrapperComponent.value === "button") {
+        return { type: props.type };
+      } else {
+        return {};
+      }
+    });
+
+    const mergedProps = computed(() => ({
+      ...componentProps.value,
+      ...attrs
+    }));
+
     const onClick = (event: MouseEvent) => {
       if (props.to) {
         handleRoutingEvent(event, props.to);
@@ -88,7 +102,7 @@ export default defineComponent({
 
     return {
       wrapperComponent,
-      attrs,
+      mergedProps,
       slots,
       onClick,
       onAuxClick
