@@ -34,6 +34,7 @@ export * from "./folders";
 export * from "./groups";
 export * from "./groupings";
 export * from "./locations";
+export * from "./magicFields";
 export * from "./manufacturers";
 export * from "./models";
 export * from "./modelStatuses";                        // No service

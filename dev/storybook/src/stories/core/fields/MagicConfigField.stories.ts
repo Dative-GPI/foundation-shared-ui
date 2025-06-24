@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSMagicConfigField from "@dative-gpi/foundation-shared-components/components/fields/FSMagicConfigField.vue";
+import FSMagicConfigField from "@dative-gpi/foundation-core-components/components/fields/FSMagicConfigField.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/MagicConfigField',
+  title: 'Foundation/core/Input fields/MagicConfigField',
   component: FSMagicConfigField,
   tags: ['autodocs'],
   argTypes: {

@@ -64,14 +64,14 @@ import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui
 
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
-import { useMagicFieldProvider } from "../../composables";
-import { MagicFieldType } from "../../models/magicFields";
-import { getTimeBestString, timeStepToString } from "../../utils";
+import { useMagicFieldProvider } from "@dative-gpi/foundation-core-services/composables";
+import { MagicFieldType } from "@dative-gpi/foundation-core-domain/models";
+import { getTimeBestString, timeStepToString } from "@dative-gpi/foundation-shared-components/utils";
 
-import FSSelectField from "./FSSelectField.vue";
-import FSIcon from "../FSIcon.vue";
-import FSSpan from "../FSSpan.vue";
-import FSRow from "../FSRow.vue";
+import FSSelectField from "@dative-gpi/foundation-shared-components/components/fields/FSSelectField.vue";
+import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
+import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
+import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 export default defineComponent({
   name: "FSMagicField",
