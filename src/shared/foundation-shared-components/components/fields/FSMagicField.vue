@@ -130,9 +130,8 @@ export default defineComponent({
         case MagicFieldType.Switch: 
           return props.modelValue === "true";
         case MagicFieldType.TimeStepField:
-          return JSON.parse(props.modelValue);
         case MagicFieldType.PlotPerField:
-          return props.modelValue;
+          return JSON.parse(props.modelValue);
         default:
           return props.modelValue;
       }
@@ -158,7 +157,7 @@ export default defineComponent({
         case MagicFieldType.TimeStepField:
           return timeStepToString(JSON.parse(value));
         case MagicFieldType.PlotPerField:
-          return JSON.parse(value).plotPer
+          return JSON.parse(value).plotPer;
         default:
           return value;
       }
@@ -177,8 +176,6 @@ export default defineComponent({
           emit("update:modelValue", value.toString());
           break;
         case MagicFieldType.TimeStepField:
-          emit("update:modelValue", JSON.stringify(value));
-          break;
         case MagicFieldType.PlotPerField:
           emit("update:modelValue", JSON.stringify(value));
           break;

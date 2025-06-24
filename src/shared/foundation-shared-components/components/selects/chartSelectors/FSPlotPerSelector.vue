@@ -82,7 +82,7 @@ export default defineComponent({
     });
 
     watch(() => props.modelValue, (newVal) => {
-      actualPlotPer.value = newVal?.plotPer ?? PlotPer.None;
+      actualPlotPer.value = newVal?.plotPer ?? plotPerItems.value[0].id;
       actualGroupingId.value = newVal?.groupingId ?? null;
     }, { immediate: true });
 

@@ -25,7 +25,7 @@ export const Variations: Story = {
       value5: "",
       value6: "",
       value7: null,
-      value8: {plotPer: 3, groupingId: null}
+      value8: null
     }
   },
   render: (args, { argTypes }) => ({
@@ -77,12 +77,14 @@ export const Variations: Story = {
         :type="7"
         v-model="args.value7"
       />
+      {{ args.value7 }}
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSMagicField
         label="Plot per field"
         :type="8"
         v-model="args.value8"
       />
+      {{ args.value8 }}
     </FSCol>`
   })
 }
