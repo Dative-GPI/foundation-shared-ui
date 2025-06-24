@@ -35,6 +35,8 @@
             :step="$props.stepTime"
             :min="startTimestamp"
             :max="endTimestamp"
+            :hideHeader="true"
+            :maxWidth="null"
             :ticks="ticks"
             showTicks="always"
             :modelValue="$props.modelValue"
