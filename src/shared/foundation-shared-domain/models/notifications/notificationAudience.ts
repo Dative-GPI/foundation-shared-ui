@@ -18,3 +18,8 @@ export interface NotificationAudienceDTO {
   targetId: string;
   targetScope: number;
 }
+
+export interface NotificationAudienceFilters {
+  targetScope?: Scope | null;
+  targetId?: string | null;
+}
