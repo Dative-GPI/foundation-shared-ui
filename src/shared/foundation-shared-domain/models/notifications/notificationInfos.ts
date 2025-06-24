@@ -1,7 +1,7 @@
 import { type MessageType } from "../../enums/messages";
 import { isoToEpoch } from "../../tools/datesTools";
 import type { Criticity } from "../../enums/alerts";
-import { NotificationAudience } from "./notificationAudience";
+import { NotificationAudience, type NotificationAudienceFilters } from "./notificationAudience";
 
 export class NotificationInfos {
   id: string;
@@ -58,4 +58,5 @@ export interface NotificationInfosDTO {
 export interface NotificationFilters {
   type?: MessageType | null;
   criticity?: Criticity | null;
+  audiences?: NotificationAudienceFilters[] | null;
 }
