@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSPlotPerSelector from "@dative-gpi/foundation-shared-components/components/selects/chartSelectors/FSPlotPerSelector.vue";
+import FSPlotPerSelector from "@dative-gpi/foundation-core-components/components/selects/chartSelectors/FSPlotPerSelector.vue";
 
 const meta = {
   title: 'Foundation/Shared/Selects/PlotPerSelector',
