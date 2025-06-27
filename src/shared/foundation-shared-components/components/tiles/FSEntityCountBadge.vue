@@ -5,7 +5,8 @@
     <FSColor
       height="24px"
       :color="$props.color"
-      :border="false"
+      :border="$props.border"
+      :variant="$props.variant"
     >
       <FSRow
         align="center-center"
@@ -52,6 +53,16 @@ export default defineComponent({
       type: String as PropType<ColorBase>,
       required: false,
       default: () => ColorEnum.Primary
+    },
+    border: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    variant: {
+      type: String as PropType<"standard" | "full">,
+      required: false,
+      default: "standard"
     }
   },
   components: {
