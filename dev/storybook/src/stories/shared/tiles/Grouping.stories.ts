@@ -25,7 +25,7 @@ export const Default: Story = {
       label: "Dynasties & Dystopia",
       code: "Denzel Curry featuring Gizzle and Bren Joy",
       icon: "mdi-group",
-      iconColor: "warning"      
+      color: "warning"      
     },
     render: (args) => ({
     components: { FSGroupingTileUI, FSLoadTile },
