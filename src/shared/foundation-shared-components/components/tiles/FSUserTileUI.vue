@@ -49,7 +49,7 @@ import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
 
 export default defineComponent({
-  name: "FSUserOrganisationTileUI",
+  name: "FSUserTileUI",
   components: {
     FSImage,
     FSSpan,
