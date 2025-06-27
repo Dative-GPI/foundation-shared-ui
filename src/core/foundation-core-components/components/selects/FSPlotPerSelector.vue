@@ -112,9 +112,6 @@ export default defineComponent({
     }, { immediate: true });
 
     watch([actualPlotPer, actualGroupingId], () => {
-      if (actualPlotPer.value === PlotPer.Grouping && !actualGroupingId.value) {
-        return;
-      }
       emit('update:modelValue', {
         plotPer: actualPlotPer.value,
         groupingId: actualGroupingId.value
