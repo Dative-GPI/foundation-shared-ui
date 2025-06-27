@@ -4,7 +4,7 @@ import FSMagicField from "@dative-gpi/foundation-core-components/components/fiel
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/core/Input fields/MagicField',
+  title: 'Foundation/Core/Input fields/MagicField',
   component: FSMagicField,
   tags: ['autodocs'],
   argTypes: {

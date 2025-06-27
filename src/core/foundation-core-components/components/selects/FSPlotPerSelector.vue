@@ -3,7 +3,7 @@
     v-bind="$attrs"
   >
     <FSAutocompleteField
-      v-if="$props.showSelector || actualPlotPer !== PlotPer.Grouping"
+      v-if="$props.showSelector"
       :hideHeader="$props.hideHeader"
       :clearable="$props.clearable"
       :label="label ?? $tr('ui.common.plot-per','Plot per')"
@@ -12,7 +12,7 @@
       v-model="actualPlotPer"
     />
     <FSAutocompleteGrouping
-      v-if="actualPlotPer === PlotPer.Grouping"
+      v-if="actualPlotPer === PlotPer.Grouping && showGroupingAutocomplete"
       :hideHeader="$props.hideHeader"
       :clearable="$props.clearable"
       :toggleSetDisabled="true"
@@ -74,6 +74,11 @@ export default defineComponent({
       default: false
     },
     showSelector: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showGroupingAutocomplete: {
       type: Boolean,
       required: false,
       default: true
