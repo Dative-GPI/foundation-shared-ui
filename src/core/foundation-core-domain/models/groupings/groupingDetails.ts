@@ -13,7 +13,7 @@ export interface CreateGroupingDTO {
   label: string;
   description: string | null;
   icon: string;
-  iconColor: string | null;
+  color: string | null;
   code: string | null;
 }
 
@@ -22,5 +22,5 @@ export interface UpdateGroupingDTO {
   description: string | null;
   code: string | null;
   icon: string;
-  iconColor: string | null;
+  color: string | null;
 }
