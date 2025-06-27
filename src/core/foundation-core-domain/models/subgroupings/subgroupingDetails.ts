@@ -17,7 +17,6 @@ export interface CreateSubgroupingDTO {
 }
 
 export interface UpdateSubgroupingDTO {
-  id: string;
   label: string;
   code: string;
   icon: string;

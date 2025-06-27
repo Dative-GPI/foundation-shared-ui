@@ -18,7 +18,6 @@ export interface CreateGroupingDTO {
 }
 
 export interface UpdateGroupingDTO {
-  id: string;
   label: string;
   description: string | null;
   code: string | null;
