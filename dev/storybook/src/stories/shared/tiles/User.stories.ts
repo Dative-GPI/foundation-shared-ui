@@ -32,6 +32,7 @@ export const Default: Story = {
   template: `
     <FSUserTileUI
       v-model="args.modelValue"
+      v-bind="args"
     />`
   })
 }
