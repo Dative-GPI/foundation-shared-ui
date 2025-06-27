@@ -6,7 +6,7 @@ export class OrganisationInfos {
   userOrganisationsCount: number;
   adminId: string | null;
   adminName: string | null;
-  currentOrganisationId?: string | null; // Optional, used in the context of the current organisation
+  currentUserOrganisationId: string | null;
 
   constructor(params: OrganisationInfosDTO) {
     this.id = params.id;
@@ -16,7 +16,7 @@ export class OrganisationInfos {
     this.userOrganisationsCount = params.userOrganisationsCount;
     this.adminId = params.adminId;
     this.adminName = params.adminName;
-    this.currentOrganisationId = params.currentOrganisationId || null; // Default to null if not provided
+    this.currentUserOrganisationId = params.currentUserOrganisationId;
   }
 }
 
@@ -28,7 +28,7 @@ export interface OrganisationInfosDTO {
   userOrganisationsCount: number;
   adminId: string | null;
   adminName: string | null;
-  currentOrganisationId?: string | null; // Optional, used in the context of the current organisation
+  currentUserOrganisationId: string | null;
 }
 
 export interface OrganisationFilters {
