@@ -1,38 +1,35 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
-import FSPlotPerSelector from "@dative-gpi/foundation-core-components/components/selects/FSPlotPerSelector.vue";
+import FSPlotPerSelector from '@dative-gpi/foundation-core-components/components/selects/FSPlotPerSelector.vue';
 
-const meta = {
-  title: 'Foundation/Shared/Selects/PlotPerSelector',
+const meta: Meta<typeof FSPlotPerSelector> = {
+  title: 'Foundation/Core/Selects/PlotPerSelector',
   component: FSPlotPerSelector,
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([],FSPlotPerSelector),
+    ...addComponentEmits(FSPlotPerSelector),
   },
-} satisfies Meta<typeof FSPlotPerSelector>;
-
+};
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Variations: Story = {
-  args: {
-    args: {
-      items: [{
-        plotPer: 0,
-        groupingId: null,
-      }]
-    }
-  },
-  render: (args, { argTypes }) => ({
+export const Default: Story = {
+  render: (args) => ({
     components: { FSPlotPerSelector },
-    props: Object.keys(argTypes),
     setup() {
-      return { ...args };
+      return { args };
     },
     template: `
-    <FSCol>
-      <FSPlotPerSelector
-        v-model="args.value1"
-      />
-    </FSCol>`
-  })
-}
+    <FSPlotPerSelector
+	    v-model="args.modelValue"
+	  />`,
+  }),
+  args: {
+    modelValue: {
+      plotPer: 0,
+      groupingId: null,
+    }
+  },
+};
