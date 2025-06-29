@@ -30,7 +30,7 @@ export interface CreateScenarioDeviceOrganisationDTO {
   parameters: CreateScenarioParameterOverrideDTO[];
 }
 
-export interface CreateManyScenarioDeviceOrganisationDTO {
+export interface UpsertScenarioDeviceOrganisationDTO {
   scenarioId: string;
   scenarioScope: ApplicationScope;
   deviceOrganisationsIds: string[];
