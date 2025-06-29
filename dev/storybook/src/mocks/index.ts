@@ -24,6 +24,7 @@ export * from "./models.mock";
 export * from "./modelStatuses.mock";
 export * from "./organisations.mock";
 export * from "./organisationTypes.mock";
+export * from "./playlists.mock";
 export * from "./roleOrganisations.mock";
 export * from "./roleOrganisationTypes.mock";
 export * from "./serviceAccountOrganisations.mock";
