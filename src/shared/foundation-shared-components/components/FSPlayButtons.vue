@@ -3,7 +3,7 @@
     width="hug"
     gap="4px"
   >
-    <FSClickable
+    <FSCard
       variant="full"
       :color="ColorEnum.Light"
       borderRadius="50%"
@@ -14,8 +14,8 @@
         size="18px"
         icon="mdi-skip-backward"
       />
-    </FSClickable>
-    <FSClickable
+    </FSCard>
+    <FSCard
       variant="full"
       :color="ColorEnum.Light"
       borderRadius="50%"
@@ -26,8 +26,8 @@
         size="18px"
         :icon="$props.modelValue ? 'mdi-pause' : 'mdi-play'"
       />
-    </FSClickable>
-    <FSClickable
+    </FSCard>
+    <FSCard
       variant="full"
       :color="ColorEnum.Light"
       borderRadius="50%"
@@ -38,7 +38,7 @@
         size="18px"
         icon="mdi-skip-forward"
       />
-    </FSClickable>
+    </FSCard>
   </FSRow>
 </template>
 
@@ -48,12 +48,12 @@ import { defineComponent } from "vue";
 import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
 import FSIcon from '@dative-gpi/foundation-shared-components/components/FSIcon.vue';
-import FSClickable from '@dative-gpi/foundation-shared-components/components/FSClickable.vue';
+import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
 
 export default defineComponent({
   name: "FSPlayButtons",
   components: {
-    FSClickable,
+    FSCard,
     FSIcon
   },
   props: {

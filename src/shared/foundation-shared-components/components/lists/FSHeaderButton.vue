@@ -32,7 +32,8 @@
           <FSChip
             prependIcon="mdi-eye-off-outline"
             class="fs-header-button-chip"
-            variant="borderless"
+            variant="background"
+            :border="false"
             :label="$tr('data-table.hide-column', 'Hide column')"
             :height="[30, 24]"
             :clickable="true"
@@ -41,7 +42,8 @@
           <FSChip
             v-if="!$props.first"
             class="fs-header-button-chip"
-            variant="borderless"
+            variant="background"
+            :border="false"
             prependIcon="mdi-chevron-left"
             :label="$tr('data-table.move-left', 'Move to the left')"
             :height="[30, 24]"
@@ -51,7 +53,8 @@
           <FSChip
             v-if="!$props.last"
             class="fs-header-button-chip"
-            variant="borderless"
+            variant="background"
+            :border="false"
             prependIcon="mdi-chevron-right"
             :label="$tr('data-table.move-right', 'Move to the right')"
             :height="[30, 24]"
