@@ -43,14 +43,14 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType } from "vue";
 
-import { DateRules, IconRules, NumberRules, TextRules, TimeRules, TimeStepRules, AutocompleteRules } from "../../models";
-import { useMagicFieldProvider } from "../../composables";
-import { MagicFieldType } from "../../models/magicFields";
+import { DateRules, IconRules, NumberRules, TextRules, TimeRules, TimeStepRules, AutocompleteRules } from "@dative-gpi/foundation-shared-components/models";
+import { useMagicFieldProvider } from "@dative-gpi/foundation-core-services/composables";
+import { MagicFieldType } from "@dative-gpi/foundation-core-domain/models/magicFields";
 
-import FSButtonRemoveIcon from "../buttons/FSButtonRemoveIcon.vue";
-import FSButtonAddIcon from "../buttons/FSButtonAddIcon.vue";
-import FSTranslateField from "./FSTranslateField.vue";
-import FSRow from "../FSRow.vue";
+import FSButtonRemoveIcon from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonRemoveIcon.vue";
+import FSButtonAddIcon from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonAddIcon.vue";
+import FSTranslateField from "@dative-gpi/foundation-shared-components/components/fields/FSTranslateField.vue";
+import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 export default defineComponent({
   name: "FSMagicConfigField",
