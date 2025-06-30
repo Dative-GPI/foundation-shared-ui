@@ -6,12 +6,13 @@
   >
     <FSRow
       :wrap="false"
-      :width="infoWidth"
       gap="24px"
       height="fill"
       align="center-left"
     >
-      <FSCol>
+      <FSCol
+        :width="infoWidth"
+      >
         <FSSpan
           font="text-button"
         >
