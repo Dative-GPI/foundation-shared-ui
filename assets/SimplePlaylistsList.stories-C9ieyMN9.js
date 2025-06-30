@@ -1,0 +1,26 @@
+var F=Object.defineProperty;var L=(o,t,e)=>t in o?F(o,t,{enumerable:!0,configurable:!0,writable:!0,value:e}):o[t]=e;var i=(o,t,e)=>L(o,typeof t!="symbol"?t+"":t,e);import{a as g}from"./chunk-MZXVCX43-CvRfcaG5.js";import{d as b,w as P,B as _,m as C,I,J as v}from"./vue.esm-bundler-BB--BfRN.js";import{F as c}from"./FSSimpleList-DKRH7Kee.js";import{C as $}from"./base-CiabG-44.js";import{C as s}from"./composableFactory-DwIj5O2m.js";import{S as k}from"./serviceFactory-aQiBqOvf.js";import{_ as T}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{a as x,b as w}from"./properties-Qw-O9fbT.js";import"./v4-CtRu48qb.js";import"./FSRow-Bdc52rY8.js";import"./css-DoweNwVf.js";import"./useBreakpoints-f5uwzDhq.js";import"./FSCol-BU2zndN-.js";import"./FSLoader-Cf5HtYZd.js";import"./useColors-CeWNZtds.js";import"./_commonjsHelpers-BosuxZz1.js";import"./index-_Z9wfsFC.js";import"./theme-BwQCEo_4.js";import"./color-DIvEt_AX.js";import"./dimensions-DwY9cRwZ.js";import"./elevation-S_BtbnzN.js";import"./locale-CSWC84Vq.js";import"./FSFadeOut-BS7VKwj1.js";import"./uuid-DTaye2KM.js";import"./FSSlideGroup-DLHspItq.js";import"./FSButtonNextIcon-BwHgwEym.js";import"./FSButton-DEqhqb0b.js";import"./FSRouterLink-DUWl7Aiu.js";import"./vue-router-CibjbVOv.js";import"./FSClickable-CwRD7A4m.js";import"./FSCard-CiGLNn7K.js";import"./VProgressCircular-DNr7n8jG.js";import"./resizeObserver-CgHguIgR.js";import"./VIcon-Cl87HT90.js";import"./FSSpan-BndtI8AP.js";import"./useSlots-COLyvmal.js";import"./FSIcon-BKav6CVU.js";import"./VSlideGroupItem-BI1OJQNm.js";import"./group-C8GVwDAJ.js";import"./proxiedModel-DMSSa4ZW.js";import"./index-9ysw5oGg.js";import"./display-DzHu_6W3.js";import"./FSSearchField-CJDKUSod.js";import"./FSTextField-DmCfYujO.js";import"./FSBaseField-BxMUaAXJ.js";import"./useRules-CSYFw_Ue.js";import"./VField-COyetWuv.js";import"./transition-GJJG9yri.js";import"./VLabel-Cmax-_yp.js";import"./VInput-BfMi-lTR.js";import"./density-Xpr_P7nk.js";import"./loader-BKsf8Js6.js";import"./anchor-C8ooBn8e.js";import"./rounded-BKWlZxOJ.js";import"./VDefaultsProvider-BK3j_XEC.js";import"./forwardRefs-DWGaNmQL.js";import"./index--Ye8kcMr.js";import"./useTranslations-DvAhn7XV.js";import"./FSImage-D2nwrOf-.js";import"./FSImageUI-B_bAqKap.js";import"./VImg-DcLzuYY5.js";import"./useImages-fX-VpO9W.js";import"./base-CmdGny12.js";import"./useAppAuthToken-DmpXug6S.js";import"./FSTile-pg-_mccU.js";import"./FSCheckbox-ti2pWVdy.js";import"./VSelectionControl-KO2lf4xS.js";import"./index-8zgUIpZ9.js";import"./FSButtonEditIcon-BMD2OTnT.js";import"./FSButtonRemoveIcon-CTpXYcdz.js";import"./filter-C1K_d8Vd.js";import"./useAppOrganisationId-D3b8yxVY.js";import"./lodash-Zo30T2Bj.js";class R{constructor(t){i(this,"id");i(this,"dashboardScopedId");i(this,"dashboardType");i(this,"index");this.id=t.id,this.dashboardScopedId=t.dashboardScopedId,this.dashboardType=t.dashboardType,this.index=t.index}}class u{constructor(t){i(this,"id");i(this,"label");i(this,"description");i(this,"icon");i(this,"code");i(this,"looped");i(this,"delay");i(this,"dashboards");this.id=t.id,this.label=t.label,this.description=t.description,this.icon=t.icon,this.code=t.code,this.looped=t.looped,this.delay=t.delay,this.dashboards=t.dashboards.map(e=>new R(e))}}class D extends u{constructor(t){super(t)}}const y=()=>`${$()}/playlists`,U=o=>`${y()}/${encodeURIComponent(o)}`,r=new k("playlist",D).createComplete(y,U,u);s.get(r);const A=s.getMany(r);s.create(r);s.update(r);s.remove(r);const S=b({name:"FSSimplePlaylistsList",components:{FSSimpleList:c},props:{playlistFilters:{type:Object,required:!1,default:()=>({})}},setup(o){const{entities:t,getMany:e,fetching:n}=A();return P(()=>o.playlistFilters,()=>{e(o.playlistFilters)},{immediate:!0}),{playlists:t,fetching:n}}});function B(o,t,e,n,f,E){const h=I("FSSimpleList");return v(),_(h,C({items:o.playlists,loading:o.fetching},o.$attrs),null,16,["items","loading"])}const m=T(S,[["render",B]]);S.__docgenInfo={displayName:"FSSimplePlaylistsList",exportName:"default",description:"",tags:{},props:[{name:"playlistFilters",type:{name:"PlaylistFilters"},required:!1,defaultValue:{func:!0,value:"() => ({})"}}],sourceFiles:["/home/runner/work/foundation-shared-ui/foundation-shared-ui/src/core/foundation-core-components/components/lists/playlists/FSSimplePlaylistsList.vue"]};const so={title:"Foundation/Core/Lists/Simple Lists/SimplePLaylistsList",component:m,tags:["autodocs"],argTypes:{...w([c],m),...x(m)}},p={render:o=>({components:{FSSimplePlaylistsList:m},setup(){return{args:o}},template:`
+      <FSSimplePlaylistsList
+        v-bind="args"
+      />
+    `}),args:{tileProps:o=>({onClick:()=>g("clicked item")(o)})}};var a,l,d;p.parameters={...p.parameters,docs:{...(a=p.parameters)==null?void 0:a.docs,source:{originalSource:`{
+  render: args => ({
+    components: {
+      FSSimplePlaylistsList
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+      <FSSimplePlaylistsList
+        v-bind="args"
+      />
+    \`
+  }),
+  args: {
+    tileProps: (item: any) => ({
+      onClick: () => action("clicked item")(item)
+    })
+  }
+}`,...(d=(l=p.parameters)==null?void 0:l.docs)==null?void 0:d.source}}};const ro=["Default"];export{p as Default,ro as __namedExportsOrder,so as default};
