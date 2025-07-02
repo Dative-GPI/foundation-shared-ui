@@ -30,7 +30,6 @@
       </FSRow>
     </slot>
     <FSCard
-      v-if="['standard'].includes($props.variant)"
       padding="12px"
       width="100%"
     >
@@ -108,63 +107,6 @@
         </FSRow>
       </FSRow>
     </FSCard>
-    <FSRow
-      v-else-if="$props.source || $props.modelValue"
-      :width="$props.width"
-      class="fs-edit-image-full"
-    >
-      <FSImageUI
-        :aspectRatio="$props.aspectRatio"
-        :height="$props.height"
-        :width="$props.width"
-        :source="$props.source"
-        :imageB64="$props.modelValue"
-        v-bind="$attrs"
-      />
-      <FSRow
-        class="fs-edit-image-full-toolbar"
-        padding="4px"
-      >
-        <FSButtonFileMini
-          accept=".jpg,.jpeg,.png"
-          :readFile="false"
-          @update:metadata="onUpload"
-        />
-        <FSButtonRemoveMini
-          @click="onRemove"
-        />
-      </FSRow>
-    </FSRow>
-    <FSClickable
-      v-else
-      borderStyle="dashed"
-      variant="background"
-      :height="$props.height"
-      :width="$props.width"
-      @click="() => invisibleButtonRef.input.click()"
-    >
-      <FSRow
-        align="center-center"
-        :wrap="false"
-      >
-        <FSIcon>
-          mdi-plus-box-outline
-        </FSIcon>
-        <FSText
-          font="text-body"
-          :lineClamp="2"
-        >
-          {{ $tr('edit-image.add-image', 'Add an image.') }}
-        </FSText>
-        <FSButtonFileMini
-          class="fs-edit-image-hidden-button"
-          ref="invisibleButtonRef"
-          accept=".jpg,.jpeg,.png"
-          :readFile="false"
-          @update:metadata="onUpload"
-        />
-      </FSRow>
-    </FSClickable>
   </FSCol>
 </template>
 
@@ -175,21 +117,19 @@ import { useBreakpoints, useColors } from "@dative-gpi/foundation-shared-compone
 import { ColorEnum, type FileImage } from "@dative-gpi/foundation-shared-components/models";
 import { useFiles } from "@dative-gpi/foundation-shared-services/composables";
 
-import FSButtonRemoveMini from "./buttons/FSButtonRemoveMini.vue";
-import FSButtonFileMini from "./buttons/FSButtonFileMini.vue";
-import FSClickable from "./FSClickable.vue";
-import FSImageUI from "./FSImageUI.vue";
-import FSCard from "./FSCard.vue";
-import FSText from "./FSText.vue";
-import FSCol from "./FSCol.vue";
-import FSRow from "./FSRow.vue";
+import FSButtonRemoveMini from "../../buttons/FSButtonRemoveMini.vue";
+import FSButtonFileMini from "../../buttons/FSButtonFileMini.vue";
+import FSImageUI from "../../FSImageUI.vue";
+import FSCard from "../../FSCard.vue";
+import FSText from "../../FSText.vue";
+import FSCol from "../../FSCol.vue";
+import FSRow from "../../FSRow.vue";
 
 export default defineComponent({
   name: "FSEditImageUI",
   components: {
     FSButtonRemoveMini,
     FSButtonFileMini,
-    FSClickable,
     FSImageUI,
     FSCard,
     FSText,
@@ -218,7 +158,7 @@ export default defineComponent({
       default: null
     },
     aspectRatio: {
-      type: String as PropType<string | null>,
+      type: Number as PropType<number | null>,
       required: false,
       default: null
     },
@@ -226,11 +166,6 @@ export default defineComponent({
       type: String as PropType<string | null>,
       required: false,
       default: null
-    },
-    variant: {
-      type: String as PropType<"standard" | "full">,
-      required: false,
-      default: "standard"
     },
     hideHeader: {
       type: Boolean,

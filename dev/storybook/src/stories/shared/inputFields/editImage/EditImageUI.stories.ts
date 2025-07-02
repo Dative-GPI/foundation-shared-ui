@@ -1,18 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { action } from "@storybook/addon-actions";
 
-import FSEditImageUI from "@dative-gpi/foundation-shared-components/components/FSEditImageUI.vue";
+import FSEditImageUI from "@dative-gpi/foundation-shared-components/components/fields/editImage/FSEditImageUI.vue";
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 
 const meta = {
-  title: 'Foundation/Shared/EditImage/EditImageUI',
+  title: 'Foundation/Shared/Input Fields/EditImage/EditImageUI',
   component: FSEditImageUI,
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['standard', 'full']
-    },
     "onUpdate:modelValue": { action: "update:modelValue" },
     "onUpdate:source": { action: "update:source" }
   }
@@ -30,7 +26,6 @@ export const Default: Story = {
     height: 96,
     width: 96,
     label: 'Edit Image',
-    variant: 'standard',
     hideHeader: false,
     required: false,
     "onUpdate:modelValue": action("onUpdate:modelValue"),
@@ -55,75 +50,5 @@ export const Default: Story = {
         @update:modelValue="args['onUpdate:modelValue']"
         @update:source="args['onUpdate:source']"
       />`
-  })
-}
-
-export const VariationFull: Story = {
-  args: {
-    source: null,
-    modelValue: null,
-    height: 280,
-    width: '100%',
-    label: 'Edit Image',
-    variant: 'full',
-    hideHeader: false,
-    required: false,
-    "onUpdate:modelValue": action("onUpdate:modelValue"),
-    "onUpdate:source": action("onUpdate:source"),
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSEditImageUI, FSButton },
-    props: Object.keys(argTypes),
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSEditImageUI 
-        v-model:source="args.source"
-        :height="args.height"
-        :width="args.width"
-        :label="args.label"
-        :variant="args.variant"
-        :hideHeader="args.hideHeader"
-        :required="args.required"
-        v-model="args.modelValue"
-        @update:modelValue="args['onUpdate:modelValue']"
-        @update:source="args['onUpdate:source']"
-      >`
-  })
-}
-
-export const VariationFullSource: Story = {
-  args: {
-    source: "https://www.dative-gpi.com/assets/images/illustration-home-opt.jpg",
-    modelValue: null,
-    height: 280,
-    width: '300px',
-    label: 'Edit Image',
-    variant: 'full',
-    hideHeader: false,
-    required: false,
-    "onUpdate:modelValue": action("onUpdate:modelValue"),
-    "onUpdate:source": action("onUpdate:source"),
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSEditImageUI, FSButton },
-    props: Object.keys(argTypes),
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSEditImageUI 
-        v-model:source="args.source"
-        :height="args.height"
-        :width="args.width"
-        :label="args.label"
-        :variant="args.variant"
-        :hideHeader="args.hideHeader"
-        :required="args.required"
-        v-model="args.modelValue"
-        @update:modelValue="args['onUpdate:modelValue']"
-        @update:source="args['onUpdate:source']"
-      >`
   })
 }
