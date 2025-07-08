@@ -129,23 +129,34 @@
     </template>
 
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSGroupTileUI
         v-if="item.type === DeviceExplorerElementType.Group"
+        :key="index"
         :to="$props.itemTo && $props.itemTo(item)"
+        :imageId="item.imageId"
+        :icon="item.icon"
+        :label="item.label"
+        :code="item.code"
+        :recursiveGroupsIds="item.recursiveGroupsIds"
+        :recursiveDeviceOrganisationsIds="item.recursiveDeviceOrganisationsIds"
         :modelValue="isSelected(item.id)"
         :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
-        v-bind="item"
       />
       <FSDeviceOrganisationTileUI
         v-if="item.type === DeviceExplorerElementType.DeviceOrganisation"
+        :key="index"
         :to="$props.itemTo && $props.itemTo(item)"
         :deviceConnectivity="item.connectivity"
         :deviceStatuses="item.status.statuses"
         :deviceWorstAlert="item.worstAlert"
         :deviceAlerts="item.alerts"
+        :imageId="item.imageId"
+        :label="item.label"
+        :code="item.code"
+        :modelStatuses="item.modelStatuses"
         :alertTo="$props.alertTo"
         :modelValue="isSelected(item.id)"
         :selectable="$props.selectable"
