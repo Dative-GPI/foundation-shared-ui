@@ -161,7 +161,6 @@
         :modelValue="isSelected(item.id)"
         :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
-        v-bind="item"
       />
     </template>
   </FSDataTable>
