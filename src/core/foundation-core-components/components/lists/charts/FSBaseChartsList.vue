@@ -85,9 +85,10 @@
       />
     </template>
     <template
-      #item.tile="{ item }"
+      #item.tile="{ index, item }"
     >
       <FSChartTileUI
+        :key="index"
         :label="item.label"
         :categoryLabel="item.chartCategoryLabel"
         :icon="item.icon"

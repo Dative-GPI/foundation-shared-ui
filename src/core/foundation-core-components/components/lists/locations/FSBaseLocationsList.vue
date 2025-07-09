@@ -27,10 +27,10 @@
     </template>
 
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSLocationTileUI
-        v-bind="item"
+        :key="index"
         :bottomColor="item.colors"
         :address="item.address.placeLabel"
         :selectable="$props.selectable"
@@ -38,6 +38,7 @@
         :modelValue="isSelected(item.id)"
         :to="$props.itemTo && $props.itemTo(item)"
         @update:modelValue="toggleSelect(item)"
+        v-bind="item"
       />
     </template>
   </FSDataTable>
