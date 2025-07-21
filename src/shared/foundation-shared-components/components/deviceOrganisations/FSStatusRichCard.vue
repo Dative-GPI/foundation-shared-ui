@@ -1,10 +1,9 @@
 <template>
-  <component
+  <FSCard
     v-if="$props.modelStatus"
     class="fs-status-rich-card"
     topRightPadding="2px"
     variant="standard"
-    :is="$attrs.onClick ? FSClickable : FSCard"
     :padding="$props.padding"
     :height="$props.height"
     :width="$props.width"
@@ -50,7 +49,7 @@
         v-bind="{ color }"
       />
     </template>
-  </component>
+  </FSCard>
 </template>
 
 <script lang="ts">
@@ -59,7 +58,6 @@ import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 import { ColorEnum, type FSDeviceStatusGroup, type FSModelStatus } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
-import FSClickable from "../FSClickable.vue";
 import FSCard from "../FSCard.vue";
 import FSIcon from "../FSChip.vue";
 import FSText from "../FSText.vue";
@@ -68,7 +66,6 @@ import FSCol from "../FSCol.vue";
 export default defineComponent({
   name: "FSStatusRichCard",
   components: {
-    FSClickable,
     FSCard,
     FSIcon,
     FSText,
@@ -158,8 +155,6 @@ export default defineComponent({
     }));
 
     return {
-      FSClickable,
-      FSCard,
       color,
       style,
       title,

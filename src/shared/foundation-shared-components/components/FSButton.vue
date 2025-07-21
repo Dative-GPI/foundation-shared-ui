@@ -1,6 +1,7 @@
 <template>
-  <FSClickable
+  <FSCard
     v-if="$props.variant !== 'icon'"
+    :clickable="true"
     :disabled="$props.disabled"
     :padding="padding"
     :variant="$props.variant"
@@ -8,7 +9,6 @@
     :load="$props.load"
     :href="$props.href"
     :to="$props.to"
-    :style="style"
     @click.stop="onClick"
     v-bind="$attrs"
   >
@@ -87,93 +87,62 @@
         </FSIcon>
       </slot>
     </FSCol>
-  </FSClickable>
-  <FSRow
+  </FSCard>
+  <FSRouterLink
     v-else
-    width="hug"
+    :to="$props.to"
+    :href="$props.href"
     :class="iconClasses"
-    :style="style"
     @click.stop="onClick"
-    v-bind="$attrs"
   >
-    <template
-      v-if="$props.load"
+    <FSRow
+      width="hug"
+      align="center-left"
+      v-bind="$attrs"
     >
-      <v-progress-circular
-        class="fs-button-load"
-        width="2"
-        size="20"
-        :indeterminate="true"
-        :color="loadColor"
-      />
-    </template>
-    <template
-      v-else-if="$props.href"
-    >
-      <a
-        :href="$props.href"
+      <template
+        v-if="$props.load"
+      >
+        <v-progress-circular
+          class="fs-button-load"
+          width="2"
+          size="20"
+          :indeterminate="true"
+          :color="loadColor"
+        />
+      </template>
+      <template
+        v-else
       >
         <FSIcon
           v-if="$props.icon"
+          :color="iconVariantColor"
           :size="$props.iconSize"
         >
           {{ $props.icon }}
         </FSIcon>
-        <FSSpan
+        <FSText
           v-if="$props.label"
+          :color="iconVariantColor"
         >
           {{ $props.label }}
-        </FSSpan>
-      </a>
-    </template>
-    <template
-      v-else-if="$props.to"
-    >
-      <FSRouterLink
-        :to="$props.to"
-      >
-        <FSIcon
-          v-if="$props.icon"
-          :size="$props.iconSize"
-        >
-          {{ $props.icon }}
-        </FSIcon>
-        <FSSpan
-          v-if="$props.label"
-        >
-          {{ $props.label }}
-        </FSSpan>
-      </FSRouterLink>
-    </template>
-    <template
-      v-else
-    >
-      <FSIcon
-        v-if="$props.icon"
-        :size="$props.iconSize"
-      >
-        {{ $props.icon }}
-      </FSIcon>
-      <FSSpan
-        v-if="$props.label"
-      >
-        {{ $props.label }}
-      </FSSpan>
-    </template>
-  </FSRow>
+        </FSText>
+      </template>
+    </FSRow>
+  </FSRouterLink>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, type StyleValue, useSlots } from "vue";
+import { computed, defineComponent, type PropType, useSlots } from "vue";
 import { type RouteLocation } from "vue-router";
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
-import FSRouterLink from "./FSRouterLink.vue";
-import FSClickable from "./FSClickable.vue";
-import FSSpan from "./FSSpan.vue";
+import FSRouterLink from './FSRouterLink.vue';
+import FSText from "./FSText.vue";
 import FSIcon from "./FSIcon.vue";
+import FSCard from './FSCard.vue';
 import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
@@ -187,8 +156,8 @@ export default defineComponent({
   name: "FSButton",
   components: {
     FSRouterLink,
-    FSClickable,
-    FSSpan,
+    FSCard,
+    FSText,
     FSIcon,
     FSCol,
     FSRow
@@ -265,32 +234,17 @@ export default defineComponent({
     const { getColors } = useColors();
 
     const colors = computed(() => getColors(props.color));
-    const lights = getColors(ColorEnum.Light);
     const darks = getColors(ColorEnum.Dark);
     const slots = useSlots();
 
-    const style = computed((): StyleValue => {
+    const iconVariantColor = computed((): string => {
       if (props.disabled) {
-        switch (props.variant) {
-          case "icon": return {
-            "--fs-button-color": lights.dark,
-          };
-        }
+        return ColorEnum.Light;
       }
-      switch (props.variant) {
-        case "icon": switch (props.color) {
-          case ColorEnum.Dark:
-          case ColorEnum.Light: return {
-            "--fs-button-color"      : darks.base,
-            "--fs-button-hover-color": darks.dark,
-          };
-          default: return {
-            "--fs-button-color"      : colors.value.base,
-            "--fs-button-hover-color": colors.value.dark,
-          };
-        }
+      if (props.color === ColorEnum.Light) {
+        return ColorEnum.Dark;
       }
-      return {};
+      return props.color;
     });
 
     const iconClasses = computed((): string[] => {
@@ -337,11 +291,11 @@ export default defineComponent({
     };
 
     return {
-      iconClasses,
-      loadColor,
       colors,
-      style,
       padding,
+      loadColor,
+      iconClasses,
+      iconVariantColor,
       onClick
     };
   }

@@ -9,12 +9,32 @@ const meta = {
   component: FSButton,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addSubcomponentsArgTypes([FSCard], FSButton),
+    ...addComponentEmits(FSButton),
+    variant: {
+      control: { type: 'radio' },
+      options: ['standard', 'full', 'icon']
+    }
   }
 } satisfies Meta<typeof FSButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    label: "I am a button",
+    icon: "mdi-plus-circle-outline"
+  },
+  render: (args) => ({
+    components: { FSButton },
+    setup() {
+      return { args };
+    },
+    template: `
+    <FSButton v-bind="args" />`
+  })
+}
 
 export const Variations: Story = {
   render: () => ({
@@ -131,30 +151,33 @@ export const ColorVariations: Story = {
   })
 }
 
-import FSClickable from  "@dative-gpi/foundation-shared-components/components/FSClickable.vue";
 import FSText from  "@dative-gpi/foundation-shared-components/components/FSText.vue";
 import FSRow from  "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 export const ContentVariant: Story = {
-  render: () => ({
-    components: { FSClickable, FSRow, FSIcon, FSText },
+  args: {
+    variant: 'standard',
+    color: 'primary',
+    padding: '12px'
+  },
+  render: (args) => ({
+    components: { FSCard, FSRow, FSIcon, FSText },
+    setup() {
+      return { args };
+    },
     template: `
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-      <div style="display: flex; gap: 10px;">
-        <FSClickable color="primary" padding="12px">
-          <template #default="{ contentVariant }">
-            <FSRow align="center-center">
-              <FSIcon color="success" :variant="contentVariant">
-                mdi-plus-circle-outline
-              </FSIcon>
-              <FSText color="error" :variant="contentVariant">
-                Create
-              </FSText>
-            </FSRow>
-          </template>
-        </FSClickable>
-      </div>
-    </div>`
+    <FSCard>
+      <template #default="{ contentVariant }">
+        <FSRow align="center-center">
+          <FSIcon color="success" :variant="contentVariant">
+            mdi-plus-circle-outline
+          </FSIcon>
+          <FSText color="warning" :variant="contentVariant">
+            Create
+          </FSText>
+        </FSRow>
+      </template>
+    </FSCard>`
   })
 }
 
@@ -469,6 +492,8 @@ export const Submit: Story = {
 
 import FSButtonCheckbox from  "@dative-gpi/foundation-shared-components/components/buttons/FSButtonCheckbox.vue";
 import FSTagField from '@dative-gpi/foundation-shared-components/components/fields/FSTagField.vue';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
 
 export const Checkbox: Story = {
   args: {
