@@ -138,9 +138,10 @@
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSDeviceOrganisationTileUI
+        :key="index"
         :to="$props.itemTo && $props.itemTo(item)"
         :selectable="$props.selectable"
         :deviceConnectivity="item.connectivity"

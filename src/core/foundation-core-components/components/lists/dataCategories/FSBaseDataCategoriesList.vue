@@ -39,9 +39,10 @@
           />
         </template>
         <template
-          #item.tile="{ item }"
+          #item.tile="{ index, item }"
         >
           <FSCard
+            :key="index"
             padding="12px"
             height="60px"
             width="233px"
