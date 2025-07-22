@@ -4,7 +4,7 @@ import { DeviceOrganisationAlert, type DeviceOrganisationAlertDTO } from "./devi
 import { ModelStatusInfos, type ModelStatusInfosDTO } from "../modelStatuses/modelStatusInfos";
 import { type EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 import { PathCrumb, type PathCrumbDTO } from "../shared/pathCrumb";
-import { Address, type AddressDTO } from '@/shared/foundation-shared-domain';
+import { Address, type AddressDTO } from '@dative-gpi/foundation-shared-domain';
 
 export class DeviceOrganisationInfos {
   id: string;

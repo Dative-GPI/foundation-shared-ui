@@ -1,4 +1,4 @@
-import { Address, type AddressDTO } from '@/shared/foundation-shared-domain/models/locations';
+import { Address, type AddressDTO } from '@dative-gpi/foundation-shared-domain/models/locations';
 
 export class OrganisationInfos {
   id: string;
