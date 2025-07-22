@@ -88,7 +88,7 @@ export function debounceAsync<T, U extends any[]>(
 }
 
 export default defineComponent({
-  name: "FSMapEditLocationAddress",
+  name: "FSMapAddressField",
   components: {
     FSAutoCompleteAddress,
     FSNumberField,

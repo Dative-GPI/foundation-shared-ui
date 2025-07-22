@@ -1,25 +1,25 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 
 import { addComponentEmits } from '@/utils/properties';
 
-import FSMapEditLocationAddress from "@dative-gpi/foundation-shared-components/components/map/FSMapEditLocationAddress.vue";
+import FSMapAddressField from "@dative-gpi/foundation-shared-components/components/fields/FSMapAddressField.vue";
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 
 
 const meta = {
-  title: 'Foundation/Shared/MapEditLocationAddress',
-  component: FSMapEditLocationAddress,
+  title: 'Foundation/Shared/MapAddressField',
+  component: FSMapAddressField,
   tags: ['autodocs'],
   argTypes: {
-    ...addComponentEmits(FSMapEditLocationAddress)
+    ...addComponentEmits(FSMapAddressField)
   },
-} satisfies Meta<typeof FSMapEditLocationAddress>;
+} satisfies Meta<typeof FSMapAddressField>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const MapEditLocationAddress: Story = {
+export const MapAddressField: Story = {
   args: {
     label: "",
     icon: "mdi-map-marker",
@@ -29,7 +29,7 @@ export const MapEditLocationAddress: Story = {
   render: (args) =>
     defineComponent({
       components: { 
-        FSMapEditLocationAddress,
+        FSMapAddressField,
         FSRow
       },
       inheritAttrs: false,
@@ -38,7 +38,7 @@ export const MapEditLocationAddress: Story = {
       },
       template: `
         <FSRow height="500px">
-          <FSMapEditLocationAddress
+          <FSMapAddressField
             v-bind="args"
             v-model="args.modelValue"
           />
