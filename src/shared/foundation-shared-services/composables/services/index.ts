@@ -4,7 +4,7 @@ export * from "./useLanguages";
 export * from "./useLegalInformations";
 export * from "./useNotifications";
 export * from "./useOrganisations";
-export * from "./useTerminals";
+export * from "./useTerminalApplications";
 export * from "./useTimeZones";
 export * from "./useTranslations";
 export * from "./useUserLegalInformations";
