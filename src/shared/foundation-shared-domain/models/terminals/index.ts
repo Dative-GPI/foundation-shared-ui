@@ -1,2 +1,2 @@
-export * from "./terminalDetails";
-export * from "./terminalInfos";
+export * from "./terminalApplicationDetails";
+export * from "./terminalApplicationInfos";
