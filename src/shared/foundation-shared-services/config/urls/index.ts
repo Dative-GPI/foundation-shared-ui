@@ -5,7 +5,7 @@ export * from "./languages";
 export * from "./legalInformations";
 export * from "./notifications";
 export * from "./organisations";
-export * from "./terminals";
+export * from "./terminalApplications";
 export * from "./timeZones";
 export * from "./translations";
 export * from "./userLegalInformations";
