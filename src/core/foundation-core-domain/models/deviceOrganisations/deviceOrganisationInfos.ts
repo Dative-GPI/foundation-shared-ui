@@ -4,6 +4,7 @@ import { DeviceOrganisationAlert, type DeviceOrganisationAlertDTO } from "./devi
 import { ModelStatusInfos, type ModelStatusInfosDTO } from "../modelStatuses/modelStatusInfos";
 import { type EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 import { PathCrumb, type PathCrumbDTO } from "../shared/pathCrumb";
+import { Address, type AddressDTO } from '@/shared/foundation-shared-domain';
 
 export class DeviceOrganisationInfos {
   id: string;
@@ -18,6 +19,7 @@ export class DeviceOrganisationInfos {
   modelLabel: string;
   ownerId: string | null;
   ownerLabel: string | null;
+  ownerAddress: Address | null;
   organisationId: string | null;
   managerId: string | null;
   managerName: string | null;
@@ -57,6 +59,7 @@ export class DeviceOrganisationInfos {
     this.modelLabel = params.modelLabel;
     this.ownerId = params.ownerId;
     this.ownerLabel = params.ownerLabel;
+    this.ownerAddress = params.ownerAddress ? new Address(params.ownerAddress) : null;
     this.organisationId = params.organisationId;
     this.managerId = params.managerId;
     this.managerName = params.managerName;
@@ -99,6 +102,7 @@ export interface DeviceOrganisationInfosDTO {
   modelLabel: string;
   ownerId: string | null;
   ownerLabel: string | null;
+  ownerAddress?: AddressDTO | null;
   organisationId: string;
   managerId: string | null;
   managerName: string | null;

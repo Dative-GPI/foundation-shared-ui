@@ -107,6 +107,15 @@
       />
     </template>
     <template
+      #item.ownerAddress="{ item }"
+    >
+      <FSSpan
+        font="text-overline"
+      >
+        {{ item.ownerAddress ? item.ownerAddress.formattedAddress : '' }}
+      </FSSpan>
+    </template>
+    <template
       #item.actions="{ item }"
     >
       <slot
@@ -182,6 +191,7 @@ import FSWorstAlert from "@dative-gpi/foundation-shared-components/components/de
 import FSIconCheck from "@dative-gpi/foundation-shared-components/components/FSIconCheck.vue";
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
+import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 
 export default defineComponent({
   name: "FSBaseDeviceOrganisationsList",
@@ -194,7 +204,8 @@ export default defineComponent({
     FSIconCheck,
     FSMetaValue,
     FSTagGroup,
-    FSImage
+    FSImage,
+    FSSpan
   },
   props: {
     tableCode: {

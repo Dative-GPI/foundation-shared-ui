@@ -1,8 +1,11 @@
+import { Address, type AddressDTO } from '@/shared/foundation-shared-domain/models/locations';
+
 export class OrganisationInfos {
   id: string;
   organisationTypeId: string;
   imageId: string | null;
   label: string;
+  address: Address | null;
   userOrganisationsCount: number;
   adminId: string | null;
   adminName: string | null;
@@ -13,6 +16,7 @@ export class OrganisationInfos {
     this.organisationTypeId = params.organisationTypeId;
     this.imageId = params.imageId;
     this.label = params.label;
+    this.address = params.address ? new Address(params.address) : null;
     this.userOrganisationsCount = params.userOrganisationsCount;
     this.adminId = params.adminId;
     this.adminName = params.adminName;
@@ -25,6 +29,7 @@ export interface OrganisationInfosDTO {
   organisationTypeId: string;
   imageId: string | null;
   label: string;
+  address?: AddressDTO;
   userOrganisationsCount: number;
   adminId: string | null;
   adminName: string | null;
