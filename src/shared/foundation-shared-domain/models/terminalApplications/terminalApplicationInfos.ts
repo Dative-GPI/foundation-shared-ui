@@ -1,6 +1,6 @@
 import { isoToEpoch } from "../../tools/datesTools";
 
-export class TerminalInfos {
+export class TerminalApplicationInfos {
   id: string;
   userId: string;
   label: string;
@@ -10,7 +10,7 @@ export class TerminalInfos {
   lastConnection: number;
   token: string;
 
-  constructor(params: TerminalInfosDTO) {
+  constructor(params: TerminalApplicationInfosDTO) {
     this.id = params.id;
     this.userId = params.userId;
     this.label = params.label;
@@ -23,7 +23,7 @@ export class TerminalInfos {
 
 }
 
-export interface TerminalInfosDTO {
+export interface TerminalApplicationInfosDTO {
   id: string;
   userId: string;
   label: string;
@@ -34,6 +34,6 @@ export interface TerminalInfosDTO {
   token: string;
 }
 
-export interface TerminalFilters {
+export interface TerminalApplicationFilters {
   token?: string | null;
 }
