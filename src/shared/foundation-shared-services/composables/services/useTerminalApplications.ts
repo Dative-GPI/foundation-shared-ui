@@ -11,7 +11,7 @@ const TerminalServiceFactory = new ServiceFactory<TerminalApplicationDetailsDTO,
   factory.addNotify()
 ));
 
-export const useTerminals = ComposableFactory.getMany(TerminalServiceFactory);
-export const useCreateTerminal = ComposableFactory.create(TerminalServiceFactory);
-export const useUpdateTerminal = ComposableFactory.update(TerminalServiceFactory);
-export const useRemoveTerminal = ComposableFactory.remove(TerminalServiceFactory);
+export const useTerminalApplications = ComposableFactory.getMany(TerminalServiceFactory);
+export const useCreateTerminalApplication = ComposableFactory.create(TerminalServiceFactory);
+export const useUpdateTerminalApplication = ComposableFactory.update(TerminalServiceFactory);
+export const useRemoveTerminalApplication = ComposableFactory.remove(TerminalServiceFactory);
