@@ -15,7 +15,8 @@ export class FolderInfos {
   imageId: string | null;
   path: PathCrumb[];
   recursiveFoldersIds: string[];
-  recursiveDashboardsIds: string[];
+  recursiveDashboardOrganisationsIds: string[];
+  recursiveDashboardShallowsIds: string[];
 
   constructor(params: FolderInfosDTO) {
     this.id = params.id;
@@ -31,7 +32,8 @@ export class FolderInfos {
     this.imageId = params.imageId;
     this.path = params.path.map(dto => new PathCrumb(dto)).sort((a, b) => b.index - a.index);
     this.recursiveFoldersIds = params.recursiveFoldersIds ? params.recursiveFoldersIds.slice() : [];
-    this.recursiveDashboardsIds = params.recursiveDashboardsIds ? params.recursiveDashboardsIds.slice() : [];
+    this.recursiveDashboardOrganisationsIds = params.recursiveDashboardOrganisationsIds ? params.recursiveDashboardOrganisationsIds.slice() : [];
+    this.recursiveDashboardShallowsIds = params.recursiveDashboardShallowsIds ? params.recursiveDashboardShallowsIds.slice() : []; 
   }
 }
 
@@ -49,7 +51,8 @@ export interface FolderInfosDTO {
   imageId: string | null;
   path: PathCrumbDTO[];
   recursiveFoldersIds?: string[];
-  recursiveDashboardsIds?: string[];
+  recursiveDashboardOrganisationsIds?: string[];
+  recursiveDashboardShallowsIds?: string[];
 }
 
 export interface FolderFilters {
