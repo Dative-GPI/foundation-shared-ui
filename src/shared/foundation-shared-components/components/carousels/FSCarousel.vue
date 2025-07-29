@@ -2,7 +2,15 @@
   <v-carousel
     v-bind="$attrs"
   >
-    <slot/>
+    <template
+      v-for="(_, name) in $slots"
+      v-slot:[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData"
+      />
+    </template>
   </v-carousel>
 </template>
 
