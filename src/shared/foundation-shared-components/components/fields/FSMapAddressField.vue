@@ -56,6 +56,7 @@ import FSNumberField from "@dative-gpi/foundation-shared-components/components/f
 import FSMapMarker from '@dative-gpi/foundation-shared-components/components/map/FSMapMarker.vue';
 import FSMap from "@dative-gpi/foundation-shared-components/components/map/FSMap.vue";
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
+import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 
 
 export function debounceAsync<T, U extends any[]>(
@@ -95,6 +96,7 @@ export default defineComponent({
     FSMapMarker,
     FSMap,
     FSRow,
+    FSCol
   },
   emits: ["update:modelValue"],
   props: {
@@ -109,11 +111,7 @@ export default defineComponent({
     modelValue: {
       type: Object as PropType<Address | null>,
       required: false,
-    },
-    color: {
-      type: String,
-      required: true,
-    },
+    }
   },
   setup(props, { emit }) {
     const { reverseSearch } = useAddress();
