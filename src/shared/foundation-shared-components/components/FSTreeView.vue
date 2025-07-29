@@ -40,7 +40,7 @@ import FSLoader from "./FSLoader.vue";
 import FSCol from "./FSCol.vue";
 
 export default defineComponent({
-  name: "FSTreeViewField",
+  name: "FSTreeView",
   components: {
     VTreeview,
     FSLoader,
