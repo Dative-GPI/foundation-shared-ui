@@ -60,10 +60,11 @@
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSDashboardOrganisationTypeTileUI
         v-if="item.dashboardType == DashboardType.OrganisationType"
+        :key="index"
         :bottomColor="item.colors"
         :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"
@@ -74,6 +75,7 @@
       />
       <FSDashboardOrganisationTileUI
         v-if="item.dashboardType == DashboardType.Organisation"
+        :key="index"
         :bottomColor="item.colors"
         :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"
@@ -84,6 +86,7 @@
       />
       <FSDashboardShallowTileUI
         v-if="item.dashboardType == DashboardType.Shallow"
+        :key="index"
         :bottomColor="item.colors"
         :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"

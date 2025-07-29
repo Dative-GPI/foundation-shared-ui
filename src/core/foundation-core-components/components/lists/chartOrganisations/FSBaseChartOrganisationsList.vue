@@ -79,9 +79,10 @@
       </FSRow>
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSChartTileUI
+        :key="index"
         :label="item.label"
         :singleSelect="$props.singleSelect"
         :selectable="$props.selectable"

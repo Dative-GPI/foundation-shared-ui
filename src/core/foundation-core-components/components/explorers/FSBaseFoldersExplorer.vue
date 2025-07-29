@@ -90,10 +90,11 @@
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSFolderTileUI
         v-if="item.type == FoldersListType.Folder"
+        :key="index"
         :bottomColor="item.colors"
         v-bind="item"
         :selectable="$props.selectable"
@@ -103,6 +104,7 @@
       />
       <FSDashboardOrganisationTileUI
         v-if="item.type == FoldersListType.Dashboard && item.dashboardType == DashboardType.Organisation"
+        :key="index"
         :bottomColor="item.colors"
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
@@ -112,6 +114,7 @@
       />
       <FSDashboardShallowTileUI
         v-if="item.type == FoldersListType.Dashboard && item.dashboardType == DashboardType.Shallow"
+        :key="index"
         :bottomColor="item.colors"
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
