@@ -13,5 +13,4 @@ export interface CreateDashboardVariableDTO {
   useOnlyAllowedValues: boolean;
   allowedValues: CreateDashboardVariableValueDTO[];
   translations: DashboardVariableTranslationDTO[];
-  meta: any;
 }
