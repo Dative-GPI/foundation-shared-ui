@@ -59,7 +59,7 @@ import FSButton from "@dative-gpi/foundation-shared-components/components/FSButt
 import FSLoader from "@dative-gpi/foundation-shared-components/components/FSLoader.vue";
 
 import { useCurrentLegalInformation, useFiles } from "@dative-gpi/foundation-shared-services/composables";
-import { ColorEnum, TextRules, ToggleRules } from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum, ToggleRules } from "@dative-gpi/foundation-shared-components/models";
 
 export default defineComponent({
   name: "FSPoliciesValidationField",
@@ -93,7 +93,6 @@ export default defineComponent({
       legalInformation,
       ToggleRules,
       ColorEnum,
-      TextRules,
       fetching,
       downloadFile,
     };
