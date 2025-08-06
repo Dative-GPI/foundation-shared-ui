@@ -66,9 +66,10 @@
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSDashboardOrganisationTypeTileUI
+        :key="index"
         :bottomColor="item.colors"
         :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"

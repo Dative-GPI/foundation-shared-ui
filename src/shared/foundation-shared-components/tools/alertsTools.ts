@@ -1,6 +1,6 @@
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { AlertStatus, Criticity } from "@dative-gpi/foundation-shared-domain/enums";
-import { ColorEnum } from "../models"
+import { ColorEnum } from "../models";
 import { getTimeBestString } from "../utils";
 
 const { $tr } = useTranslationsProvider();
@@ -8,12 +8,12 @@ const { $tr } = useTranslationsProvider();
 export const AlertTools = {
   statusIcon(value: AlertStatus): string {
     switch (value) {
-      case AlertStatus.Pending: return "mdi-timer-outline";
-      case AlertStatus.Untriggered: return "mdi-timer-off-outline";
-      case AlertStatus.Unresolved: return "mdi-alert-circle-outline";
-      case AlertStatus.Resolved: return "mdi-check-circle-outline";
-      case AlertStatus.Expired: return "mdi-clock-outline";
-      case AlertStatus.Triggered: return "mdi-alert-circle-outline";
+      case AlertStatus.Pending: return "mdi-timer-sand";
+      case AlertStatus.Untriggered: return "mdi-close-octagon";
+      case AlertStatus.Unresolved: return "mdi-cancel";
+      case AlertStatus.Resolved: return "mdi-check-circle";
+      case AlertStatus.Expired: return "mdi-timeline-clock-outline";
+      case AlertStatus.Triggered: return "mdi-timer-sand";
       case AlertStatus.Abandoned: return "mdi-cancel"
       default: return "";
     }
@@ -82,10 +82,11 @@ export const AlertTools = {
   },
   statusColor(status: AlertStatus): ColorEnum {
     switch (status) {
-      case AlertStatus.None:
       case AlertStatus.Pending:
-      case AlertStatus.Expired:
         return ColorEnum.Warning;
+      case AlertStatus.Expired:
+      case AlertStatus.Abandoned:
+        return ColorEnum.Dark;
       case AlertStatus.Unresolved:
       case AlertStatus.Triggered:
         return ColorEnum.Error;

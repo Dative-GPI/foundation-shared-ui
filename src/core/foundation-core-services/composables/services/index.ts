@@ -31,6 +31,7 @@ export * from "./useModels";
 export * from "./useOrganisations";
 export * from "./useOrganisationTypes";
 export * from "./usePermissionCategories";
+export * from "./usePlaylists";
 export * from "./useRoleOrganisations";
 export * from "./useRoleOrganisationTypes";
 export * from "./useScenarioDeviceOrganisations";

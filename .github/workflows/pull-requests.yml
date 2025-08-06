@@ -1,4 +1,4 @@
-name: Build Storybook
+name: Test and Build Storybook
 
 on:
   pull_request:

@@ -59,9 +59,10 @@
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSModelTileUI
+        :key="index"
         :to="$props.itemTo && $props.itemTo(item)"
         :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"

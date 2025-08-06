@@ -37,9 +37,10 @@
     </template>
 
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSFolderTileUI
+        :key="index"
         :bottomColor="item.colors"
         v-bind="item"
         :modelValue="isSelected(item.id)"

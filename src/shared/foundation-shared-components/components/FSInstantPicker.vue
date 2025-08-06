@@ -5,6 +5,7 @@
     :required="$props.required"
     :disabled="$props.disabled"
     :label="$props.label"
+    :maxWidth="$props.maxWidth"
   >
     <FSRow
       align="bottom-center"
@@ -23,20 +24,19 @@
         padding="0 0 2px 0"
         align="center-center"
       >
-        <FSCol
-          width="fill"
-        >
+        <FSCol>
           <FSSlider
             minWidth='min(300px, 90vw)'
             :disabled="$props.disabled"
             :color="ColorEnum.Light"
             :thumbColor="ColorEnum.Primary"
-            :thumbSize="18"
             :trackSize="8"
             thumb-label="always"
             :step="$props.stepTime"
             :min="startTimestamp"
             :max="endTimestamp"
+            :hideHeader="true"
+            :maxWidth="null"
             :ticks="ticks"
             showTicks="always"
             :modelValue="$props.modelValue"
@@ -52,20 +52,14 @@
               </FSSpan>
             </template>
             <template
-              #tick-label="{ tick, index }"
+              #tick-label="{ tick }"
             >
-              <FSRow
-                v-if="index % Math.trunc(ticks.length / maximumTickToShow) === 0 || ticks.length < maximumTickToShow"
-              >
+              <FSRow>
                 <FSText
                   :color="lightColors.dark"
                   font="text-overline"
                 >
-                  {{ intervalTime <= 3600000
-                    ?
-                      epochToShortTimeOnlyFormat(tick.value)
-                    :
-                      epochToDayMonthShortOnly(tick.value)
+                  {{ tickPrecision === TimePrecision.Hours ? epochToShortTimeOnlyFormat(tick.value) : epochToDayMonthShortOnly(tick.value)
                   }}
                 </FSText>
               </FSRow>
@@ -86,20 +80,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, ref, watch, type PropType } from "vue";
 
+import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-components/composables';
 import { useDateFormat, useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
 
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { useBreakpoints, useColors } from '@dative-gpi/foundation-shared-components/composables';
+import { computeTicks, TimePrecision } from '@dative-gpi/foundation-shared-components/utils';
 
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 import FSSlider from '@dative-gpi/foundation-shared-components/components/FSSlider.vue';
+import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
 import FSBaseField from '@dative-gpi/foundation-shared-components/components/fields/FSBaseField.vue';
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
-import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
 
 export default defineComponent({
   name: "FSInstantPicker",
@@ -110,7 +105,7 @@ export default defineComponent({
     FSSlider,
     FSTermField,
     FSBaseField,
-    FSPlayButtons
+    FSPlayButtons,
   },
   props: {
     label: {
@@ -119,8 +114,7 @@ export default defineComponent({
     },
     modelValue: {
       type: Number,
-      required: false,
-      default: 0,
+      required: false
     },
     startDate: {
       type: String,
@@ -164,10 +158,15 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 50
+    },
+    maxWidth: {
+      type: String as PropType<string | null>,
+      required: false,
+      default: null
     }
   },
   emits: ['update:modelValue', 'update:startDate', 'update:endDate'],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const { epochToShortTimeOnlyFormat, epochToShortDateFormat, epochToDayMonthShortOnly, epochToISO, epochToMonthShortTimeFormat } = useDateFormat();
     const { convert : convertTermToEpoch } = useDateExpression();
     const { isMobileSized, isExtraSmall } = useBreakpoints();
@@ -176,42 +175,34 @@ export default defineComponent({
     const lightColors = getColors(ColorEnum.Light);
     const playing = ref(false);
     const playingInterval = ref();
+    const startTimestamp = ref(convertTermToEpoch(props.startDate));
+    const endTimestamp = ref(convertTermToEpoch(props.endDate));
 
-    const startTimestamp = computed(() => convertTermToEpoch(props.startDate));
-    const endTimestamp = computed(() => convertTermToEpoch(props.endDate));
-
-    const intervalTime = computed(() => {
-      const possibleIntervals = [60000, 3600000, 86400000];
-
-      const interval = possibleIntervals.find(interval => {
-        return (endTimestamp.value - startTimestamp.value) / interval < 100;
-      });
-
-      if (interval) {
-        return interval;
-      }
-      return 86400000;
+    const tickCount = computed(() => {
+      if (isExtraSmall.value) { return 3; }
+      if (isMobileSized.value) { return 4; }
+      return 5;
     });
 
-    const ticks = computed(() => {
-      const ticks: number[] = [];
-
-      const firstTick = Math.ceil(startTimestamp.value / intervalTime.value) * intervalTime.value;
-      for (let i = firstTick; i <= endTimestamp.value; i += intervalTime.value) {
-        ticks.push(i);
-      }
-      return ticks;
+    // Pour la précision, on peut rester sur l'heure ou le jour selon la plage
+    const tickPrecision = computed(() => {
+      const rangeDuration = endTimestamp.value - startTimestamp.value;
+      if (rangeDuration <= 86400000 * tickCount.value) { return TimePrecision.Hours; }
+      if (rangeDuration <= 2592000000 * tickCount.value) { return TimePrecision.Days; }
+      return TimePrecision.Months;
     });
 
-    const maximumTickToShow = computed(() => {
-      if (isMobileSized.value) {
-        return 5;
-      }
-      if (isExtraSmall.value) {
-        return 4;
-      }
-      return 6;
-    });
+    const ticks = computed(() => computeTicks({
+      start: startTimestamp.value,
+      end: endTimestamp.value,
+      tickCount: tickCount.value,
+      precision: tickPrecision.value
+    }));
+
+    const refresh = () => {
+      startTimestamp.value = convertTermToEpoch(props.startDate);
+      endTimestamp.value = convertTermToEpoch(props.endDate);
+    };
 
     const onPlayingChange = (value: boolean) => {
       playing.value = value;
@@ -225,10 +216,14 @@ export default defineComponent({
       emit('update:modelValue', endTimestamp.value);
     };
 
-    watch(() => [props.startDate, props.endDate], () => {
-      if(props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value) {
+    watch([() => props.startDate, () => props.endDate, () => props.modelValue], () => {
+      if(!props.modelValue || props.modelValue < startTimestamp.value || props.modelValue > endTimestamp.value) {
         emit('update:modelValue', endTimestamp.value);
       }
+    }, { immediate: true });
+
+    watch([() => props.startDate, () => props.endDate], () => {
+      refresh();
     }, { immediate: true });
 
     watch(playing, (value) => {
@@ -236,7 +231,7 @@ export default defineComponent({
         clearInterval(playingInterval.value);
       } else {
         playingInterval.value = setInterval(() => {
-          if(props.modelValue + props.stepTime <= endTimestamp.value) {
+          if(props.modelValue && props.modelValue + props.stepTime <= endTimestamp.value) {
             emit('update:modelValue', props.modelValue + props.stepTime);
           } else {
             emit('update:modelValue', endTimestamp.value);
@@ -246,15 +241,19 @@ export default defineComponent({
       }
     });
 
+    expose({
+      refresh,
+    });
+
     return {
       ticks,
       playing,
       ColorEnum,
       lightColors,
-      intervalTime,
       endTimestamp,
+      TimePrecision,
+      tickPrecision,
       startTimestamp,
-      maximumTickToShow,
       epochToISO,
       onPlayingChange,
       onClickForward,

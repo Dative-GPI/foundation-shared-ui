@@ -53,9 +53,10 @@
       />
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSGroupTileUI
+        :key="index"
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
         @update:modelValue="toggleSelect(item)"

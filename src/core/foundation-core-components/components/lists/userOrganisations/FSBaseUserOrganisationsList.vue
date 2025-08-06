@@ -78,9 +78,10 @@
       </FSSpan>
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSUserOrganisationTileUI
+        :key="index"
         :to="$props.itemTo && $props.itemTo(item)"
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"

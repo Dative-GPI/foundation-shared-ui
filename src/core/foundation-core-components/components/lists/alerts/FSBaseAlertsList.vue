@@ -171,9 +171,10 @@
       </FSSpan>
     </template>
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ index, item, toggleSelect }"
     >
       <FSAlertTileUI
+        :key="index"
         variant="standard"
         :label="item.label"
         :deviceOrganisationLabel="item.deviceOrganisationLabel"
