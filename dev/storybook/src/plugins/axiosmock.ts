@@ -3,6 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { ServiceFactory } from '@dative-gpi/bones-ui';
 
 import { AUTHTOKENS, CUSTOMPROPERTIES, CONNECTIVITYSCENARIOS, PLAYLISTS, SCENARIOORGANISATIONS, SCENARIOORGANISATIONTYPES, CUSTOMPROPERTYVALUES, DASHBOARDORGANISATIONS, DASHBOARDORGANISATIONTYPES, DASHBOARDSHALLOWS, DEVICEEXPLORERELEMENTS, DEVICEORGANISATIONS, FOLDERS, GROUPINGS, GROUPS, IMAGES, LANGUAGES, USERORGANISATIONTABLES, TIMEZONES, TRANSLATIONS, ORGANISATIONS, ROLEORGANISATIONS, ROLEORGANISATIONTYPES, LOCATIONS, MANUFACTURERS, USERORGANISATIONS, ORGANISATIONTYPES, MODELS, DATACATEGORIES, DATADEFINITIONS, ALERTS, COMMENTS, CHARTORGANISATIONS, CHARTORGANISATIONTYPES, SERVICEACCOUNTORGANISATIONS, CURRENT_USERORGANISATION } from '@/mocks';
+import { LEGAL_INFORMATIONS } from '@/mocks/legalInformations.mock';
 
 const mock = new MockAdapter((ServiceFactory.http as any), { delayResponse: 200 });
 
@@ -21,6 +22,7 @@ export function mockApp() {
     onGetWithRegex("/api/foundation/shared/v1/time-zones", TIMEZONES);
     onGetWithRegex("/api/foundation/shared/v1/organisations", ORGANISATIONS);
     onGetWithRegex("/api/foundation/shared/v1/languages", LANGUAGES);
+    onGetWithRegex("/api/foundation/shared/v1/legal-informations/current", LEGAL_INFORMATIONS);
 
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/dashboard-organisations", DASHBOARDORGANISATIONS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/dashboard-shallows", DASHBOARDSHALLOWS);
