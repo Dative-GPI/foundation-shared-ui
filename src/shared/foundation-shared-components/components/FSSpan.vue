@@ -44,7 +44,12 @@ export default defineComponent({
       type: String as PropType<"left" | "center" | "right">,
       required: false,
       default: "left"
-    }
+    },
+    wordBreak: {
+      type: String as PropType<"normal" | "break-all" | "keep-all" | "break-word">,
+      required: false,
+      default: "normal"
+    },
   },
   setup(props) {
     const { fontStyles } = useBreakpoints();
@@ -53,6 +58,7 @@ export default defineComponent({
     const style = computed((): StyleValue => ({
       "--fs-span-text-align": props.align,
       "--fs-span-line-clamp": props.lineClamp.toString(),
+      "--fs-span-word-break": props.wordBreak,
       ...fontStyles.value
     }));
 
@@ -66,6 +72,9 @@ export default defineComponent({
       }
       else if (props.ellipsis) {
         classNames.push("fs-span-ellipsis");
+      }
+      else if (props.wordBreak !== "normal") {
+        classNames.push("fs-span-word-break");
       }
       return classNames;
     });
