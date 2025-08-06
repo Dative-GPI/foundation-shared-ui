@@ -28,3 +28,7 @@
 .fs-span-pre-wrap > span {
     white-space: pre-wrap;
 }
+
+.fs-span-word-break > span {
+    word-break: var(--fs-span-word-break);
+}
