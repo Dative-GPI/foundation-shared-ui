@@ -82,7 +82,7 @@ export default defineComponent({
       else if (props.ellipsis) {
         classNames.push("fs-span-ellipsis");
       }
-      else if (props.wordBreak !== "normal") {
+      if (props.wordBreak !== "normal") {
         classNames.push("fs-span-word-break");
       }
       return classNames;
