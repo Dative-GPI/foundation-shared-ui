@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSMagicField from "@dative-gpi/foundation-core-components/components/fields/FSMagicField.vue";
+import FSMagicField from "@dative-gpi/foundation-shared-components/components/fields/FSMagicField.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Core/Input fields/MagicField',
+  title: 'Foundation/Shared/Input fields/MagicField',
   component: FSMagicField,
   tags: ['autodocs'],
   argTypes: {
@@ -25,8 +25,7 @@ export const Variations: Story = {
       value5: "",
       value6: "",
       value7: null,
-      value8: null,
-      value9: null,
+      value8: 3
     }
   },
   render: (args, { argTypes }) => ({
@@ -78,20 +77,11 @@ export const Variations: Story = {
         :type="7"
         v-model="args.value7"
       />
-      {{ args.value7 }}
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSMagicField
         label="Plot per field"
         :type="8"
         v-model="args.value8"
-      />
-      {{ args.value8 }}
-      <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
-      <FSMagicField
-        label="Plot per field with showSelector=false"
-        :type="8"
-        :showSelector="false"
-        v-model="args.value9"
       />
     </FSCol>`
   })

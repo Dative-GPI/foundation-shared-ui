@@ -64,14 +64,14 @@ import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui
 
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
-import { useMagicFieldProvider } from "@dative-gpi/foundation-core-services/composables";
-import { MagicFieldType } from "@dative-gpi/foundation-core-domain/models";
-import { getTimeBestString, timeStepToString } from "@dative-gpi/foundation-shared-components/utils";
+import { useMagicFieldProvider } from "../../composables";
+import { MagicFieldType } from "../../models/magicFields";
+import { getTimeBestString, timeStepToString } from "../../utils";
 
-import FSSelectField from "@dative-gpi/foundation-shared-components/components/fields/FSSelectField.vue";
-import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
-import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
-import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
+import FSSelectField from "./FSSelectField.vue";
+import FSIcon from "../FSIcon.vue";
+import FSSpan from "../FSSpan.vue";
+import FSRow from "../FSRow.vue";
 
 export default defineComponent({
   name: "FSMagicField",
@@ -130,8 +130,9 @@ export default defineComponent({
         case MagicFieldType.Switch: 
           return props.modelValue === "true";
         case MagicFieldType.TimeStepField:
-        case MagicFieldType.PlotPerField:
           return JSON.parse(props.modelValue);
+        case MagicFieldType.PlotPerField:
+          return parseInt(props.modelValue);
         default:
           return props.modelValue;
       }
@@ -156,8 +157,6 @@ export default defineComponent({
           return getTimeBestString(parseFloat(value));
         case MagicFieldType.TimeStepField:
           return timeStepToString(JSON.parse(value));
-        case MagicFieldType.PlotPerField:
-          return JSON.parse(value).plotPer;
         default:
           return value;
       }
@@ -176,8 +175,10 @@ export default defineComponent({
           emit("update:modelValue", value.toString());
           break;
         case MagicFieldType.TimeStepField:
-        case MagicFieldType.PlotPerField:
           emit("update:modelValue", JSON.stringify(value));
+          break;
+        case MagicFieldType.PlotPerField:
+          emit("update:modelValue", value.toString());
           break;
         default:
           emit("update:modelValue", value);

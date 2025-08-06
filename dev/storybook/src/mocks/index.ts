@@ -14,7 +14,6 @@ export * from "./dashboardOrganisationTypes.mock";
 export * from "./dashboardShallows.mock";
 export * from "./folders.mock";
 export * from "./groups.mock";
-export * from "./groupings.mock";
 export * from "./images.mock";
 export * from "./deviceExplorerElements.mock";
 export * from "./deviceOrganisations.mock";

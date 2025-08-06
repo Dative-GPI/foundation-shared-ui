@@ -57,8 +57,7 @@ export enum PlotPer {
   Model      = 2,
   Group      = 3,
   Location   = 4,
-  Device     = 5,
-  Grouping   = 6
+  Device     = 5
 }
 
 export enum AggregationType {
