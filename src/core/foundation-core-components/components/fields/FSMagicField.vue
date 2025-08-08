@@ -63,10 +63,10 @@ import { computed, defineComponent, type PropType } from "vue";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
+import { getTimeBestString, timeStepToString } from "@dative-gpi/foundation-shared-components/utils";
 
 import { useMagicFieldProvider } from "@dative-gpi/foundation-core-services/composables";
 import { MagicFieldType } from "@dative-gpi/foundation-core-domain/models";
-import { getTimeBestString, timeStepToString } from "@dative-gpi/foundation-shared-components/utils";
 
 import FSSelectField from "@dative-gpi/foundation-shared-components/components/fields/FSSelectField.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
