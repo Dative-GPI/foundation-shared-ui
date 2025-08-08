@@ -48,4 +48,5 @@ export interface DashboardOrganisationTypeInfosDTO {
 export interface DashboardOrganisationTypeFilters {
   dashboardOrganisationTypesIds?: string[] | null;
   search?: string | null;
+  codes?: string[] | null;
 }
