@@ -28,7 +28,7 @@
       />
     </template>
   </FSAgendaVerticalEvent>
-  <FSClickable
+  <FSCard
     v-if="$props.variant !== 'current' || $props.dayStart < $props.now"
     :class="`fs-agenda-event fs-agenda-vertical-event fs-agenda-event-${$props.variant}`"
     :variant="$props.variant === 'current' ? 'full' : 'standard'"
@@ -48,7 +48,7 @@
       :timeEnd="epochToShortTimeOnlyFormat($props.end)"
       :variant="$props.variant"
     />
-  </FSClickable>
+  </FSCard>
 </template>
 
 <script lang="ts">
@@ -56,12 +56,12 @@ import { defineComponent, computed, type StyleValue, type PropType } from 'vue';
 
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
-import FSClickable from '../FSClickable.vue';
+import FSCard from '../FSCard.vue';
 
 export default defineComponent({
   name: 'FSAgendaVerticalEvent',
   components: {
-    FSClickable
+    FSCard
   },
   emits: ['click'],
   props: {

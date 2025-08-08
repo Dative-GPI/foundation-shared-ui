@@ -1,25 +1,26 @@
 <template>
   <FSCol
     class="fs-tile"
-    :height="$props.height"
+    :style="style"
     :width="$props.width"
+    :height="$props.height"
   >
-    <FSClickable
-      v-if="($props.href || $props.to || $attrs.onClick)"
-      variant="background"
+    <FSCard
       class="fs-tile"
+      :variant="selectionState.variant"
+      :color="selectionState.color"
       padding="12px"
-      :href="$props.href"
       width="100%"
       height="100%"
       topRightPadding="1px"
       :to="$props.to"
-      :style="style"
+      :href="$props.href"
+      v-on="selectionState.listeners"
       v-bind="$attrs"
     >
       <slot />
       <template 
-        v-if="$props.selectable"
+        v-if="selectionState.showCheckbox"
         #top-right
       >
         <FSCard
@@ -32,50 +33,7 @@
           />
         </FSCard>
       </template>
-    </FSClickable>
-
-    <FSClickable
-      v-else-if="$props.selectable && $props.singleSelect"
-      padding="12px"
-      :variant="variant"
-      :color="color"
-      :style="style"
-      width="100%"
-      height="100%"
-      @click="() => $emit('update:modelValue', !$props.modelValue)"
-      v-bind="$attrs"
-    >
-      <slot />
-    </FSClickable>
-    
-    <FSCard
-      v-else
-      variant="background"
-      class="fs-tile"
-      padding="12px"
-      :style="style"
-      width="100%"
-      height="100%"
-      topRightPadding="1px"
-      v-bind="$attrs"
-    >
-      <slot />
-      <template 
-        v-if="$props.selectable"
-        #top-right
-      >
-        <FSCard
-          padding="8px"
-          :border="false"
-        >
-          <FSCheckbox
-            :modelValue="$props.modelValue"
-            @update:modelValue="() => $emit('update:modelValue', !$props.modelValue)"
-          />
-        </FSCard>
-      </template>
-    </FSCard>  
-    
+    </FSCard>
     <div
       v-if="$props.leftColor"
       class="fs-tile-left"
@@ -96,17 +54,15 @@ import { type RouteLocation } from "vue-router";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { ColorEnum, type ColorBase } from "@dative-gpi/foundation-shared-components/models";
 
-import FSClickable from "../FSClickable.vue";
-import FSCheckbox from "../FSCheckbox.vue";
 import FSCard from "../FSCard.vue";
+import FSCheckbox from "../FSCheckbox.vue";
 
 export default defineComponent({
   name: "FSTile",
   inheritAttrs: false,
   components: {
-    FSClickable,
-    FSCheckbox,
-    FSCard
+    FSCard,
+    FSCheckbox
   },
   props: {
     to: {
@@ -161,7 +117,7 @@ export default defineComponent({
     },
   },
   emits: ["update:modelValue"],
-  setup(props) {
+  setup(props, { emit }) {
     const { getGradients } = useColors();
 
     const style = computed((): StyleValue => {
@@ -177,18 +133,28 @@ export default defineComponent({
       return result;
     });
 
-    const variant = computed((): "standard" | "background" => {
-      return (props.singleSelect && props.modelValue) ? "standard" : "background";
-    });
-
-    const color = computed((): ColorBase => {
-      return (props.singleSelect && props.modelValue) ? props.activeColor : ColorEnum.Background;
+    const selectionState = computed(() => {
+      const isSingleSelect = props.selectable && props.singleSelect && !props.href && !props.to;
+      const showCheckbox = props.selectable && !isSingleSelect;
+      const variant: "standard" | "background" = (isSingleSelect && props.modelValue) ? "standard" : "background";
+      const color: ColorBase = (isSingleSelect && props.modelValue) ? props.activeColor : ColorEnum.Background;
+      const onClick = () => { emit("update:modelValue", !props.modelValue); };
+      const listeners: Record<string, (...args: any[]) => void> = {};
+      if (isSingleSelect) {
+        listeners.click = onClick;
+      }
+      return {
+        isSingleSelect,
+        showCheckbox,
+        variant,
+        color,
+        listeners
+      };
     });
 
     return {
+      selectionState,
       ColorEnum,
-      variant,
-      color,
       style
     };
   }
