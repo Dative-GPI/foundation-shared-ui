@@ -44,6 +44,7 @@ export interface CreateUserOrganisationDTO {
     phoneNumber: string;
     firstName: string;
     lastName: string;
+    startOnKioskMode: boolean;
     tags: string[];
 }
 
