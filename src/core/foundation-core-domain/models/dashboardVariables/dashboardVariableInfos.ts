@@ -15,6 +15,7 @@ export class DashboardVariableInfos {
   useOnlyAllowedValues: boolean;
   allowedValues: DashboardVariableValue[];
   translations: DashboardVariableTranslation[];
+  meta: any;
   
   get label() { 
     return translate(this.translations, t => t.label, this.labelDefault) 
@@ -30,6 +31,7 @@ export class DashboardVariableInfos {
     this.useOnlyAllowedValues = params.useOnlyAllowedValues;
     this.allowedValues = params.allowedValues.map(dto => new DashboardVariableValue(dto));
     this.translations = params.translations.map(t => new DashboardVariableTranslation(t));
+    this.meta = params.meta;
   }
 }
   
@@ -43,4 +45,5 @@ export interface DashboardVariableInfosDTO {
   useOnlyAllowedValues: boolean;
   allowedValues: DashboardVariableValueDTO[];
   translations: DashboardVariableTranslationDTO[];
+  meta: any;
 }

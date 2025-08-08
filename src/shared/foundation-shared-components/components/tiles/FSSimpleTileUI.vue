@@ -128,7 +128,7 @@ export default defineComponent({
       default: ColorEnum.Primary
     },
     bottomColor: {
-      type: [Array, String] as PropType<ColorBase | ColorBase[]>,
+      type: [Array, String] as PropType<ColorBase | ColorBase[] | null>,
       required: false,
       default: ColorEnum.Light
     },
@@ -147,7 +147,7 @@ export default defineComponent({
     const { isMobileSized } = useBreakpoints();
 
     const iconBackgroundColor = computed((): ColorBase | ColorBase[] => {
-      return props.iconBackgroundColor ? props.bottomColor : ColorEnum.Background;
+      return props.iconBackgroundColor ?? ColorEnum.Background;
     });
 
     const imageSize = computed((): number => {
