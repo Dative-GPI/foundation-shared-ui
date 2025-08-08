@@ -4,7 +4,7 @@
     :is="get($props.type)"
     :modelValue="valueToInput"
     @update:modelValue="inputToValue"
-    v-bind="$attrs"
+    v-bind="{ ...$attrs, ...bindedProps }"
   />
   <FSSelectField
     v-else
@@ -65,7 +65,7 @@ import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
 import { useMagicFieldProvider } from "@dative-gpi/foundation-core-services/composables";
-import { MagicFieldType } from "@dative-gpi/foundation-core-domain/models";
+import { MagicFieldType } from "@dative-gpi/foundation-shared-domain/enums";
 import { getTimeBestString, timeStepToString } from "@dative-gpi/foundation-shared-components/utils";
 
 import FSSelectField from "@dative-gpi/foundation-shared-components/components/fields/FSSelectField.vue";
@@ -102,6 +102,11 @@ export default defineComponent({
       required: false,
       default: false
     },
+    meta: {
+      type: Object as PropType<Record<string, any>>,
+      required: false,
+      default: () => ({})
+    }
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
@@ -185,9 +190,21 @@ export default defineComponent({
       }
     };
 
+    const bindedProps = computed(() => {
+      switch (props.type) {
+        case MagicFieldType.PlotPerField:
+          return {
+            showSelector: props.meta.showSelector ?? true
+          }
+        default:
+          return {};
+      }
+    });
+
     return {
       MagicFieldType,
       valueToInput,
+      bindedProps,
       items,
       inputToValue,
       get

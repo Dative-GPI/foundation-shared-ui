@@ -12,6 +12,7 @@ export * from "./deviceExplorerElements";
 export * from "./filters";
 export * from "./index";
 export * from "./lists";
+export * from "./magicFields";
 export * from "./messages";
 export * from "./playlists";
 export * from "./roles";

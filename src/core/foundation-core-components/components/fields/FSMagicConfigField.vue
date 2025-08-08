@@ -45,7 +45,7 @@ import { computed, defineComponent, type PropType } from "vue";
 
 import { DateRules, IconRules, NumberRules, TextRules, TimeRules, TimeStepRules, AutocompleteRules } from "@dative-gpi/foundation-shared-components/models";
 import { useMagicFieldProvider } from "@dative-gpi/foundation-core-services/composables";
-import { MagicFieldType } from "@dative-gpi/foundation-core-domain/models/magicFields";
+import { MagicFieldType } from "@dative-gpi/foundation-shared-domain/enums";
 
 import FSButtonRemoveIcon from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonRemoveIcon.vue";
 import FSButtonAddIcon from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonAddIcon.vue";

@@ -1,6 +1,6 @@
 import { defineAsyncComponent } from "vue";
 
-import { MagicFieldType } from "@dative-gpi/foundation-core-domain/models/magicFields";
+import { MagicFieldType } from "@dative-gpi/foundation-shared-domain/enums";
 
 const FIELDS = {
   [MagicFieldType.NumberField]    : defineAsyncComponent(() => import("@dative-gpi/foundation-shared-components/components/fields/FSNumberField.vue")),
