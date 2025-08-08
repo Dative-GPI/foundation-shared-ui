@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, type PropType, ref, watch } from "vue";
+import { computed, defineComponent, onMounted, onUnmounted, type PropType, ref, type StyleValue, watch } from "vue";
 
 import { useBreakpoints, useColors, useDebounce } from "@dative-gpi/foundation-shared-components/composables";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -50,6 +50,11 @@ export default defineComponent({
       required: false,
       default: true
     },
+    hideVerticalOverflow: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     hideHorizontalOverflow: {
       type: Boolean,
       required: false,
@@ -61,6 +66,11 @@ export default defineComponent({
       default: false
     },
     disableBottomMask: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    alwaysShowScrollbar: {
       type: Boolean,
       required: false,
       default: false
@@ -89,18 +99,24 @@ export default defineComponent({
 
     const showOutsideScrollbar = computed(() => props.scrollOutside && !isTouchScreenEnabled.value);
 
-    const style = computed((): {[index: string]: string} => ({
-      "--fs-fade-out-height"            : props.height ? sizeToVar(props.height) : "initial",
-      "--fs-fade-out-max-height"        : props.maxHeight ? sizeToVar(props.maxHeight) : "initial",
-      "--fs-fade-out-width"             : sizeToVar(props.width),
-      "--fs-fade-out-padding"           : sizeToVar(props.padding),
-      "--fs-fade-out-width-offset"      : showOutsideScrollbar.value ? '12px' : '0px',
-      "--fs-fade-out-padding-offset"    : showOutsideScrollbar.value ? '4px' : '0px',
-      "--fs-fade-out-margin-right"      : showOutsideScrollbar.value ? '-12px' : '0px',
-      "--fs-fade-out-mask-color"        : backgrounds.base,
-      "--fs-fade-out-top-mask-height"   : props.disableTopMask ? '0px' : topMaskHeight.value,
-      "--fs-fade-out-bottom-mask-height": props.disableBottomMask ? '0px' : bottomMaskHeight.value,
-      "--fs-fade-out-x-overflow"        : props.hideHorizontalOverflow ? 'hidden' : 'auto', 
+    const style = computed((): StyleValue => ({
+      "--fs-fade-out-height"                    : props.height ? sizeToVar(props.height) : "initial",
+      "--fs-fade-out-max-height"                : props.maxHeight ? sizeToVar(props.maxHeight) : "initial",
+      "--fs-fade-out-width"                     : sizeToVar(props.width),
+      "--fs-fade-out-padding"                   : sizeToVar(props.padding),
+      "--fs-fade-out-width-offset"              : !props.hideVerticalOverflow && showOutsideScrollbar.value ? '12px' : '0px',
+      "--fs-fade-out-height-offset"             : !props.hideHorizontalOverflow && showOutsideScrollbar.value ? '12px' : '0px',
+      "--fs-fade-out-padding-right-offset"      : !props.hideVerticalOverflow && showOutsideScrollbar.value ? '4px' : '0px',
+      "--fs-fade-out-padding-bottom-offset"     : !props.hideHorizontalOverflow && showOutsideScrollbar.value ? '4px' : '0px',
+      "--fs-fade-out-margin-right"              : !props.hideVerticalOverflow && showOutsideScrollbar.value ? '-12px' : '0px',
+      "--fs-fade-out-margin-bottom"             : !props.hideHorizontalOverflow && showOutsideScrollbar.value ? '-12px' : '0px',
+      "--fs-fade-out-mask-color"                : backgrounds.base,
+      "--fs-fade-out-top-mask-height"           : props.disableTopMask ? '0px' : topMaskHeight.value,
+      "--fs-fade-out-bottom-mask-height"        : props.disableBottomMask ? '0px' : bottomMaskHeight.value,
+      "--fs-fade-out-x-overflow"                : props.hideHorizontalOverflow ? 'hidden' : 'scroll', 
+      "--fs-fade-out-y-overflow"                : props.hideVerticalOverflow ? 'hidden' : 'scroll', 
+      "--scrollbar-x-color"                     : props.alwaysShowScrollbar ? '#00000022' : "",
+      "--scrollbar-y-color"                     : props.alwaysShowScrollbar ? '#00000022' : "",
       ...props.style
     }));
 
