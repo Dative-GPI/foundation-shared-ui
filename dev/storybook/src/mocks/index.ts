@@ -18,6 +18,7 @@ export * from "./images.mock";
 export * from "./deviceExplorerElements.mock";
 export * from "./deviceOrganisations.mock";
 export * from "./languages.mock";
+export * from "./legalInformations.mock";
 export * from "./locations.mock";
 export * from "./manufacturers.mock";
 export * from "./models.mock";
