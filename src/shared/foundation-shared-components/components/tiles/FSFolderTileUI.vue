@@ -20,7 +20,7 @@
         />
         <FSEntityCountBadge
           :label="$tr('ui.common.dashboards', 'Dashboard(s)')"
-          :count="($props.recursiveDashboardOrganisationsIds?.length ?? 0) + ($props.recursiveDashboardShallowsIds?.length ?? 0)"
+          :count="dashboardCount"
           :color="ColorEnum.Success"
         />
       </FSCol>
@@ -79,8 +79,13 @@ export default defineComponent({
       return props.bottomColor;
     });
 
+    const dashboardCount = computed(() => {
+      return (props.recursiveDashboardOrganisationsIds?.length ?? 0) + (props.recursiveDashboardShallowsIds?.length ?? 0);
+    });
+
     return {
       color,
+      dashboardCount,
       ColorEnum
     };
   }
