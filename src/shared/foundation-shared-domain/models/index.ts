@@ -8,7 +8,7 @@ export * from "./notifications";
 export * from "./organisations";
 export * from "./organisationTypes";     // No service
 export * from "./permissions";
-export * from "./terminals";
+export * from "./terminalApplications";
 export * from "./timeZones";
 export * from "./translations";
 export * from "./userLegalInformations";
