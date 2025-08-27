@@ -35,6 +35,7 @@
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
         :singleSelect="$props.singleSelect"
+        :iconColor="item.color"
         :to="$props.itemTo && $props.itemTo(item)"
         @update:modelValue="toggleSelect(item)"
         v-bind="item"

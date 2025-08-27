@@ -1,6 +1,6 @@
 <template>
   <FSSimpleTileUI
-    :bottomColor="$props.bottomColor"
+    :iconColor="$props.iconColor"
     v-bind="$attrs"
   >
     <template
@@ -36,10 +36,9 @@ export default defineComponent({
       required: false,
       default: null
     },
-    bottomColor: {
-      type: [Array, String] as PropType<ColorBase | ColorBase[] | null>,
-      required: false,
-      default: null
+    iconColor: {
+      type: String as PropType<ColorBase>,
+      required: false
     },
 
   },
