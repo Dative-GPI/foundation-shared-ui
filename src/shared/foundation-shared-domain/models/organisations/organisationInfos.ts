@@ -29,7 +29,7 @@ export interface OrganisationInfosDTO {
   organisationTypeId: string;
   imageId: string | null;
   label: string;
-  address?: AddressDTO;
+  address?: AddressDTO | null;
   userOrganisationsCount: number;
   adminId: string | null;
   adminName: string | null;
