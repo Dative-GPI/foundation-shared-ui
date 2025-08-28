@@ -1,6 +1,6 @@
 <template>
   <FSSimpleTileUI
-    :iconColor="$props.iconColor"
+    :bottomColor="null"
     v-bind="$attrs"
   >
     <template
@@ -16,10 +16,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import { defineComponent } from "vue";
 
-
-import { ColorEnum, type ColorBase } from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSEntityCountBadge from "./FSEntityCountBadge.vue";
 import FSSimpleTileUI from './FSSimpleTileUI.vue';
@@ -35,12 +34,7 @@ export default defineComponent({
       type: Number,
       required: false,
       default: null
-    },
-    iconColor: {
-      type: String as PropType<ColorBase>,
-      required: false
-    },
-
+    }
   },
   setup() {
     return {

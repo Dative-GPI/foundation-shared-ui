@@ -35,10 +35,13 @@
         :selectable="$props.selectable"
         :modelValue="isSelected(item.id)"
         :singleSelect="$props.singleSelect"
+        :subgroupingCount="item.subgroupingCount"
         :iconColor="item.color"
+        :label="item.label"
+        :icon="item.icon"
+        :code="item.code"
         :to="$props.itemTo && $props.itemTo(item)"
         @update:modelValue="toggleSelect(item)"
-        v-bind="item"
       />
     </template>
   </FSDataTable>
