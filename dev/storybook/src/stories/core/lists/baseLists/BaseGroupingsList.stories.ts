@@ -33,6 +33,7 @@ export const Default: Story = {
   }),
   args: {
     modelValue: [],
-    tableCode: 'groupings1'
+    tableCode: 'groupings1',
+    itemTo: (item: any) => ({ name: 'Home' })
   },
 };
