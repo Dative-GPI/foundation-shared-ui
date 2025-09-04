@@ -318,8 +318,10 @@ export default defineComponent({
       });
     };
 
+    let isInternalUpdate = false;
+
     const updateEditorState = () => {
-      if (loading.value) {
+      if (loading.value || isInternalUpdate) {
         return;
       }
       plainStringToLexical(props.modelValue);
@@ -332,7 +334,11 @@ export default defineComponent({
         }
         const plainString = lexicalToPlainString();
         if (plainString !== props.modelValue) {
+          isInternalUpdate = true;
           emit("update:modelValue", plainString || null);
+          setTimeout(() => {
+            isInternalUpdate = false;
+          }, 0);
         }
       });
     });
@@ -353,8 +359,12 @@ export default defineComponent({
     };
 
     const clear = () => {
+      isInternalUpdate = true;
       emit("update:modelValue", null);
       editor.setEditorState(editor.parseEditorState(emptyLexicalState));
+      setTimeout(() => {
+        isInternalUpdate = false;
+      }, 0);
     };
 
     watch(() => props.modelValue, () => {
@@ -382,6 +392,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .fs-formula-field {
+  width: 100%;
   position: relative;
   display: flex;
   align-items: center;
@@ -402,7 +413,8 @@ export default defineComponent({
 }
 
 .fs-formula-field-content {
-  flex: 1;
+  width: 100%;
+  min-width: var(--fs-base-field-min-width);
   padding: 8px 12px;
   outline: none;
   color: var(--fs-formula-field-color);
