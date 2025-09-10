@@ -124,7 +124,7 @@ export const dayLabel = (day: Days | number): string => {
   }
 }
 
-export const getPeriod = (value: string) => {
+export const getCronPeriod = (value: string) => {
   const cronArray = value.split(" ");
   if (cronArray[3] !== "*") {
     return $tr("ui.common.yearly", "Yearly");
