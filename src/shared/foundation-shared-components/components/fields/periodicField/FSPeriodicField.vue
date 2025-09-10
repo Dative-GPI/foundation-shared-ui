@@ -49,6 +49,7 @@
 import { ref, defineComponent, type PropType, watch } from "vue";
 
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui";
+import { getPeriod } from "@dative-gpi/foundation-shared-components/tools";
 
 import FSPeriodicMonthlyField from "./FSPeriodicMonthlyField.vue";
 import FSPeriodicWeeklyField from "./FSPeriodicWeeklyField.vue";
@@ -92,20 +93,6 @@ export default defineComponent({
     ];
     
     const selectedPeriod = ref("daily");
-
-    const getPeriod = (value: string) => {
-      const cronArray = value.split(" ");
-      if (cronArray[3] !== "*") {
-        return "yearly";
-      }
-      else if(!cronArray[2].includes("*") || cronArray[2].includes("-")) {
-        return "monthly";
-      }
-      else if(cronArray[4] !== "*") {
-        return "weekly";
-      }
-      return "daily";
-    };
 
     watch(() => selectedPeriod.value, () => {
       if (getPeriod(props.modelValue) === selectedPeriod.value) {
