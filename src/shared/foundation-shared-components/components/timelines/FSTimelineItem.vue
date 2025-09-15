@@ -9,6 +9,13 @@
         name="opposite"
       />
     </template>
+    <template
+      v-slot:icon
+    >
+      <slot
+        name="icon"
+      />
+    </template>
     <slot/>
   </v-timeline-item>
 </template>
