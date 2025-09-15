@@ -127,13 +127,13 @@ export const dayLabel = (day: Days | number): string => {
 export const getCronPeriod = (value: string) => {
   const cronArray = value.split(" ");
   if (cronArray[3] !== "*") {
-    return $tr("ui.common.yearly", "Yearly");
+    return "yearly";
   }
   else if (!cronArray[2].includes("*") || cronArray[2].includes("-")) {
-    return $tr("ui.common.monthly", "Monthly");
+    return "monthly";
   }
   else if (cronArray[4] !== "*") {
-    return $tr("ui.common.weekly", "Weekly");
+    return "weekly";
   }
-  return $tr("ui.common.daily", "Daily");
+  return "daily";
 };
