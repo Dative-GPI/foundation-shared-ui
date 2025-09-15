@@ -95,7 +95,7 @@ export default defineComponent({
     const selectedPeriod = ref("daily");
 
     watch(() => selectedPeriod.value, () => {
-      if (getCronPeriod(props.modelValue) === selectedPeriod.value) {
+      if (getCronPeriod(props.modelValue).value === selectedPeriod.value) {
         return;
       }
       const period = availablePeriod.find((item) => item.value === selectedPeriod.value);
@@ -106,7 +106,7 @@ export default defineComponent({
     });
 
     watch(() => props.modelValue, () => {
-      selectedPeriod.value = getCronPeriod(props.modelValue);
+      selectedPeriod.value = getCronPeriod(props.modelValue).value;
     }, { immediate: true });
 
     return {
