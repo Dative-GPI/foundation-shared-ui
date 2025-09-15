@@ -30,8 +30,11 @@ export const Variations: Story = {
     template: `
     <div style="display: flex; flex-direction: column; gap: 10px; align: center;">
       <FSTimeline direction="vertical" side="start" >
-          <FSTimelineItem>
-              <FSButton> Primary color </FSButton> 
+          <FSTimelineItem dotColor="red" size="12px">
+              <FSButton> Primary color </FSButton>
+              <template v-slot:opposite>
+                2023-10-10
+              </template>
           </FSTimelineItem>
 
           <FSTimelineItem>
