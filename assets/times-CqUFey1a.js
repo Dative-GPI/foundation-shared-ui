@@ -1,0 +1,1 @@
+var l=(a=>(a[a.None=0]="None",a[a.Millisecond=1]="Millisecond",a[a.Second=2]="Second",a[a.Minute=3]="Minute",a[a.Hour=4]="Hour",a[a.Day=5]="Day",a[a.Week=6]="Week",a[a.Month=7]="Month",a[a.Year=8]="Year",a))(l||{}),y=(a=>(a[a.None=0]="None",a[a.Daily=1]="Daily",a[a.Weekly=2]="Weekly",a[a.Monthly=3]="Monthly",a[a.Yearly=4]="Yearly",a))(y||{});export{y as C,l as T};
