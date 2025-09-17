@@ -1,53 +1,40 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { addSubcomponentsArgTypes, addComponentEmits } from '@/utils/properties';
 
 import FSTimeline from "@dative-gpi/foundation-shared-components/components/timelines/FSTimeline.vue";
 import FSTimelineItem from "@dative-gpi/foundation-shared-components/components/timelines/FSTimelineItem.vue";
-import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 
 const meta = {
   title: 'Foundation/Shared/Timeline',
   component: FSTimeline,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
+    ...addSubcomponentsArgTypes([FSTimelineItem], FSTimeline),
+    ...addComponentEmits(FSTimeline),
   },
 } satisfies Meta<typeof FSTimeline>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Variations: Story = {
-  args: {
-    args: {
-      value: 0
-    }
-  },
+export const Default: Story = {
   render: (args) => ({
-    components: { FSTimeline, FSButton, FSTimelineItem },
+    components: { FSTimeline, FSTimelineItem },
     setup() {
       return { args };
     },
-    template: `
-    <div style="display: flex; flex-direction: column; gap: 10px; align: center;">
-      <FSTimeline direction="vertical" side="start" >
-          <FSTimelineItem dotColor="red" size="50px" :hideOpposite="false">
-              <FSButton> Primary color </FSButton>
-              <template v-slot:opposite>
-                2023-10-10
-              </template>
-              <template v-slot:icon>
-                hello
-              </template>
+    template: ` <FSTimeline 
+        v-bind="args"
+      >
+          <FSTimelineItem>
+            Hello world
           </FSTimelineItem>
 
           <FSTimelineItem>
-              <FSButton> Secondary color </FSButton>
+            Hello world 2
           </FSTimelineItem>
-
-          <FSTimelineItem>
-              <FSButton> Tertiary color </FSButton>
-          </FSTimelineItem>
-      </FSTimeline>
-    </div>`
-  })
-}
+      </FSTimeline>`,
+  }),
+  args: {
+  },
+};
