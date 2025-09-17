@@ -4,7 +4,7 @@
     :wrap="false"
   >
     <FSRadioGroup
-      :values="availablePeriod"
+      :values="availablePeriods"
       :disabled="disabled"
       v-model="selectedPeriod"
     />
@@ -18,25 +18,25 @@
         :vertical="true"
       />
       <FSPeriodicDailyField
-        v-if="selectedPeriod === 'daily'"
+        v-if="selectedPeriod === CronPeriod.Daily"
         :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
       />
       <FSPeriodicWeeklyField
-        v-else-if="selectedPeriod === 'weekly'"
+        v-else-if="selectedPeriod === CronPeriod.Weekly"
         :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
       />
       <FSPeriodicMonthlyField
-        v-else-if="selectedPeriod === 'monthly'"
+        v-else-if="selectedPeriod === CronPeriod.Monthly"
         :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
       />
       <FSPeriodicYearlyField
-        v-else-if="selectedPeriod === 'yearly'"
+        v-else-if="selectedPeriod === CronPeriod.Yearly"
         :disabled="disabled"
         :modelValue="$props.modelValue.split(' ')"
         @update:modelValue="$emit('update:modelValue', $event.join(' '))"
@@ -48,8 +48,8 @@
 <script lang="ts">
 import { ref, defineComponent, type PropType, watch } from "vue";
 
-import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui";
-import { getCronPeriod } from "@dative-gpi/foundation-shared-components/tools";
+import { CronPeriod } from "@dative-gpi/foundation-shared-domain/enums";
+import { availablePeriods, getCronPeriod } from "@dative-gpi/foundation-shared-components/tools";
 
 import FSPeriodicMonthlyField from "./FSPeriodicMonthlyField.vue";
 import FSPeriodicWeeklyField from "./FSPeriodicWeeklyField.vue";
@@ -58,6 +58,7 @@ import FSPeriodicDailyField from "./FSPeriodicDailyField.vue";
 import FSRadioGroup from "../../FSRadioGroup.vue";
 import FSDivider from "../../FSDivider.vue";
 import FSRow from "../../FSRow.vue";
+
 
 export default defineComponent({
   name: "FSPeriodicField",
@@ -83,22 +84,14 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
-    const { $tr } = useTranslationsProvider();
-
-    const availablePeriod = [
-      { label: $tr("ui.common.daily", "Daily")    , value: "daily"  , item: { default : "0 12 */1 * *"} },
-      { label: $tr("ui.common.weekly", "Weekly")  , value: "weekly" , item: { default : "0 12 * * 1"} },
-      { label: $tr("ui.common.monthly", "Monthly"), value: "monthly", item: { default : "0 12 1 * *"} },
-      { label: $tr("ui.common.yearly", "Yearly")  , value: "yearly" , item: { default : "0 12 1 1 *"} }
-    ];
     
-    const selectedPeriod = ref("daily");
+    const selectedPeriod = ref(CronPeriod.Daily);
 
     watch(() => selectedPeriod.value, () => {
-      if (getCronPeriod(props.modelValue) === selectedPeriod.value) {
+      if (getCronPeriod(props.modelValue).value == selectedPeriod.value) {
         return;
       }
-      const period = availablePeriod.find((item) => item.value === selectedPeriod.value);
+      const period = availablePeriods.find((item) => item.value == selectedPeriod.value);
       if (!period) {
         return;
       }
@@ -106,12 +99,13 @@ export default defineComponent({
     });
 
     watch(() => props.modelValue, () => {
-      selectedPeriod.value = getCronPeriod(props.modelValue);
+      selectedPeriod.value = getCronPeriod(props.modelValue).value;
     }, { immediate: true });
 
     return {
-      availablePeriod,
-      selectedPeriod
+      availablePeriods,
+      selectedPeriod,
+      CronPeriod
     };
   }
 });
