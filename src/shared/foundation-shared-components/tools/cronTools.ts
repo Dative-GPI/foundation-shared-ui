@@ -10,7 +10,7 @@ export const availablePeriods = [
   { label: $tr("ui.common.yearly", "Yearly"), value: CronPeriod.Yearly, item: { default: "0 12 1 1 *" } },
 ];
 
-export const getCronPeriod = (value: string): { label: string, value: CronPeriod } => {
+export const getCronPeriod = (value: string) => {
   const cronArray = value.split(" ");
   if (cronArray[3] !== "*") {
     return availablePeriods.find(c => c.value == CronPeriod.Yearly)!;
