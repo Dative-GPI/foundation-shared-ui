@@ -10,6 +10,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "FSTimeline"
+  name: "FSTimeline",
+  inheritAttrs: false
 });
 </script>
