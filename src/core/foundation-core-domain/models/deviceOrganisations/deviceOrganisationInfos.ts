@@ -15,6 +15,7 @@ export class DeviceOrganisationInfos {
   longitude: number | null;
   articleId: string;
   articleLabel: string;
+  articleCode: string;
   modelId: string;
   modelLabel: string;
   ownerId: string | null;
@@ -55,6 +56,7 @@ export class DeviceOrganisationInfos {
     this.longitude = params.longitude;
     this.articleId = params.articleId;
     this.articleLabel = params.articleLabel;
+    this.articleCode = params.articleCode;
     this.modelId = params.modelId;
     this.modelLabel = params.modelLabel;
     this.ownerId = params.ownerId;
@@ -98,6 +100,7 @@ export interface DeviceOrganisationInfosDTO {
   longitude: number | null;
   articleId: string;
   articleLabel: string;
+  articleCode: string;
   modelId: string;
   modelLabel: string;
   ownerId: string | null;
