@@ -323,3 +323,65 @@ export const FullScreen: Story = {
     </div>`
   })
 }
+
+export const TabsForm: Story = {
+  args: {
+    value1: false,
+    showCancelButton1: true,
+    showSubmitButton1: true,
+    label11: "",
+    label12: ""
+  },
+  render: (args, { argTypes }) => ({
+    components: { FSDialogMultiForm, FSTextField, FSButton, FSCard, FSSpan, FSCol, FSRow },
+    props: Object.keys(argTypes),
+    setup() {
+      return { args };
+    },
+    template: `
+    <div style="display: flex; gap: 10px;">
+      <FSButton
+        color="primary"
+        label="Dialog multiform"
+        @click="() => args.value1 = true"
+      />
+      <FSDialogMultiForm
+        width="500px"
+        title="Form 1"
+        subtitle="3 pages form"
+        :showCancelButton="args.showCancelButton1"
+        :showSubmitButton="args.showSubmitButton1"
+        :steps="3"
+        mode="tabs"
+        @click:submitButton="() => {
+          args.value1 = false;
+        }"
+        v-model="args.value1"
+      >
+        <template #tab-1-label>Step 1</template>
+        <template #tab-2-label>Step 2 *</template>
+        <template #tab-2-icon>mdi-home</template>
+        <template #tab-3-label>Step 3</template>
+
+        <template #step-1>
+          <FSTextField
+            label="Label 1"
+            v-model="args.label1"
+          />
+        </template>
+        <template #step-2>
+          <FSTextField
+            label="Label 2"
+            v-model="args.label2"
+          />
+        </template>
+        <template #step-3>
+          <FSTextField
+            label="Label 3"
+            v-model="args.label3"
+          />
+        </template>
+      </FSDialogMultiForm>
+    </div>`
+  })
+}

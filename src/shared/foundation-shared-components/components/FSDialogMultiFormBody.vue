@@ -3,10 +3,48 @@
     gap="24px"
   >
     <FSPagination
+      v-if="$props.mode === 'pagination'"
       width="calc(100% - 16px)"
       :pages="$props.steps"
       :modelValue="currentStep - 1"
     />
+    <FSTabs
+      v-else-if="$props.mode === 'tabs'"
+      :tab="currentStep - 1"
+      :color="$props.tabsColor"
+      @update:tab="(val) => currentStep = val + 1"
+    >
+      <FSTab
+        v-for="(step, index) in $props.steps"
+        :key="index"
+      >
+        <template
+          v-if="$slots[`tab-${step}-icon`] "
+          #prepend
+        >
+          <FSIcon
+            size="m"
+          >
+            <slot
+              :name="`tab-${step}-icon`"
+            />
+          </FSIcon>
+        </template>
+        <template
+          #label
+        >
+          <FSSpan
+            font="text-button"
+          >
+            <slot
+              :name="`tab-${step}-label`"
+            >
+              Step {{ step }}
+            </slot>
+          </FSSpan>
+        </template>
+      </FSTab>
+    </FSTabs>
     <FSWindow
       width="100%"
       :modelValue="currentStep - 1"
@@ -78,6 +116,7 @@ import FSButton from "./FSButton.vue";
 import FSForm from "./FSForm.vue";
 import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
+import FSSpan from "./FSSpan.vue";
 
 export default defineComponent({
   name: "FSDialogMultiFormBody",
@@ -87,7 +126,8 @@ export default defineComponent({
     FSButton,
     FSForm,
     FSCol,
-    FSRow
+    FSRow,
+    FSSpan
   },
   props: {
     subtitle: {
@@ -178,7 +218,17 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
-    }
+    },
+    mode: {
+      type: String as PropType<"pagination" | "tabs">,
+      required: false,
+      default: "pagination"
+    },
+    tabsColor: {
+      type: String as PropType<ColorBase>,
+      required: false,
+      default: ColorEnum.Primary
+    },
   },
   emits: ["click:cancelButton", "click:submitButton"],
   setup(props, { emit }) {
