@@ -168,7 +168,7 @@ export default defineComponent({
     const innerTranslations = ref<{
       languageCode: string;
       [key: string]: string | null;
-    }[]>([]);
+    }[]>(props.translations);
 
     const lights = getColors(ColorEnum.Light);
     const darks = getColors(ColorEnum.Dark);
