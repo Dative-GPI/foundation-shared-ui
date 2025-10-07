@@ -19,27 +19,16 @@
         :key="index"
       >
         <slot
-          v-if="$slots[`tab-${index + 1}`]"
           :name="`tab-${index + 1}`"
-        ></slot>
-        <FSRow
-          v-else
         >
-          <slot
-            v-if="$slots[`tab-${index + 1}-icon`]"
-            name="prepend"
-          >
+          <FSRow>
             <FSIcon
-              size="m"
+              v-if="hasSlot(`tab-${index + 1}-icon`)"
             >
               <slot
                 :name="`tab-${index + 1}-icon`"
-              ></slot>
+              />
             </FSIcon>
-          </slot>
-          <slot
-            name="label"
-          >
             <FSSpan
               :font="index + 1 === currentStep ? 'text-button' : 'text-body'"
             >
@@ -49,8 +38,8 @@
                 {{ $tr('ui.common.step-number', 'Step {0}', step) }}
               </slot>
             </FSSpan>
-          </slot>
-        </FSRow>
+          </FSRow>
+        </slot>
       </FSTab>
     </FSTabs>
     <FSWindow
@@ -247,13 +236,15 @@ export default defineComponent({
     },
   },
   emits: ["click:cancelButton", "click:submitButton"],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const { isMobileSized } = useBreakpoints();
     const { $tr } = useTranslationsProvider();
 
     const currentStep = ref(1);
     const valid = ref(false);
     const valids = ref(Array.from({ length: props.steps }, () => false));
+
+    const hasSlot = (name: string) => !!slots[name];
 
     const maxHeight = computed(() => {
       const other = 24 + 24                                          // Paddings
@@ -312,6 +303,7 @@ export default defineComponent({
       maxHeight,
       valids,
       valid,
+      hasSlot,
       onPrevious,
       onSubmit
     };
