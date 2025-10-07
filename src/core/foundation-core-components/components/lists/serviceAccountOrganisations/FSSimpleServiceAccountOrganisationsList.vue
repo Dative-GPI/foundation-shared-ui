@@ -31,9 +31,9 @@ export default defineComponent({
 
     const fetch = () => {
       getMany(props.serviceAccountOrganisationFilters);
-    }
+    };
 
-    watch(() => props.serviceAccountOrganisationFilters, fetch, { immediate: true });
+    watch(() => props.serviceAccountOrganisationFilters, fetch, { immediate: true, deep: true });
 
     return {
       serviceAccountOrganisations,
