@@ -13,8 +13,10 @@ import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.v
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
+import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 
 import DialogFormRef from "./DialogFormRef.vue";
+import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
 
 const meta = {
   title: 'Foundation/Shared/Dialog',
@@ -329,11 +331,12 @@ export const TabsForm: Story = {
     value1: false,
     showCancelButton1: true,
     showSubmitButton1: true,
-    label11: "",
-    label12: ""
+    label1: "",
+    label2: "",
+    label3: ""
   },
   render: (args, { argTypes }) => ({
-    components: { FSDialogMultiForm, FSTextField, FSButton, FSCard, FSSpan, FSCol, FSRow },
+    components: { FSDialogMultiForm, FSTextField, FSButton, FSRow, FSSpan, FSIcon, FSChip },
     props: Object.keys(argTypes),
     setup() {
       return { args };
@@ -358,10 +361,16 @@ export const TabsForm: Story = {
         }"
         v-model="args.value1"
       >
-        <template #tab-1-label>Step 1</template>
-        <template #tab-2-label>Step 2 *</template>
+        <template #tab-1>
+          <FSRow gap="8px">
+            <FSIcon>mdi-cog</FSIcon>
+            <FSSpan>Configuration</FSSpan>
+            <FSChip label="2" />
+          </FSRow>
+        </template>
+  
         <template #tab-2-icon>mdi-home</template>
-        <template #tab-3-label>Step 3</template>
+        <template #tab-2-label>Home</template>
 
         <template #step-1>
           <FSTextField

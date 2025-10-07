@@ -18,31 +18,39 @@
         v-for="(step, index) in $props.steps"
         :key="index"
       >
-        <template
-          v-if="$slots[`tab-${step}-icon`] "
-          #prepend
+        <slot
+          v-if="$slots[`tab-${index + 1}`]"
+          :name="`tab-${index + 1}`"
+        ></slot>
+        <FSRow
+          v-else
         >
-          <FSIcon
-            size="m"
+          <slot
+            v-if="$slots[`tab-${index + 1}-icon`]"
+            name="prepend"
           >
-            <slot
-              :name="`tab-${step}-icon`"
-            />
-          </FSIcon>
-        </template>
-        <template
-          #label
-        >
-          <FSSpan
-            font="text-button"
-          >
-            <slot
-              :name="`tab-${step}-label`"
+            <FSIcon
+              size="m"
             >
-              Step {{ step }}
-            </slot>
-          </FSSpan>
-        </template>
+              <slot
+                :name="`tab-${index + 1}-icon`"
+              ></slot>
+            </FSIcon>
+          </slot>
+          <slot
+            name="label"
+          >
+            <FSSpan
+              :font="index + 1 === currentStep ? 'text-button' : 'text-body'"
+            >
+              <slot
+                :name="`tab-${index + 1}-label`"
+              >
+                {{ $tr('ui.common.step-number', 'Step {0}', step) }}
+              </slot>
+            </FSSpan>
+          </slot>
+        </FSRow>
       </FSTab>
     </FSTabs>
     <FSWindow
@@ -117,6 +125,10 @@ import FSForm from "./FSForm.vue";
 import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 import FSSpan from "./FSSpan.vue";
+import FSTabs from "./FSTabs.vue";
+import FSTab from "./FSTab.vue";
+import FSIcon from "./FSIcon.vue";
+import FSWindow from "./FSWindow.vue";
 
 export default defineComponent({
   name: "FSDialogMultiFormBody",
@@ -127,7 +139,11 @@ export default defineComponent({
     FSForm,
     FSCol,
     FSRow,
-    FSSpan
+    FSSpan,
+    FSTabs,
+    FSTab,
+    FSIcon,
+    FSWindow
   },
   props: {
     subtitle: {
