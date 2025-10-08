@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref, type StyleValue } from "vue";
+import { computed, defineComponent, type PropType, ref, type StyleValue, watch } from "vue";
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useAppLanguages } from "@dative-gpi/foundation-shared-services/composables";
@@ -97,6 +97,7 @@ import FSButton from "../FSButton.vue";
 import FSIcon from "../FSIcon.vue";
 import FSSpan from "../FSSpan.vue";
 import FSRow from "../FSRow.vue";
+import type { Translation } from "@dative-gpi/foundation-shared-components/models";
 
 export default defineComponent({
   name: "FSTranslateField",
@@ -140,7 +141,7 @@ export default defineComponent({
       default: "label"
     },
     translations: {
-      type: Array as PropType<{ languageCode: string; [key: string]: string }[]>,
+      type: Array as PropType<Translation[]>,
       required: false,
       default: () => []
     },
@@ -165,7 +166,7 @@ export default defineComponent({
     
     const dialog = ref(false);
 
-    const innerTranslations = ref(props.translations);
+    const innerTranslations = ref<Translation[]>(props.translations);
 
     const lights = getColors(ColorEnum.Light);
     const darks = getColors(ColorEnum.Dark);
@@ -189,7 +190,8 @@ export default defineComponent({
       if (!translation || !translation[props.property]) {
         return "";
       }
-      return translation[props.property];
+      
+      return translation[props.property] ?? "";
     };
 
     const setTranslation = (languageCode: string, value: string): void => {
@@ -218,6 +220,10 @@ export default defineComponent({
         emit("update:translations", innerTranslations.value);
       }
     };
+
+    watch(() => props.translations, (newVal) => {
+      innerTranslations.value = newVal;
+    }, { immediate: true, deep: true });
 
     return {
       innerTranslations,
