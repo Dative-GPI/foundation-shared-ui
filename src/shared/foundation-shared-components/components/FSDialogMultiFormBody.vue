@@ -23,7 +23,7 @@
         >
           <FSRow>
             <FSIcon
-              v-if="hasSlot(`tab-${index + 1}-icon`)"
+              v-if="tabIconSlots[`tab-${index + 1}-icon`]"
             >
               <slot
                 :name="`tab-${index + 1}-icon`"
@@ -35,7 +35,7 @@
               <slot
                 :name="`tab-${index + 1}-label`"
               >
-                {{ $tr('ui.common.step-number', 'Step {0}', step) }}
+                {{ $tr('ui.tabs.step.default', 'Step {0}', step) }}
               </slot>
             </FSSpan>
           </FSRow>
@@ -246,6 +246,14 @@ export default defineComponent({
 
     const hasSlot = (name: string) => !!slots[name];
 
+    const tabIconSlots = computed(() => {
+      const result = {} as any;
+      for (let i = 1; i <= props.steps; i++) {
+        result[`tab-${i}-icon`] = hasSlot(`tab-${i}-icon`);
+      }
+      return result;
+    });
+
     const maxHeight = computed(() => {
       const other = 24 + 24                                          // Paddings
         + (isMobileSized.value ? 24 : 32) + 24                       // Title
@@ -303,7 +311,7 @@ export default defineComponent({
       maxHeight,
       valids,
       valid,
-      hasSlot,
+      tabIconSlots,
       onPrevious,
       onSubmit
     };
