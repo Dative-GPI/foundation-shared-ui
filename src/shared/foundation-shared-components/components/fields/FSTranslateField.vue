@@ -97,6 +97,7 @@ import FSButton from "../FSButton.vue";
 import FSIcon from "../FSIcon.vue";
 import FSSpan from "../FSSpan.vue";
 import FSRow from "../FSRow.vue";
+import type { Translation } from "@dative-gpi/foundation-shared-components/models";
 
 export default defineComponent({
   name: "FSTranslateField",
@@ -140,7 +141,7 @@ export default defineComponent({
       default: "label"
     },
     translations: {
-      type: Array as PropType<{ languageCode: string; [key: string]: string }[]>,
+      type: Array as PropType<Translation[]>,
       required: false,
       default: () => []
     },
@@ -165,10 +166,7 @@ export default defineComponent({
     
     const dialog = ref(false);
 
-    const innerTranslations = ref<{
-      languageCode: string;
-      [key: string]: string | null;
-    }[]>(props.translations);
+    const innerTranslations = ref<Translation[]>(props.translations);
 
     const lights = getColors(ColorEnum.Light);
     const darks = getColors(ColorEnum.Dark);
