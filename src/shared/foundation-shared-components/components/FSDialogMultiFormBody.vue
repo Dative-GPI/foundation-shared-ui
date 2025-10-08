@@ -247,7 +247,7 @@ export default defineComponent({
     const hasSlot = (name: string) => !!slots[name];
 
     const tabIconSlots = computed(() => {
-      const result = {} as any;
+      const result:  Record<string, boolean> = {};
       for (let i = 1; i <= props.steps; i++) {
         result[`tab-${i}-icon`] = hasSlot(`tab-${i}-icon`);
       }
