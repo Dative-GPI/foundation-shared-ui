@@ -13,8 +13,10 @@ import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.v
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
+import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 
 import DialogFormRef from "./DialogFormRef.vue";
+import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
 
 const meta = {
   title: 'Foundation/Shared/Dialog',
@@ -320,6 +322,75 @@ export const FullScreen: Story = {
           </FSFadeOut>
         </FSCard>
       </FSDialogForm>
+    </div>`
+  })
+}
+
+export const TabsForm: Story = {
+  args: {
+    value1: false,
+    showCancelButton1: true,
+    showSubmitButton1: true,
+    label1: "",
+    label2: "",
+    label3: ""
+  },
+  render: (args, { argTypes }) => ({
+    components: { FSDialogMultiForm, FSTextField, FSButton, FSRow, FSSpan, FSIcon, FSChip },
+    props: Object.keys(argTypes),
+    setup() {
+      return { args };
+    },
+    template: `
+    <div style="display: flex; gap: 10px;">
+      <FSButton
+        color="primary"
+        label="Dialog multiform"
+        @click="() => args.value1 = true"
+      />
+      <FSDialogMultiForm
+        width="500px"
+        title="Form 1"
+        subtitle="3 pages form"
+        :showCancelButton="args.showCancelButton1"
+        :showSubmitButton="args.showSubmitButton1"
+        :steps="3"
+        mode="tabs"
+        @click:submitButton="() => {
+          args.value1 = false;
+        }"
+        v-model="args.value1"
+      >
+        <template #tab-1>
+          <FSRow gap="8px">
+            <FSIcon>mdi-cog</FSIcon>
+            <FSSpan>Configuration</FSSpan>
+            <FSChip label="2" />
+          </FSRow>
+        </template>
+  
+        <template #tab-2-icon>mdi-home</template>
+        <template #tab-2-label>Home</template>
+
+        <template #step-1>
+          <FSTextField
+            label="Label 1"
+            v-model="args.label1"
+          />
+        </template>
+        <template #step-2>
+          <FSTextField
+            label="Label 2"
+            v-model="args.label2"
+          />
+        </template>
+        <template #step-3>
+          <FSTextField
+            label="Label 3"
+            v-model="args.label3"
+          />
+        </template>
+      </FSDialogMultiForm>
     </div>`
   })
 }
