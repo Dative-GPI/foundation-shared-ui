@@ -7,7 +7,6 @@ const meta = {
   component: FSLink,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   }
 } satisfies Meta<typeof FSLink>;
 
@@ -16,8 +15,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Variations: Story = {
   args: {
-    args: {
-    }
   },
   render: (args, { argTypes }) => ({
     components: { FSLink },
