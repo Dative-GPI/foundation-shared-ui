@@ -12,5 +12,6 @@ export enum MessageType {
   AlertCreation = 10,
   AlertResolution = 11,
   ConnectivityAlertCreation = 12,
-  ConnectivityAlertResolution = 13
+  ConnectivityAlertResolution = 13,
+  Custom = 14
 }
