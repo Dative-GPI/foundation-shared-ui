@@ -90,6 +90,7 @@ import { computed, defineComponent, type PropType, ref, type StyleValue, watch }
 
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useAppLanguages } from "@dative-gpi/foundation-shared-services/composables";
+import type { Translation } from "@dative-gpi/foundation-shared-components/models";
 
 import { useColors } from "../../composables";
 
@@ -142,7 +143,7 @@ export default defineComponent({
       default: "label"
     },
     translations: {
-      type: Array as PropType<{ languageCode: string; [key: string]: string }[]>,
+      type: Array as PropType<Translation[]>,
       required: false,
       default: () => []
     },
@@ -164,10 +165,7 @@ export default defineComponent({
     
     const dialog = ref(false);
 
-    const innerTranslations = ref<{
-      languageCode: string;
-      [key: string]: string | null;
-    }[]>(props.translations);
+    const innerTranslations = ref<Translation[]>(props.translations);
 
     const lights = getColors(ColorEnum.Light);
     const darks = getColors(ColorEnum.Dark);
