@@ -10,7 +10,7 @@
         v-if="icon"
         size="32px"
       >
-        {{icon }}
+        {{ icon }}
       </FSIcon>
       <FSText
         font="text-overline"
@@ -40,7 +40,8 @@ export default defineComponent({
   props: {
     icon: { 
       type: String, 
-      required: false 
+      required: false,
+      default: "mdi-chart-bar" 
     },
     label: { 
       type: String, 
