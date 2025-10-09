@@ -1,19 +1,30 @@
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const PREFERS_REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 export function useAccessibilityPreferences() {
   const prefersReducedMotion = ref(false);
+  let mediaQuery: MediaQueryList | null = null;
+
+  const handleChange = (e: MediaQueryListEvent) => {
+    prefersReducedMotion.value = e.matches;
+  };
   
   onMounted(() => {
-    prefersReducedMotion.value = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
+    prefersReducedMotion.value = window.matchMedia?.(PREFERS_REDUCED_MOTION_QUERY)?.matches || false;
     
-    const mediaQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    mediaQuery = window.matchMedia?.(PREFERS_REDUCED_MOTION_QUERY) || null;
     if (mediaQuery?.addEventListener) {
-      mediaQuery.addEventListener('change', (e) => {
-        prefersReducedMotion.value = e.matches;
-      });
+      mediaQuery.addEventListener('change', handleChange);
     }
   });
-  
+
+  onBeforeUnmount(() => {
+    if (mediaQuery?.removeEventListener) {
+      mediaQuery.removeEventListener('change', handleChange);
+    }
+  });
+
   return {
     prefersReducedMotion
   };
