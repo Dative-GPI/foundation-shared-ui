@@ -1,93 +1,103 @@
-import { ref, computed, onBeforeUnmount, watch } from 'vue';
+import { ref, computed, onBeforeUnmount, watch, type Ref, type ComputedRef, isRef } from 'vue';
 import { useAccessibilityPreferences } from './useAccessibilityPreferences';
 
+// Fonction utilitaire pour obtenir la valeur d'une référence ou d'une valeur simple
+function unrefValue<T>(value: T | Ref<T> | ComputedRef<T>): T {
+  return isRef(value) ? value.value : value;
+}
+
 export function useCountUp(options: {
-  value: number | string,
-  duration?: number,
-  countUp?: boolean,
-  pad?: number,
-  startOnVisible?: boolean,
+  value: number | string | Ref<number | string> | ComputedRef<number | string>,
+  duration?: number | Ref<number>,
+  countUp?: boolean | Ref<boolean>,
+  pad?: number | Ref<number>,
+  startOnVisible?: boolean | Ref<boolean>,
   easing?: (t: number) => number
 }) {
-  const {
-    value,
-    duration = 800,
-    countUp = true,
-    pad = 2,
-    startOnVisible = true,
-    easing = easeOutCubic
-  } = options;
-  
   const { prefersReducedMotion } = useAccessibilityPreferences();
+  
+  // Internal states
   const current = ref(0);
   const rafId = ref(0);
   const hasAnimated = ref(false);
-  
-  // Easing function
+
+  // Default easing function
   function easeOutCubic(t: number) {
     return 1 - Math.pow(1 - t, 3);
   }
-  
-  // Target value computation
+
+  // Get options with their default values
+  const easing = options.easing || easeOutCubic;
+
+  // Calculate derived values
   const target = computed(() => {
-    const n = Number(value);
+    const rawValue = unrefValue(options.value);
+    const n = Number(rawValue);
     return Number.isFinite(n) ? Math.trunc(n) : 0;
   });
   
-  // Formatted display value
   const displayText = computed(() => {
-    const s = String(countUp ? current.value : target.value);
-    return pad > 0 ? s.padStart(pad, "0") : s;
+    const showCountUp = unrefValue(options.countUp ?? true);
+    const padLength = unrefValue(options.pad ?? 2);
+    
+    const s = String(showCountUp ? current.value : target.value);
+    return padLength > 0 ? s.padStart(padLength, "0") : s;
   });
   
-  // Animation function
+  // Main animation function
   function animate(from: number, to: number, animDuration: number) {
     cancelAnimationFrame(rafId.value);
-    const start = performance.now();
+    const startTime = performance.now();
     
     const step = (now: number) => {
-      const t = Math.min(1, (now - start) / animDuration);
-      const v = from + (to - from) * easing(t);
-      current.value = Math.round(v);
-      if (t < 1) {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / animDuration);
+      
+      const easedProgress = easing(progress);
+      const currentValue = from + (to - from) * easedProgress;
+      
+      current.value = Math.round(currentValue);
+      
+      if (progress < 1) {
         rafId.value = requestAnimationFrame(step);
       }
     };
     
     rafId.value = requestAnimationFrame(step);
   }
-  
-  // Start animation
+
+  // Start the animation
   function start() {
-    if (!countUp) {
+    const shouldCountUp = unrefValue(options.countUp ?? true);
+    
+    if (!shouldCountUp || prefersReducedMotion.value) {
+      // If animation is disabled or reduced motion preference is set, jump to final value
       current.value = target.value;
       return;
     }
     
-    if (prefersReducedMotion) {
-      current.value = target.value;
-      return;
-    }
-    
-    animate(current.value, target.value, duration);
+    const animDuration = unrefValue(options.duration ?? 800);
+    animate(current.value, target.value, animDuration);
     hasAnimated.value = true;
   }
-  
-  // Clean up
-  onBeforeUnmount(() => {
-    cancelAnimationFrame(rafId.value);
-  });
-  
-  // The restart method can be useful when the value changes.
+
+  // Restart the animation (useful for value changes)
   function restart() {
-    if (hasAnimated.value || !startOnVisible) {
+    const startWhenVisible = unrefValue(options.startOnVisible ?? true);
+    
+    if (!startWhenVisible || hasAnimated.value) {
       start();
     }
   }
-  
-  // Monitor changes in value
-  watch(() => value, () => {
+
+  // Watch for value changes to restart the animation
+  watch(() => unrefValue(options.value), () => {
     restart();
+  });
+
+  // Clean up ongoing animations on unmount
+  onBeforeUnmount(() => {
+    cancelAnimationFrame(rafId.value);
   });
   
   return {

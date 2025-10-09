@@ -14,6 +14,7 @@ export function useElementVisibility(element: HTMLElement | null, options: {
   
   onMounted(() => {
     if (!element) {
+      console.warn('useElementVisibility: No element provided');
       return;
     }
     
