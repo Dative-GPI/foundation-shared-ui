@@ -14,9 +14,15 @@ const NotificationServiceFactory = new ServiceFactory<NotificationDetailsDTO, No
       const result = new NotificationDetails(dto);
       notifyService.notify("update", result);
       return result;
+    }),
+    ...ServiceFactory.addCustom("acknowledgeMany", (axios, filter: NotificationFilters) => axios.patch(NOTIFICATIONS_URL(), filter), (dtos: NotificationInfosDTO[]) => {
+      const result = dtos.map(dto => new NotificationInfos(dto));
+      notifyService.notify("reset");
+      return result;
     })
   }))
 ));
+
 
 const useNotificationsHub = HubFactory.create(NOTIFICATIONS_HUB_URL,
   (connection, { hasWatchers }) => {
