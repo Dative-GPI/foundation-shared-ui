@@ -57,4 +57,5 @@ export interface NotificationFilters {
   criticity?: Criticity | null;
   audiences?: NotificationAudienceFilters[] | null;
   acknowledged?: boolean | null;
+  notificationsIds?: string[] | null;
 }
