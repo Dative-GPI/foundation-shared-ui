@@ -45,3 +45,4 @@ export const useNotifications = ComposableFactory.getMany(NotificationServiceFac
   }
 });
 export const useAcknowledgeNotification = ComposableFactory.custom(NotificationServiceFactory.acknowledge);
+export const useAcknowledgeManyNotifications = ComposableFactory.custom(NotificationServiceFactory.acknowledgeMany);
