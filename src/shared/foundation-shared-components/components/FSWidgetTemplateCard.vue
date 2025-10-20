@@ -30,7 +30,7 @@ import FSIcon from "./FSIcon.vue";
 import FSText from "./FSText.vue";
 
 export default defineComponent({
-  name: "FSWidgetTemplateCard",
+  name: "FSWidgetTemplateCardUI",
   components: {
     FSCard,
     FSCol,
