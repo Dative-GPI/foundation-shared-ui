@@ -17,16 +17,12 @@
         :modelValue="widgetHeight"
         @update:modelValue="$emit('update:widgetHeight', $event)"
       />
-      <FSRow
-        width="hug"
-      >
-        <FSSwitch
-          class="dialog-configure-widget-hide-borders"
-          :label="$tr('entity.widget.hide-borders', 'Hide borders')"
-          :modelValue="hideBorders"
-          @update:modelValue="$emit('update:hideBorders', $event)"
-        />
-      </FSRow>
+      <FSSwitch
+        class="dialog-configure-widget-hide-borders"
+        :label="$tr('entity.widget.hide-borders', 'Hide borders')"
+        :modelValue="hideBorders"
+        @update:modelValue="$emit('update:hideBorders', $event)"
+      />
     </FSRow>
   </FSRow>
 </template>
