@@ -10,12 +10,12 @@
         v-if="icon"
         size="32px"
       >
-        {{ icon }}
+        {{ $props.icon }}
       </FSIcon>
       <FSText
         font="text-overline"
       >
-        {{ label }}
+        {{ $props.label }}
       </FSText>
     </FSCol>
   </FSCard>
@@ -30,7 +30,7 @@ import FSIcon from "./FSIcon.vue";
 import FSText from "./FSText.vue";
 
 export default defineComponent({
-  name: "FSWidgetTemplateCard",
+  name: "FSWidgetTemplateCardUI",
   components: {
     FSCard,
     FSCol,
