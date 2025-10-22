@@ -10,12 +10,12 @@
         v-if="icon"
         size="32px"
       >
-        {{ icon }}
+        {{ $props.icon }}
       </FSIcon>
       <FSText
         font="text-overline"
       >
-        {{ label }}
+        {{ $props.label }}
       </FSText>
     </FSCol>
   </FSCard>
