@@ -14,7 +14,7 @@ export function useElementVisibility(element: HTMLElement | null, options: {
   
   onMounted(() => {
     if (!element) {
-      console.warn('useElementVisibility: No element provided');
+      console.warn('useElementVisibility: No element provided. Ensure the element ref is populated before the composable is mounted.');
       return;
     }
     
