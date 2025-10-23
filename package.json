@@ -22,7 +22,6 @@
     "tests"
   ],
   "dependencies": {
-    "@vueuse/core": "^14.0.0",
     "axios-mock-adapter": "1.22.0"
   },
   "devDependencies": {
