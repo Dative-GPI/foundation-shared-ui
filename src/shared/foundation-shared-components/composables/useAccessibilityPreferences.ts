@@ -11,9 +11,10 @@ export function useAccessibilityPreferences() {
   };
   
   onMounted(() => {
-    prefersReducedMotion.value = window.matchMedia?.(PREFERS_REDUCED_MOTION_QUERY)?.matches || false;
     
     mediaQuery = window.matchMedia?.(PREFERS_REDUCED_MOTION_QUERY) || null;
+    prefersReducedMotion.value = mediaQuery?.matches || false;
+    
     if (mediaQuery?.addEventListener) {
       mediaQuery.addEventListener('change', handleChange);
     }
