@@ -18,7 +18,9 @@
             {{ $props.prependIcon }}
           </FSIcon>
         </slot>
-        <slot>
+        <slot
+          name="label"
+        >
           <FSSpan
             v-if="$props.label"
             font="text-button"
