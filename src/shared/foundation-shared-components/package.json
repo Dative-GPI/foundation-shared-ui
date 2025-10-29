@@ -11,8 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dative-gpi/foundation-shared-domain": "1.0.0",
-    "@dative-gpi/foundation-shared-services": "1.0.0",
-    "@vueuse/core": "^14.0.0"
+    "@dative-gpi/foundation-shared-services": "1.0.0"
   },
   "peerDependencies": {
     "@dative-gpi/bones-ui": "^1.0.0",
