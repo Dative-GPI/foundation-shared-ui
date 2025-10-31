@@ -15,7 +15,7 @@ const NotificationServiceFactory = new ServiceFactory<NotificationDetailsDTO, No
       notifyService.notify("update", result);
       return result;
     }),
-    ...ServiceFactory.addCustom("acknowledgeMany", (axios, filter: NotificationFilters) => axios.patch(NOTIFICATIONS_URL(), filter), (dtos: NotificationInfosDTO[]) => {
+    ...ServiceFactory.addCustom("acknowledgeRange", (axios, notificationIds: string[]) => axios.patch(NOTIFICATIONS_URL(), notificationIds), (dtos: NotificationInfosDTO[]) => {
       const result = dtos.map(dto => new NotificationInfos(dto));
       notifyService.notify("reset");
       return result;
@@ -45,4 +45,4 @@ export const useNotifications = ComposableFactory.getMany(NotificationServiceFac
   }
 });
 export const useAcknowledgeNotification = ComposableFactory.custom(NotificationServiceFactory.acknowledge);
-export const useAcknowledgeManyNotifications = ComposableFactory.custom(NotificationServiceFactory.acknowledgeMany);
+export const useAcknowledgeRangeNotifications = ComposableFactory.custom(NotificationServiceFactory.acknowledgeRange);
