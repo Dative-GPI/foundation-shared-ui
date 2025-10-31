@@ -1,40 +1,41 @@
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { type Ref, ref, onBeforeUnmount, watch, type ComponentPublicInstance } from 'vue';
 
-export function useElementVisibility(element: HTMLElement | null, options: {
-  threshold?: number,
-  onVisible?: () => void
-}) {
-  const { 
-    threshold = 0.3,
-    onVisible
-  } = options;
+
+export function useElementVisibility(
+  target: Ref<ComponentPublicInstance | null>,
+  threshold = 0.3
+) {
+  const onVisible: Ref<(() => void) | null> = ref(null);
+  let observer: IntersectionObserver | null = null;
   
-  const isVisible = ref(false);
-  const observer = ref<IntersectionObserver | null>(null);
-  
-  onMounted(() => {
-    if (!element) {
-      console.warn('useElementVisibility: No element provided. Ensure the element ref is populated before the composable is mounted.');
-      return;
-    }
-    
-    observer.value = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        isVisible.value = entry.isIntersecting;
-        if (entry.isIntersecting && onVisible) {
-          onVisible();
-        }
-      });
+  const startObserver = (el: Element) => {
+    stopObserver();
+
+    observer = new IntersectionObserver(([entry]) => {
+      const visible = Boolean(entry?.isIntersecting);
+      if (visible && onVisible.value) {
+        onVisible.value();
+      }
     }, { threshold });
-    
-    observer.value.observe(element);
-  });
-  
-  onBeforeUnmount(() => {
-    observer.value?.disconnect();
-  });
-  
-  return {
-    isVisible
+
+    observer.observe(el);
   };
+
+  const stopObserver = () => {
+    observer?.disconnect();
+    observer = null;
+  };
+
+  watch(target , (newVal) => {
+    console.log('Target changed:', newVal);
+    if(newVal && newVal.$el){
+      startObserver(newVal.$el);
+    }
+  }, { immediate: true });
+
+  onBeforeUnmount(stopObserver);
+
+  return { 
+    onVisible
+   };
 }
