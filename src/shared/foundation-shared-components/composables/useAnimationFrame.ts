@@ -1,17 +1,17 @@
-import { onBeforeUnmount, computed } from 'vue';
+import { onBeforeUnmount, ref, readonly } from 'vue';
 
 export const useAnimationFrame = (callback: () => void) => {
   let animationId: number | null = null;
-  let isActive = false;
+  const isActive = ref(false);
 
   const start = () => {
-    if (isActive) {
+    if (isActive.value) {
       return;
     }
-    isActive = true;
+    isActive.value = true;
   
     const animate = () => {
-      if (!isActive) {
+      if (!isActive.value) {
           return;
       }
 
@@ -22,7 +22,7 @@ export const useAnimationFrame = (callback: () => void) => {
   };
 
   const stop = () => {
-    isActive = false;
+    isActive.value = false;
     if (animationId !== null) {
       cancelAnimationFrame(animationId);
       animationId = null;
@@ -36,6 +36,6 @@ export const useAnimationFrame = (callback: () => void) => {
     return {
       start,
       stop,
-      isActive: computed(() => isActive)
+      isActive: readonly(isActive)
     };
 };
