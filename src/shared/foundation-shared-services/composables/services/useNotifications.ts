@@ -15,10 +15,8 @@ const NotificationServiceFactory = new ServiceFactory<NotificationDetailsDTO, No
       notifyService.notify("update", result);
       return result;
     }),
-    ...ServiceFactory.addCustom("acknowledgeRange", (axios, notificationIds: string[]) => axios.patch(NOTIFICATIONS_URL(), notificationIds), (dtos: NotificationInfosDTO[]) => {
-      const result = dtos.map(dto => new NotificationInfos(dto));
+    ...ServiceFactory.addCustom("acknowledgeRange", (axios, notificationIds: string[]) => axios.patch(NOTIFICATIONS_URL(), notificationIds), () => {
       notifyService.notify("reset");
-      return result;
     })
   }))
 ));
