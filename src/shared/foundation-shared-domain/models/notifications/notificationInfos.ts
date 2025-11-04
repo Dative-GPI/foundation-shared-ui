@@ -58,4 +58,5 @@ export interface NotificationFilters {
   audiences?: NotificationAudienceFilters[] | null;
   acknowledged?: boolean | null;
   notificationsIds?: string[] | null;
+  search?: string | null;
 }
