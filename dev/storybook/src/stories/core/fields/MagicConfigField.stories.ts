@@ -40,7 +40,7 @@ export const Variations: Story = {
       translations7: [],
       value7: "",
       labelDefault8: "PlotPerField",
-      value8: 3,
+      value8: "{\"plotPer\":3,\"groupingId\":null}",
       translations8: []
     }
   },
