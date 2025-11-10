@@ -1,0 +1,53 @@
+var E=Object.defineProperty;var O=(e,t,o)=>t in e?E(e,t,{enumerable:!0,configurable:!0,writable:!0,value:o}):e[t]=o;var p=(e,t,o)=>O(e,typeof t!="symbol"?t+"":t,o);import{d as I,b as v,w,C as c,k as r,E as n,F as f,I as l,J as u,S as $,B as q,A as H,K as D}from"./vue.esm-bundler-CC_jVOJ5.js";import{_ as N}from"./lodash-Zo30T2Bj.js";import{F as V}from"./FSButton-Czf3beC8.js";import{F as R}from"./FSDialog-CS4QDqZQ.js";import{F as L,a as F}from"./FSMetaValue-KpXI8qO6.js";import{C as U}from"./base-Cj4tO-2v.js";import{i as k}from"./datesTools-DpylUQoJ.js";import{C as A}from"./composableFactory-7f7_oyFS.js";import{S as B}from"./serviceFactory-CakgBvEM.js";import{u as x}from"./useDateFormat-DHrriBQY.js";import{_ as z}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{F as g}from"./FSCol-DVEaUPKl.js";import{_ as j}from"./FSRow-CjY3icuR.js";import{E as J}from"./applications-pqrfQrBX.js";import{P as K}from"./customProperties-DqkON8hk.js";import"./_commonjsHelpers-BosuxZz1.js";import"./FSRouterLink-DFrDtHuc.js";import"./vue-router-CE1XKJtL.js";import"./FSClickable-DFmwvck2.js";import"./FSCard-twwkVLSp.js";import"./useColors-BXuuHMxE.js";import"./index-_Z9wfsFC.js";import"./theme-Bp81IclV.js";import"./css-DTGEi_Ca.js";import"./useBreakpoints-BMcJFLA8.js";import"./VProgressCircular-B7HKciov.js";import"./color-BM2dSUAO.js";import"./resizeObserver-BZ0AJw4z.js";import"./VIcon-BOLLMMm0.js";import"./FSSpan-DkNsO5wd.js";import"./useSlots-C8jkAuOW.js";import"./FSIcon-CeLDRxMK.js";import"./FSText-B2RNQvtL.js";import"./VDialog-fWvZSkPk.js";import"./VOverlay-DXMNyzvF.js";import"./easing-DY7PVvcf.js";import"./proxiedModel-Nw0LX-ta.js";import"./anchor-S0Fc85Gi.js";import"./dimensions-TKp8HHzB.js";import"./display-CpM-3U3n.js";import"./lazy-BrZUVd24.js";import"./locale-K9DBMW2q.js";import"./router-kuDvkEMM.js";import"./scopeId-BJNiFHH-.js";import"./transition-Ucf2Ovas.js";import"./forwardRefs-C-GTDzx5.js";import"./VDefaultsProvider-CuIagDb9.js";import"./useDateExpression-CWjnhewb.js";import"./useAppTimeZone-Bddnv5KM.js";import"./FSIconCheck-C4Bcj5yc.js";import"./useAppOrganisationId-DWUnIwce.js";import"./startOfWeek-uXTpkxA4.js";import"./uuid-DTaye2KM.js";import"./startOfDay-C4pDH4rb.js";import"./useAppLanguageCode-DwRThLpm.js";import"./useTranslations-5XSl7qXA.js";class Y{constructor(t){p(this,"value");p(this,"timestamp");this.value=t.value,this.timestamp=t.timestamp?k(t.timestamp):null}}const G=(e,t,o)=>`${U()}/custom-property-values/${encodeURIComponent(e)}/${encodeURIComponent(t)}/${encodeURIComponent(o)}`,Q={...B.addCustom("getMany",(e,t,o,i)=>e.get(G(t,o,i)),e=>e.map(t=>new Y(t)))},W=A.custom(Q.getMany),M=I({name:"FSMetaHistory",components:{FSMetaValue:L,FSButton:V,FSDialog:R},props:{customProperty:{type:Object,required:!0},entityType:{type:Number,required:!0},entityId:{type:String,required:!0}},setup(e){const{epochToLongTimeFormat:t}=x(),{fetch:o,entity:i}=W(),y=v(!1);return w(()=>e.entityId,async(d,m)=>{N.isEqual(d,m)||await o(e.entityType,e.entityId,e.customProperty.code)},{immediate:!0}),{customPropertyValues:i,dialog:y,epochToLongTimeFormat:t}}});function X(e,t,o,i,y,d){const m=l("FSText"),b=l("FSMetaValue"),_=l("FSDialog");return u(),c(f,null,[r(V,{prependIcon:"mdi-history",label:e.$tr("ui.common.history","History"),onClick:t[0]||(t[0]=a=>e.dialog=!e.dialog)},null,8,["label"]),r(_,{width:"500px",label:e.$tr("ui.common.history","History"),modelValue:e.dialog,"onUpdate:modelValue":t[1]||(t[1]=a=>e.dialog=a)},{body:n(()=>[r(g,null,{default:n(()=>[(u(!0),c(f,null,$(e.customPropertyValues,(a,h)=>(u(),q(j,{key:h},{default:n(()=>[r(m,null,{default:n(()=>[H(D(e.epochToLongTimeFormat(a.timestamp)),1)]),_:2},1024),r(g,{padding:"0 8px 0 0",align:"center-right"},{default:n(()=>[r(b,{meta:{code:a.value},customProperty:e.$props.customProperty},null,8,["meta","customProperty"])]),_:2},1024)]),_:2},1024))),128))]),_:1})]),_:1},8,["label","modelValue"])],64)}const P=z(M,[["render",X]]);M.__docgenInfo={displayName:"FSMetaHistory",exportName:"default",description:"",tags:{},props:[{name:"customProperty",type:{name:"CustomPropertyInfos"},required:!0},{name:"entityType",type:{name:"PropertyEntity"},required:!0},{name:"entityId",type:{name:"string"},required:!0}],sourceFiles:["/home/runner/work/foundation-shared-ui/foundation-shared-ui/src/core/foundation-core-components/components/customProperties/FSMetaHistory.vue"]};const ot={title:"Foundation/Core/CustomProperties/MetaHistory",component:P,tags:["autodocs"],argTypes:{}},s={args:{customProperty:{id:"1",code:"code",label:"Number",categoryLabel:"Category",index:0,entity:1,dataType:K.Number,readOnlyCore:!1,readOnlyAdmin:!1,defaultValue:"",history:!1,historySize:0,colorful:!0,colorMap:[{priority:1,filterType:F.MoreOrEqual,filterValues:["5"],color:"#0000FF"},{priority:2,filterType:F.MoreOrEqual,filterValues:["50"],color:"#FF0000"}],useOnlyAllowedValues:!1,allowedValues:{}},entityId:"1",entityType:J.Model},render:e=>({components:{FSMetaHistory:P},setup(){return{args:e}},template:`
+      <FSMetaHistory
+        v-bind="args"
+      />
+    `})};var S,T,C;s.parameters={...s.parameters,docs:{...(S=s.parameters)==null?void 0:S.docs,source:{originalSource:`{
+  args: {
+    customProperty: {
+      id: "1",
+      code: "code",
+      label: "Number",
+      categoryLabel: "Category",
+      index: 0,
+      entity: 1,
+      dataType: PropertyDataType.Number,
+      readOnlyCore: false,
+      readOnlyAdmin: false,
+      defaultValue: "",
+      history: false,
+      historySize: 0,
+      colorful: true,
+      colorMap: [{
+        priority: 1,
+        filterType: FilterType.MoreOrEqual,
+        filterValues: ["5"],
+        color: "#0000FF"
+      }, {
+        priority: 2,
+        filterType: FilterType.MoreOrEqual,
+        filterValues: ["50"],
+        color: "#FF0000"
+      }],
+      useOnlyAllowedValues: false,
+      allowedValues: {}
+    },
+    entityId: "1",
+    entityType: EntityType.Model
+  },
+  render: args => ({
+    components: {
+      FSMetaHistory
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+      <FSMetaHistory
+        v-bind="args"
+      />
+    \`
+  })
+}`,...(C=(T=s.parameters)==null?void 0:T.docs)==null?void 0:C.source}}};const rt=["Default"];export{s as Default,rt as __namedExportsOrder,ot as default};
