@@ -348,7 +348,7 @@
               name="clear"
             >
               <FSButton
-                v-if="$props.clearable && $props.disabled && !!$props.modelValue"
+                v-if="$props.clearable && !$props.disabled && !!$props.modelValue"
                 icon="mdi-close"
                 variant="icon"
                 :color="ColorEnum.Dark"
