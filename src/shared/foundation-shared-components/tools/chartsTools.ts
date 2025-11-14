@@ -375,7 +375,7 @@ export const yAxisTypeFromSerieType = (serieType: SerieType): AxisType[] => {
 }
 
 export const hasYAxis = (chartType: ChartType) => {
-  return chartType === ChartType.XY;
+  return chartType == ChartType.XY;
 }
 
 export const hasXAxis = (chartType: ChartType) => {
