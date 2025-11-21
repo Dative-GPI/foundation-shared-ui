@@ -1,4 +1,4 @@
-import { MessageType } from "@/shared/foundation-shared-domain/enums";
+import { MessageType } from "@dative-gpi/foundation-shared-domain/enums";
 
 
 export const NotificationIconByMessageType = (messageType: MessageType): string => {
