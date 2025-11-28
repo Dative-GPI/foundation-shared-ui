@@ -47,9 +47,9 @@ describe('computeAggregation', () => {
     expect(computeAggregation(AggregationType.Minimum, [-5, -10, 0])).toBe(-10);
   });
 
-  it('throws on empty array', () => {
-    expect(() => computeAggregation(AggregationType.Sum, [])).toThrow('Cannot aggregate empty array.');
-    expect(() => computeAggregation(AggregationType.Median, [])).toThrow('Cannot aggregate empty array.');
+  it('returns 0 for empty array', () => {
+    expect(computeAggregation(AggregationType.Sum, [])).toBe(0);
+    expect(computeAggregation(AggregationType.Median, [])).toBe(0);
   });
 
   it('throws on unknown aggregation', () => {
