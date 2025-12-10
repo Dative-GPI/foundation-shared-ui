@@ -4,6 +4,8 @@
     :bottomColor="$props.bottomColor"
     :width="$props.width"
     :modelValue="$props.modelValue"
+    :selectable="$props.selectable"
+    @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
     <FSCol
@@ -141,8 +143,14 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
+  emits: ['update:modelValue'],
   setup(props) {
     const { isMobileSized } = useBreakpoints();
 
