@@ -1,10 +1,28 @@
 <template>
   <FSTileList
     :items="userOrganisations"
-    itemLabel="name"
     :loading="fetching"
+    :selectable="$props.selectable"
+    :singleSelect="$props.singleSelect"
+    :modelValue="$props.modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
-  />
+  >
+    <template
+      #item.tile="{ item, toggleSelect }"
+    >
+      <FSUserOrganisationTileUI
+        :imageId="item.imageId"
+        :name="item.name"
+        :roleLabel="item.roleLabel"
+        :roleIcon="item.roleIcon"
+        :admin="item.admin"
+        :selectable="$props.selectable"
+        :modelValue="($props.modelValue ?? []).includes(item.id)"
+        @update:modelValue="toggleSelect(item)"
+      />
+    </template>
+  </FSTileList>
 </template>
 
 <script lang="ts">
@@ -13,33 +31,51 @@ import { defineComponent, type PropType, watch } from "vue";
 import type { UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useUserOrganisations } from "@dative-gpi/foundation-core-services/composables";
 
+import FSUserOrganisationTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSUserOrganisationTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
 
 export default defineComponent({
   name: "FSTileUserOrganisationsList",
   components: {
     FSTileList,
+    FSUserOrganisationTileUI
   },
   props: {
     userOrganisationFilters: {
       type: Object as PropType<UserOrganisationFilters>,
       required: false,
       default: () => ({})
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    modelValue: {
+      type: Array as PropType<string[]>,
+      required: false,
+      default: () => []
     }
   },
-  setup(props){
+  emits: ["update:modelValue"],
+  setup(props) {
     const { entities: userOrganisations, getMany, fetching } = useUserOrganisations();
 
     const fetch = () => {
       getMany(props.userOrganisationFilters);
-    }
+    };
 
     watch(() => props.userOrganisationFilters, fetch, { immediate: true });
 
     return {
       userOrganisations,
       fetching
-    }
+    };
   }
 });
 </script>
