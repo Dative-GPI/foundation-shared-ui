@@ -19,12 +19,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    modelValue: [],
-    selectable: false,
-    singleSelect: false,
-    locationFilters: {}
-  },
   render: (args) => ({
     components: { FSTileLocationsList },
     setup() {
@@ -36,47 +30,9 @@ export const Default: Story = {
         v-bind="args"
       />
     `,
-  })
-};
-
-export const Selectable: Story = {
+  }),
   args: {
     modelValue: [],
-    selectable: true,
-    singleSelect: false,
     locationFilters: {}
   },
-  render: (args) => ({
-    components: { FSTileLocationsList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileLocationsList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
-};
-
-export const SingleSelect: Story = {
-  args: {
-    modelValue: [],
-    selectable: true,
-    singleSelect: true,
-    locationFilters: {}
-  },
-  render: (args) => ({
-    components: { FSTileLocationsList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileLocationsList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
 };

@@ -86,7 +86,6 @@
               :imageId="item.imageId"
               :selectable="$props.selectable"
               v-bind="$props.tileProps ? $props.tileProps(item) : undefined"
-              width="348px"
               :modelValue="isSelected(item.id)"
               @update:modelValue="toggleSelect(item)"
             />
@@ -100,6 +99,7 @@
 <script lang="ts">
 import { computed } from "vue";
 import { defineComponent, type PropType, ref, watch } from "vue";
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
 
 import { filterItems } from "../../utils";
 
@@ -139,7 +139,7 @@ export default defineComponent({
       required: false,
       default: ""
     },
-    noFilter: {
+    disableFilter: {
       type: Boolean,
       required: false,
       default: false
@@ -150,9 +150,9 @@ export default defineComponent({
       default: undefined
     },
     direction: {
-      type: String as PropType<"column" | "slided">,
+      type: String as PropType<ListDirections | undefined>,
       required: false,
-      default: "column"
+      default: ListDirections.Column
     },
     loading: {
       type: Boolean,
@@ -191,7 +191,7 @@ export default defineComponent({
     });
 
     const onSearch = (value: string) => {
-      if(props.noFilter) {
+      if(props.disableFilter) {
         emit("update:search", value);
       } else {
         actualSearch.value = value;

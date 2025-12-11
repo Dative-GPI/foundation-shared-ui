@@ -2,11 +2,6 @@
   <FSTileList
     :items="deviceOrganisations"
     :loading="fetching"
-    :selectable="$props.selectable"
-    :singleSelect="$props.singleSelect"
-    :modelValue="$props.modelValue"
-    @update:modelValue="$emit('update:modelValue', $event)"
-    v-bind="$attrs"
   >
     <template
       #item.tile="{ item, toggleSelect, direction }"
@@ -20,8 +15,6 @@
         :deviceAlerts="item.alerts"
         :modelStatuses="item.modelStatuses"
         :deviceStatuses="item.status?.statuses"
-        :selectable="$props.selectable"
-        :alertTo="$props.alertTo"
         :width="direction === 'column' ? 'fill' : undefined"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -50,21 +43,6 @@ export default defineComponent({
       type: Object as PropType<DeviceOrganisationFilters>,
       required: false,
       default: () => ({})
-    },
-    selectable: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    singleSelect: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    alertTo: {
-      type: Function,
-      required: false,
-      default: null
     },
     modelValue: {
       type: Array as PropType<string[]>,

@@ -1,19 +1,44 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+import FSSimpleTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSSimpleTileUI.vue";
 import { ref } from 'vue';
 import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
-const meta = {
+const meta: Meta<typeof FSTileList> = {
   title: 'Foundation/Shared/Lists/TileList',
   component: FSTileList,
   tags: ['autodocs'],
-} satisfies Meta<typeof FSTileList>;
+  argTypes: {
+    ...addSubcomponentsArgTypes([FSSimpleTileUI], FSTileList),
+    ...addComponentEmits(FSTileList),
+  },
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const BaseStory: Story = {
+export const Default: Story = {
+  render: (args) => ({
+    components: { FSTileList },
+    setup() {
+      const selectedIds = ref<string[]>([]);
+
+      const getTileProps = (item: any) => ({
+        leftColor: item.id === "1" ? ColorEnum.Error : null,
+        bottomColor: item.id === "3" ? ColorEnum.Primary : null,
+      });
+      return { args, selectedIds, getTileProps };
+    },
+    template: `
+      <FSTileList
+        v-bind="args"
+        v-model="selectedIds" 
+        :tileProps="getTileProps"
+      />
+      `,
+  }),
   args: {
     items: [
       {
@@ -40,23 +65,5 @@ const BaseStory: Story = {
     searchable: true,
     selectable: true,
   },
-  render: (args) => ({
-    components: { FSTileList },
-    setup() {
-      const selectedIds = ref<string[]>([]);
-
-      const getTileProps = (item: any) => ({
-        leftColor: item.id === "1" ? ColorEnum.Error : null,
-        bottomColor: item.id === "3" ? ColorEnum.Primary : null,
-      });
-
-      return { args, selectedIds, getTileProps };
-    },
-    template: `
-    <div style="display: flex; flex-direction: column; gap: 10px; width: fill;">
-        <FSTileList v-bind="args" v-model="selectedIds" :tileProps="getTileProps" />
-    </div>`
-  })
 }
 
-export const Default = BaseStory;

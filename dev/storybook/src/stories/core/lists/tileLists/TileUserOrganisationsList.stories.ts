@@ -19,12 +19,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    modelValue: [],
-    selectable: false,
-    singleSelect: false,
-    userOrganisationFilters: {}
-  },
   render: (args) => ({
     components: { FSTileUserOrganisationsList },
     setup() {
@@ -32,51 +26,12 @@ export const Default: Story = {
     },
     template: `
       <FSTileUserOrganisationsList
-        v-model:modelValue="args.modelValue"
         v-bind="args"
       />
     `,
-  })
-};
-
-export const Selectable: Story = {
-  args: {
+  }),
+  args:{
     modelValue: [],
-    selectable: true,
-    singleSelect: false,
     userOrganisationFilters: {}
-  },
-  render: (args) => ({
-    components: { FSTileUserOrganisationsList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileUserOrganisationsList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
-};
-
-export const SingleSelect: Story = {
-  args: {
-    modelValue: [],
-    selectable: true,
-    singleSelect: true,
-    userOrganisationFilters: {}
-  },
-  render: (args) => ({
-    components: { FSTileUserOrganisationsList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileUserOrganisationsList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
+  }
 };

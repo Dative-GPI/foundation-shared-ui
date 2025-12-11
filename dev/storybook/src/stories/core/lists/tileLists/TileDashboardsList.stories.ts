@@ -19,14 +19,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    modelValue: [],
-    selectable: false,
-    singleSelect: false,
-    dashboardOrganisationFilters: {},
-    dashboardOrganisationTypeFilters: {},
-    dashboardShallowFilters: {}
-  },
   render: (args) => ({
     components: { FSTileDashboardsList },
     setup() {
@@ -34,55 +26,14 @@ export const Default: Story = {
     },
     template: `
       <FSTileDashboardsList
-        v-model:modelValue="args.modelValue"
         v-bind="args"
       />
     `,
-  })
-};
-
-export const Selectable: Story = {
+  }),
   args: {
     modelValue: [],
-    selectable: true,
-    singleSelect: false,
     dashboardOrganisationFilters: {},
     dashboardOrganisationTypeFilters: {},
     dashboardShallowFilters: {}
-  },
-  render: (args) => ({
-    components: { FSTileDashboardsList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileDashboardsList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
-};
-
-export const SingleSelect: Story = {
-  args: {
-    modelValue: [],
-    selectable: true,
-    singleSelect: true,
-    dashboardOrganisationFilters: {},
-    dashboardOrganisationTypeFilters: {},
-    dashboardShallowFilters: {}
-  },
-  render: (args) => ({
-    components: { FSTileDashboardsList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileDashboardsList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
+  }
 };

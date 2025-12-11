@@ -2,11 +2,6 @@
   <FSTileList
     :items="dashboards"
     :loading="fetching"
-    :selectable="$props.selectable"
-    :singleSelect="$props.singleSelect"
-    :modelValue="$props.modelValue"
-    @update:modelValue="$emit('update:modelValue', $event)"
-    v-bind="$attrs"
   >
     <template
       #item.tile="{ item, toggleSelect, direction }"
@@ -17,7 +12,6 @@
         :icon="item.icon"
         :label="item.label"
         :imageId="item.imageId"
-        :selectable="$props.selectable"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         :width="direction === 'column' ? 'fill' : undefined"
@@ -29,7 +23,6 @@
         :icon="item.icon"
         :label="item.label"
         :imageId="item.imageId"
-        :selectable="$props.selectable"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         :width="direction === 'column' ? 'fill' : undefined"
@@ -41,7 +34,6 @@
         :icon="item.icon"
         :label="item.label"
         :imageId="item.imageId"
-        :selectable="$props.selectable"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         :width="direction === 'column' ? 'fill' : undefined"
@@ -89,16 +81,6 @@ export default defineComponent({
       type: Object as PropType<DashboardShallowFilters>,
       required: false,
       default: () => ({})
-    },
-    selectable: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    singleSelect: {
-      type: Boolean,
-      required: false,
-      default: false
     },
     modelValue: {
       type: Array as PropType<string[]>,

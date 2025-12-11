@@ -4,7 +4,6 @@
     :bottomColor="$props.bottomColor"
     :width="$props.width"
     :modelValue="$props.modelValue"
-    :selectable="$props.selectable"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
@@ -140,11 +139,6 @@ export default defineComponent({
       default: () => [352, 336]
     },
     modelValue: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    selectable: {
       type: Boolean,
       required: false,
       default: false

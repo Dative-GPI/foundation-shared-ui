@@ -19,12 +19,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    modelValue: [],
-    selectable: false,
-    singleSelect: false,
-    folderFilters: {}
-  },
   render: (args) => ({
     components: { FSTileFoldersList },
     setup() {
@@ -32,51 +26,12 @@ export const Default: Story = {
     },
     template: `
       <FSTileFoldersList
-        v-model:modelValue="args.modelValue"
         v-bind="args"
       />
     `,
-  })
-};
-
-export const Selectable: Story = {
+  }),
   args: {
     modelValue: [],
-    selectable: true,
-    singleSelect: false,
     folderFilters: {}
   },
-  render: (args) => ({
-    components: { FSTileFoldersList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileFoldersList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
-};
-
-export const SingleSelect: Story = {
-  args: {
-    modelValue: [],
-    selectable: true,
-    singleSelect: true,
-    folderFilters: {}
-  },
-  render: (args) => ({
-    components: { FSTileFoldersList },
-    setup() {
-      return { args };
-    },
-    template: `
-      <FSTileFoldersList
-        v-model:modelValue="args.modelValue"
-        v-bind="args"
-      />
-    `,
-  })
 };
