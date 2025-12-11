@@ -2,6 +2,11 @@
   <FSTileList
     :items="dashboards"
     :loading="fetching"
+    :selectable="$props.selectable"
+    :singleSelect="$props.singleSelect"
+    :modelValue="$props.modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
+    v-bind="$attrs"
   >
     <template
       #item.tile="{ item, toggleSelect, direction }"
@@ -15,6 +20,7 @@
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         :width="direction === 'column' ? 'fill' : undefined"
+        :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
       />
       <FSDashboardOrganisationTypeTileUI
@@ -26,6 +32,7 @@
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         :width="direction === 'column' ? 'fill' : undefined"
+        :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
       />
       <FSDashboardShallowTileUI
@@ -37,6 +44,7 @@
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         :width="direction === 'column' ? 'fill' : undefined"
+        :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
       />
     </template>
@@ -86,6 +94,16 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       required: false,
       default: () => []
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   emits: ["update:modelValue"],

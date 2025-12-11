@@ -26,6 +26,7 @@ export const Default: Story = {
     },
     template: `
       <FSTileDashboardsList
+       v-model:modelValue="args.modelValue"
         v-bind="args"
       />
     `,
@@ -34,6 +35,6 @@ export const Default: Story = {
     modelValue: [],
     dashboardOrganisationFilters: {},
     dashboardOrganisationTypeFilters: {},
-    dashboardShallowFilters: {}
+    dashboardShallowFilters: {},
   }
 };

@@ -26,6 +26,7 @@ export const Default: Story = {
     },
     template: `
       <FSTileFoldersList
+        v-model:modelValue="args.modelValue"
         v-bind="args"
       />
     `,

@@ -26,12 +26,13 @@ export const Default: Story = {
     },
     template: `
       <FSTileDeviceOrganisationsList
+         v-model:modelValue="args.modelValue"
         v-bind="args"
       />
     `,
   }),
   args: {
+    deviceOrganisationFilters: {},
     modelValue: [],
-    deviceOrganisationFilters: {}
   }
 };

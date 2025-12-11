@@ -2,6 +2,11 @@
   <FSTileList
     :items="userOrganisations"
     :loading="fetching"
+    :selectable="$props.selectable"
+    :singleSelect="$props.singleSelect"
+    :modelValue="$props.modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
+    v-bind="$attrs"
   >
     <template
       #item.tile="{ item, toggleSelect, direction }"
@@ -13,6 +18,7 @@
         :roleIcon="item.roleIcon"
         :admin="item.admin"
         :width="direction === 'column' ? 'fill' : undefined"
+        :selectable="$props.selectable"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
       />
@@ -44,6 +50,16 @@ export default defineComponent({
     modelValue: {
       type: Array as PropType<string[]>,
       required: false
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   setup(props) {

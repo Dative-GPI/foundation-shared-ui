@@ -26,6 +26,7 @@ export const Default: Story = {
     },
     template: `
       <FSTileUserOrganisationsList
+      v-model="args.modelValue"
         v-bind="args"
       />
     `,
