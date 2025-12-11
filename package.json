@@ -1,6 +1,9 @@
 {
   "private": true,
   "type": "module",
+  "repotisory" : {
+    "url": "https://github.com/Dative-GPI/foundation-shared-ui.git"
+  },
   "scripts": {
     "lint": "eslint",
     "fix": "eslint --fix",
