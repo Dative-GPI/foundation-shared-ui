@@ -101,7 +101,6 @@
 import { computed } from "vue";
 import { defineComponent, type PropType, ref, watch } from "vue";
 
-import { ColorEnum } from "../../models"
 import { filterItems } from "../../utils";
 
 import FSCol from "../FSCol.vue";
@@ -227,7 +226,6 @@ export default defineComponent({
     return {
       actualSearch,
       filteredItems,
-      ColorEnum,
       onSearch,
       isSelected,
       toggleSelect

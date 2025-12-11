@@ -12,8 +12,6 @@ import { EntityType } from "@/shared/foundation-shared-domain/enums";
 
 export default defineComponent({
   name: "FSTileEntitiesList",
-  components: {
-  },
   props: {
     entityType: {
       type: Number as PropType<EntityType>,
@@ -58,7 +56,8 @@ export default defineComponent({
           return {
             ...attrs,
             dashboardOrganisationFilters : props.filters,
-            dashboardOrganisationTypeFilters : props.filters
+            dashboardOrganisationTypeFilters : props.filters,
+            dashboardShallowFilters : props.filters
           };
         case EntityType.Folder:
           return {
@@ -68,7 +67,7 @@ export default defineComponent({
         case EntityType.User:
           return {
             ...attrs,
-            userFilters : props.filters
+            userOrganisationFilters : props.filters
           };
         case EntityType.Group:
           return {
