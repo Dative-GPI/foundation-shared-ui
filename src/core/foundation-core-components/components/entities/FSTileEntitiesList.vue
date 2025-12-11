@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { computed, defineAsyncComponent, defineComponent, type PropType, type Component } from "vue";
-import { EntityType } from "../../../../shared/foundation-shared-domain/enums";
+import { EntityType } from "@dative-gpi/foundation-shared-domain/enums";
 
 
 export default defineComponent({
