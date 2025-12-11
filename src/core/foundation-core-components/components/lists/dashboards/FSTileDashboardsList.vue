@@ -9,7 +9,7 @@
     v-bind="$attrs"
   >
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ item, toggleSelect, direction }"
     >
       <FSDashboardOrganisationTileUI
         v-if="item.dashboardType === DashboardType.Organisation"
@@ -20,6 +20,7 @@
         :selectable="$props.selectable"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
+        :width="direction === 'column' ? 'fill' : undefined"
         @update:modelValue="toggleSelect(item)"
       />
       <FSDashboardOrganisationTypeTileUI
@@ -31,6 +32,7 @@
         :selectable="$props.selectable"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
+        :width="direction === 'column' ? 'fill' : undefined"
         @update:modelValue="toggleSelect(item)"
       />
       <FSDashboardShallowTileUI
@@ -42,6 +44,7 @@
         :selectable="$props.selectable"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
+        :width="direction === 'column' ? 'fill' : undefined"
         @update:modelValue="toggleSelect(item)"
       />
     </template>

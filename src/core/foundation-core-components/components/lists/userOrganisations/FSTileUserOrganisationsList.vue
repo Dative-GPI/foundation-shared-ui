@@ -9,7 +9,7 @@
     v-bind="$attrs"
   >
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ item, toggleSelect, direction }"
     >
       <FSUserOrganisationTileUI
         :imageId="item.imageId"
@@ -18,6 +18,7 @@
         :roleIcon="item.roleIcon"
         :admin="item.admin"
         :selectable="$props.selectable"
+        :width="direction === 'column' ? 'fill' : undefined"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
       />

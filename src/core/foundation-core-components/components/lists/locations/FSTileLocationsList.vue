@@ -9,7 +9,7 @@
     v-bind="$attrs"
   >
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ item, toggleSelect, direction }"
     >
       <FSLocationTileUI
         :icon="item.icon"
@@ -19,6 +19,7 @@
         :address="item.address?.placeLabel"
         :deviceCount="item.deviceOrganisationsCount"
         :selectable="$props.selectable"
+        :width="direction === 'column' ? 'fill' : undefined"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
       />

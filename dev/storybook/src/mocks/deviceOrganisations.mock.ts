@@ -56,21 +56,24 @@ const DEVICEALERTS: DeviceOrganisationAlertDTO[] = [{
     enqueuedTimestamp: OFFLINE_ENQUEUED.toISOString(),
     label: "Critical error",
     status: 3,
-    criticity: 3
+    criticity: 3,
+    actualTimestamp: ""
 }, {
     id: "3",
     sourceTimestamp: OFFLINE_DEVICE.toISOString(),
     enqueuedTimestamp: OFFLINE_ENQUEUED.toISOString(),
     label: "Warning",
     status: 3,
-    criticity: 2
+    criticity: 2,
+    actualTimestamp: ""
 }, {
     id: "3",
     sourceTimestamp: OFFLINE_DEVICE.toISOString(),
     enqueuedTimestamp: OFFLINE_ENQUEUED.toISOString(),
     label: "Information",
     status: 3,
-    criticity: 1
+    criticity: 1,
+    actualTimestamp: ""
 }];
 
 const DEVICESTATUS: DeviceStatusDetailsDTO[] = [{
@@ -233,7 +236,11 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     familyLabel: ARTICLES[0].familyLabel,
     description: "Organisation's first device",
     options: [],
-    path: []
+    path: [],
+    latitude: null,
+    longitude: null,
+    locationLatitude: null,
+    locationLongitude: null
 }, {
     id: "2",
     deviceId: "2",
@@ -271,7 +278,11 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     familyLabel: ARTICLES[0].familyLabel,
     description: "Organisation's second device",
     options: [],
-    path: []
+    path: [],
+    latitude: null,
+    longitude: null,
+    locationLatitude: null,
+    locationLongitude: null
 }, {
     id: "3",
     deviceId: "3",
@@ -309,7 +320,11 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     familyLabel: ARTICLES[0].familyLabel,
     description: "Organisation's third device",
     options: [],
-    path: []
+    path: [],
+    latitude: null,
+    longitude: null,
+    locationLatitude: null,
+    locationLongitude: null
 }, {
     id: "4",
     deviceId: "4",
@@ -347,5 +362,9 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     familyLabel: ARTICLES[0].familyLabel,
     description: "Organisation's fourth device",
     options: [],
-    path: []
+    path: [],
+    latitude: null,
+    longitude: null,
+    locationLatitude: null,
+    locationLongitude: null
 }];

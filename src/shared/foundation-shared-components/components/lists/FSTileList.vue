@@ -33,7 +33,7 @@
           >
             <slot
               name="item.tile"
-              v-bind="{ index, item, toggleSelect }"
+              v-bind="{ index, item, direction: $props.direction, toggleSelect }"
             >
               <FSSimpleTileUI
                 :key="index"
@@ -75,7 +75,7 @@
         >
           <slot
             name="item.tile"
-            v-bind="{ index, item, toggleSelect }"
+            v-bind="{ index, item, direction: $props.direction, toggleSelect }"
           >
             <FSSimpleTileUI
               :key="index"

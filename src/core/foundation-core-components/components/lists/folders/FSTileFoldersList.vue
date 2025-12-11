@@ -9,7 +9,7 @@
     v-bind="$attrs"
   >
     <template
-      #item.tile="{ item, toggleSelect }"
+      #item.tile="{ item, toggleSelect, direction }"
     >
       <FSFolderTileUI
         :code="item.code"
@@ -20,6 +20,7 @@
         :recursiveFoldersIds="item.recursiveFoldersIds"
         :recursiveDashboardsIds="item.recursiveDashboardsIds"
         :selectable="$props.selectable"
+        :width="direction === 'column' ? 'fill' : undefined"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
       />
