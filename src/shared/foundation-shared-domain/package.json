@@ -1,6 +1,6 @@
 {
   "name": "@dative-gpi/foundation-shared-domain",
-  "repotisory" : {
+  "repository" : {
     "url": "https://github.com/Dative-GPI/foundation-shared-ui.git"
   },
   "sideEffects": false,

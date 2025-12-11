@@ -1,6 +1,6 @@
 {
   "name": "@dative-gpi/foundation-shared-loader",
-  "repotisory" : {
+  "repository" : {
     "url": "https://github.com/Dative-GPI/foundation-shared-ui.git"
   },
   "version": "1.0.0",
