@@ -16,7 +16,7 @@
         :code="item.code"
         :recursiveGroupsIds="item.recursiveGroupsIds"
         :recursiveDeviceOrganisationsIds="item.recursiveDeviceOrganisationsIds"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -33,6 +33,9 @@ import { useGroups } from "@dative-gpi/foundation-core-services/composables";
 
 import FSGroupTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSGroupTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
 
 export default defineComponent({
   name: "FSTileGroupsList",
@@ -69,7 +72,8 @@ export default defineComponent({
 
     return {
       groups,
-      fetching
+      fetching,
+      ListDirections
     };
   }
 });

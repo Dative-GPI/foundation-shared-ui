@@ -14,7 +14,7 @@
         :imageId="item.imageId"
         :label="item.label"
         :code="item.code"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -31,6 +31,9 @@ import { useModels } from "@dative-gpi/foundation-core-services/composables";
 
 import FSModelTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSModelTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
 
 export default defineComponent({
   name: "FSTileModelsList",
@@ -67,7 +70,8 @@ export default defineComponent({
 
     return {
       models,
-      fetching
+      fetching,
+      ListDirections
     };
   }
 });

@@ -9,7 +9,7 @@
       @update:modelValue="onSearch"
     />
     <FSFadeOut
-      v-if="$props.direction == 'column'"
+      v-if="$props.direction == ListDirections.Column"
       :maxHeight="$props.maxHeight"
       :maskHeight="0"
     >
@@ -226,6 +226,7 @@ export default defineComponent({
     return {
       actualSearch,
       filteredItems,
+      ListDirections,
       onSearch,
       isSelected,
       toggleSelect

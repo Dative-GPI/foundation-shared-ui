@@ -17,7 +17,7 @@
         :color="item.color"
         :address="item.address?.placeLabel"
         :deviceCount="item.deviceOrganisationsCount"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -34,6 +34,9 @@ import { useLocations } from "@dative-gpi/foundation-core-services/composables";
 
 import FSLocationTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSLocationTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
 
 export default defineComponent({
   name: "FSTileLocationsList",
@@ -70,7 +73,8 @@ export default defineComponent({
 
     return {
       locations,
-      fetching
+      fetching,
+      ListDirections
     };
   }
 });

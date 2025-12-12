@@ -18,7 +18,7 @@
         :imageId="item.imageId"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
       />
@@ -30,7 +30,7 @@
         :imageId="item.imageId"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
       />
@@ -42,7 +42,7 @@
         :imageId="item.imageId"
         :bottomColor="item.colors"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         @update:modelValue="toggleSelect(item)"
       />
@@ -64,6 +64,9 @@ import FSDashboardOrganisationTileUI from "@dative-gpi/foundation-shared-compone
 import FSDashboardOrganisationTypeTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDashboardOrganisationTypeTileUI.vue";
 import FSDashboardShallowTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDashboardShallowTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
 
 export default defineComponent({
   name: "FSTileDashboardsList",
@@ -139,12 +142,16 @@ export default defineComponent({
       getManyDashboardShallows(props.dashboardShallowFilters);
     };
 
-    watch(() => [props.dashboardOrganisationFilters, props.dashboardOrganisationTypeFilters, props.dashboardShallowFilters], fetch, { immediate: true });
+    watch(
+      [() => props.dashboardOrganisationFilters, () => props.dashboardOrganisationTypeFilters, () => props.dashboardShallowFilters], 
+      fetch, 
+      { immediate: true });
 
     return {
       dashboards,
       fetching,
-      DashboardType
+      DashboardType,
+      ListDirections
     };
   }
 });

@@ -19,7 +19,7 @@
         :deviceAlerts="item.alerts"
         :modelStatuses="item.modelStatuses"
         :deviceStatuses="item.status?.statuses"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -36,6 +36,9 @@ import { useDeviceOrganisations } from "@dative-gpi/foundation-core-services/com
 
 import FSDeviceOrganisationTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDeviceOrganisationTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
 
 export default defineComponent({
   name: "FSTileDeviceOrganisationsList",
@@ -72,7 +75,8 @@ export default defineComponent({
 
     return {
       deviceOrganisations,
-      fetching
+      fetching,
+      ListDirections
     };
   }
 });

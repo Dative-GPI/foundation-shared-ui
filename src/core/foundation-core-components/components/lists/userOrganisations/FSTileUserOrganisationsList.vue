@@ -16,7 +16,7 @@
         :roleLabel="item.roleLabel"
         :roleIcon="item.roleIcon"
         :admin="item.admin"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -33,6 +33,9 @@ import { useUserOrganisations } from "@dative-gpi/foundation-core-services/compo
 
 import FSUserOrganisationTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSUserOrganisationTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
 
 export default defineComponent({
   name: "FSTileUserOrganisationsList",
@@ -67,7 +70,8 @@ export default defineComponent({
 
     return {
       userOrganisations,
-      fetching
+      fetching,
+      ListDirections
     };
   }
 });

@@ -18,7 +18,7 @@
         :bottomColor="item.colors"
         :recursiveFoldersIds="item.recursiveFoldersIds"
         :recursiveDashboardsIds="item.recursiveDashboardsIds"
-        :width="direction === 'column' ? 'fill' : undefined"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
         :selectable="$props.selectable"
         :modelValue="($props.modelValue ?? []).includes(item.id)"
         @update:modelValue="toggleSelect(item)"
@@ -35,6 +35,9 @@ import { useFolders } from "@dative-gpi/foundation-core-services/composables";
 
 import FSFolderTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSFolderTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
 
 export default defineComponent({
   name: "FSTileFoldersList",
@@ -71,7 +74,8 @@ export default defineComponent({
 
     return {
       folders,
-      fetching
+      fetching,
+      ListDirections
     };
   }
 });
