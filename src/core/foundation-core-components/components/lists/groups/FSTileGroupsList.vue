@@ -3,7 +3,6 @@
     :items="groups"
     :loading="fetching"
     :selectable="$props.selectable"
-    :singleSelect="$props.singleSelect"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -53,11 +52,6 @@ export default defineComponent({
       default: () => []
     },
     selectable: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    singleSelect: {
       type: Boolean,
       required: false,
       default: false
