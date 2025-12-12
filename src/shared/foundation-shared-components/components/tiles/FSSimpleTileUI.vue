@@ -4,6 +4,7 @@
     :bottomColor="$props.bottomColor"
     :width="$props.width"
     :modelValue="$props.modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
     <FSCol
@@ -143,6 +144,7 @@ export default defineComponent({
       default: false
     }
   },
+  emits: ['update:modelValue'],
   setup(props) {
     const { isMobileSized } = useBreakpoints();
 
