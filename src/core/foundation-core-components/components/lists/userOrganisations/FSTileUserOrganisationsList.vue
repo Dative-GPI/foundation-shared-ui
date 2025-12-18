@@ -1,0 +1,78 @@
+<template>
+  <FSTileList
+    :items="userOrganisations"
+    :loading="fetching"
+    :selectable="$props.selectable"
+    :modelValue="$props.modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
+    v-bind="$attrs"
+  >
+    <template
+      #item.tile="{ item, toggleSelect, direction }"
+    >
+      <FSUserOrganisationTileUI
+        :imageId="item.imageId"
+        :name="item.name"
+        :roleLabel="item.roleLabel"
+        :roleIcon="item.roleIcon"
+        :admin="item.admin"
+        :width="direction === ListDirections.Column ? 'fill' : undefined"
+        :selectable="$props.selectable"
+        :modelValue="($props.modelValue ?? []).includes(item.id)"
+        @update:modelValue="toggleSelect(item)"
+      />
+    </template>
+  </FSTileList>
+</template>
+
+<script lang="ts">
+import { defineComponent, type PropType, watch } from "vue";
+
+import type { UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
+import { useUserOrganisations } from "@dative-gpi/foundation-core-services/composables";
+
+import FSUserOrganisationTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSUserOrganisationTileUI.vue";
+import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
+
+import { ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
+
+
+export default defineComponent({
+  name: "FSTileUserOrganisationsList",
+  components: {
+    FSTileList,
+    FSUserOrganisationTileUI
+  },
+  props: {
+    userOrganisationFilters: {
+      type: Object as PropType<UserOrganisationFilters>,
+      required: false,
+      default: () => ({})
+    },
+    modelValue: {
+      type: Array as PropType<string[]>,
+      required: false
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  setup(props) {
+    const { entities: userOrganisations, getMany, fetching } = useUserOrganisations();
+
+    const fetch = () => {
+      getMany(props.userOrganisationFilters);
+    };
+
+    watch(() => props.userOrganisationFilters, fetch, { immediate: true });
+
+    return {
+      userOrganisations,
+      fetching,
+      ListDirections
+    };
+  }
+});
+</script>
