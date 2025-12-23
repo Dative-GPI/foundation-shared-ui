@@ -374,10 +374,16 @@ export const yAxisTypeFromSerieType = (serieType: SerieType): AxisType[] => {
   }
 }
 
-export const hasAxis = (chartType: ChartType) => {
+export const hasYAxis = (chartType: ChartType) => {
+  return chartType == ChartType.XY;
+}
+
+export const hasXAxis = (chartType: ChartType) => {
   switch (chartType) {
     case ChartType.XY:
     case ChartType.Heatmap:
+    case ChartType.Gauge:
+    case ChartType.Slider:
       return true;
     default:
       return false;

@@ -21,7 +21,7 @@ const aggregationFactory = (type: AggregationType): ReducerFn => {
 
 export const computeAggregation = (type: AggregationType, values: number[]): number => {
   if (!values.length) {
-    throw new Error('Cannot aggregate empty array.');
+    return 0;
   }
 
   switch (type) {
