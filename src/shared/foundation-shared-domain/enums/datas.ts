@@ -53,3 +53,9 @@ export enum DatePart
     Minute = 5,
     Second = 6
 }
+
+export enum DataFlowType {
+    None = 0,
+    Consumption = 1,
+    Production = 2
+}

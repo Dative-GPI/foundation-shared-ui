@@ -13,6 +13,7 @@ export * from "./customPropertyValues";
 export * from "./dashboardOrganisations";
 export * from "./dashboardOrganisationTypes";
 export * from "./dashboards";
+export * from "./data";
 export * from "./dataCategories";
 export * from "./dataDefinitions";
 export * from "./deviceConnectivities";

@@ -15,5 +15,7 @@ export enum CronPeriod {
   Daily = 1,
   Weekly = 2,
   Monthly = 3,
-  Yearly = 4
+  Yearly = 4,
+  SinceReference = 5,
+  Absolute = 6
 }
