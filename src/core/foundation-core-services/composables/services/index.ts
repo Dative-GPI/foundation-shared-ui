@@ -44,4 +44,5 @@ export * from "./useSubgroupingDeviceOrganisations";
 export * from "./useSubgroupings"
 export * from "./useUserOrganisations";
 export * from "./useUserOrganisationTables";
+export * from "./useV2Data";
 export * from "./useWidgetTemplates";
