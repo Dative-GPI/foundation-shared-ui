@@ -1,3 +1,4 @@
+export * from "./useAbsoluteProfitsComparison";
 export * from "./useAccessibilityPreferences";
 export * from "./useAddress";
 export * from "./useAutocomplete";
