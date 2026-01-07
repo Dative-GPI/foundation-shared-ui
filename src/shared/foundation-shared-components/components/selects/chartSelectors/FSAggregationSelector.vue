@@ -30,18 +30,31 @@ export default defineComponent({
     label : {
       type: String,
       required: false
-    }
+    },
+    allowedAggregation: {
+      type: Array as PropType<AggregationType[]>,
+      required: false,
+      default: null
+    },
   },
   emits: ['update:modelValue'],
-  setup() {
+  setup(props) {
 
     const aggregationTypeItems = computed(()=>{
+      if (props.allowedAggregation != null) {
+        return props.allowedAggregation.map((f)=>{
+          return {
+            id: f,
+            label: aggregationTypeLabel(f)
+          }
+        })
+      }
       return getEnumEntries(AggregationType).filter(f=>f.value != AggregationType.None).map((f)=>{
         return {
           id: f.value,
           label: aggregationTypeLabel(f.value)
         }
-      })
+      });
     });
 
     return {
