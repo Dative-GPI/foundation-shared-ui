@@ -15,6 +15,14 @@ export enum CronPeriod {
   Daily = 1,
   Weekly = 2,
   Monthly = 3,
+  Yearly = 4
+}
+
+export enum TimeComparisonType{
+  None = 0,  
+  Daily = 1,
+  Weekly = 2,
+  Monthly = 3,
   Yearly = 4,
   SinceReference = 5,
   Absolute = 6
