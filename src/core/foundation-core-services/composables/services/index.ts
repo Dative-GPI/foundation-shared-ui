@@ -1,3 +1,4 @@
+export * from "./useAbsoluteProfitsComparison"
 export * from "./useActions";
 export * from "./useAlerts";
 export * from "./useArticles";
