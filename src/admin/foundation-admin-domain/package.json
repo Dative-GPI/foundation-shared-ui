@@ -1,5 +1,8 @@
 {
   "name": "@dative-gpi/foundation-admin-domain",
+  "repository" : {
+    "url": "https://github.com/Dative-GPI/foundation-shared-ui.git"
+  },
   "sideEffects": false,
   "version": "1.0.0",
   "description": "",

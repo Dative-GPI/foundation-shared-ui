@@ -15,12 +15,12 @@
       >
         <FSEntityCountBadge
           :label="$tr('ui.common.folders', 'Folder(s)')"
-          :count="recursiveFoldersIds.length"
+          :count="$props.recursiveFoldersIds?.length ?? 0"
           :color="ColorEnum.Primary"
         />
         <FSEntityCountBadge
           :label="$tr('ui.common.dashboards', 'Dashboard(s)')"
-          :count="recursiveDashboardsIds.length"
+          :count="dashboardCount"
           :color="ColorEnum.Success"
         />
       </FSCol>
@@ -55,11 +55,16 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    recursiveDashboardsIds: {
+    recursiveDashboardOrganisationsIds: {
       type: Array as PropType<string[]>,
       required: false,
       default: () => []
     },
+    recursiveDashboardShallowsIds: {
+      type: Array as PropType<string[]>,
+      required: false,
+      default: () => []
+    }
   },
   components: {
     FSEntityCountBadge,
@@ -74,8 +79,13 @@ export default defineComponent({
       return props.bottomColor;
     });
 
+    const dashboardCount = computed(() => {
+      return (props.recursiveDashboardOrganisationsIds?.length ?? 0) + (props.recursiveDashboardShallowsIds?.length ?? 0);
+    });
+
     return {
       color,
+      dashboardCount,
       ColorEnum
     };
   }

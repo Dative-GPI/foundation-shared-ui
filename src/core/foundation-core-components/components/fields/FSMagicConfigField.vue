@@ -43,14 +43,14 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType } from "vue";
 
-import { DateRules, IconRules, NumberRules, TextRules, TimeRules, TimeStepRules, AutocompleteRules } from "../../models";
-import { useMagicFieldProvider } from "../../composables";
-import { MagicFieldType } from "../../models/magicFields";
+import { DateRules, IconRules, NumberRules, TextRules, TimeRules, TimeStepRules, AutocompleteRules } from "@dative-gpi/foundation-shared-components/models";
+import { useMagicFieldProvider } from "@dative-gpi/foundation-core-services/composables";
+import { MagicFieldType } from "@dative-gpi/foundation-shared-domain/enums";
 
-import FSButtonRemoveIcon from "../buttons/FSButtonRemoveIcon.vue";
-import FSButtonAddIcon from "../buttons/FSButtonAddIcon.vue";
-import FSTranslateField from "./FSTranslateField.vue";
-import FSRow from "../FSRow.vue";
+import FSButtonRemoveIcon from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonRemoveIcon.vue";
+import FSButtonAddIcon from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonAddIcon.vue";
+import FSTranslateField from "@dative-gpi/foundation-shared-components/components/fields/FSTranslateField.vue";
+import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 export default defineComponent({
   name: "FSMagicConfigField",
@@ -129,7 +129,7 @@ export default defineComponent({
         case MagicFieldType.TimeStepField:
           return JSON.parse(props.modelValue);
         case MagicFieldType.PlotPerField:
-          return parseInt(props.modelValue);
+          return JSON.parse(props.modelValue);
         default:
           return props.modelValue;
       }
@@ -151,7 +151,7 @@ export default defineComponent({
           emit("update:modelValue", JSON.stringify(value));
           break;
         case MagicFieldType.PlotPerField:
-          emit("update:modelValue", value.toString());
+          emit("update:modelValue", JSON.stringify(value));
           break;
         default:
           emit("update:modelValue", value);

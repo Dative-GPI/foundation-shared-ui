@@ -493,7 +493,7 @@
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
                   :selectable="$props.selectable"
                   :singleSelect="$props.singleSelect"
-                  :to="$props.itemTo"
+                  :to="$props.itemTo && $props.itemTo(item.raw)"
                   :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
@@ -666,7 +666,7 @@
                   :headers="innerHeaders.filter(h => !$props.sneakyHeaders.includes(h.value))"
                   :selectable="$props.selectable"
                   :singleSelect="$props.singleSelect"
-                  :to="$props.itemTo"
+                  :to="$props.itemTo && $props.itemTo(item.raw)"
                   :bottomColor="$props.color"
                   :item="item.raw"
                   :key="index"
@@ -724,7 +724,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, nextTick, onMounted, onUnmounted, type PropType, type Ref, ref, type Slot, type StyleValue, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, type RouteLocation } from "vue-router";
 
 import { ColorEnum, type FSDataTableColumn, type FSDataTableFilter, type FSDataTableOrder, type FSToggle } from "@dative-gpi/foundation-shared-components/models";
 import { useBreakpoints, useColors, useSlots } from "@dative-gpi/foundation-shared-components/composables";
@@ -805,7 +805,7 @@ export default defineComponent({
       default: "id"
     },
     itemTo: {
-      type: Function,
+      type: Function as PropType<(item: any) => Partial<RouteLocation>>,
       required: false,
       default: null
     },
@@ -1141,7 +1141,6 @@ export default defineComponent({
     });
 
     const onClickLibrary = computed((): { [key: string]: Function | boolean } => {
-      console.log(props["onClick:row"]);
       if (props["onClick:row"] || props.itemTo) {
         return {
           clickable: true,
@@ -1154,10 +1153,7 @@ export default defineComponent({
             }
           },
           mobile: (event: any, item: any) => {
-            if (props.itemTo && router) {
-              router.push(props.itemTo(item.raw));
-            }
-            else {
+            if (!props.itemTo) {
               emit("click:row", item.raw);
             }
           }

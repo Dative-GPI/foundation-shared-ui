@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import FSMagicConfigField from "@dative-gpi/foundation-shared-components/components/fields/FSMagicConfigField.vue";
+import FSMagicConfigField from "@dative-gpi/foundation-core-components/components/fields/FSMagicConfigField.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/MagicConfigField',
+  title: 'Foundation/Core/Input fields/MagicConfigField',
   component: FSMagicConfigField,
   tags: ['autodocs'],
   argTypes: {
@@ -40,7 +40,7 @@ export const Variations: Story = {
       translations7: [],
       value7: "",
       labelDefault8: "PlotPerField",
-      value8: 3,
+      value8: "{\"plotPer\":3,\"groupingId\":null}",
       translations8: []
     }
   },

@@ -1,0 +1,1 @@
+export const DATA_V2_RELOAD_URL = "/api/data/v2/data";

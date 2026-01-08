@@ -6,6 +6,8 @@ import FSDataTableUI from "@dative-gpi/foundation-shared-components/components/l
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
+import type { RouteLocation } from 'vue-router';
+import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 
 const meta = {
   title: 'Foundation/Shared/Lists/DataTable',
@@ -99,8 +101,11 @@ const groupBy = {
   key: "column4",
   order: "asc" as const
 };
-const clickRow = () => { console.log("clicked"); };
-const itemTo = (item: any) => ({ name: 'device', params: { deviceId: item.id } });
+
+const routerLink = (item: any): Partial<RouteLocation> => {
+  console.log("routerLink value computed but router not called", item);
+  return { name: 'Home', query: { itemraw: JSON.stringify(item) } };
+}; 
 
 export const GroupBy: Story = {
   args: {
@@ -221,7 +226,7 @@ export const SelectableIncludeSortDraggable: Story = {
   })
 };
 
-export const SingleSelectWithItemTo: Story = {
+export const RouterTest: Story = {
   args: {
     headers: headers2,
     items: items2,
@@ -229,26 +234,35 @@ export const SingleSelectWithItemTo: Story = {
     selectable: true,
     singleSelect: true,
     sneakyHeaders: ['column1'],
-    includeDraggable: true,
-    sortDraggable: true
+    includeDraggable: false,
+    sortDraggable: false,
+    itemTo: routerLink
   },
   render: (args) => ({
-    components: { FSDataTableUI },
+    components: { FSDataTableUI, FSRow, FSCol },
     setup() {
-      return { args };
+      const onClickRow = (item: any) => {
+        console.log("Row clicked:", item);
+      };
+      return { args, onClickRow };
     },
     template: `
-      <FSDataTableUI
-        :selectable="args.selectable"
-        :items="args.items"
-        :singleSelect="args.singleSelect"
-        :sneakyHeaders="args.sneakyHeaders"
-        :itemTo="args.disableItemTo ? null : args.itemTo"
-        v-model:headers="args.headers"
-        v-model="args.modelValue"
-        :includeDraggable="args.includeDraggable"
-        :sortDraggable="args.sortDraggable"
-      />`
+      <FSCol>
+        <FSRow style="background: #f0f0f0; padding: 16px; border-radius: 8px;">
+          <div>
+            <h3 style="margin: 0 0 8px 0;">Current Route: {{ $route.name }}</h3>
+            <p style="margin: 0; font-size: 14px; color: #666;">
+              Query: {{ JSON.stringify($route.query) }}
+            </p>
+          </div>
+        </FSRow>
+        <FSDataTableUI
+          v-model:headers="args.headers"
+          v-model="args.modelValue"
+          v-bind="args"
+        />
+      </FSCol>
+    `
   })
 };
 

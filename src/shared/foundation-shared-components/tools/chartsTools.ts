@@ -178,6 +178,7 @@ export const plotPerLabel = (plotper: PlotPer | number): string => {
     case PlotPer.Group: return $tr("ui.common.group", "Group");
     case PlotPer.Location: return $tr("ui.common.location", "Location");
     case PlotPer.Device: return $tr("ui.common.device", "Device");
+    case PlotPer.Grouping: return $tr("ui.plot-per.grouping", "Personalized");
     default: return $tr("ui.common.none", "None");
   }
 };
@@ -373,10 +374,16 @@ export const yAxisTypeFromSerieType = (serieType: SerieType): AxisType[] => {
   }
 }
 
-export const hasAxis = (chartType: ChartType) => {
+export const hasYAxis = (chartType: ChartType) => {
+  return chartType == ChartType.XY;
+}
+
+export const hasXAxis = (chartType: ChartType) => {
   switch (chartType) {
     case ChartType.XY:
     case ChartType.Heatmap:
+    case ChartType.Gauge:
+    case ChartType.Slider:
       return true;
     default:
       return false;

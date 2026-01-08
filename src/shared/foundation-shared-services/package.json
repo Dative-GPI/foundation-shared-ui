@@ -1,5 +1,8 @@
 {
   "name": "@dative-gpi/foundation-shared-services",
+  "repository" : {
+    "url": "https://github.com/Dative-GPI/foundation-shared-ui.git"
+  },
   "sideEffects": false,
   "version": "1.0.0",
   "description": "",
@@ -10,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vueuse/core": "^14.0.0",
     "@dative-gpi/foundation-shared-domain": "1.0.0"
   },
   "peerDependencies": {

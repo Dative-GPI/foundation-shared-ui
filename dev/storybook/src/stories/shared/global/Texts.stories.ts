@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
+import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
@@ -17,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const AllFonts: Story = {
   render: () => ({
-    components: { FSSpan, FSCol },
+    components: { FSSpan, FSCol, FSText },
     template: `
       <FSCol>
         <FSSpan font="text-h1"> text-h1</FSSpan>
@@ -27,6 +28,22 @@ export const AllFonts: Story = {
         <FSSpan font="text-body"> text-body </FSSpan>
         <FSSpan font="text-button"> text-button </FSSpan>
         <FSSpan font="text-overline"> text-overline </FSSpan>
+        <FSCol width="50px">
+          <FSSpan font="text-h3" 
+          wordBreak="break-word"
+          :ellipsis="false"
+          > 
+            longgg text Span
+          </FSSpan>
+        </FSCol>
+        <FSCol width="50px">
+          <FSText font="text-body"
+          wordBreak="break-word"
+          :ellipsis="false"
+          >
+            long textttttt Text
+          </FSText>
+        </FSCol>
       </FSCol>`
   })
 }

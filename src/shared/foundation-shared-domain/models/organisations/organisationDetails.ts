@@ -3,6 +3,7 @@ import { PermissionInfos } from "../permissions/permissionInfos";
 import type { OrganisationInfosDTO } from "./organisationInfos";
 import { OrganisationInfos } from "./organisationInfos";
 import type { DashboardType } from "../../enums/dashboards";
+import type { AddressDTO } from '@dative-gpi/foundation-shared-domain/models/locations';
 
 export class OrganisationDetails extends OrganisationInfos {
     code: string;
@@ -43,6 +44,7 @@ export interface OrganisationDetailsDTO extends OrganisationInfosDTO {
 }
 
 export interface UpdateOrganisationDTO {
+    address: AddressDTO | null;
     imageId: string | null;
     image: string | null;
     label: string;

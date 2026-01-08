@@ -4,6 +4,7 @@
     :bottomColor="$props.bottomColor"
     :width="$props.width"
     :modelValue="$props.modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
   >
     <FSCol
@@ -128,7 +129,7 @@ export default defineComponent({
       default: ColorEnum.Primary
     },
     bottomColor: {
-      type: [Array, String] as PropType<ColorBase | ColorBase[]>,
+      type: [Array, String] as PropType<ColorBase | ColorBase[] | null>,
       required: false,
       default: ColorEnum.Light
     },
@@ -143,11 +144,12 @@ export default defineComponent({
       default: false
     }
   },
+  emits: ['update:modelValue'],
   setup(props) {
     const { isMobileSized } = useBreakpoints();
 
     const iconBackgroundColor = computed((): ColorBase | ColorBase[] => {
-      return props.iconBackgroundColor ? props.bottomColor : ColorEnum.Background;
+      return props.iconBackgroundColor ?? ColorEnum.Background;
     });
 
     const imageSize = computed((): number => {

@@ -59,7 +59,7 @@
             <FSFadeOut
               :maxHeight="maxHeight"
             >
-              <v-treeview
+              <FSTreeView
                 :itemTitle="$props.itemTitle"
                 :itemValue="$props.itemValue"
                 :items="treeItems"
@@ -123,7 +123,7 @@
                 <template
                   #title
                 />
-              </v-treeview>
+              </FSTreeView>
             </FSFadeOut>
           </template>
         </FSDialogMenu>
@@ -168,7 +168,7 @@
               </template>
             </FSTextField>
           </template>
-          <v-treeview
+          <FSTreeView
             :itemTitle="$props.itemTitle"
             :itemValue="$props.itemValue"
             :items="treeItems"
@@ -232,7 +232,7 @@
             <template
               #title
             />
-          </v-treeview>
+          </FSTreeView>
         </FSMenu>
       </template>
     </FSCol>
@@ -241,7 +241,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, type PropType, ref, type StyleValue } from "vue";
-import { VTreeview } from "vuetify/labs/VTreeview";
 
 import { useBreakpoints, useColors, useRules, useSlots } from "@dative-gpi/foundation-shared-components/composables";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -249,6 +248,7 @@ import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import FSDialogMenu from "../FSDialogMenu.vue";
 import FSTextField from "./FSTextField.vue";
 import FSCheckbox from "../FSCheckbox.vue";
+import FSTreeView from "../FSTreeView.vue";
 import FSFadeOut from "../FSFadeOut.vue";
 import FSLoader from "../FSLoader.vue";
 import FSRadio from "../FSRadio.vue";
@@ -259,7 +259,7 @@ import FSCol from "../FSCol.vue";
 export default defineComponent({
   name: "FSTreeViewField",
   components: {
-    VTreeview,
+    FSTreeView,
     FSDialogMenu,
     FSTextField,
     FSCheckbox,

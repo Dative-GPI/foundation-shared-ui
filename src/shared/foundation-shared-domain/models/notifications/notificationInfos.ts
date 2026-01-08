@@ -53,7 +53,10 @@ export interface NotificationInfosDTO {
 }
 
 export interface NotificationFilters {
-  type?: MessageType | null;
+  types?: MessageType[] | null;
   criticity?: Criticity | null;
   audiences?: NotificationAudienceFilters[] | null;
+  acknowledged?: boolean | null;
+  notificationsIds?: string[] | null;
+  search?: string | null;
 }

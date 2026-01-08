@@ -13,7 +13,7 @@ import { computed, defineComponent, type PropType } from "vue";
 
 import { IMAGE_RAW_URL } from "@dative-gpi/foundation-shared-services/config";
 
-import { useImage } from "@dative-gpi/foundation-shared-services/composables";
+import { useImage, useAppAuthToken } from "@dative-gpi/foundation-shared-services/composables";
 
 import FSEditImageUI from "./FSEditImageUI.vue";
 
@@ -32,10 +32,11 @@ export default defineComponent({
   emits: ["update:imageId"],
   setup(props) {
     const { get: getImage, entity: image } = useImage();
+    const { authToken } = useAppAuthToken();
     
     const source = computed(() => {
-      return props.imageId ? IMAGE_RAW_URL(props.imageId) : null;
-    })
+      return props.imageId ? IMAGE_RAW_URL(props.imageId, authToken.value) : null;
+    });
 
     const onError = (): void => {
       if (props.imageId) {
