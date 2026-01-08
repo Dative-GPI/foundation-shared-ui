@@ -22,6 +22,7 @@ export * from "./dashboardShallowVariables";            // No service
 export * from "./dashboardShallowWidgets";              // No service
 export * from "./dashboardVariables";                   // No service
 export * from "./dashboardVariableValues";              // No service
+export * from "./data";
 export * from "./dataCategories";
 export * from "./dataDefinitions";
 export * from "./dataDefinitionMappings";               // No service
