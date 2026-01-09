@@ -42,7 +42,9 @@
       <slot
         name="body"
       />
-      <slot />
+      <slot
+        name="footer"
+      />
     </FSCol>
     <template
       v-for="(_, name) in $slots"
