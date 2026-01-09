@@ -23,6 +23,7 @@
             name="left-footer"
           />
           <FSRow
+            v-if="$props.showCancelButton || $props.showSubmitButton"
             class="fs-dialog-actions"
             align="top-right"
             :wrap="false"

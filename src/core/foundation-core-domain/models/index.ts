@@ -1,3 +1,4 @@
+export * from "./absoluteProfitsComparison";
 export * from "./actions";
 export * from "./alerts";
 export * from "./articles";
