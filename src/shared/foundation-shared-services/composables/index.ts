@@ -6,3 +6,4 @@ export * from "./useFiles";
 export * from "./useFoundationShared";
 export * from "./useRouting";
 export * from "./useDateExpression";
+export * from "./useTimeDuration";
