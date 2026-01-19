@@ -2,8 +2,6 @@ import { TimeComparisonType } from "@dative-gpi/foundation-shared-domain/enums";
 import { useDateExpression } from "@dative-gpi/foundation-shared-services/composables";
 import { MILLISECONDS_PER_DAY, MILLISECONDS_PER_WEEK, MILLISECONDS_PER_MONTH_APPROX, MILLISECONDS_PER_YEAR_APPROX } from "@dative-gpi/foundation-shared-services/config";
 
-const { convert } = useDateExpression();
-
 export const useTimeDuration = () => {
     /**
      * Computes the duration between two timestamps, in **milliseconds**.
@@ -11,7 +9,7 @@ export const useTimeDuration = () => {
      * Returns `0` if:
      * - `periodStart` or `periodEnd` is missing,
      * - a timestamp cannot be converted to a number,
-     * - the end is not strictly after the start.
+     * - the end is equal to or before the start.
      *
      * @param periodStart Start timestamp string (usually ISO-8601), or `undefined`.
      * @param periodEnd End timestamp string (usually ISO-8601), or `undefined`.
@@ -21,6 +19,7 @@ export const useTimeDuration = () => {
         if (!periodStart || !periodEnd) {
             return 0;
         }
+        const { convert } = useDateExpression();
 
         const startTimestamp = convert(periodStart);
         const endTimestamp = convert(periodEnd);
