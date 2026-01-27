@@ -10,6 +10,30 @@ export enum UnitPrefix {
     Peta = "P"
 }
 
+export enum UnitFamily {
+    Energy = "energy",
+    Power = "power",
+    Volume = "volume",
+    GasVolume = "gasVolume",
+    WaterFlow = "waterFlow",
+    GasFlow = "gasFlow",
+    Pressure = "pressure",
+    Temperature = "temperature",
+    Speed = "speed",
+    Distance = "distance",
+    Mass = "mass",
+    MassFlow = "massFlow",
+    Frequency = "frequency",
+    Voltage = "voltage",
+    Current = "current",
+    Resistance = "resistance",
+    Percentage = "percentage",
+    Capacity = "capacity",
+    SnowProduction = "snowProduction",
+    Efficiency = "efficiency"
+}
+
+
 export enum EnergyUnit {
     Wh = "Wh",
     kWh = "kWh",

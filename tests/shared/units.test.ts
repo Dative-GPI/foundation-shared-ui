@@ -10,10 +10,10 @@ jest.mock('@dative-gpi/foundation-shared-services/composables', () => ({
 
 describe('useUnitFormatter', () => {
   describe('with en-US locale', () => {
-    const { formatQuantity, formatQuantityParts } = useUnitFormatter();
+    const { formatQuantity, formatQuantityParts, convert } = useUnitFormatter();
 
     describe('formatQuantity', () => {
-      describe('Parent hierarchy scaling (x1000)', () => {
+      describe('Family-based scaling', () => {
         it('converts exactly at threshold: 1000 Wh = 1 kWh', () => {
           const result = formatQuantity(1000, EnergyUnit.Wh);
           expect(result).toContain('1');
@@ -58,6 +58,12 @@ describe('useUnitFormatter', () => {
           expect(formatQuantity(1500, VoltageUnit.mV)).toContain('V');
           expect(formatQuantity(25000, VoltageUnit.V)).toContain('kV');
         });
+
+        it('scales down when value is very small', () => {
+          expect(formatQuantity(0.5, PowerUnit.kW)).toContain('W');
+          expect(formatQuantity(0.001, MassUnit.kg)).toContain('g');
+          expect(formatQuantity(0.0005, VoltageUnit.V)).toContain('mV');
+        });
       });
 
       describe('fixedUnit parameter', () => {
@@ -84,26 +90,74 @@ describe('useUnitFormatter', () => {
           expect(result).toContain('kW');
           expect(result).not.toContain('MW');
         });
+
+        it('fixedUnit works when starting from higher unit', () => {
+          const result = formatQuantity(5, PowerUnit.MW, { fixedUnit: PowerUnit.kW });
+          expect(result).toContain('kW');
+          expect(result).toContain('5,000');
+        });
       });
 
-      describe('Conversions', () => {
-        it('converts bar to kPa', () => {
-          expect(formatQuantity(2, PressureUnit.bar)).toContain('kPa');
+      describe('Pressure units (family-based)', () => {
+        it('auto-scales Pa to kPa', () => {
+            expect(formatQuantity(2000, PressureUnit.Pa)).toContain('kPa');
         });
 
-        it('converts mbar to Pa when above threshold', () => {
-          expect(formatQuantity(15, PressureUnit.mbar)).toContain('Pa');
-          expect(formatQuantity(5, PressureUnit.mbar)).toContain('mbar');
+        it('converts bar via family system', () => {
+            const result = formatQuantity(2, PressureUnit.bar);
+            // 2 bar = 200000 Pa
+            // Le système choisit automatiquement la meilleure unité : bar (reste à 2)
+            expect(result).toContain('2');
+            expect(result).toContain('bar');
         });
 
+        it('scales down mbar to kPa for small values', () => {
+            const result = formatQuantity(500, PressureUnit.mbar);
+            // 500 mbar = 50000 Pa = 50 kPa
+            expect(result).toContain('50');
+            expect(result).toContain('kPa');
+        });
+
+        it('converts mbar to MPa when large enough', () => {
+            // 15000 mbar = 1500000 Pa = 1.5 MPa
+            const result = formatQuantity(15000, PressureUnit.mbar);
+            expect(result).toContain('1.5');
+            expect(result).toContain('MPa');
+        });
+    });
+
+    describe('Alternative conversions (non-family)', () => {
+        it('converts m/s to km/h', () => {
+            expect(formatQuantity(10, SpeedUnit.m_s)).toContain('km/h');
+        });
+
+    });
+
+      describe('Distance units (family-based)', () => {
+        it('keeps mm for small values', () => {
+          expect(formatQuantity(5, DistanceUnit.mm)).toContain('mm');
+        });
+
+        it('converts mm to cm when appropriate', () => {
+          const result = formatQuantity(15, DistanceUnit.mm);
+          // 15mm = 1.5cm
+          expect(result).toContain('cm');
+        });
+
+        it('converts cm to m when appropriate', () => {
+          const result = formatQuantity(150, DistanceUnit.cm);
+          // 150cm = 1.5m
+          expect(result).toContain('m');
+        });
+
+        it('converts m to km for large values', () => {
+          expect(formatQuantity(5000, DistanceUnit.m)).toContain('km');
+        });
+      });
+
+      describe('Alternative conversions (non-family)', () => {
         it('converts m/s to km/h', () => {
           expect(formatQuantity(10, SpeedUnit.m_s)).toContain('km/h');
-        });
-
-        it('converts mm to cm and cm to m based on threshold', () => {
-          expect(formatQuantity(5, DistanceUnit.mm)).toContain('mm');
-          expect(formatQuantity(15, DistanceUnit.mm)).toContain('cm');
-          expect(formatQuantity(150, DistanceUnit.cm)).toContain('m');
         });
 
         it('converts L/s to m3/h when above threshold', () => {
@@ -126,7 +180,7 @@ describe('useUnitFormatter', () => {
         });
       });
 
-      describe('Units without parent', () => {
+      describe('Units without family', () => {
         it('handles temperature units', () => {
           expect(formatQuantity(25.5, TemperatureUnit.Celsius)).toContain('°C');
           expect(formatQuantity(298.15, TemperatureUnit.Kelvin)).toContain('K');
@@ -188,6 +242,27 @@ describe('useUnitFormatter', () => {
           const result = formatQuantity(1.5, PowerUnit.kW);
           expect(result).toContain('1.5');
         });
+      });
+    });
+
+    describe('convert', () => {
+      it('converts between units of the same family', () => {
+        expect(convert(1000, PowerUnit.W, PowerUnit.kW)).toBe(1);
+        expect(convert(1, PowerUnit.kW, PowerUnit.W)).toBe(1000);
+        expect(convert(1, PowerUnit.MW, PowerUnit.kW)).toBe(1000);
+      });
+
+      it('converts with decimal precision', () => {
+        expect(convert(1500, PowerUnit.W, PowerUnit.kW)).toBe(1.5);
+        expect(convert(2.5, PowerUnit.kW, PowerUnit.W)).toBe(2500);
+      });
+
+      it('throws error for different families', () => {
+        expect(() => convert(100, PowerUnit.W, EnergyUnit.Wh)).toThrow();
+      });
+
+      it('throws error for units without family', () => {
+        expect(() => convert(100, PowerUnit.W, TemperatureUnit.Celsius)).toThrow();
       });
     });
 

@@ -1,3 +1,5 @@
+import type { UnitFamily } from "@dative-gpi/foundation-shared-domain/enums";
+
 export type UnitScaleStep = { unit: string; ratioToParent: number }; 
 
 export type UnitConversion = {
@@ -10,7 +12,8 @@ export type UnitConversion = {
 export interface UnitDefinition {
   symbol: string;
   precision: number;
-  parent?: string;
+  family?: UnitFamily;
+  factor?: number;
   conversions?: Array<{
     targetUnit: string;
     conversionRate: number;
