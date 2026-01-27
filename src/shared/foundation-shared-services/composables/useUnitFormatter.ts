@@ -1,21 +1,9 @@
-import { UnitPrefix } from "@dative-gpi/foundation-shared-domain/enums/units";
 import { useAppLanguageCode } from "@dative-gpi/foundation-shared-services/composables";
+import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config/units";
 import { type UnitDefinition, unitRegistry } from "@dative-gpi/foundation-shared-domain/models";
 
 export function useUnitFormatter() {
   const { languageCode } = useAppLanguageCode();
-
-  const SI_PREFIXES = [
-    { prefix: UnitPrefix.Nano, factor: 1e-9 },
-    { prefix: UnitPrefix.Micro, factor: 1e-6 },
-    { prefix: UnitPrefix.Milli, factor: 1e-3 },
-    { prefix: UnitPrefix.None, factor: 1 },
-    { prefix: UnitPrefix.Kilo, factor: 1e3 },
-    { prefix: UnitPrefix.Mega, factor: 1e6 },
-    { prefix: UnitPrefix.Giga, factor: 1e9 },
-    { prefix: UnitPrefix.Tera, factor: 1e12 },
-    { prefix: UnitPrefix.Peta, factor: 1e15 },
-  ];
 
   function scaleUpByParent(value: number, unit: string, fixedUnit?: string): { value: number; unit: string } {
     let currentValue = value;

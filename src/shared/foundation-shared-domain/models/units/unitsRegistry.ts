@@ -4,106 +4,106 @@ import type { UnitDefinition } from "./unitDetails"
 export const unitRegistry: Record<string, UnitDefinition> = {
   // ===== ÉNERGIE =====
   [EnergyUnit.Wh]: {
-    symbol: "Wh",
+    symbol: EnergyUnit.Wh,
     precision: 0,
     parent: EnergyUnit.kWh,
   },
   [EnergyUnit.kWh]: {
-    symbol: "kWh",
+    symbol: EnergyUnit.kWh,
     precision: 2,
     parent: EnergyUnit.MWh,
   },
   [EnergyUnit.MWh]: {
-    symbol: "MWh",
+    symbol: EnergyUnit.MWh,
     precision: 2,
     parent: EnergyUnit.GWh,
   },
   [EnergyUnit.GWh]: {
-    symbol: "GWh",
+    symbol: EnergyUnit.GWh,
     precision: 2,
     parent: EnergyUnit.TWh,
   },
   [EnergyUnit.TWh]: {
-    symbol: "TWh",
+    symbol: EnergyUnit.TWh,
     precision: 2,
   },
 
   // ===== PUISSANCE =====
   [PowerUnit.W]: {
-    symbol: "W",
+    symbol: PowerUnit.W,
     precision: 0,
     parent: PowerUnit.kW,
   },
   [PowerUnit.kW]: {
-    symbol: "kW",
+    symbol: PowerUnit.kW,
     precision: 2,
     parent: PowerUnit.MW,
   },
   [PowerUnit.MW]: {
-    symbol: "MW",
+    symbol: PowerUnit.MW,
     precision: 2,
     parent: PowerUnit.GW,
   },
   [PowerUnit.GW]: {
-    symbol: "GW",
+    symbol: PowerUnit.GW,
     precision: 2,
     parent: PowerUnit.TW,
   },
   [PowerUnit.TW]: {
-    symbol: "TW",
+    symbol: PowerUnit.TW,
     precision: 2,
   },
 
   // ===== VOLUME (EAU) =====
   [VolumeUnit.mL]: {
-    symbol: "mL",
+    symbol: VolumeUnit.mL,
     precision: 0,
     parent: VolumeUnit.L,
   },
   [VolumeUnit.L]: {
-    symbol: "L",
+    symbol: VolumeUnit.L,
     precision: 1,
     parent: VolumeUnit.m3,
   },
   [VolumeUnit.m3]: {
-    symbol: "m3",
+    symbol: VolumeUnit.m3,
     precision: 2,
     parent: VolumeUnit.dam3,
   },
   [VolumeUnit.dam3]: {
-    symbol: "dam3",
+    symbol: VolumeUnit.dam3,
     precision: 2,
   },
 
   // ===== VOLUME (GAZ) =====
   [GasVolumeUnit.Nm3]: {
-    symbol: "Nm3",
+    symbol: GasVolumeUnit.Nm3,
     precision: 2,
     parent: GasVolumeUnit.kNm3,
   },
   [GasVolumeUnit.kNm3]: {
-    symbol: "kNm3",
+    symbol: GasVolumeUnit.kNm3,
     precision: 2,
     parent: GasVolumeUnit.MNm3,
   },
   [GasVolumeUnit.MNm3]: {
-    symbol: "MNm3",
+    symbol: GasVolumeUnit.MNm3,
     precision: 2,
     parent: GasVolumeUnit.GNm3,
   },
   [GasVolumeUnit.GNm3]: {
-    symbol: "GNm3",
+    symbol: GasVolumeUnit.GNm3,
     precision: 2,
   },
 
   // ===== DÉBIT D'EAU =====
   [WaterFlowUnit.mL_s]: {
-    symbol: "mL/s",
+    symbol: WaterFlowUnit.mL_s,
     precision: 0,
     parent: WaterFlowUnit.L_s,
   },
   [WaterFlowUnit.L_s]: {
-    symbol: "L/s",
+    symbol: WaterFlowUnit.L_s,
     precision: 2,
     parent: WaterFlowUnit.m3_s,
     conversions: [
@@ -115,11 +115,11 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     ],
   },
   [WaterFlowUnit.m3_s]: {
-    symbol: "m3/s",
+    symbol: WaterFlowUnit.m3_s,
     precision: 3,
   },
   [WaterFlowUnit.L_min]: {
-    symbol: "L/min",
+    symbol: WaterFlowUnit.L_min,
     precision: 1,
     conversions: [
       {
@@ -130,48 +130,48 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     ],
   },
   [WaterFlowUnit.m3_h]: {
-    symbol: "m3/h",
+    symbol: WaterFlowUnit.m3_h,
     precision: 1,
   },
 
   // ===== DÉBIT DE GAZ =====
   [GasFlowUnit.Nm3_h]: {
-    symbol: "Nm3/h",
+    symbol: GasFlowUnit.Nm3_h,
     precision: 1,
     parent: GasFlowUnit.kNm3_h,
   },
   [GasFlowUnit.kNm3_h]: {
-    symbol: "kNm3/h",
+    symbol: GasFlowUnit.kNm3_h,
     precision: 2,
     parent: GasFlowUnit.MNm3_h,
   },
   [GasFlowUnit.MNm3_h]: {
-    symbol: "MNm3/h",
+    symbol: GasFlowUnit.MNm3_h,
     precision: 2,
   },
 
   // ===== PRESSION =====
   [PressureUnit.Pa]: {
-    symbol: "Pa",
+    symbol: PressureUnit.Pa,
     precision: 0,
     parent: PressureUnit.kPa,
   },
   [PressureUnit.kPa]: {
-    symbol: "kPa",
+    symbol: PressureUnit.kPa,
     precision: 2,
     parent: PressureUnit.MPa,
   },
   [PressureUnit.MPa]: {
-    symbol: "MPa",
+    symbol: PressureUnit.MPa,
     precision: 2,
     parent: PressureUnit.GPa,
   },
   [PressureUnit.GPa]: {
-    symbol: "GPa",
+    symbol: PressureUnit.GPa,
     precision: 2,
   },
   [PressureUnit.bar]: {
-    symbol: "bar",
+    symbol: PressureUnit.bar,
     precision: 2,
     conversions: [
       {
@@ -181,7 +181,7 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     ],
   },
   [PressureUnit.mbar]: {
-    symbol: "mbar",
+    symbol: PressureUnit.mbar,
     precision: 1,
     conversions: [
       {
@@ -194,21 +194,21 @@ export const unitRegistry: Record<string, UnitDefinition> = {
 
   // ===== TEMPÉRATURE =====
   [TemperatureUnit.Celsius]: {
-    symbol: "°C",
+    symbol: TemperatureUnit.Celsius,
     precision: 1,
   },
   [TemperatureUnit.Kelvin]: {
-    symbol: "K",
+    symbol: TemperatureUnit.Kelvin,
     precision: 1,
   },
   [TemperatureUnit.Fahrenheit]: {
-    symbol: "°F",
+    symbol: TemperatureUnit.Fahrenheit,
     precision: 1,
   },
 
   // ===== VITESSE =====
   [SpeedUnit.m_s]: {
-    symbol: "m/s",
+    symbol: SpeedUnit.m_s,
     precision: 2,
     conversions: [
       {
@@ -218,11 +218,11 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     ],
   },
   [SpeedUnit.km_h]: {
-    symbol: "km/h",
+    symbol: SpeedUnit.km_h,
     precision: 1,
   },
   [SpeedUnit.knot]: {
-    symbol: "kn",
+    symbol: SpeedUnit.knot,
     precision: 0,
     conversions: [
       {
@@ -234,7 +234,7 @@ export const unitRegistry: Record<string, UnitDefinition> = {
 
   // ===== DISTANCE =====
   [DistanceUnit.mm]: {
-    symbol: "mm",
+    symbol: DistanceUnit.mm,
     precision: 0,
     conversions: [
       {
@@ -245,7 +245,7 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     ],
   },
   [DistanceUnit.cm]: {
-    symbol: "cm",
+    symbol: DistanceUnit.cm,
     precision: 1,
     conversions: [
       {
@@ -256,49 +256,49 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     ],
   },
   [DistanceUnit.m]: {
-    symbol: "m",
+    symbol: DistanceUnit.m,
     precision: 0,
     parent: DistanceUnit.km,
   },
   [DistanceUnit.km]: {
-    symbol: "km",
+    symbol: DistanceUnit.km,
     precision: 2,
   },
 
   // ===== MASSE =====
   [MassUnit.mg]: {
-    symbol: "mg",
+    symbol: MassUnit.mg,
     precision: 0,
     parent: MassUnit.g,
   },
   [MassUnit.g]: {
-    symbol: "g",
+    symbol: MassUnit.g,
     precision: 0,
     parent: MassUnit.kg,
   },
   [MassUnit.kg]: {
-    symbol: "kg",
+    symbol: MassUnit.kg,
     precision: 2,
     parent: MassUnit.t,
   },
   [MassUnit.t]: {
-    symbol: "t",
+    symbol: MassUnit.t,
     precision: 2,
     parent: MassUnit.kt,
   },
   [MassUnit.kt]: {
-    symbol: "kt",
+    symbol: MassUnit.kt,
     precision: 2,
   },
 
   // ===== DÉBIT MASSIQUE =====
   [MassFlowUnit.g_s]: {
-    symbol: "g/s",
+    symbol: MassFlowUnit.g_s,
     precision: 1,
     parent: MassFlowUnit.kg_s,
   },
   [MassFlowUnit.kg_s]: {
-    symbol: "kg/s",
+    symbol: MassFlowUnit.kg_s,
     precision: 2,
     parent: MassFlowUnit.t_s,
     conversions: [
@@ -310,134 +310,134 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     ],
   },
   [MassFlowUnit.t_s]: {
-    symbol: "t/s",
+    symbol: MassFlowUnit.t_s,
     precision: 3,
   },
   [MassFlowUnit.kg_h]: {
-    symbol: "kg/h",
+    symbol: MassFlowUnit.kg_h,
     precision: 1,
   },
   [MassFlowUnit.t_h]: {
-    symbol: "t/h",
+    symbol: MassFlowUnit.t_h,
     precision: 1,
   },
 
   // ===== FRÉQUENCE =====
   [FrequencyUnit.Hz]: {
-    symbol: "Hz",
+    symbol: FrequencyUnit.Hz,
     precision: 1,
     parent: FrequencyUnit.kHz,
   },
   [FrequencyUnit.kHz]: {
-    symbol: "kHz",
+    symbol: FrequencyUnit.kHz,
     precision: 2,
     parent: FrequencyUnit.MHz,
   },
   [FrequencyUnit.MHz]: {
-    symbol: "MHz",
+    symbol: FrequencyUnit.MHz,
     precision: 2,
     parent: FrequencyUnit.GHz,
   },
   [FrequencyUnit.GHz]: {
-    symbol: "GHz",
+    symbol: FrequencyUnit.GHz,
     precision: 2,
   },
   [FrequencyUnit.rpm]: {
-    symbol: "rpm",
+    symbol: FrequencyUnit.rpm,
     precision: 0,
   },
 
   // ===== TENSION =====
   [VoltageUnit.mV]: {
-    symbol: "mV",
+    symbol: VoltageUnit.mV,
     precision: 0,
     parent: VoltageUnit.V,
   },
   [VoltageUnit.V]: {
-    symbol: "V",
+    symbol: VoltageUnit.V,
     precision: 1,
     parent: VoltageUnit.kV,
   },
   [VoltageUnit.kV]: {
-    symbol: "kV",
+    symbol: VoltageUnit.kV,
     precision: 2,
     parent: VoltageUnit.MV,
   },
   [VoltageUnit.MV]: {
-    symbol: "MV",
+    symbol: VoltageUnit.MV,
     precision: 2,
   },
 
   // ===== COURANT =====
   [CurrentUnit.mA]: {
-    symbol: "mA",
+    symbol: CurrentUnit.mA,
     precision: 1,
     parent: CurrentUnit.A,
   },
   [CurrentUnit.A]: {
-    symbol: "A",
+    symbol: CurrentUnit.A,
     precision: 2,
     parent: CurrentUnit.kA,
   },
   [CurrentUnit.kA]: {
-    symbol: "kA",
+    symbol: CurrentUnit.kA,
     precision: 2,
   },
 
   // ===== RÉSISTANCE =====
   [ResistanceUnit.mΩ]: {
-    symbol: "mΩ",
+    symbol: ResistanceUnit.mΩ,
     precision: 1,
     parent: ResistanceUnit.Ω,
   },
   [ResistanceUnit.Ω]: {
-    symbol: "Ω",
+    symbol: ResistanceUnit.Ω,
     precision: 1,
     parent: ResistanceUnit.kΩ,
   },
   [ResistanceUnit.kΩ]: {
-    symbol: "kΩ",
+    symbol: ResistanceUnit.kΩ,
     precision: 2,
     parent: ResistanceUnit.MΩ,
   },
   [ResistanceUnit.MΩ]: {
-    symbol: "MΩ",
+    symbol: ResistanceUnit.MΩ,
     precision: 2,
   },
 
   // ===== POURCENTAGE =====
   [PercentageUnit.Percent]: {
-    symbol: "%",
+    symbol: PercentageUnit.Percent,
     precision: 1,
   },
   [PercentageUnit.RelativeHumidity]: {
-    symbol: "%RH",
+    symbol: PercentageUnit.RelativeHumidity,
     precision: 0,
   },
 
   // ===== CAPACITÉ =====
   [CapacityUnit.pers]: {
-    symbol: "pers.",
+    symbol: CapacityUnit.pers,
     precision: 0,
   },
   [CapacityUnit.pers_h]: {
-    symbol: "pers./h",
+    symbol: CapacityUnit.pers_h,
     precision: 0,
   },
 
   // ===== PRODUCTION NEIGE =====
   [SnowProductionUnit.m3_neige_h]: {
-    symbol: "m3/h",
+    symbol: SnowProductionUnit.m3_neige_h,
     precision: 0,
   },
 
   // ===== RENDEMENT =====
   [EfficiencyUnit.kWh_m3]: {
-    symbol: "kWh/m3",
+    symbol: EfficiencyUnit.kWh_m3,
     precision: 2,
   },
   [EfficiencyUnit.kWh_kg]: {
-    symbol: "kWh/kg",
+    symbol: EfficiencyUnit.kWh_kg,
     precision: 2,
   },
 };
