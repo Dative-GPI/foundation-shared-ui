@@ -22,7 +22,6 @@ export * from "./useDeviceDataDefinitions";
 export * from "./useDeviceExplorerElements";
 export * from "./useDeviceOrganisations";
 export * from "./useDeviceStatuses";
-export * from "./useDualPeriodAggregateValues"
 export * from "./useFolders";
 export * from "./useGroupings";
 export * from "./useGroups";
@@ -31,6 +30,7 @@ export * from "./useManufacturers";
 export * from "./useModels";
 export * from "./useOrganisations";
 export * from "./useOrganisationTypes";
+export * from "./usePeriodAggregateValue";
 export * from "./usePermissionCategories";
 export * from "./usePlaylists";
 export * from "./useRoleOrganisations";
