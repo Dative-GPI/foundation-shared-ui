@@ -1,10 +1,8 @@
 import type { AggregationType, EntityType } from "@dative-gpi/foundation-shared-domain/enums";
 
-export interface AbsoluteProfitsComparisonFilter {
-  referencePeriodStart: string;
-  referencePeriodEnd: string;
-  observedPeriodStart: string;
-  observedPeriodEnd: string;
+export interface PeriodAggregateValueFilter {
+  periodStart: string;
+  periodEnd: string;
 
   dataDefinitionId: string;
   timeOffset: number;
