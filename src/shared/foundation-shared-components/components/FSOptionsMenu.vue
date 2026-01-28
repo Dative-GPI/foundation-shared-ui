@@ -41,12 +41,13 @@
             :scrollOutside="false"
             maxHeight="80dvh"
           >
-            <FSClickable
+            <FSCard
               v-for="(item, index) in $props.items"
               width="100%"
               padding="8px"
               height="40px"
               :key="index"
+              :color="ColorEnum.Light"
               :border="false"
               @click="onClickItem(item)"
             >
@@ -68,7 +69,7 @@
                   </FSText>
                 </FSRow>
               </slot>
-            </FSClickable>
+            </FSCard>
           </FSFadeOut>
         </FSCol>
       </slot>
@@ -81,7 +82,7 @@ import { defineComponent, ref, type PropType } from "vue";
 
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
-import { ColorEnum, type ColorBase } from '@dative-gpi/foundation-shared-components/models';
+import { CardVariants, ColorEnum, type ColorBase } from '@dative-gpi/foundation-shared-components/models';
 
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
@@ -90,7 +91,6 @@ import FSMenu from '@dative-gpi/foundation-shared-components/components/FSMenu.v
 import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
-import FSClickable from '@dative-gpi/foundation-shared-components/components/FSClickable.vue';
 
 export default defineComponent({
   name: "FSInformationsMenu",
@@ -101,8 +101,7 @@ export default defineComponent({
     FSText,
     FSButton,
     FSCol,
-    FSIcon,
-    FSClickable
+    FSIcon
   },
   props: {
     items: {
@@ -158,6 +157,7 @@ export default defineComponent({
       ColorEnum,
       modelValue,
       lightColors,
+      CardVariants,
       onClickItem
     };
   }
