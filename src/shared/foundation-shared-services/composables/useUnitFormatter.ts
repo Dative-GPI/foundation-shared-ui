@@ -166,7 +166,7 @@ export function useUnitFormatter() {
 
   const formatQuantityParts = (value: number, unit: string, options?: { decimalPrecision?: number; fixedUnit?: string; } ): { value: string; unit: string } => {
     
-    const fullFormattedQuantity = formatQuantity(value, unit, { decimalPrecision: options?.decimalPrecision,fixedUnit: options?.fixedUnit});
+    const fullFormattedQuantity = formatQuantity(value, unit, { decimalPrecision: options?.decimalPrecision, fixedUnit: options?.fixedUnit });
     
     if (fullFormattedQuantity === "—") {
       return { 

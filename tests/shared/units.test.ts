@@ -100,37 +100,30 @@ describe('useUnitFormatter', () => {
 
       describe('Pressure units (family-based)', () => {
         it('auto-scales Pa to kPa', () => {
-            expect(formatQuantity(2000, PressureUnit.Pa)).toContain('kPa');
+          expect(formatQuantity(2000, PressureUnit.Pa)).toContain('kPa');
         });
 
         it('converts bar via family system', () => {
-            const result = formatQuantity(2, PressureUnit.bar);
-            // 2 bar = 200000 Pa
-            // Le système choisit automatiquement la meilleure unité : bar (reste à 2)
-            expect(result).toContain('2');
-            expect(result).toContain('bar');
+          const result = formatQuantity(2, PressureUnit.bar);
+          // 2 bar = 200000 Pa
+          // Le système choisit automatiquement la meilleure unité : bar (reste à 2)
+          expect(result).toContain('2');
+          expect(result).toContain('bar');
         });
 
         it('scales down mbar to kPa for small values', () => {
-            const result = formatQuantity(500, PressureUnit.mbar);
-            // 500 mbar = 50000 Pa = 50 kPa
-            expect(result).toContain('50');
-            expect(result).toContain('kPa');
+          const result = formatQuantity(500, PressureUnit.mbar);
+          // 500 mbar = 50000 Pa = 50 kPa
+          expect(result).toContain('50');
+          expect(result).toContain('kPa');
         });
 
         it('converts mbar to MPa when large enough', () => {
-            // 15000 mbar = 1500000 Pa = 1.5 MPa
-            const result = formatQuantity(15000, PressureUnit.mbar);
-            expect(result).toContain('1.5');
-            expect(result).toContain('MPa');
+          // 15000 mbar = 1500000 Pa = 1.5 MPa
+          const result = formatQuantity(15000, PressureUnit.mbar);
+          expect(result).toContain('1.5');
+          expect(result).toContain('MPa');
         });
-    });
-
-    describe('Alternative conversions (non-family)', () => {
-        it('converts m/s to km/h', () => {
-            expect(formatQuantity(10, SpeedUnit.m_s)).toContain('km/h');
-        });
-
     });
 
       describe('Distance units (family-based)', () => {

@@ -112,7 +112,6 @@ export enum MassUnit {
     kg = "kg",
     t = "t",
     kt = "kt",
-    Mt = "Mt",
 }
 
 export enum MassFlowUnit {
