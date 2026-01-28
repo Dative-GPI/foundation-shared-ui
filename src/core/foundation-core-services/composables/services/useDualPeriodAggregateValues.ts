@@ -6,15 +6,15 @@ import { getManyDatas } from "@dative-gpi/foundation-core-services/composables";
 
 import { RootMode } from "@dative-gpi/foundation-shared-domain/enums";
 
-import type { DataFiltersDTO, DataLeafDTO, AbsoluteProfitsComparisonFilter } from "@dative-gpi/foundation-core-domain/models";
+import type { DataFiltersDTO, DataLeafDTO, DualPeriodAggregateValuesFilter } from "@dative-gpi/foundation-core-domain/models";
 
-export const useAbsoluteProfitsComparison = () => {
+export const useDualPeriodAggregateValues = () => {
   const fetching = ref(false);
   const error = ref<string | null>(null);
   const rawReferenceValue = ref<number | null>(null);
   const rawObservedValue = ref<number | null>(null);
   
-  const fetch = async (filter: AbsoluteProfitsComparisonFilter) => {
+  const fetch = async (filter: DualPeriodAggregateValuesFilter) => {
     fetching.value = true;
 
     const leaf = {

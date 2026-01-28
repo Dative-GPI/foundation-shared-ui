@@ -1,4 +1,3 @@
-export * from "./useAbsoluteProfitsComparison"
 export * from "./useActions";
 export * from "./useAlerts";
 export * from "./useArticles";
@@ -23,6 +22,7 @@ export * from "./useDeviceDataDefinitions";
 export * from "./useDeviceExplorerElements";
 export * from "./useDeviceOrganisations";
 export * from "./useDeviceStatuses";
+export * from "./useDualPeriodAggregateValues"
 export * from "./useFolders";
 export * from "./useGroupings";
 export * from "./useGroups";

@@ -1,1 +1,1 @@
-export * from "./absoluteProfitsComparisonFilter";
+export * from "./dualPeriodAggregateValuesFilter";
