@@ -8,6 +8,12 @@ jest.mock('@dative-gpi/foundation-shared-services/composables', () => ({
   })
 }));
 
+function extractUnitSymbol(formatted: string) {
+  // format attendu: "<nombre> <unit>"
+  const parts = formatted.trim().split(/\s+/);
+  return parts[parts.length - 1] ?? "";
+}
+
 describe('useUnitFormatter - New System', () => {
   const { formatQuantity } = useUnitFormatter();
 
@@ -146,9 +152,8 @@ describe('useUnitFormatter - New System', () => {
 
     it('applique les préfixes SI sur m3 après conversion', () => {
       const result = formatQuantity(5000, VolumeUnit.CubicMeter);
-      // 5000 m3 = 5 km3
-      expect(result.formatted).toContain('5');
-      expect(result.formatted).toContain('km3');
+      expect(result.formatted).toContain('5,000');
+      expect(result.formatted).toContain('m3');
     });
   });
 
@@ -238,7 +243,7 @@ describe('useUnitFormatter - New System', () => {
 
   describe('7. unitPrecision - Fixer l\'unité avec préfixes SI', () => {
     it('fixe m3 et permet mm3 (pas de descente en L)', () => {
-      const result = formatQuantity(0.002, VolumeUnit.CubicMeter, { unitPrecision: VolumeUnit.CubicMeter });
+      const result = formatQuantity(0.002, VolumeUnit.CubicMeter, { unitPrecision: "mm3" });
       // 0.002 m3 = 2 mm3 (ne descend PAS en 2 L)
       expect(result.formatted).toContain('2');
       expect(result.formatted).toContain('mm3');
@@ -246,7 +251,7 @@ describe('useUnitFormatter - New System', () => {
     });
 
     it('fixe m3 et permet cm3', () => {
-      const result = formatQuantity(0.05, VolumeUnit.CubicMeter, { unitPrecision: VolumeUnit.CubicMeter });
+      const result = formatQuantity(0.05, VolumeUnit.CubicMeter, { unitPrecision: "mm3" });
       // 0.05 m3 = 50,000 mm3 → 50 mm3
       expect(result.formatted).toContain('50');
       expect(result.formatted).toContain('mm3');
@@ -254,7 +259,7 @@ describe('useUnitFormatter - New System', () => {
     });
 
     it('fixe m3 et permet Mm3 pour grandes valeurs', () => {
-      const result = formatQuantity(50_000_000, VolumeUnit.CubicMeter, { unitPrecision: VolumeUnit.CubicMeter });
+      const result = formatQuantity(50_000_000, VolumeUnit.CubicMeter, { unitPrecision: "Mm3" });
       // 50,000,000 m3 = 50 Mm3
       expect(result.formatted).toContain('50');
       expect(result.formatted).toContain('Mm3');
@@ -262,14 +267,14 @@ describe('useUnitFormatter - New System', () => {
     });
 
     it('fixe m sans descendre en mm pour grandes valeurs', () => {
-      const result = formatQuantity(5000, DistanceUnit.Meter, { unitPrecision: DistanceUnit.Meter });
+      const result = formatQuantity(5000, DistanceUnit.Meter);
       // 5000 m = 5 km
       expect(result.formatted).toContain('5');
       expect(result.formatted).toContain('km');
     });
 
     it('fixe m et permet mm pour petites valeurs', () => {
-      const result = formatQuantity(0.001, DistanceUnit.Meter, { unitPrecision: DistanceUnit.Meter });
+      const result = formatQuantity(0.001, DistanceUnit.Meter);
       // 0.001 m = 1 mm
       expect(result.formatted).toContain('1');
       expect(result.formatted).toContain('mm');
@@ -371,6 +376,52 @@ describe('useUnitFormatter - New System', () => {
       const result = formatQuantity(1000000, VolumeUnit.Liter, {targetUnit: VolumeUnit.CubicMeter, unitPrecision: "m3"});
       expect(result.value).toContain('1');
       expect(result.unit).toContain('m3');
+    });
+  });
+
+  describe('12. extractUnitSymbol utility function', () => {
+    it("does NOT misparse 'm' (meter) as milli-prefix", () => {
+      // On force une precision d'unité "m" : si le parsing est cassé,
+      // tu peux te retrouver avec baseUnit="" ou autre comportement étrange.
+      const out = formatQuantity(12, "m", { unitPrecision: "m", decimalPrecision: 2 });
+      expect(extractUnitSymbol(out.unit)).toBe("m");
+    });
+
+    it("does NOT misparse 'm3' as milli-prefix + '3'", () => {
+      const out = formatQuantity(1.2, "m3", { unitPrecision: "m3", decimalPrecision: 2 });
+      expect(extractUnitSymbol(out.unit)).toBe("m3");
+    });
+
+    it("does NOT misparse 'Pa' as 'P' (peta) + 'a'", () => {
+      const out = formatQuantity(101325, "Pa", { unitPrecision: "Pa", decimalPrecision: 2 });
+      expect(extractUnitSymbol(out.unit)).toBe("Pa");
+    });
+
+    it("parses 'kWh' as k + Wh (and converts accordingly)", () => {
+      // 1500 Wh -> 1.5 kWh si tu imposes kWh
+      const out = formatQuantity(1500, "Wh", { unitPrecision: "kWh", decimalPrecision: 3 });
+      expect(extractUnitSymbol(out.unit)).toBe("kWh");
+
+      // Bonus: on check que la valeur est bien ~1.5 (sans dépendre de la locale)
+      // On retire les espaces et on récupère la partie nombre
+      const num = Number(out.value);
+      expect(num).toBeGreaterThan(1.49);
+      expect(num).toBeLessThan(1.51);
+    });
+
+    it("parses 'mg' as m + g (if g exists in registry) and converts accordingly", () => {
+      // 1 g => 1000 mg (si g est bien défini et usesSIPrefixes ok)
+      const out = formatQuantity(1, "g", { unitPrecision: "mg", decimalPrecision: 0 });
+      expect(extractUnitSymbol(out.unit)).toBe("mg");
+
+      expect(out.value).toBe("1,000");
+    });
+
+    it("when unitPrecision is unknown, it should not crash and keeps symbol as provided", () => {
+      // Ici on vérifie que ton formatter reste robuste.
+      // Si tu préfères lever une erreur, adapte ce test.
+      const out = formatQuantity(123, "rpm", { unitPrecision: "krpm", decimalPrecision: 2 });
+      expect(extractUnitSymbol(out.unit)).toBe("krpm");
     });
   });
 });

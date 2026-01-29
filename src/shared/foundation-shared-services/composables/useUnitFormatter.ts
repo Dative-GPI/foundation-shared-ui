@@ -19,19 +19,36 @@ export function useUnitFormatter() {
   }
 
   function parseUnitWithPrefix(unitString: string): { prefix: string; baseUnit: string } {
-    const prefixes = SI_PREFIXES.map(p => p.prefix).filter(p => p !== '');
-    
+    const s = unitString.trim();
+
+    // 1) Priorité au match exact (évite "m" => prefix "m" + base "")
+    //    et évite "Pa" => prefix "P" + base "a"
+    if (unitRegistry[s]) {
+      return { prefix: "", baseUnit: s };
+    }
+
+    // 2) Préfixes SI (sans ""), du plus long au plus court (robuste si un jour tu ajoutes "da")
+    const prefixes = SI_PREFIXES
+      .map(p => p.prefix)
+      .filter(p => p !== "")
+      .sort((a, b) => b.length - a.length);
+
+    // 3) On n'accepte un préfixe que si le reste est une unité connue du registry
     for (const prefix of prefixes) {
-      if (unitString.startsWith(prefix)) {
-        return {
-          prefix,
-          baseUnit: unitString.slice(prefix.length)
-        };
+      if (!s.startsWith(prefix)) {continue;}
+
+      const baseUnit = s.slice(prefix.length);
+      if (!baseUnit) {continue;}
+
+      if (unitRegistry[baseUnit]) {
+        return { prefix, baseUnit };
       }
     }
-    
-    return { prefix: '', baseUnit: unitString };
+
+    // 4) Aucun préfixe valide détecté => on garde l'unité telle quelle
+    return { prefix: "", baseUnit: s };
   }
+
 
   function findPrefixByName(prefixName: string): { prefix: string; factor: number } | null {
     const found = SI_PREFIXES.find(p => p.prefix === prefixName);
