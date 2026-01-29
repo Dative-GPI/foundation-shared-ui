@@ -317,14 +317,14 @@ export const unitRegistry: Record<string, UnitDefinition> = {
   [CapacityUnit.Person]: {
     symbol: CapacityUnit.Person,
     family: UnitFamily.Capacity,
-    toPivot: 1,
+    toPivot: Number.NaN,
     usesSIPrefixes: false,
   },
 
   [CapacityUnit.PersonPerHour]: {
     symbol: CapacityUnit.PersonPerHour,
     family: UnitFamily.Capacity,
-    toPivot: 1,
+    toPivot: Number.NaN,
     usesSIPrefixes: false,
   },
 

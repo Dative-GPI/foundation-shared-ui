@@ -244,13 +244,14 @@ describe('useUnitFormatter - New System', () => {
   describe('7. unitPrecision - Fixer l\'unité avec préfixes SI', () => {
     it('fixe m3 et permet mm3 (pas de descente en L)', () => {
       const result = formatQuantity(0.002, VolumeUnit.CubicMeter, { unitPrecision: "mm3" });
+      // ATTENTION : ici "mm3" est interprété comme "milli-m3" (1 mm3 = 10^-3 m3), et non comme millimètre cube (mm^3 = 10^-9 m3)
       // 0.002 m3 = 2 mm3 (ne descend PAS en 2 L)
       expect(result.formatted).toContain('2');
       expect(result.formatted).toContain('mm3');
       expect(result.formatted).not.toContain('L');
     });
 
-    it('fixe m3 et permet cm3', () => {
+    it('fixe m3 et permet mm3', () => {
       const result = formatQuantity(0.05, VolumeUnit.CubicMeter, { unitPrecision: "mm3" });
       // 0.05 m3 = 50,000 mm3 → 50 mm3
       expect(result.formatted).toContain('50');
