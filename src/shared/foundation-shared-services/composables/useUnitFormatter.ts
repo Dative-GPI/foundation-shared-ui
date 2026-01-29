@@ -1,201 +1,213 @@
 import { useAppLanguageCode } from "@dative-gpi/foundation-shared-services/composables";
 import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config/units";
-import { type UnitDefinition, unitRegistry } from "@dative-gpi/foundation-shared-domain/models";
+import { unitRegistry, unitFamilies, type UnitDefinition } from "@dative-gpi/foundation-shared-domain/models";
 
 export function useUnitFormatter() {
   const { languageCode } = useAppLanguageCode();
 
-  /**
-   * Converts a value from one unit to another of the same family
-   */
-  function convert(value: number, fromUnit: string, toUnit: string): number {
-    const sourceUnitDefinition = unitRegistry[fromUnit];
-    const targetUnitDefinition = unitRegistry[toUnit];
-    
-    if (!sourceUnitDefinition?.family || !targetUnitDefinition?.family) {
-      throw new Error(`Cannot convert between ${fromUnit} and ${toUnit}: missing family`);
+  function findBestSIPrefix(value: number): { prefix: string; factor: number } {
+    if (value === 0) {
+      return SI_PREFIXES[3];
     }
     
-    if (sourceUnitDefinition.family !== targetUnitDefinition.family) {
-      throw new Error(`Cannot convert between different families: ${sourceUnitDefinition.family} vs ${targetUnitDefinition.family}`);
-    }
+    const absValue = Math.abs(value);
+    const magnitude = Math.floor(Math.log10(absValue) / 3) * 3;
     
-    // Conversion via the pivot: pivot_value = sourceUnitDefinition_value * sourceUnitDefinition_factor
-    // targetUnitDefinition_value = pivot_value / targetUnitDefinition_factor
-    return (value * (sourceUnitDefinition.factor ?? 1)) / (targetUnitDefinition.factor ?? 1);
+    const prefixIndex = Math.floor((magnitude + 9) / 3);
+    
+    return SI_PREFIXES[Math.max(0, Math.min(prefixIndex, SI_PREFIXES.length - 1))];
   }
 
-  /**
-   * Finds the best unit in a family to display a value
-   * (the one that gives a result between 1 and 999)
-   */
-  function findBestUnit(value: number, currentUnit: string, fixedUnit?: string): string {
-    const unitDef = unitRegistry[currentUnit];
+  function parseUnitWithPrefix(unitString: string): { prefix: string; baseUnit: string } {
+    const prefixes = SI_PREFIXES.map(p => p.prefix).filter(p => p !== '');
     
-    if (!unitDef?.family) {
-      return currentUnit;
-    }
-
-    // Convert the value to the pivot (in absolute value)
-    const absoluteValueInPivot = Math.abs(value * (unitDef.factor ?? 1));
-    
-    // Find all units in the same family
-    const unitsInSameFamily = Object.entries(unitRegistry)
-      .filter(([, def]) => def.family === unitDef.family)
-      .map(([unit, def]) => ({
-        unit,
-        factor: def.factor ?? 1,
-        precision: def.precision,
-      }))
-      .sort((a, b) => a.factor - b.factor); // Sort by ascending factor
-
-    // Determine the maximum allowed factor
-    const maxFactor = fixedUnit && unitRegistry[fixedUnit]?.family === unitDef.family
-      ? unitRegistry[fixedUnit]?.factor ?? Infinity
-      : Infinity;
-
-    // Find the unit that gives a result >= 1 and < 1000
-    let bestUnit = unitsInSameFamily[0]?.unit ?? currentUnit; // Default: the smallest unit
-    
-    for (let i = unitsInSameFamily.length - 1; i >= 0; i--) {
-      const candidateUnit = unitsInSameFamily[i];
-      
-      // Do not exceed fixedUnit
-      if (candidateUnit.factor > maxFactor) {
-        continue;
-      }
-      
-      const valueInCandidateUnit = absoluteValueInPivot / candidateUnit.factor;
-      
-      // Find the unit that gives a result >= 1
-      if (valueInCandidateUnit >= 1) {
-        bestUnit = candidateUnit.unit;
-        break;
+    for (const prefix of prefixes) {
+      if (unitString.startsWith(prefix)) {
+        return {
+          prefix,
+          baseUnit: unitString.slice(prefix.length)
+        };
       }
     }
     
-    return bestUnit;
+    return { prefix: '', baseUnit: unitString };
   }
 
-  /**
-   * Applies alternative conversions (non-family)
-   * These conversions take priority over the family system
-   */
-  function applyAlternativeConversions(value: number, unit: string, unitDefinition: UnitDefinition) {
-    if (!unitDefinition.conversions?.length) {
+  function findPrefixByName(prefixName: string): { prefix: string; factor: number } | null {
+    const found = SI_PREFIXES.find(p => p.prefix === prefixName);
+    return found || null;
+  }
+
+  function convertWithinFamily(value: number, fromUnit: string, toUnit: string): number {
+    const from = unitRegistry[fromUnit];
+    const to = unitRegistry[toUnit];
+    
+    if (!from || !to) {
+      throw new Error(`Unknown units: ${fromUnit} or ${toUnit}`);
+    }
+    
+    if (from.family !== to.family) {
+      throw new Error(`Different families: ${from.family} vs ${to.family}`);
+    }
+    
+    return (value * from.toPivot) / to.toPivot;
+  }
+
+
+  function applySpecialConversions(value: number, unit: string, unitDefinition: UnitDefinition ): { value: number; unit: string } {
+    if (!unitDefinition.specialConversions?.length) {
       return { value, unit };
     }
+    
+    for (const conversion of unitDefinition.specialConversions) {
+      if (Math.abs(value) >= conversion.threshold) {
+        const convertedValue = convertWithinFamily(value, unit, conversion.toUnit);
 
-    for (const conversion of unitDefinition.conversions) {
-      if (conversion.minThreshold != null && Math.abs(value) < conversion.minThreshold) {
-        continue;
+        return { value: convertedValue, unit: conversion.toUnit };
       }
-      
-      return { 
-        value: value * conversion.conversionRate, 
-        unit: conversion.targetUnit 
-      };
     }
-
+    
     return { value, unit };
   }
 
-  /**
-   * Applies SI prefixes for unknown units
-   */
-  function applySIScale(value: number, unit: string) {
-    const absoluteValue = Math.abs(value);
+  function selectBestUnit(value: number, unit: string, unitPrecision?: string): { value: number; unit: string; symbol: string; } {
+    const unitSourceDefinition = unitRegistry[unit];
     
-    let selectedPrefix = SI_PREFIXES[3]; // None
+    // Unknown unit : apply SI prefixes only
+    if (!unitSourceDefinition) {
+      const prefix = findBestSIPrefix(value);
+      const scaledValue = value / prefix.factor;
+      return {
+        value: scaledValue,
+        unit: `${prefix.prefix}${unit}`,
+        symbol: `${prefix.prefix}${unit}`
+      };
+    }
     
-    for (let i = SI_PREFIXES.length - 1; i >= 0; i--) {
-      const currentPrefix = SI_PREFIXES[i];
+    // if unitPrecision is specified and valid
+    if (unitPrecision) {
+      const parsed = parseUnitWithPrefix(unitPrecision);
+      const precisionUnitDefinition = unitRegistry[parsed.baseUnit];
       
-      if (absoluteValue >= currentPrefix.factor) {
-        selectedPrefix = currentPrefix;
-        break;
+      if (precisionUnitDefinition && precisionUnitDefinition.family === unitSourceDefinition.family) {
+        // Convert value to the precision unit
+        const valueInPrecision = convertWithinFamily(value, unit, parsed.baseUnit);
+        
+        // If a prefix is specified in unitPrecision, apply it EXACTLY
+        if (parsed.prefix) {
+          const forcedPrefix = findPrefixByName(parsed.prefix);
+          if (forcedPrefix) {
+            const scaledValue = valueInPrecision / forcedPrefix.factor;
+            return {
+              value: scaledValue,
+              unit: parsed.baseUnit,
+              symbol: `${forcedPrefix.prefix}${precisionUnitDefinition.symbol}`,
+            };
+          }
+        }
+        
+        // No prefix specified in unitPrecision: return WITHOUT any SI prefix
+        return {
+          value: valueInPrecision,
+          unit: parsed.baseUnit,
+          symbol: precisionUnitDefinition.symbol,
+        };
       }
     }
-
+    
+    // Apply special conversions
+    const afterSpecial = applySpecialConversions(value, unit, unitSourceDefinition);
+    if (afterSpecial.unit !== unit) {
+      return selectBestUnit(afterSpecial.value, afterSpecial.unit, unitPrecision);
+    }
+    
+    // if the unit support SI prefix
+    if (unitSourceDefinition.usesSIPrefixes) {
+      const prefix = findBestSIPrefix(value);
+      const scaledValue = value / prefix.factor;
+      return {
+        value: scaledValue,
+        unit,
+        symbol: `${prefix.prefix}${unitSourceDefinition.symbol}`,
+      };
+    }
+    
     return {
-      value: value / selectedPrefix.factor,
-      unit: `${selectedPrefix.prefix}${unit}`,
+      value,
+      unit,
+      symbol: unitSourceDefinition.symbol,
     };
   }
 
-  function formatNumber(value: number, decimalPrecision: number, locale?: string) {
+  function formatNumber(value: number, precision: number, locale?: string): string {
     return new Intl.NumberFormat(locale, {
       minimumFractionDigits: 0,
-      maximumFractionDigits: decimalPrecision,
+      maximumFractionDigits: precision,
     }).format(value);
   }
 
-  const formatQuantity = (value: number, unit: string, options?: { decimalPrecision?: number; fixedUnit?: string; } ): string => {
-    if (!isFinite(value)) {
-      return "—";
+  /**
+   * take a value with its source unit, convert it to targetUnit (if specified),
+   * find the best SI prefix (unless unitPrecision is specified),
+   * and format it as a string.
+   */
+  function formatQuantity(valueToConvert: number, sourceUnit: string, options?: { targetUnit?: string; unitPrecision?: string; decimalPrecision?: number; }): 
+  { formatted: string;
+    value: string;
+    unit: string;
+  } {
+    if (!isFinite(valueToConvert)) {
+      return {
+        formatted: "—",
+        value: "—",
+        unit: ""
+      };
     }
-
-    const originalUnitDefinition = unitRegistry[unit];
-    let convertedResult: { value: number; unit: string };
-    let decimalPrecision: number;
-
-    if (originalUnitDefinition) {
-      convertedResult = applyAlternativeConversions(value, unit, originalUnitDefinition);
+    
+    const sourceUnitDef = unitRegistry[sourceUnit];
+    let finalValue = valueToConvert;
+    let finalUnit = sourceUnit;
+    
+    if (options?.targetUnit && options.targetUnit !== sourceUnit) {
+      const targetUnitDef = unitRegistry[options.targetUnit];
       
-      const convertedUnitDefinition = unitRegistry[convertedResult.unit];
-      if (convertedUnitDefinition?.family) {
-        const bestUnit = findBestUnit(convertedResult.value, convertedResult.unit, options?.fixedUnit);
-        
-        if (bestUnit !== convertedResult.unit) {
-          convertedResult.value = convert(convertedResult.value, convertedResult.unit, bestUnit);
-          convertedResult.unit = bestUnit;
-        }
+      if (!sourceUnitDef || !targetUnitDef) {
+        throw new Error(`Unknown unit: ${sourceUnit} or ${options.targetUnit}`);
       }
       
-      decimalPrecision = options?.decimalPrecision ?? (unitRegistry[convertedResult.unit]?.precision ?? 2);
-    } else {
-      convertedResult = applySIScale(value, unit);
-      decimalPrecision = options?.decimalPrecision ?? 2;
-    }
-
-    const finalUnitSymbol = unitRegistry[convertedResult.unit]?.symbol ?? convertedResult.unit;
-    const formattedValue = formatNumber(convertedResult.value, decimalPrecision, languageCode.value);
-    
-    return `${formattedValue} ${finalUnitSymbol}`;
-  };
-
-  const formatQuantityParts = (value: number, unit: string, options?: { decimalPrecision?: number; fixedUnit?: string; } ): { value: string; unit: string } => {
-    
-    const fullFormattedQuantity = formatQuantity(value, unit, { decimalPrecision: options?.decimalPrecision, fixedUnit: options?.fixedUnit });
-    
-    if (fullFormattedQuantity === "—") {
-      return { 
-        value: "—", 
-        unit: "" 
-      };
+      // Conversion with custom function (temperatures)
+      const family = unitFamilies[sourceUnitDef.family];
+      if (family.customConverter) {
+        finalValue = family.customConverter(valueToConvert, sourceUnit, options.targetUnit);
+        finalUnit = options.targetUnit;
+      }
+      // Conversion between units of the same family
+      else if (sourceUnitDef.family === targetUnitDef.family) {
+        finalValue = convertWithinFamily(valueToConvert, sourceUnit, options.targetUnit);
+        finalUnit = options.targetUnit;
+      }
+      // Different families: error
+      else {
+        throw new Error(`Cannot convert between ${sourceUnitDef.family} and ${targetUnitDef.family}`);
+      }
     }
     
-    const indexOfLastSpace = fullFormattedQuantity.lastIndexOf(" ");
+    // Find the best prefix
+    const result = selectBestUnit(finalValue, finalUnit, options?.unitPrecision);
     
-    if (indexOfLastSpace === -1) {
-      return { 
-        value: fullFormattedQuantity, 
-        unit: "" 
-      };
-    }
-
-    const valueWithoutUnit = fullFormattedQuantity.slice(0, indexOfLastSpace);
-    const unitOnly = fullFormattedQuantity.slice(indexOfLastSpace + 1);
-
-    return { 
-      value: valueWithoutUnit, 
-      unit: unitOnly 
+    const decimalPrecision = options?.decimalPrecision ?? 2;
+    
+    const formattedValue = formatNumber(result.value, decimalPrecision, languageCode.value);
+    const formatted = `${formattedValue} ${result.symbol}`;
+    
+    return {
+      formatted,
+      value: formattedValue,
+      unit: result.symbol
     };
-  };
+  }
 
   return {
-    formatQuantity,
-    formatQuantityParts,
-    convert
+    formatQuantity
   };
 }

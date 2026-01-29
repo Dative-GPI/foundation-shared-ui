@@ -11,80 +11,61 @@ export enum UnitPrefix {
 }
 
 export enum UnitFamily {
-    Energy = "energy",
-    Power = "power",
-    Volume = "volume",
-    GasVolume = "gasVolume",
-    WaterFlow = "waterFlow",
-    GasFlow = "gasFlow",
-    Pressure = "pressure",
-    Temperature = "temperature",
-    Speed = "speed",
-    Distance = "distance",
-    Mass = "mass",
-    MassFlow = "massFlow",
-    Frequency = "frequency",
-    Voltage = "voltage",
-    Current = "current",
-    Resistance = "resistance",
-    Percentage = "percentage",
-    Capacity = "capacity",
-    SnowProduction = "snowProduction",
-    Efficiency = "efficiency"
+    Energy = "Energy",
+    Power = "Power",
+    Volume = "Volume",
+    GasVolume = "Gas Volume",
+    WaterFlow = "Water Flow",
+    GasFlow = "Gas Flow",
+    Pressure = "Pressure",
+    Temperature = "Temperature",
+    Speed = "Speed",
+    Distance = "Distance",
+    Mass = "Mass",
+    MassFlow = "Mass Flow",
+    Frequency = "Frequency",
+    Voltage = "Voltage",
+    Current = "Current",
+    Resistance = "Resistance",
+    Percentage = "Percentage",
+    Capacity = "Capacity",
+    SnowProduction = "Snow Production",
+    Efficiency = "Efficiency"
 }
 
-
 export enum EnergyUnit {
-    Wh = "Wh",
-    kWh = "kWh",
-    MWh = "MWh",
-    GWh = "GWh",
-    TWh = "TWh",
+    Wattheure = "Wh",
+    Joule = "J",
+    Calorie = "cal",
 }
 
 export enum PowerUnit {
-    W = "W",
-    kW = "kW",
-    MW = "MW",
-    GW = "GW",
-    TW = "TW",
+    Watt = "W",
 }
 
 export enum VolumeUnit {
-    mL = "mL",
-    L = "L",
-    m3 = "m3",
-    dam3 = "dam3",
+    Liter = "L",
+    CubicMeter = "m3",
 }
 
 export enum GasVolumeUnit {
-    Nm3 = "Nm3",
-    kNm3 = "kNm3",
-    MNm3 = "MNm3",
-    GNm3 = "GNm3",
+    NormalCubicMeter = "Nm3",
 }
 
 export enum WaterFlowUnit {
-    mL_s = "mL/s",
-    L_s = "L/s",
-    m3_s = "m3/s",
-    L_min = "L/min",
-    m3_h = "m3/h",
+    LiterPerSecond = "L/s",
+    CubicMeterPerSecond = "m3/s",
+    LiterPerMinute = "L/min",
+    CubicMeterPerHour = "m3/h",
 }
 
 export enum GasFlowUnit {
-    Nm3_h = "Nm3/h",
-    kNm3_h = "kNm3/h",
-    MNm3_h = "MNm3/h",
+    NormalCubicMeterPerHour = "Nm3/h",
 }
 
 export enum PressureUnit {
-    Pa = "Pa",
-    kPa = "kPa",
-    MPa = "MPa",
-    GPa = "GPa",
-    bar = "bar",
-    mbar = "mbar",
+    Pascal = "Pa",
+    Bar = "bar",
 }
 
 export enum TemperatureUnit {
@@ -94,60 +75,42 @@ export enum TemperatureUnit {
 }
 
 export enum SpeedUnit {
-    m_s = "m/s",
-    km_h = "km/h",
-    knot = "kn",
+    MeterPerSecond = "m/s",
+    KilometerPerHour = "km/h",
+    Knot = "kn",
 }
 
 export enum DistanceUnit {
-    mm = "mm",
-    cm = "cm",
-    m = "m",
-    km = "km",
+    Meter = "m",
 }
 
 export enum MassUnit {
-    mg = "mg",
-    g = "g",
-    kg = "kg",
-    t = "t",
-    kt = "kt",
+    Gram = "g",
+    Tonne = "t",
 }
 
 export enum MassFlowUnit {
-    g_s = "g/s",
-    kg_s = "kg/s",
-    t_s = "t/s",
-    kg_h = "kg/h",
-    t_h = "t/h",
+    GramPerSecond = "g/s",
+    TonnePerSecond = "t/s",
+    KilogramPerHour = "kg/h",
+    TonnePerHour = "t/h",
 }
 
 export enum FrequencyUnit {
-    Hz = "Hz",
-    kHz = "kHz",
-    MHz = "MHz",
-    GHz = "GHz",
-    rpm = "rpm",
+    Hertz = "Hz",
+    RevolutionsPerMinute = "rpm",
 }
 
 export enum VoltageUnit {
-    mV = "mV",
-    V = "V",
-    kV = "kV",
-    MV = "MV",
+    Volt = "V",
 }
 
 export enum CurrentUnit {
-    mA = "mA",
-    A = "A",
-    kA = "kA",
+    Ampere = "A",
 }
 
 export enum ResistanceUnit {
-    mΩ = "mΩ",
-    Ω = "Ω",
-    kΩ = "kΩ",
-    MΩ = "MΩ",
+    Ohm = "Ω",
 }
 
 export enum PercentageUnit {
@@ -156,18 +119,15 @@ export enum PercentageUnit {
 }
 
 export enum CapacityUnit {
-    pers = "pers",
-    pers_h = "pers/h",
+    Person = "pers",
+    PersonPerHour = "pers/h",
 }
 
 export enum SnowProductionUnit {
-    m3_neige_h = "m3_neige/h",
+    CubicMeterSnowPerHour = "m3_neige/h",
 }
 
 export enum EfficiencyUnit {
-    kWh_m3 = "kWh/m3",
-    kWh_kg = "kWh/kg",
+    KilowattHourPerCubicMeter = "kWh/m3",
+    KilowattHourPerKilogram = "kWh/kg",
 }
-
-
-

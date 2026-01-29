@@ -1,497 +1,307 @@
-import { EnergyUnit, PowerUnit, GasFlowUnit, PressureUnit, TemperatureUnit, SpeedUnit, DistanceUnit, MassUnit, MassFlowUnit, FrequencyUnit, VoltageUnit, CurrentUnit, ResistanceUnit, PercentageUnit, CapacityUnit, SnowProductionUnit, EfficiencyUnit, VolumeUnit, GasVolumeUnit, WaterFlowUnit, UnitFamily } from "@dative-gpi/foundation-shared-domain/enums"
-import type { UnitDefinition } from "./unitDetails"
+import { UnitFamily, EnergyUnit, PowerUnit, VolumeUnit, GasVolumeUnit,WaterFlowUnit,GasFlowUnit,PressureUnit, TemperatureUnit, SpeedUnit,DistanceUnit, MassUnit, MassFlowUnit, FrequencyUnit, VoltageUnit, CurrentUnit, ResistanceUnit, PercentageUnit, CapacityUnit, SnowProductionUnit, EfficiencyUnit } from "@dative-gpi/foundation-shared-domain/enums";
+import type { UnitDefinition } from "./unitDetails";
 
 export const unitRegistry: Record<string, UnitDefinition> = {
-  // ===== ÉNERGIE - Pivot: Wh =====
-  [EnergyUnit.Wh]: {
-    symbol: EnergyUnit.Wh,
-    precision: 0,
+  // ===== ÉNERGIE - Toutes les unités dans UnitFamily.Energy =====
+  [EnergyUnit.Joule]: {
+    symbol: EnergyUnit.Joule,
     family: UnitFamily.Energy,
-    factor: 1, // Pivot
+    toPivot: 1, // Joule est le pivot
+    usesSIPrefixes: true, // kJ, MJ, GJ auto-générés
   },
-  [EnergyUnit.kWh]: {
-    symbol: EnergyUnit.kWh,
-    precision: 2,
+  
+  [EnergyUnit.Wattheure]: {
+    symbol: EnergyUnit.Wattheure,
     family: UnitFamily.Energy,
-    factor: 1000,
+    toPivot: 3600, // 1 Wh = 3600 J
+    usesSIPrefixes: true, // kWh, MWh, GWh auto-générés
   },
-  [EnergyUnit.MWh]: {
-    symbol: EnergyUnit.MWh,
-    precision: 2,
+  
+  [EnergyUnit.Calorie]: {
+    symbol: EnergyUnit.Calorie,
     family: UnitFamily.Energy,
-    factor: 1_000_000,
-  },
-  [EnergyUnit.GWh]: {
-    symbol: EnergyUnit.GWh,
-    precision: 2,
-    family: UnitFamily.Energy,
-    factor: 1_000_000_000,
-  },
-  [EnergyUnit.TWh]: {
-    symbol: EnergyUnit.TWh,
-    precision: 2,
-    family: UnitFamily.Energy,
-    factor: 1_000_000_000_000,
+    toPivot: 4.184, // 1 cal = 4.184 J
+    usesSIPrefixes: true, // kcal auto-généré
   },
 
-  // ===== PUISSANCE - Pivot: W =====
-  [PowerUnit.W]: {
-    symbol: PowerUnit.W,
-    precision: 0,
+  // ===== PUISSANCE =====
+  [PowerUnit.Watt]: {
+    symbol: PowerUnit.Watt,
     family: UnitFamily.Power,
-    factor: 1, // Pivot
-  },
-  [PowerUnit.kW]: {
-    symbol: PowerUnit.kW,
-    precision: 2,
-    family: UnitFamily.Power,
-    factor: 1000,
-  },
-  [PowerUnit.MW]: {
-    symbol: PowerUnit.MW,
-    precision: 2,
-    family: UnitFamily.Power,
-    factor: 1_000_000,
-  },
-  [PowerUnit.GW]: {
-    symbol: PowerUnit.GW,
-    precision: 2,
-    family: UnitFamily.Power,
-    factor: 1_000_000_000,
-  },
-  [PowerUnit.TW]: {
-    symbol: PowerUnit.TW,
-    precision: 2,
-    family: UnitFamily.Power,
-    factor: 1_000_000_000_000,
+    toPivot: 1,
+    usesSIPrefixes: true, // kW, MW, GW auto-générés
   },
 
-  // ===== VOLUME (EAU) - Pivot: L =====
-  [VolumeUnit.mL]: {
-    symbol: VolumeUnit.mL,
-    precision: 0,
+  // ===== VOLUME =====
+  [VolumeUnit.Liter]: {
+    symbol: VolumeUnit.Liter,
     family: UnitFamily.Volume,
-    factor: 0.001,
+    toPivot: 1,
+    usesSIPrefixes: true, // mL auto-généré
+    specialConversions: [
+      { toUnit: VolumeUnit.CubicMeter, threshold: 1000 } // >= 1000L passe en m³
+    ]
   },
-  [VolumeUnit.L]: {
-    symbol: VolumeUnit.L,
-    precision: 1,
+  
+  [VolumeUnit.CubicMeter]: {
+    symbol: VolumeUnit.CubicMeter,
     family: UnitFamily.Volume,
-    factor: 1, // Pivot
-  },
-  [VolumeUnit.m3]: {
-    symbol: VolumeUnit.m3,
-    precision: 2,
-    family: UnitFamily.Volume,
-    factor: 1000,
-  },
-  [VolumeUnit.dam3]: {
-    symbol: VolumeUnit.dam3,
-    precision: 2,
-    family: UnitFamily.Volume,
-    factor: 1_000_000,
+    toPivot: 1000, // 1 m³ = 1000 L
+    usesSIPrefixes: true, // mm³, cm³, dm³, dam³
   },
 
-  // ===== VOLUME (GAZ) - Pivot: Nm3 =====
-  [GasVolumeUnit.Nm3]: {
-    symbol: GasVolumeUnit.Nm3,
-    precision: 2,
+  // ===== VOLUME GAZ =====
+  [GasVolumeUnit.NormalCubicMeter]: {
+    symbol: GasVolumeUnit.NormalCubicMeter,
     family: UnitFamily.GasVolume,
-    factor: 1, // Pivot
-  },
-  [GasVolumeUnit.kNm3]: {
-    symbol: GasVolumeUnit.kNm3,
-    precision: 2,
-    family: UnitFamily.GasVolume,
-    factor: 1000,
-  },
-  [GasVolumeUnit.MNm3]: {
-    symbol: GasVolumeUnit.MNm3,
-    precision: 2,
-    family: UnitFamily.GasVolume,
-    factor: 1_000_000,
-  },
-  [GasVolumeUnit.GNm3]: {
-    symbol: GasVolumeUnit.GNm3,
-    precision: 2,
-    family: UnitFamily.GasVolume,
-    factor: 1_000_000_000,
+    toPivot: 1,
+    usesSIPrefixes: true, // kNm³, MNm³, GNm³
   },
 
-  // ===== DÉBIT D'EAU - Pivot: mL/s =====
-  [WaterFlowUnit.mL_s]: {
-    symbol: WaterFlowUnit.mL_s,
-    precision: 0,
+  // ===== DÉBIT D'EAU =====
+  [WaterFlowUnit.LiterPerSecond]: {
+    symbol: WaterFlowUnit.LiterPerSecond,
     family: UnitFamily.WaterFlow,
-    factor: 1, // Pivot
+    toPivot: 1,
+    usesSIPrefixes: true, // mL/s auto-généré
+    specialConversions: [
+      { toUnit: WaterFlowUnit.CubicMeterPerHour, threshold: 100 } // >= 100 L/s passe en m³/h
+    ]
   },
-  [WaterFlowUnit.L_s]: {
-    symbol: WaterFlowUnit.L_s,
-    precision: 2,
+  
+  [WaterFlowUnit.CubicMeterPerSecond]: {
+    symbol: WaterFlowUnit.CubicMeterPerSecond,
     family: UnitFamily.WaterFlow,
-    factor: 1000,
-    conversions: [
-      {
-        targetUnit: WaterFlowUnit.m3_h,
-        conversionRate: 3.6,
-        minThreshold: 100,
-      },
-    ],
+    toPivot: 1000,
+    usesSIPrefixes: false,
   },
-  [WaterFlowUnit.m3_s]: {
-    symbol: WaterFlowUnit.m3_s,
-    precision: 3,
+  
+  [WaterFlowUnit.LiterPerMinute]: {
+    symbol: WaterFlowUnit.LiterPerMinute,
     family: UnitFamily.WaterFlow,
-    factor: 1_000_000,
+    toPivot: 1 / 60,
+    usesSIPrefixes: false,
+    specialConversions: [
+      { toUnit: WaterFlowUnit.LiterPerSecond, threshold: 60 } // >= 60 L/min passe en L/s
+    ]
   },
-  [WaterFlowUnit.L_min]: {
-    symbol: WaterFlowUnit.L_min,
-    precision: 1,
+  
+  [WaterFlowUnit.CubicMeterPerHour]: {
+    symbol: WaterFlowUnit.CubicMeterPerHour,
     family: UnitFamily.WaterFlow,
-    factor: 1000 / 60, // 16.666...
-    conversions: [
-      {
-        targetUnit: WaterFlowUnit.L_s,
-        conversionRate: 1 / 60,
-        minThreshold: 60,
-      },
-    ],
-  },
-  [WaterFlowUnit.m3_h]: {
-    symbol: WaterFlowUnit.m3_h,
-    precision: 1,
+    toPivot: 1000 / 3600,
+    usesSIPrefixes: false,
   },
 
-  // ===== DÉBIT DE GAZ - Pivot: Nm3/h =====
-  [GasFlowUnit.Nm3_h]: {
-    symbol: GasFlowUnit.Nm3_h,
-    precision: 1,
+  // ===== DÉBIT DE GAZ =====
+  [GasFlowUnit.NormalCubicMeterPerHour]: {
+    symbol: GasFlowUnit.NormalCubicMeterPerHour,
     family: UnitFamily.GasFlow,
-    factor: 1, // Pivot
-  },
-  [GasFlowUnit.kNm3_h]: {
-    symbol: GasFlowUnit.kNm3_h,
-    precision: 2,
-    family: UnitFamily.GasFlow,
-    factor: 1000,
-  },
-  [GasFlowUnit.MNm3_h]: {
-    symbol: GasFlowUnit.MNm3_h,
-    precision: 2,
-    family: UnitFamily.GasFlow,
-    factor: 1_000_000,
+    toPivot: 1,
+    usesSIPrefixes: true, // kNm³/h, MNm³/h
   },
 
-  // ===== PRESSION - Pivot: Pa =====
-  [PressureUnit.Pa]: {
-    symbol: PressureUnit.Pa,
-    precision: 0,
+  // ===== PRESSION =====
+  [PressureUnit.Pascal]: {
+    symbol: PressureUnit.Pascal,
     family: UnitFamily.Pressure,
-    factor: 1, // Pivot
+    toPivot: 1,
+    usesSIPrefixes: true, // kPa, MPa, GPa
   },
-  [PressureUnit.kPa]: {
-    symbol: PressureUnit.kPa,
-    precision: 2,
+  
+  [PressureUnit.Bar]: {
+    symbol: PressureUnit.Bar,
     family: UnitFamily.Pressure,
-    factor: 1000,
-  },
-  [PressureUnit.MPa]: {
-    symbol: PressureUnit.MPa,
-    precision: 2,
-    family: UnitFamily.Pressure,
-    factor: 1_000_000,
-  },
-  [PressureUnit.GPa]: {
-    symbol: PressureUnit.GPa,
-    precision: 2,
-    family: UnitFamily.Pressure,
-    factor: 1_000_000_000,
-  },
-  [PressureUnit.bar]: {
-    symbol: PressureUnit.bar,
-    precision: 2,
-    family: UnitFamily.Pressure,
-    factor: 100_000,
-  },
-  [PressureUnit.mbar]: {
-    symbol: PressureUnit.mbar,
-    precision: 1,
-    family: UnitFamily.Pressure,
-    factor: 100,
+    toPivot: 100_000,
+    usesSIPrefixes: true, // mbar auto-généré
   },
 
-  // ===== TEMPÉRATURE - Pas de famille (conversions non-linéaires) =====
+  // ===== TEMPÉRATURE (pas de SI prefixes) =====
   [TemperatureUnit.Celsius]: {
     symbol: TemperatureUnit.Celsius,
-    precision: 1,
+    family: UnitFamily.Temperature,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
+  
   [TemperatureUnit.Kelvin]: {
     symbol: TemperatureUnit.Kelvin,
-    precision: 1,
+    family: UnitFamily.Temperature,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
+  
   [TemperatureUnit.Fahrenheit]: {
     symbol: TemperatureUnit.Fahrenheit,
-    precision: 1,
+    family: UnitFamily.Temperature,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
 
-  // ===== VITESSE - Conversions alternatives =====
-  [SpeedUnit.m_s]: {
-    symbol: SpeedUnit.m_s,
-    precision: 2,
-    conversions: [
-      {
-        targetUnit: SpeedUnit.km_h,
-        conversionRate: 3.6,
-      },
-    ],
+  // ===== VITESSE =====
+  [SpeedUnit.MeterPerSecond]: {
+    symbol: SpeedUnit.MeterPerSecond,
+    family: UnitFamily.Speed,
+    toPivot: 1,
+    usesSIPrefixes: false,
+    specialConversions: [
+      { toUnit: SpeedUnit.KilometerPerHour, threshold: 1 } // Toujours préférer km/h
+    ]
   },
-  [SpeedUnit.km_h]: {
-    symbol: SpeedUnit.km_h,
-    precision: 1,
+  
+  [SpeedUnit.KilometerPerHour]: {
+    symbol: SpeedUnit.KilometerPerHour,
+    family: UnitFamily.Speed,
+    toPivot: 1 / 3.6,
+    usesSIPrefixes: false,
   },
-  [SpeedUnit.knot]: {
-    symbol: SpeedUnit.knot,
-    precision: 0,
-    conversions: [
-      {
-        targetUnit: SpeedUnit.km_h,
-        conversionRate: 1.852,
-      },
-    ],
+  
+  [SpeedUnit.Knot]: {
+    symbol: SpeedUnit.Knot,
+    family: UnitFamily.Speed,
+    toPivot: 0.514444,
+    usesSIPrefixes: false,
   },
 
-  // ===== DISTANCE - Pivot: m =====
-  [DistanceUnit.mm]: {
-    symbol: DistanceUnit.mm,
-    precision: 0,
+  // ===== DISTANCE =====
+  [DistanceUnit.Meter]: {
+    symbol: DistanceUnit.Meter,
     family: UnitFamily.Distance,
-    factor: 0.001,
-  },
-  [DistanceUnit.cm]: {
-    symbol: DistanceUnit.cm,
-    precision: 1,
-    family: UnitFamily.Distance,
-    factor: 0.01,
-  },
-  [DistanceUnit.m]: {
-    symbol: DistanceUnit.m,
-    precision: 0,
-    family: UnitFamily.Distance,
-    factor: 1, // Pivot
-  },
-  [DistanceUnit.km]: {
-    symbol: DistanceUnit.km,
-    precision: 2,
-    family: UnitFamily.Distance,
-    factor: 1000,
+    toPivot: 1,
+    usesSIPrefixes: true, // mm, cm, km auto-générés
   },
 
-  // ===== MASSE - Pivot: g =====
-  [MassUnit.mg]: {
-    symbol: MassUnit.mg,
-    precision: 0,
+  // ===== MASSE =====
+  [MassUnit.Gram]: {
+    symbol: MassUnit.Gram,
     family: UnitFamily.Mass,
-    factor: 0.001,
+    toPivot: 1,
+    usesSIPrefixes: true, // mg, kg auto-générés
   },
-  [MassUnit.g]: {
-    symbol: MassUnit.g,
-    precision: 0,
+  
+  [MassUnit.Tonne]: {
+    symbol: MassUnit.Tonne,
     family: UnitFamily.Mass,
-    factor: 1, // Pivot
-  },
-  [MassUnit.kg]: {
-    symbol: MassUnit.kg,
-    precision: 2,
-    family: UnitFamily.Mass,
-    factor: 1000,
-  },
-  [MassUnit.t]: {
-    symbol: MassUnit.t,
-    precision: 2,
-    family: UnitFamily.Mass,
-    factor: 1_000_000,
-  },
-  [MassUnit.kt]: {
-    symbol: MassUnit.kt,
-    precision: 2,
-    family: UnitFamily.Mass,
-    factor: 1_000_000_000,
+    toPivot: 1_000_000,
+    usesSIPrefixes: true, // kt auto-généré
   },
 
-  // ===== DÉBIT MASSIQUE - Pivot: g/s =====
-  [MassFlowUnit.g_s]: {
-    symbol: MassFlowUnit.g_s,
-    precision: 1,
+  // ===== DÉBIT MASSIQUE =====
+  [MassFlowUnit.GramPerSecond]: {
+    symbol: MassFlowUnit.GramPerSecond,
     family: UnitFamily.MassFlow,
-    factor: 1, // Pivot
+    toPivot: 1,
+    usesSIPrefixes: true, // kg/s auto-généré
+    specialConversions: [
+      { toUnit: MassFlowUnit.TonnePerHour, threshold: 100_000 } // >= 100 kg/s passe en t/h
+    ]
   },
-  [MassFlowUnit.kg_s]: {
-    symbol: MassFlowUnit.kg_s,
-    precision: 2,
+  
+  [MassFlowUnit.TonnePerSecond]: {
+    symbol: MassFlowUnit.TonnePerSecond,
     family: UnitFamily.MassFlow,
-    factor: 1000,
-    conversions: [
-      {
-        targetUnit: MassFlowUnit.t_h,
-        conversionRate: 3.6,
-        minThreshold: 100,
-      },
-    ],
+    toPivot: 1_000_000,
+    usesSIPrefixes: false,
   },
-  [MassFlowUnit.t_s]: {
-    symbol: MassFlowUnit.t_s,
-    precision: 3,
+  
+  [MassFlowUnit.KilogramPerHour]: {
+    symbol: MassFlowUnit.KilogramPerHour,
     family: UnitFamily.MassFlow,
-    factor: 1_000_000,
+    toPivot: 1000 / 3600,
+    usesSIPrefixes: false,
   },
-  [MassFlowUnit.kg_h]: {
-    symbol: MassFlowUnit.kg_h,
-    precision: 1,
+  
+  [MassFlowUnit.TonnePerHour]: {
+    symbol: MassFlowUnit.TonnePerHour,
     family: UnitFamily.MassFlow,
-    factor: 1000 / 3600, // 0.277...
-  },
-  [MassFlowUnit.t_h]: {
-    symbol: MassFlowUnit.t_h,
-    precision: 1,
+    toPivot: 1_000_000 / 3600,
+    usesSIPrefixes: false,
   },
 
-  // ===== FRÉQUENCE - Pivot: Hz =====
-  [FrequencyUnit.Hz]: {
-    symbol: FrequencyUnit.Hz,
-    precision: 1,
+  // ===== FRÉQUENCE =====
+  [FrequencyUnit.Hertz]: {
+    symbol: FrequencyUnit.Hertz,
     family: UnitFamily.Frequency,
-    factor: 1, // Pivot
+    toPivot: 1,
+    usesSIPrefixes: true, // kHz, MHz, GHz
   },
-  [FrequencyUnit.kHz]: {
-    symbol: FrequencyUnit.kHz,
-    precision: 2,
+  
+  [FrequencyUnit.RevolutionsPerMinute]: {
+    symbol: FrequencyUnit.RevolutionsPerMinute,
     family: UnitFamily.Frequency,
-    factor: 1000,
-  },
-  [FrequencyUnit.MHz]: {
-    symbol: FrequencyUnit.MHz,
-    precision: 2,
-    family: UnitFamily.Frequency,
-    factor: 1_000_000,
-  },
-  [FrequencyUnit.GHz]: {
-    symbol: FrequencyUnit.GHz,
-    precision: 2,
-    family: UnitFamily.Frequency,
-    factor: 1_000_000_000,
-  },
-  [FrequencyUnit.rpm]: {
-    symbol: FrequencyUnit.rpm,
-    precision: 0,
-    family: UnitFamily.Frequency,
-    factor: 1 / 60, // rpm = Hz / 60
+    toPivot: 1 / 60,
+    usesSIPrefixes: false,
   },
 
-  // ===== TENSION - Pivot: V =====
-  [VoltageUnit.mV]: {
-    symbol: VoltageUnit.mV,
-    precision: 0,
+  // ===== ÉLECTRICITÉ =====
+  [VoltageUnit.Volt]: {
+    symbol: VoltageUnit.Volt,
     family: UnitFamily.Voltage,
-    factor: 0.001,
+    toPivot: 1,
+    usesSIPrefixes: true, // mV, kV, MV
   },
-  [VoltageUnit.V]: {
-    symbol: VoltageUnit.V,
-    precision: 1,
-    family: UnitFamily.Voltage,
-    factor: 1, // Pivot
-  },
-  [VoltageUnit.kV]: {
-    symbol: VoltageUnit.kV,
-    precision: 2,
-    family: UnitFamily.Voltage,
-    factor: 1000,
-  },
-  [VoltageUnit.MV]: {
-    symbol: VoltageUnit.MV,
-    precision: 2,
-    family: UnitFamily.Voltage,
-    factor: 1_000_000,
-  },
-
-  // ===== COURANT - Pivot: A =====
-  [CurrentUnit.mA]: {
-    symbol: CurrentUnit.mA,
-    precision: 1,
+  
+  [CurrentUnit.Ampere]: {
+    symbol: CurrentUnit.Ampere,
     family: UnitFamily.Current,
-    factor: 0.001,
+    toPivot: 1,
+    usesSIPrefixes: true, // mA, kA
   },
-  [CurrentUnit.A]: {
-    symbol: CurrentUnit.A,
-    precision: 2,
-    family: UnitFamily.Current,
-    factor: 1, // Pivot
-  },
-  [CurrentUnit.kA]: {
-    symbol: CurrentUnit.kA,
-    precision: 2,
-    family: UnitFamily.Current,
-    factor: 1000,
+  
+  [ResistanceUnit.Ohm]: {
+    symbol: ResistanceUnit.Ohm,
+    family: UnitFamily.Resistance,
+    toPivot: 1,
+    usesSIPrefixes: true, // mΩ, kΩ, MΩ
   },
 
-  // ===== RÉSISTANCE - Pivot: Ω =====
-  [ResistanceUnit.mΩ]: {
-    symbol: ResistanceUnit.mΩ,
-    precision: 1,
-    family: UnitFamily.Resistance,
-    factor: 0.001,
-  },
-  [ResistanceUnit.Ω]: {
-    symbol: ResistanceUnit.Ω,
-    precision: 1,
-    family: UnitFamily.Resistance,
-    factor: 1, // Pivot
-  },
-  [ResistanceUnit.kΩ]: {
-    symbol: ResistanceUnit.kΩ,
-    precision: 2,
-    family: UnitFamily.Resistance,
-    factor: 1000,
-  },
-  [ResistanceUnit.MΩ]: {
-    symbol: ResistanceUnit.MΩ,
-    precision: 2,
-    family: UnitFamily.Resistance,
-    factor: 1_000_000,
-  },
-
-  // ===== POURCENTAGE - Pas de scaling =====
+  // ===== UNITÉS SANS SI PREFIXES =====
   [PercentageUnit.Percent]: {
     symbol: PercentageUnit.Percent,
-    precision: 1,
+    family: UnitFamily.Percentage,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
+  
   [PercentageUnit.RelativeHumidity]: {
     symbol: PercentageUnit.RelativeHumidity,
-    precision: 0,
+    family: UnitFamily.Percentage,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
-
-  // ===== CAPACITÉ - Pas de scaling =====
-  [CapacityUnit.pers]: {
-    symbol: CapacityUnit.pers,
-    precision: 0,
+  
+  [CapacityUnit.Person]: {
+    symbol: CapacityUnit.Person,
+    family: UnitFamily.Capacity,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
-  [CapacityUnit.pers_h]: {
-    symbol: CapacityUnit.pers_h,
-    precision: 0,
+  
+  [CapacityUnit.PersonPerHour]: {
+    symbol: CapacityUnit.PersonPerHour,
+    family: UnitFamily.Capacity,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
-
-  // ===== PRODUCTION NEIGE - Pas de scaling =====
-  [SnowProductionUnit.m3_neige_h]: {
-    symbol: SnowProductionUnit.m3_neige_h,
-    precision: 0,
+  
+  [SnowProductionUnit.CubicMeterSnowPerHour]: {
+    symbol: SnowProductionUnit.CubicMeterSnowPerHour,
+    family: UnitFamily.SnowProduction,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
-
-  // ===== RENDEMENT - Pas de scaling =====
-  [EfficiencyUnit.kWh_m3]: {
-    symbol: EfficiencyUnit.kWh_m3,
-    precision: 2,
+  
+  [EfficiencyUnit.KilowattHourPerCubicMeter]: {
+    symbol: EfficiencyUnit.KilowattHourPerCubicMeter,
+    family: UnitFamily.Efficiency,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
-  [EfficiencyUnit.kWh_kg]: {
-    symbol: EfficiencyUnit.kWh_kg,
-    precision: 2,
+  
+  [EfficiencyUnit.KilowattHourPerKilogram]: {
+    symbol: EfficiencyUnit.KilowattHourPerKilogram,
+    family: UnitFamily.Efficiency,
+    toPivot: 1,
+    usesSIPrefixes: false,
   },
 };
