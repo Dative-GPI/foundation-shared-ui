@@ -6,15 +6,14 @@ import { getManyDatas } from "@dative-gpi/foundation-core-services/composables";
 
 import { RootMode } from "@dative-gpi/foundation-shared-domain/enums";
 
-import type { DataFiltersDTO, DataLeafDTO, AbsoluteProfitsComparisonFilter } from "@dative-gpi/foundation-core-domain/models";
+import type { DataFiltersDTO, DataLeafDTO, PeriodAggregateValueFilter } from "@dative-gpi/foundation-core-domain/models";
 
-export const useAbsoluteProfitsComparison = () => {
+export const usePeriodAggregateValue = () => {
   const fetching = ref(false);
   const error = ref<string | null>(null);
-  const rawReferenceValue = ref<number | null>(null);
-  const rawObservedValue = ref<number | null>(null);
+  const periodValue = ref<number | null>(null);
   
-  const fetch = async (filter: AbsoluteProfitsComparisonFilter) => {
+  const fetch = async (filter: PeriodAggregateValueFilter) => {
     fetching.value = true;
 
     const leaf = {
@@ -48,36 +47,23 @@ export const useAbsoluteProfitsComparison = () => {
     };
     
     error.value = null;
-    rawReferenceValue.value = null;
-    rawObservedValue.value = null;
+    periodValue.value = null;
 
     try {
-      const refFilters: DataFiltersDTO = {
-        startDate: filter.referencePeriodStart,
-        endDate: filter.referencePeriodEnd,
+      const periodFilters: DataFiltersDTO = {
+        startDate: filter.periodStart,
+        endDate: filter.periodEnd,
         timeOffset: filter.timeOffset,
         dateVariables: [],
         mode: RootMode.Leaf,
         leaf: { ...leaf, correlationId: uuidv4() } as DataLeafDTO
       };
 
-      const actFilters: DataFiltersDTO = {
-        startDate: filter.observedPeriodStart,
-        endDate: filter.observedPeriodEnd,
-        timeOffset: filter.timeOffset,
-        dateVariables: [],
-        mode: RootMode.Leaf,
-        leaf: { ...leaf, correlationId: uuidv4() } as DataLeafDTO
-      };
+      const dataSerie = await getManyDatas(periodFilters);
 
-      const dataSerieReference = await getManyDatas(refFilters);
-      const dataSerieObserved = await getManyDatas(actFilters);
+      const value = dataSerie?.[0]?.datas?.[0]?.values?.[0];
 
-      const rawRef = dataSerieReference?.[0]?.datas?.[0]?.values?.[0];
-      const rawObs = dataSerieObserved?.[0]?.datas?.[0]?.values?.[0];
-
-      rawReferenceValue.value = rawRef == null ? null : Number(rawRef);
-      rawObservedValue.value  = rawObs == null ? null : Number(rawObs);
+      periodValue.value = value == null ? null : Number(value);
 
     } catch (exception: any) {
       error.value = exception.response?.data ?? exception.message;
@@ -89,8 +75,7 @@ export const useAbsoluteProfitsComparison = () => {
   return {
     fetching,
     error,
-    rawReferenceValue,
-    rawObservedValue,
+    periodValue,
     fetch,
   };
 };
