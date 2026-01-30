@@ -1,5 +1,4 @@
-import { UnitFamily, EnergyUnit, PowerUnit, VolumeUnit, GasVolumeUnit, WaterFlowUnit, GasFlowUnit, PressureUnit, TemperatureUnit, SpeedUnit, DistanceUnit, MassUnit, MassFlowUnit, FrequencyUnit, VoltageUnit, CurrentUnit, ResistanceUnit, PercentageUnit, CapacityUnit, SnowProductionUnit, EfficiencyUnit,
-} from "@dative-gpi/foundation-shared-domain/enums";
+import { UnitFamily, EnergyUnit, PowerUnit, VolumeUnit, GasVolumeUnit, WaterFlowUnit, GasFlowUnit, PressureUnit, TemperatureUnit, SpeedUnit, DistanceUnit, MassUnit, MassFlowUnit, FrequencyUnit, VoltageUnit, CurrentUnit, ResistanceUnit, PercentageUnit, CapacityUnit, SnowProductionUnit, EfficiencyUnit, AreaUnit } from "@dative-gpi/foundation-shared-domain/enums";
 import type { UnitDefinition } from "./unitDetails";
 
 export const unitRegistry: Record<string, UnitDefinition> = {
@@ -54,7 +53,8 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     symbol: VolumeUnit.CubicMeter,
     family: UnitFamily.Volume,
     toPivot: 1000,
-    usesSIPrefixes: false,
+    usesSIPrefixes: true,
+    supportsExponents: true,
     // NOTE: si tu veux "0.001 m³ -> 1 L", ça nécessite une règle "< 1"
     // (non supportée par specialConversions aujourd’hui) ou un traitement dans selectBestUnit.
   },
@@ -67,6 +67,15 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     family: UnitFamily.GasVolume,
     toPivot: 1,
     usesSIPrefixes: true,
+    supportsExponents: true,
+  },
+
+  [AreaUnit.SquareMeter]: {
+    symbol: AreaUnit.SquareMeter,
+    family: UnitFamily.Area, // Nouvelle famille
+    toPivot: 1,
+    usesSIPrefixes: true,
+    supportsExponents: true,
   },
 
   // =========================
@@ -98,6 +107,7 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     family: UnitFamily.WaterFlow,
     toPivot: 1000 / 3600, // 1 m³/h = 1000 L / 3600 s
     usesSIPrefixes: false,
+    supportsExponents: true,
   },
 
   [WaterFlowUnit.CubicMeterPerSecond]: {
@@ -105,6 +115,7 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     family: UnitFamily.WaterFlow,
     toPivot: 1000, // 1 m³/s = 1000 L/s
     usesSIPrefixes: false,
+    supportsExponents: true,
   },
 
   // =========================
@@ -115,6 +126,7 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     family: UnitFamily.GasFlow,
     toPivot: 1, 
     usesSIPrefixes: true,
+    supportsExponents: true,
   },
 
   // =========================
@@ -196,6 +208,7 @@ export const unitRegistry: Record<string, UnitDefinition> = {
     family: UnitFamily.Distance,
     toPivot: 1, 
     usesSIPrefixes: true, // mm, km (pas de cm/dm car pas dans SI_PREFIXES)
+    supportsExponents: true,
   },
 
   // =========================

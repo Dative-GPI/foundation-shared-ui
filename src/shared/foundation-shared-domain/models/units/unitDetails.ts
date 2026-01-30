@@ -5,6 +5,7 @@ export interface UnitDefinition {
   family: UnitFamily;
   toPivot: number;
   usesSIPrefixes: boolean;
+  supportsExponents?: boolean;
   specialConversions?: Array<{
     toUnit: string;
     threshold: number;

@@ -1,4 +1,4 @@
-import { UnitFamily, TemperatureUnit, EnergyUnit, PowerUnit, VolumeUnit, GasVolumeUnit, WaterFlowUnit, GasFlowUnit, PressureUnit, SpeedUnit, DistanceUnit, MassUnit, MassFlowUnit, FrequencyUnit, VoltageUnit, CurrentUnit, ResistanceUnit, PercentageUnit, CapacityUnit, SnowProductionUnit, EfficiencyUnit } from "@dative-gpi/foundation-shared-domain/enums";
+import { UnitFamily, TemperatureUnit, EnergyUnit, PowerUnit, VolumeUnit, GasVolumeUnit, WaterFlowUnit, GasFlowUnit, PressureUnit, SpeedUnit, DistanceUnit, MassUnit, MassFlowUnit, FrequencyUnit, VoltageUnit, CurrentUnit, ResistanceUnit, PercentageUnit, CapacityUnit, SnowProductionUnit, EfficiencyUnit, AreaUnit } from "@dative-gpi/foundation-shared-domain/enums";
 import type { UnitFamilyDefinition } from "./unitDetails";
 
 export const unitFamilies: Record<UnitFamily, UnitFamilyDefinition> = {
@@ -127,5 +127,10 @@ export const unitFamilies: Record<UnitFamily, UnitFamilyDefinition> = {
   [UnitFamily.Efficiency]: { 
     name: UnitFamily.Efficiency, 
     pivotUnit: EfficiencyUnit.KilowattHourPerCubicMeter
+  },
+
+  [UnitFamily.Area]: { 
+    name: UnitFamily.Area, 
+    pivotUnit: AreaUnit.SquareMeter,
   },
 };

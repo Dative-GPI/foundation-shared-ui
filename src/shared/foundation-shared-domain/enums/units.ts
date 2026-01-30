@@ -30,7 +30,8 @@ export enum UnitFamily {
     Percentage = "Percentage",
     Capacity = "Capacity",
     SnowProduction = "Snow Production",
-    Efficiency = "Efficiency"
+    Efficiency = "Efficiency",
+    Area = "Area",
 }
 
 export enum EnergyUnit {
@@ -50,6 +51,10 @@ export enum VolumeUnit {
 
 export enum GasVolumeUnit {
     NormalCubicMeter = "Nm3",
+}
+
+export enum AreaUnit {
+    SquareMeter = "m2",
 }
 
 export enum WaterFlowUnit {
