@@ -1,1 +1,1 @@
-export * from "./periodAggregateValueFilter";
+export * from "./aggregateValueFilter";
