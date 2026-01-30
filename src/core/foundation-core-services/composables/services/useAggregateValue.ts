@@ -6,14 +6,14 @@ import { getManyDatas } from "@dative-gpi/foundation-core-services/composables";
 
 import { RootMode } from "@dative-gpi/foundation-shared-domain/enums";
 
-import type { DataFiltersDTO, DataLeafDTO, PeriodAggregateValueFilter } from "@dative-gpi/foundation-core-domain/models";
+import type { DataFiltersDTO, DataLeafDTO, AggregateValueFilter } from "@dative-gpi/foundation-core-domain/models";
 
-export const usePeriodAggregateValue = () => {
+export const useAggregateValue = () => {
   const fetching = ref(false);
   const error = ref<string | null>(null);
-  const periodValue = ref<number | null>(null);
+  const value = ref<number | null>(null);
   
-  const fetch = async (filter: PeriodAggregateValueFilter) => {
+  const fetch = async (filter: AggregateValueFilter) => {
     fetching.value = true;
 
     const leaf = {
@@ -47,12 +47,12 @@ export const usePeriodAggregateValue = () => {
     };
     
     error.value = null;
-    periodValue.value = null;
+    value.value = null;
 
     try {
       const periodFilters: DataFiltersDTO = {
-        startDate: filter.periodStart,
-        endDate: filter.periodEnd,
+        startDate: filter.start,
+        endDate: filter.end,
         timeOffset: filter.timeOffset,
         dateVariables: [],
         mode: RootMode.Leaf,
@@ -61,9 +61,9 @@ export const usePeriodAggregateValue = () => {
 
       const dataSerie = await getManyDatas(periodFilters);
 
-      const value = dataSerie?.[0]?.datas?.[0]?.values?.[0];
+      const dataSerieValue = dataSerie?.[0]?.datas?.[0]?.values?.[0];
 
-      periodValue.value = value == null ? null : Number(value);
+      value.value = dataSerieValue == null ? null : Number(dataSerieValue);
 
     } catch (exception: any) {
       error.value = exception.response?.data ?? exception.message;
@@ -75,7 +75,7 @@ export const usePeriodAggregateValue = () => {
   return {
     fetching,
     error,
-    periodValue,
+    value,
     fetch,
   };
 };
