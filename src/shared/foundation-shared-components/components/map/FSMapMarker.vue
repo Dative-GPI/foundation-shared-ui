@@ -47,26 +47,30 @@ export default {
     to: {
       type: Object as PropType<RouteLocation | null>,
       required: false
+    },
+    html: {
+      type: String,
+      required: false
     }
   },
   emits: ['click', 'auxclick'],
   setup(props, { emit }) {
     const map = inject<Ref<Map | null>>(MAP);
     const markerClusterGroup = inject<Ref<MarkerClusterGroup | null>>(MARKERCLUSTERGROUP, ref(null));
-      
+
     const { getColors } = useColors();
     const { handleRoutingEvent } = useRouting();
 
-    if(!map) {
+    if (!map) {
       throw new Error('FSMapTileLayer must be used inside a FSMap component');
     }
 
-    if(!map.value) {
+    if (!map.value) {
       throw new Error('FSMapTileLayer must be used inside a FSMap component with a map');
     }
-      
+
     const getMarkerIcon = () => {
-      if(props.variant === 'gps') {
+      if (props.variant === 'gps') {
         const size = 16;
         return divIcon({
           html: gpsMarkerHtml(),
@@ -76,7 +80,7 @@ export default {
         });
       }
 
-      if(props.variant === 'location') {
+      if (props.variant === 'location') {
         const size = 36;
         return divIcon({
           html: locationMarkerHtml(props.icon ?? "mdi-map-marker", getColors(props.color).base, props.label),
@@ -88,7 +92,7 @@ export default {
 
       const size = 16;
       return divIcon({
-        html: pinMarkerHtml(getColors(props.color).base, props.label),
+        html: props.html ?? pinMarkerHtml(getColors(props.color).base, props.label),
         iconSize: [size, size],
         className: props.selected ? 'fs-map-marker fs-map-pin fs-map-pin-selected' : 'fs-map-marker fs-map-pin',
         iconAnchor: [size / 2, size / 2],
@@ -102,11 +106,11 @@ export default {
     });
 
     const onClick = (event: MouseEvent) => {
-      if(props.to) {
+      if (props.to) {
         handleRoutingEvent(event, props.to, true);
         return;
       }
-      
+
       emit('click', {
         ...event,
         latlng: props.latlng
@@ -114,7 +118,7 @@ export default {
     }
 
     const onAuxClick = (event: MouseEvent) => {
-      if(props.to) {
+      if (props.to) {
         handleRoutingEvent(event, props.to);
         return;
       }
@@ -126,11 +130,11 @@ export default {
     }
 
     watch(map, () => {
-      if(!map.value) {
+      if (!map.value) {
         return;
       }
 
-      if(markerClusterGroup && markerClusterGroup.value) {
+      if (markerClusterGroup && markerClusterGroup.value) {
         actualMarker.value.addTo(markerClusterGroup.value);
       } else {
         actualMarker.value.addTo(map.value);
@@ -138,7 +142,7 @@ export default {
     }, { immediate: true });
 
     watch([() => props.variant, () => props.color, () => props.selected], () => {
-      if(!actualMarker.value || !map.value) {
+      if (!actualMarker.value || !map.value) {
         return;
       }
 
@@ -147,7 +151,7 @@ export default {
     });
 
     watch([() => props.latlng?.lat, () => props.latlng?.lng], () => {
-      if(!actualMarker.value || !map.value || !props.latlng) {
+      if (!actualMarker.value || !map.value || !props.latlng) {
         return;
       }
 
@@ -155,7 +159,7 @@ export default {
     });
 
     watch(markerElement, (newMarkerElement) => {
-      if(!newMarkerElement) {
+      if (!newMarkerElement) {
         return;
       }
 
@@ -164,8 +168,8 @@ export default {
     }, { immediate: true });
 
     onUnmounted(() => {
-      if(actualMarker.value && map.value) {
-        if(markerClusterGroup && markerClusterGroup.value) {
+      if (actualMarker.value && map.value) {
+        if (markerClusterGroup && markerClusterGroup.value) {
           markerClusterGroup.value.removeLayer(actualMarker.value as Marker);
         } else {
           map.value.removeLayer(actualMarker.value as Marker);
