@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import MapCustomPin from './MapCustomPin.vue';
 
 const meta = {
-  title: 'Foundation/Shared/ToolTip/UseDynamicVueApp',
+  title: 'Foundation/Shared/ToolTip/UseDynamicVNode',
   component: MapCustomPin,
   tags: ['autodocs'],
   argTypes: {
@@ -13,7 +13,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
- export const UseDynamicVueApp: Story = {
+ export const UseDynamicVNode: Story = {
   render: () => ({
     components: { MapCustomPin },
     setup() {

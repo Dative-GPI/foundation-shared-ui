@@ -22,14 +22,14 @@
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, onMounted, ref } from 'vue';
+
+import { useDynamicVNode } from '@dative-gpi/foundation-shared-components/composables';
+
+import CustomPin from './CustomPin.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSMap from '@dative-gpi/foundation-shared-components/components/map/FSMap.vue';
 import FSMapMarker from '@dative-gpi/foundation-shared-components/components/map/FSMapMarker.vue';
-import { useDynamicVueApp } from '@dative-gpi/foundation-shared-components/composables';
-import { computed, defineComponent, onMounted, ref } from 'vue';
-import CustomPin from './CustomPin.vue';
-import { registerPlugins } from "@/plugins";
-
 
 export default defineComponent({
     name: "MapCustomPin",
@@ -41,7 +41,7 @@ export default defineComponent({
     },
     inheritAttrs: false,
     setup() {
-        const { mount, unmount, getHtml: getMarkerHtml } = useDynamicVueApp(CustomPin, { registerPlugins });
+        const { mount, unmount, getHtml: getMarkerHtml } = useDynamicVNode(CustomPin);
 
         const lat = ref(48.8566);
         const lng = ref(2.3522);
@@ -76,7 +76,11 @@ export default defineComponent({
             });
         });
 
-        return { location, onNewClick, getMarkerHtml };
+        return {
+            location,
+            onNewClick,
+            getMarkerHtml
+        };
     },
 
 });

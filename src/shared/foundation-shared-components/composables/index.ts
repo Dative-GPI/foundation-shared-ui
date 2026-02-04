@@ -5,7 +5,7 @@ export * from "./useBreakpoints";
 export * from "./useColors";
 export * from "./useCountUp";
 export * from "./useDebounce";
-export * from "./useDynamicVueApp";
+export * from "./useDynamicVNode";
 export * from "./useElementVisibility";
 export * from "./useMapLayers";
 export * from "./useRules";

@@ -8,9 +8,9 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
-import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: "CustomPin",
