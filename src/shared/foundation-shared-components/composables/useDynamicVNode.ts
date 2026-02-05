@@ -22,9 +22,10 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
       return;
     }
 
-    unmount();
-
-    container = mountPoint;
+    if (!container) {
+      container = document.createElement("div");
+      mountPoint.appendChild(container);
+    }
 
     vnode = h(component, props);
     vnode.appContext = appContext;
