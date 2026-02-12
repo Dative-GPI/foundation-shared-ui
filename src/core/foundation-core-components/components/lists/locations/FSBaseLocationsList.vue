@@ -34,7 +34,7 @@
         :bottomColor="item.colors"
         :address="item.address.placeLabel"
         :selectable="$props.selectable"
-        :singleSelect="singleSelect"
+        :singleSelect="$props.singleSelect"
         :modelValue="isSelected(item.id)"
         :to="$props.itemTo && $props.itemTo(item)"
         @update:modelValue="toggleSelect(item)"

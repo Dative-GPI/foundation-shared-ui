@@ -34,7 +34,7 @@ export const Default: Story = {
     template: `
       <FSTileList
         v-bind="args"
-        v-model="selectedIds" 
+        v-model="selectedIds"
         :tileProps="getTileProps"
       />
       `,

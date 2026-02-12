@@ -2,12 +2,21 @@
   <FSCol
     gap="12px"
   >
-    <FSSearchField
-      v-if="$props.searchable"
-      :hideHeader="true"
-      :modelValue="actualSearch"
-      @update:modelValue="onSearch"
-    />
+    <FSRow
+      v-if="$props.searchable || $slots.action"
+      :wrap="false"
+      align="center-left"
+    >
+      <FSSearchField
+        v-if="$props.searchable"
+        :hideHeader="true"
+        :modelValue="actualSearch"
+        @update:modelValue="onSearch"
+      />
+      <slot
+        name="action"
+      />
+    </FSRow>
     <FSFadeOut
       v-if="$props.direction == ListDirections.Column"
       :maxHeight="$props.maxHeight"
@@ -109,6 +118,7 @@ import FSFadeOut from "../FSFadeOut.vue";
 import FSSlideGroup from "../FSSlideGroup.vue"
 import FSSearchField from "../fields/FSSearchField.vue";
 import FSSimpleTileUI from "../tiles/FSSimpleTileUI.vue";
+import FSRow from "../FSRow.vue";
 
 export default defineComponent({
   name: "FSTileList",
@@ -221,6 +231,12 @@ export default defineComponent({
 
     watch(() => props.search, (value) => {
       actualSearch.value = value;
+    });
+
+    watch(() => props.singleSelect, () => {
+      if(props.singleSelect && props.modelValue.length > 1) { 
+        emit("update:modelValue", []); 
+      } 
     });
 
     return {
