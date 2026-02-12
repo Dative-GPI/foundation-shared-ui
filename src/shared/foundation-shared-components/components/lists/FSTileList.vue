@@ -124,6 +124,7 @@ export default defineComponent({
   name: "FSTileList",
   components: {
     FSCol,
+    FSRow,
     FSFadeOut,
     FSLoader,
     FSSlideGroup,
