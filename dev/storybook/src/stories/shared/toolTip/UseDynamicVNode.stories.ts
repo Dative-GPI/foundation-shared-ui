@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import MapCustomPin from './MapCustomPin.vue';
+import MapMultipleCustomPins from './MapMultipleCustomPins.vue';
+
 
 const meta = {
   title: 'Foundation/Shared/ToolTip/UseDynamicVNode',
@@ -20,6 +22,17 @@ type Story = StoryObj<typeof meta>;
     },
     template: `
     <MapCustomPin />
+    `
+  })
+};
+
+export const MultiplePins: Story = {
+  render: () => ({
+    components: { MapMultipleCustomPins },
+    setup() {
+    },
+    template: `
+    <MapMultipleCustomPins />
     `
   })
 };

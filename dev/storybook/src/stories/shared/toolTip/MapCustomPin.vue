@@ -64,7 +64,6 @@ export default defineComponent({
         }));
 
         const onNewClick = (event: any) => {
-            console.log(event);
             lat.value = event.lat;
             lng.value = event.lng;
         };
