@@ -121,11 +121,6 @@ export default defineComponent({
       type: [String, Number],
       required: false,
       default: "4px"
-    },
-    opacity: {
-      type: Number,
-      required: false,
-      default: 0.9
     }
   },
   emits: ["update:modelValue"],
@@ -139,14 +134,12 @@ export default defineComponent({
         case "standard": return {
           "--fs-snackbar-border-radius": sizeToVar(props.borderRadius),
           "--fs-snackbar-background-color": colors.value.light,
-          "--fs-snackbar-color": colors.value.dark,
-          "--fs-snackbar-opacity": props.opacity
+          "--fs-snackbar-color": colors.value.dark
         };
         default: return {
           "--fs-snackbar-border-radius": sizeToVar(props.borderRadius),
           "--fs-snackbar-background-color": colors.value.base,
-          "--fs-snackbar-color": colors.value.light,
-          "--fs-snackbar-opacity": props.opacity
+          "--fs-snackbar-color": colors.value.light
         };
       }
     });

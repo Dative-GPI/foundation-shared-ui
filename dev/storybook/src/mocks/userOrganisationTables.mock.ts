@@ -144,6 +144,14 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: true
+        }, {
+            columnId: "6",
+            text: "Subgroupings",
+            value: "subgroupings",
+            index: 4,
+            hidden: false,
+            sortable: false,
+            filterable: true
         }],
         sortByKey: null,
         sortByOrder: null

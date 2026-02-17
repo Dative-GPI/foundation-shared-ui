@@ -23,8 +23,7 @@ export const Default: Story = {
   args: {
     color: 'primary',
     variant: 'standard',
-    label: 'I am a chip',
-    to: { name: 'About' }
+    label: 'I am a chip'
   },
   render: (args) => ({
     components: { FSChip, FSText, FSSpan, FSIcon },
