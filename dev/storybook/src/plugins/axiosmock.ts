@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 import { ServiceFactory } from '@dative-gpi/bones-ui';
 
-import { AUTHTOKENS, CUSTOMPROPERTIES, CONNECTIVITYSCENARIOS, PLAYLISTS, SCENARIOORGANISATIONS, SCENARIOORGANISATIONTYPES, CUSTOMPROPERTYVALUES, DASHBOARDORGANISATIONS, DASHBOARDORGANISATIONTYPES, DASHBOARDSHALLOWS, DEVICEEXPLORERELEMENTS, DEVICEORGANISATIONS, FOLDERS, GROUPINGS, GROUPS, IMAGES, LANGUAGES, USERORGANISATIONTABLES, TIMEZONES, TRANSLATIONS, ORGANISATIONS, ROLEORGANISATIONS, ROLEORGANISATIONTYPES, LOCATIONS, MANUFACTURERS, USERORGANISATIONS, ORGANISATIONTYPES, MODELS, DATACATEGORIES, DATADEFINITIONS, ALERTS, COMMENTS, CHARTORGANISATIONS, CHARTORGANISATIONTYPES, SERVICEACCOUNTORGANISATIONS, CURRENT_USERORGANISATION, LEGAL_INFORMATIONS } from '@/mocks';
+import { AUTHTOKENS, CUSTOMPROPERTIES, CONNECTIVITYSCENARIOS, PLAYLISTS, SCENARIOORGANISATIONS, SCENARIOORGANISATIONTYPES, CUSTOMPROPERTYVALUES, DASHBOARDORGANISATIONS, DASHBOARDORGANISATIONTYPES, DASHBOARDSHALLOWS, DEVICEEXPLORERELEMENTS, DEVICEORGANISATIONS, FOLDERS, GROUPINGS, GROUPS, IMAGES, LANGUAGES, USERORGANISATIONTABLES, TIMEZONES, TRANSLATIONS, ORGANISATIONS, ROLEORGANISATIONS, ROLEORGANISATIONTYPES, LOCATIONS, MANUFACTURERS, USERORGANISATIONS, ORGANISATIONTYPES, MODELS, DATACATEGORIES, DATADEFINITIONS, ALERTS, COMMENTS, CHARTORGANISATIONS, CHARTORGANISATIONTYPES, SERVICEACCOUNTORGANISATIONS, CURRENT_USERORGANISATION, LEGAL_INFORMATIONS, SUBGROUPINGS } from '@/mocks';
 
 const mock = new MockAdapter((ServiceFactory.http as any), { delayResponse: 200 });
 
@@ -52,6 +52,7 @@ export function mockApp() {
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/groupings", GROUPINGS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/groupings/1", GROUPINGS[0]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/groupings/2", GROUPINGS[1]);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/subgroupings", SUBGROUPINGS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/locations/1", LOCATIONS[0]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/locations/2", LOCATIONS[1]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/locations/3", LOCATIONS[2]);
@@ -85,6 +86,7 @@ export function mockApp() {
     
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/devicesExplorer1", USERORGANISATIONTABLES[18]);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/foldersExplorer1", USERORGANISATIONTABLES[19]);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/user-organisation-tables/subgroupings1", USERORGANISATIONTABLES[20]);
 
 
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/custom-properties", CUSTOMPROPERTIES);

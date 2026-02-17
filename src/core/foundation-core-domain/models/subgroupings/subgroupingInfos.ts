@@ -7,6 +7,7 @@ export class SubgroupingInfos {
   label: string;
   code: string;
   icon: string;
+  deviceOrganisationsCount?: number;
 
   constructor(params: SubgroupingInfosDTO) {
     this.id = params.id;
@@ -17,6 +18,7 @@ export class SubgroupingInfos {
     this.label = params.label;
     this.code = params.code;
     this.icon = params.icon;
+    this.deviceOrganisationsCount = params.deviceOrganisationsCount;
   }
 }
 
@@ -29,6 +31,7 @@ export interface SubgroupingInfosDTO {
   label: string;
   code: string;
   icon: string;
+  deviceOrganisationsCount?: number;
 }
 
 export interface SubgroupingFilters {
