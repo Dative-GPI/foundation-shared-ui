@@ -35,6 +35,7 @@ export interface SubgroupingInfosDTO {
 }
 
 export interface SubgroupingFilters {
+  subgroupingsIds?: string[] | null;
   groupingIds?: string[] | null;
   search?: string | null;
 }
