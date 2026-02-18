@@ -2,11 +2,11 @@
     border: var(--fs-card-border-size) var(--fs-card-border-style);
     border-radius: var(--fs-card-border-radius);
     padding: var(--fs-card-padding);
-    height: var(--fs-card-height);
-    width: var(--fs-card-width);
-    max-width: var(--fs-card-max-width);
+    height: 100%;
+    width: 100%;
     position: relative;
     display: flex;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     
     border-color: var(--fs-card-border-color);
     color: var(--fs-card-color);
@@ -24,6 +24,50 @@
         background: var(--fs-card-background-color);
     }
 
+    &-load {
+        content: "";
+
+        & > *:not(.fs-card-load__spinner) {
+            opacity: 0;
+        }
+    }
+
+    &-clickable {
+        cursor: pointer;
+
+        &.fs-card-disabled {
+            cursor: default;
+        }
+
+        &:not(.fs-card-disabled):active:not(:has( .fs-stopclick:hover)) {
+            background-color: var(--fs-card-active-background-color) !important;
+            border-color: var(--fs-card-active-border-color) !important;
+            color: var(--fs-card-active-color) !important;
+
+            & .fs-card-clickable {
+                transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+                background-color: var(--fs-card-active-background-color);
+            }
+        }
+
+        @include clickscreen {
+            &:not(.fs-card-disabled):hover:not(:has( .fs-stopclick:hover)) {
+                background-color: var(--fs-card-hover-background-color) !important;
+                border-color: var(--fs-card-hover-border-color) !important;
+                color: var(--fs-card-hover-color) !important;
+
+                & .fs-card-clickable {
+                    transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+                    background-color: var(--fs-card-hover-background-color);
+                }
+            }
+            // Désactive le hover si un parent a .fs-card-load
+            .fs-card-load & {
+                pointer-events: none;
+            }
+        }
+    }
+
     .fs-card-top-right {
         position: absolute;
         line-height: normal;
@@ -31,3 +75,30 @@
         top: var(--fs-card-top-right-padding);
     }
 }
+
+.fs-card-wrapper {
+    display: block;
+    position: relative;
+    padding: 0 !important;
+    height: var(--fs-card-height);
+    width: var(--fs-card-width);
+    max-width: var(--fs-card-max-width);
+    background: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.fs-card-load__spinner {
+    cursor: default;
+    position: absolute !important;
+    height: 100% !important;
+    width: 100% !important;
+    left: 0;
+    top: 0;
+    
+    & > svg {
+        height: 24px !important;
+    }
+}
+
