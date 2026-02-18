@@ -1,0 +1,1 @@
+import{e as i}from"./vue.esm-bundler-D5n7z5qz.js";const s=i([]);function c(){return{$tr:(e,l,...o)=>{var r;let t=((r=s.value.find(n=>n.code===e))==null?void 0:r.value)??l;if(t&&o.length)for(let n of o)t=t.replace(`{${o.indexOf(n)}}`,n.toString());return t},set:e=>{s.value=e}}}export{c as u};
