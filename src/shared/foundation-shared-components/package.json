@@ -1,6 +1,6 @@
 {
   "name": "@dative-gpi/foundation-shared-components",
-  "repository" : {
+  "repository": {
     "url": "https://github.com/Dative-GPI/foundation-shared-ui.git"
   },
   "sideEffects": false,
@@ -29,6 +29,7 @@
     "@lexical/utils": "0.12.5",
     "@mdi/font": "^7.4.47",
     "blurhash": "2.0.5",
+    "echarts": "6.0.0",
     "color": "^4.2.3",
     "leaflet": "1.9.4",
     "leaflet.markercluster": "1.5.3"
