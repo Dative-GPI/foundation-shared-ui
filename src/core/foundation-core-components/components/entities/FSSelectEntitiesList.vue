@@ -164,8 +164,6 @@ export default defineComponent({
           return T.LOCATIONS_SELECT;
         case EntityType.Model:
           return T.MODELS_SELECT;
-        case EntityType.Subgrouping:
-          return T.SUBGROUPINGS_SELECT;
         default:
           return null;
       };
