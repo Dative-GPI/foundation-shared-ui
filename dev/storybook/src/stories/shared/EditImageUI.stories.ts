@@ -89,7 +89,7 @@ export const VariationFull: Story = {
         v-model="args.modelValue"
         @update:modelValue="args['onUpdate:modelValue']"
         @update:source="args['onUpdate:source']"
-      >`
+      />`
   })
 }
 
@@ -124,6 +124,6 @@ export const VariationFullSource: Story = {
         v-model="args.modelValue"
         @update:modelValue="args['onUpdate:modelValue']"
         @update:source="args['onUpdate:source']"
-      >`
+      />`
   })
 }
