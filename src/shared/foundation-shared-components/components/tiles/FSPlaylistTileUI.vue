@@ -42,11 +42,15 @@
           />
           <FSText
             font="text-overline"
+            v-if="automaticTransition"
           >
-            {{ automaticTransition
-              ? $tr('ui.playlist.transition-delay.dynamic', 'Transition : {0}', getTimeBestString($props.delay ?? 0))
-              : $tr('ui.playlist.automatic-transition', 'Automatic transition')
-            }}
+            {{$tr('ui.playlist.transition-delay.dynamic', 'Transition : {0}', getTimeBestString($props.delay ?? 0))}}
+          </FSText>
+          <FSText
+            font="text-overline"
+            v-else
+          >
+            {{ $tr('ui.playlist.automatic-transition', 'Automatic transition') }}
           </FSText>
         </FSRow>
         <FSRow
