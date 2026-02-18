@@ -29,7 +29,7 @@ export const Variations: Story = {
     },
     template: `
     <div style="display: flex; flex-direction: column; gap: 10px; align: center;">
-      <FSCarousel  direction="vertical" :interval="2000" :cycle="true" :showArrows="'hover'" >
+      <FSCarousel  direction="vertical" :continuous="false" :interval="1000" :cycle="false" :showArrows="'hover'" >
           <FSCarouselItem>
               <FSButton> Primary color </FSButton> 
           </FSCarouselItem>
