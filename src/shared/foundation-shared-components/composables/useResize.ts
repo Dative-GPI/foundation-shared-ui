@@ -1,35 +1,31 @@
-import { onMounted, onBeforeUnmount, type Ref } from 'vue';
-import type * as echarts from 'echarts';
+import { onMounted, onBeforeUnmount } from 'vue';
 
-export function useResize(chartInstance: Ref<echarts.ECharts | null>) {
+export function useResize(
+  getElement: () => HTMLElement | null | undefined,
+  onResize: () => void
+) {
   let resizeObserver: ResizeObserver | null = null;
-
-  const resizeChart = () => {
-    if (chartInstance.value) {
-      chartInstance.value.resize();
-    }
-  };
 
   onMounted(() => {
     resizeObserver = new ResizeObserver(() => {
-      resizeChart();
+      onResize();
     });
 
-    const chartElement = chartInstance.value?.getDom();
-    if (chartElement) {
-      resizeObserver.observe(chartElement);
+    const element = getElement();
+    if (element) {
+      resizeObserver.observe(element);
     }
 
-    window.addEventListener('resize', resizeChart);
+    window.addEventListener('resize', onResize);
   });
 
   onBeforeUnmount(() => {
-    window.removeEventListener('resize', resizeChart);
+    window.removeEventListener('resize', onResize);
     resizeObserver?.disconnect();
     resizeObserver = null;
   });
 
   return {
-    resizeChart
+    resize: onResize
   };
 }
