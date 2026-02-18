@@ -9,7 +9,6 @@
 
     @include clickscreen {
         &:not(.fs-button-disabled, :has(.fs-button-load)):hover {
-            filter: brightness(0.8) !important;
             cursor: pointer !important;
         }
     }
