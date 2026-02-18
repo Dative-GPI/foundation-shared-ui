@@ -34,12 +34,16 @@ import { defineComponent, onMounted, watch } from "vue";
 
 import { usePlaylist } from "@dative-gpi/foundation-core-services/composables";
 
+import FSLoadTile from "@dative-gpi/foundation-shared-components/components/tiles/FSLoadTile.vue";
+
 import PlaylistTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSPlaylistTileUI.vue";
+
 
 export default defineComponent({
   name: "FSPlaylistTile",
   components: {
-    PlaylistTileUI
+    PlaylistTileUI,
+    FSLoadTile
   },
   props: {
     playlistId: {
@@ -61,13 +65,9 @@ export default defineComponent({
   setup(props) {
     const { get, getting, entity } = usePlaylist();
 
-    onMounted(() => {
-      get(props.playlistId);
-    });
-
     watch(() => props.playlistId, () => {
       get(props.playlistId);
-    });
+    }, { immediate: true });
 
     return {
       getting,

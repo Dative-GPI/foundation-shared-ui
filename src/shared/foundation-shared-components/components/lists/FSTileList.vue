@@ -238,7 +238,7 @@ export default defineComponent({
       if(props.singleSelect && props.modelValue.length > 1) { 
         emit("update:modelValue", []); 
       } 
-    });
+    }, { immediate: true });
 
     return {
       actualSearch,

@@ -1,16 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
-import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FSTile.vue';
 import FSPlaylistTileUI from '@dative-gpi/foundation-shared-components/components/tiles/FSPlaylistTileUI.vue';
+import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FSTile.vue';
+import FSPlaylistTile from '@dative-gpi/foundation-core-components/components/tiles/FSPlaylistTile.vue';
 
-const meta: Meta<typeof FSPlaylistTileUI> = {
-  title: 'Foundation/Shared/Tiles/Playlist',
-  component: FSPlaylistTileUI,
+const meta: Meta<typeof FSPlaylistTile> = {
+  title: 'Foundation/Core/Tiles/Playlist',
+  component: FSPlaylistTile,
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSTile], FSPlaylistTileUI),
-    ...addComponentEmits(FSPlaylistTileUI),
+    ...addSubcomponentsArgTypes([FSPlaylistTileUI, FSTile], FSPlaylistTile),
+    ...addComponentEmits(FSPlaylistTile),
   },
 };
 
@@ -19,12 +20,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => ({
-    components: { FSPlaylistTileUI },
+    components: { FSPlaylistTile },
     setup() {
       return { args };
     },
     template: `
-      <FSPlaylistTileUI
+      <FSPlaylistTile
         v-model="args.modelValue"
         v-bind="args"
       />
@@ -32,21 +33,18 @@ export const Default: Story = {
   }),
   args: {
     modelValue: false,
-    label: 'Playlist test',
-    dashboardsCount: 8,
-    delay: 5000,
-    looped: false,
+    playlistId: 'playlist1',
   },
 };
 
 export const Selectable: Story = {
   render: (args) => ({
-    components: { FSPlaylistTileUI },
+    components: { FSPlaylistTile },
     setup() {
       return { args };
     },
     template: `
-      <FSPlaylistTileUI
+      <FSPlaylistTile
         v-model="args.modelValue"
         v-bind="args"
       />
@@ -54,22 +52,19 @@ export const Selectable: Story = {
   }),
   args: {
     modelValue: false,
-    label: 'Playlist selectable',
-    dashboardsCount: 5,
-    delay: 3000,
-    looped: true,
+    playlistId: 'playlist2',
     selectable: true,
   },
 };
 
 export const SingleSelect: Story = {
   render: (args) => ({
-    components: { FSPlaylistTileUI },
+    components: { FSPlaylistTile },
     setup() {
       return { args };
     },
     template: `
-      <FSPlaylistTileUI
+      <FSPlaylistTile
         v-model="args.modelValue"
         v-bind="args"
       />
@@ -77,12 +72,8 @@ export const SingleSelect: Story = {
   }),
   args: {
     modelValue: true,
-    label: 'Playlist single select',
-    dashboardsCount: 3,
-    delay: 10000,
-    looped: true,
+    playlistId: 'playlist1',
     selectable: true,
     singleSelect: true,
   },
 };
-
