@@ -5,7 +5,6 @@
     @update:modelValue="$emit('update:modelValue', $event)"
     :multi-line="$props.multiLine"
     :location="$props.location"
-    :vertical="$props.vertical"
     :timeout="$props.timeout"
     :style="style"
   >
@@ -49,7 +48,7 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type ColorBase, ColorEnum, type SnackbarVariant, SnackbarVariants } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
@@ -97,11 +96,6 @@ export default defineComponent({
       required: false,
       default: "bottom"
     },
-    vertical: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     multiLine: {
       type: Boolean,
       required: false,
@@ -113,9 +107,9 @@ export default defineComponent({
       default: false
     },
     variant: {
-      type: String as PropType<"standard" | "full">,
+      type: String as PropType<SnackbarVariant>,
       required: false,
-      default: "full"
+      default: SnackbarVariants.Full
     },
     borderRadius: {
       type: [String, Number],
