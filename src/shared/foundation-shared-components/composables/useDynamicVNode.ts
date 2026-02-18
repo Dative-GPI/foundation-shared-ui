@@ -1,11 +1,10 @@
-import { uuidv4 } from "@dative-gpi/bones-ui";
-import { h, render, nextTick, getCurrentInstance, onBeforeUnmount, type Component, type VNode } from "vue";
+import { h, render, getCurrentInstance, onBeforeUnmount, type Component, type VNode } from "vue";
 
 export function useDynamicVNode<TProps extends Record<string, any>>(component: Component<TProps>) {
-  const id = uuidv4();
 
   let vnode: VNode | null = null;
   let container: HTMLElement | null = null;
+  let mountPoint: HTMLElement | null = null;
 
   const instance = getCurrentInstance();
   if (!instance) {
@@ -15,11 +14,8 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
   const appContext = instance.appContext;
 
   const mount = async (props: TProps) => {
-    await nextTick();
-
-    const mountPoint = document.getElementById(id);
     if (!mountPoint) {
-      throw new Error(`Mount point with id "${id}" not found`);
+      throw new Error(`You must call getElement() first to create the mount point`);
     }
 
     if (!container) {
@@ -42,11 +38,10 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
     container = null;
   };
 
-  const getHtml = (style?: Partial<CSSStyleDeclaration>) => {
-    const el = document.createElement("div");
-    el.id = id;
-    Object.assign(el.style, style);
-    return el.outerHTML;
+  const getElement = (style?: Partial<CSSStyleDeclaration>): HTMLElement => {
+    mountPoint = document.createElement("div");
+    Object.assign(mountPoint.style, style ?? {});
+    return mountPoint;
   };
 
   onBeforeUnmount(unmount);
@@ -54,6 +49,6 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
   return {
     mount,
     unmount,
-    getHtml
+    getElement
   };
 }

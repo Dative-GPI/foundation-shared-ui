@@ -16,7 +16,7 @@
                     :color="pin.color || 'primary'"
                     :label="pin.label"
                     :latlng="{ lat: pin.lat, lng: pin.lng }"
-                    :html="pinInstances[index].getHtml()"
+                    :html="pinInstances[index].getElement()"
                     @click="onPinClick(index)"
                     @ready="onPinReady(index)"
                 />
