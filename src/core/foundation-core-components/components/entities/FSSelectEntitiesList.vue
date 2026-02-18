@@ -156,6 +156,16 @@ export default defineComponent({
       switch(props.entityType) {
         case EntityType.Device:
           return T.DEVICES_SELECT;
+        case EntityType.Dashboard:
+          return T.DASHBOARDS_SELECT;
+        case EntityType.Group:
+          return T.GROUPS_SELECT;
+        case EntityType.Location:
+          return T.LOCATIONS_SELECT;
+        case EntityType.Model:
+          return T.MODELS_SELECT;
+        case EntityType.Subgrouping:
+          return T.SUBGROUPINGS_SELECT;
         default:
           return null;
       };
