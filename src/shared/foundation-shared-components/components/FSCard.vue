@@ -224,7 +224,7 @@ export default defineComponent({
           ...baseStyle,
           "--fs-card-background-color": lights.light,
           "--fs-card-border-color"    : lights.dark,
-          "--fs-card-color"           : lights.lightContrast!
+          "--fs-card-color"           : props.clickable ? lights.dark : lights.lightContrast!
         };
       }
       
