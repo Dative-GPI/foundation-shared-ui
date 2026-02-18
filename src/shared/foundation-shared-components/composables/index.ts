@@ -7,6 +7,7 @@ export * from "./useCountUp";
 export * from "./useDebounce";
 export * from "./useElementVisibility";
 export * from "./useMapLayers";
+export * from "./useResize";
 export * from "./useRules";
 export * from "./useSlots";
 export * from "./useTables";
