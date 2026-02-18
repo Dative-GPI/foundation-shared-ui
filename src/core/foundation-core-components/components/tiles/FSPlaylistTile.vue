@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watch } from "vue";
+import { defineComponent, watch } from "vue";
 
 import { usePlaylist } from "@dative-gpi/foundation-core-services/composables";
 
