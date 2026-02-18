@@ -134,6 +134,10 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false
+    },
+    disableHoverStyle: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props, { emit }) {
@@ -294,6 +298,9 @@ export default defineComponent({
 
       if (actualClickable.value) {
         classNames.push("fs-card-clickable");
+      }
+      if (props.disableHoverStyle) {
+        classNames.push("fs-card-disable-hover-style");
       }
       if (props.disabled) {
         classNames.push("fs-card-disabled");

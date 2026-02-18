@@ -36,7 +36,6 @@ export const Default: Story = {
     template: `
       <FSBaseDevicesExplorer
         v-model:modelValue="args.modelValue"
-        v-bind="args"
       />
     `,
   }),
