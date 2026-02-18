@@ -1,7 +1,7 @@
 import { onMounted, onBeforeUnmount, type Ref } from 'vue';
 import type * as echarts from 'echarts';
 
-export function useChartResize(chartInstance: Ref<echarts.ECharts | null>) {
+export function useResize(chartInstance: Ref<echarts.ECharts | null>) {
   let resizeObserver: ResizeObserver | null = null;
 
   const resizeChart = () => {
