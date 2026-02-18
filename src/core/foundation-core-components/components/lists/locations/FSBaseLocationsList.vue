@@ -31,14 +31,14 @@
     >
       <FSLocationTileUI
         :key="index"
+        v-bind="item"
         :bottomColor="item.colors"
-        :address="item.address.placeLabel"
         :selectable="$props.selectable"
         :singleSelect="$props.singleSelect"
         :modelValue="isSelected(item.id)"
         :to="$props.itemTo && $props.itemTo(item)"
         @update:modelValue="toggleSelect(item)"
-        v-bind="item"
+        :address="item.address.formattedAddress"
       />
     </template>
   </FSDataTable>
