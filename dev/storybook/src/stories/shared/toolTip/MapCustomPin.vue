@@ -41,7 +41,7 @@ export default defineComponent({
     },
     inheritAttrs: false,
     setup() {
-        const { mount, unmount, getHtml: getMarkerHtml } = useDynamicVNode(CustomPin);
+        const { mount, getHtml: getMarkerHtml } = useDynamicVNode<{ lat: number; lng: number }>(CustomPin);
 
         const lat = ref(48.8566);
         const lng = ref(2.3522);
@@ -70,8 +70,8 @@ export default defineComponent({
 
         onMounted(() => {
             mount({
-                lat: lat,
-                lng: lng
+                lat: lat.value,
+                lng: lng.value
             });
         });
 

@@ -88,7 +88,7 @@ export default defineComponent({
 
         const colors = ['primary', 'success', 'error', 'warning', 'info'];
 
-        const pinInstances = Array.from({ length: maxPins }, () => useDynamicVNode(CustomPin));
+        const pinInstances = Array.from({ length: maxPins }, () => useDynamicVNode<{ lat: number; lng: number }>(CustomPin));
 
         const mountPin = async (index: number) => {
             if (index >= activePins.value.length) return;
@@ -128,7 +128,7 @@ export default defineComponent({
             };
 
             activePins.value.push(pin);
-
+            await nextTick();
             await mountPin(activePins.value.length - 1);
         };
 
@@ -143,13 +143,6 @@ export default defineComponent({
                 selectedIndex.value = null;
             }
         };
-
-        watch(activePins, async () => {
-            await nextTick();
-            for (let i = 0; i < activePins.value.length; i++) {
-                await mountPin(i);
-            }
-        }, { deep: true });
 
         return {
             activePins,

@@ -1,7 +1,7 @@
 import { uuidv4 } from "@dative-gpi/bones-ui";
 import { h, render, nextTick, getCurrentInstance, onBeforeUnmount, type Component, type VNode } from "vue";
 
-export function useDynamicVNode<TProps extends Record<string, any>>(component: Component) {
+export function useDynamicVNode<TProps extends Record<string, any>>(component: Component<TProps>) {
   const id = uuidv4();
 
   let vnode: VNode | null = null;
@@ -19,7 +19,7 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
 
     const mountPoint = document.getElementById(id);
     if (!mountPoint) {
-      return;
+      throw new Error(`Mount point with id "${id}" not found`);
     }
 
     if (!container) {
@@ -36,19 +36,17 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
   const unmount = () => {
     if (container) {
       render(null, container);
+      container.remove();
     }
     vnode = null;
     container = null;
   };
 
-  const sanitizeStyle = (style?: string): string =>
-    style
-      ? style.replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-      : "";
-
-  const getHtml = (style?: string) => {
-    const safeStyle = sanitizeStyle(style);
-    return `<div id="${id}"${safeStyle ? ` style="${safeStyle}"` : ""}></div>`;
+  const getHtml = (style?: Partial<CSSStyleDeclaration>) => {
+    const el = document.createElement("div");
+    el.id = id;
+    Object.assign(el.style, style);
+    return el.outerHTML;
   };
 
   onBeforeUnmount(unmount);
