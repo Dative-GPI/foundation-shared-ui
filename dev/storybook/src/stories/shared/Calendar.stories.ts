@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 import FSSimpleCalendarHeader from "@dative-gpi/foundation-shared-components/components/calendar/FSSimpleCalendarHeader.vue";
 import FSSimpleCalendar from "@dative-gpi/foundation-shared-components/components/calendar/FSSimpleCalendar.vue";
-import FSClickable from "@dative-gpi/foundation-shared-components/components/FSClickable.vue";
+import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 
 const meta = {
   title: 'Foundation/Shared/Calendar',
@@ -21,7 +21,7 @@ export const Default: Story = {
   args: {
   },
   render: (args, { argTypes }) => ({
-    components: { FSCol, FSSimpleCalendarHeader, FSSimpleCalendar, FSClickable },
+    components: { FSCol, FSSimpleCalendarHeader, FSSimpleCalendar, FSCard },
     props: Object.keys(argTypes),
     setup() {
       const disabledDates = ref<Date[]>([]);
@@ -48,18 +48,18 @@ export const Default: Story = {
         <FSSimpleCalendarHeader v-model:month="month" v-model:year="year" width="500px" />
         <FSSimpleCalendar v-model:month="month" v-model:year="year">
           <template #day="{ date, isToday, isPast, isFutur, isNextMonth, isPreviousMonth, isCurrentMonth }">
-            <FSClickable
+            <FSCard
               height="100px"
               width="100%"
               :disabled="isPast"
               padding="8px"
-              :variant="!isCurrentMonth ? 'full' : undefined"
-              :color="isDisabled(date) ? 'error' : undefined"
+              :variant="!isCurrentMonth ? 'full' : 'standard'"
+              :color="isDisabled(date) ? 'error' : 'light'"
               @click="toggleDate(date)"
             >
-              <FSClickable v-if="isToday" color="primary" padding="0 4px" variant="full">{{ date.getDate() }}</FSClickable>
+              <FSCard v-if="isToday" color="primary" padding="0 4px" variant="full">{{ date.getDate() }}</FSCard>
               <template v-else>{{ date.getDate() }}</template>
-            </FSClickable>
+            </FSCard>
           </template>
         </FSSimpleCalendar>
 

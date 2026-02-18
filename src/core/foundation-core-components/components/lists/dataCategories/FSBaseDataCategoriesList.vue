@@ -41,17 +41,18 @@
         <template
           #item.tile="{ index, item }"
         >
-          <FSClickable
+          <FSCard
             :key="index"
             padding="12px"
             height="60px"
             width="233px"
-            :color="isSelected(item.id) ? ColorEnum.Primary : ColorEnum.Dark"
+            :variant="isSelected(item.id) ? CardVariants.Standard : CardVariants.Background"
+            :color="ColorEnum.Primary"
             @click="$emit('update:modelValue', [item.id])"
             v-bind="$attrs"
           >
             <template
-              #default
+              #default="{ contentVariant }"
             >
               <FSRow
                 align="center-center"
@@ -66,11 +67,11 @@
                 <FSIcon
                   :color="item.correlated ? ColorEnum.Primary : ColorEnum.Light"
                   :icon="item.correlated ? 'mdi-link' : 'mdi-link-off'"
-                  variant="dark"
+                  :variant="contentVariant"
                 />
               </FSRow>
             </template>
-          </FSClickable>
+          </FSCard>
         </template>
       </FSDataTable>
     </FSFadeOut>
@@ -81,7 +82,7 @@
 import { defineComponent, type PropType, ref, watch } from "vue";
 import _ from "lodash";
 
-import {ColorEnum} from "@dative-gpi/foundation-shared-components/models";
+import {CardVariants, ColorEnum} from "@dative-gpi/foundation-shared-components/models";
 
 import { useDataCategories } from "@dative-gpi/foundation-core-services/composables";
 import type { DataCategoryFilters } from "@dative-gpi/foundation-core-domain/models";
@@ -89,10 +90,10 @@ import type { DataCategoryFilters } from "@dative-gpi/foundation-core-domain/mod
 import FSDataTable from "../FSDataTable.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
+import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSFadeOut from "@dative-gpi/foundation-shared-components/components/FSFadeOut.vue";
-import FSClickable from "@dative-gpi/foundation-shared-components/components/FSClickable.vue";
 import FSSearchField from "@dative-gpi/foundation-shared-components/components/fields/FSSearchField.vue";
 import FSButtonCheckbox from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonCheckbox.vue";
 
@@ -102,7 +103,7 @@ export default defineComponent({
     FSDataTable,
     FSCol,
     FSFadeOut,
-    FSClickable,
+    FSCard,
     FSRow,
     FSSpan,
     FSSearchField,
@@ -146,6 +147,7 @@ export default defineComponent({
     return {
       fetchingDataCategories,
       dataCategories,
+      CardVariants,
       ColorEnum,
       search,
       correlated,

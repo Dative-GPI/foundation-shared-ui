@@ -1,40 +1,46 @@
 <template>
-  <component
-    :is="$attrs.onClick ? FSClickable : FSCard"
+  <FSCard
     borderStyle="dashed"
     padding="24px"
     :height="$props.height"
+    :variant="CardVariants.Standard"
+    :color="ColorEnum.Light"
     :width="$props.width"
     :border="true"
     v-bind="$attrs"
   >
-    <FSRow
-      align="center-center"
+    <template
+      #default
     >
-      <FSIcon
-        v-if="$props.icon"
-        :color="ColorEnum.Light"
-        variant="dark"
-      >
-        {{ $props.icon }}
-      </FSIcon>
-      <FSText
-        v-if="$props.label"
-        :color="ColorEnum.Light"
-        variant="dark"
-      >
-        {{ $props.label }}
-      </FSText>
-    </FSRow>
-  </component>
+      <slot>
+        <FSRow
+          align="center-center"
+        >
+          <FSIcon
+            v-if="$props.icon"
+            :color="ColorEnum.Light"
+            variant="dark"
+          >
+            {{ $props.icon }}
+          </FSIcon>
+          <FSText
+            v-if="$props.label"
+            :color="ColorEnum.Light"
+            variant="dark"
+          >
+            {{ $props.label }}
+          </FSText>
+        </FSRow>
+      </slot>
+    </template>
+  </FSCard>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { ColorEnum } from "../models";
+import { CardVariants, ColorEnum } from "../models";
 
-import FSClickable from "./FSClickable.vue";
 import FSCard from "./FSCard.vue";
 import FSIcon from "./FSIcon.vue";
 import FSText from "./FSText.vue";
@@ -43,7 +49,6 @@ import FSRow from "./FSRow.vue";
 export default defineComponent({
   name: "FSCardPlaceholder",
   components: {
-    FSClickable,
     FSCard,
     FSIcon,
     FSText,
@@ -74,8 +79,7 @@ export default defineComponent({
   setup() {
     return {
       ColorEnum,
-      FSClickable,
-      FSCard,
+      CardVariants
     };
   }
 });
