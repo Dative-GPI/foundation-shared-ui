@@ -5,3 +5,9 @@ export enum CardVariants {
   Full = "full",
   Gradient = "gradient"
 }
+
+export type SnackbarVariant = "standard" | "full";
+export enum SnackbarVariants {
+  Standard = "standard",
+  Full = "full"
+}
