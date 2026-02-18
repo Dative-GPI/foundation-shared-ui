@@ -10,7 +10,7 @@
                 :color="location.color || 'primary'"
                 :label="location.label"
                 :latlng="{ lat: location.address.latitude, lng: location.address.longitude }"
-                :html="getMarkerHtml()"
+                :html="markerElement"
             />
             <template #overlay-body>
                 <FSRow>
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 
 import { useDynamicVNode } from '@dative-gpi/foundation-shared-components/composables';
 
@@ -41,11 +41,12 @@ export default defineComponent({
     },
     inheritAttrs: false,
     setup() {
-        const { mount, unmount, getHtml: getMarkerHtml } = useDynamicVNode(CustomPin);
+        const { mount, getElement: getMarkerHtml } = useDynamicVNode<{ lat: number; lng: number }>(CustomPin);
 
         const lat = ref(48.8566);
         const lng = ref(2.3522);
 
+        const markerElement = getMarkerHtml();
 
         const location = computed(() => ({
             "id": "3fb7ebf0-3227-4767-bb96-001384efdd57",
@@ -68,17 +69,17 @@ export default defineComponent({
             lng.value = event.lng;
         };
 
-        onMounted(() => {
+        watch([lat, lng], () => {
             mount({
-                lat: lat,
-                lng: lng
+                lat: lat.value,
+                lng: lng.value
             });
-        });
+        }, { immediate: true });
 
         return {
             location,
             onNewClick,
-            getMarkerHtml
+            markerElement
         };
     },
 

@@ -49,7 +49,7 @@ export default {
       required: false
     },
     html: {
-      type: String,
+      type: [String, HTMLElement] as PropType<string | HTMLElement>,
       required: false
     }
   },
