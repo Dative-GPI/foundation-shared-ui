@@ -8,6 +8,7 @@ export * from "./useDebounce";
 export * from "./useDynamicVNode";
 export * from "./useElementVisibility";
 export * from "./useMapLayers";
+export * from "./useResize";
 export * from "./useRules";
 export * from "./useSlots";
 export * from "./useTables";
