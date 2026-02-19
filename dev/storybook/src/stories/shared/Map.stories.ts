@@ -52,7 +52,7 @@ const locations = [
     "id": "83963f32-6bd5-453d-b271-2b5a41672966",
     "label": "Dative GPI",
     "icon": "mdi-laptop",
-    "color": "primary",
+    "color": "#FF0000",
     "address": {
       "formattedAddress": "100 rue de norvège, Colombier Saugnieu, France",
       "locality": "Colombier Saugnieu",

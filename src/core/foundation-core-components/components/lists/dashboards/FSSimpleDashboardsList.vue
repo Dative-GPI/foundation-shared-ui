@@ -10,7 +10,7 @@
 import { defineComponent, type PropType, watch, computed } from "vue";
 import _ from "lodash";
 
-import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DashboardShallowFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useDashboardOrganisations, useDashboardOrganisationTypes, useDashboardShallows } from "@dative-gpi/foundation-core-services/composables";
 
 import { DashboardType } from '@dative-gpi/foundation-shared-domain/enums';
@@ -78,7 +78,7 @@ export default defineComponent({
       getManyDashboardShallows(props.dashboardShallowFilters);
     }
 
-    watch(() => [props.dashboardOrganisationFilters, props.dashboardOrganisationTypeFilters], fetch, { immediate: true });
+    watch(() => [props.dashboardOrganisationFilters, props.dashboardOrganisationTypeFilters, props.dashboardShallowFilters], fetch, { immediate: true });
 
     return {
       dashboards,

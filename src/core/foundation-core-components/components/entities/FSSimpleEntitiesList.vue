@@ -59,7 +59,8 @@ export default defineComponent({
           return {
             ...attrs,
             dashboardOrganisationFilters : props.filters,
-            dashboardOrganisationTypeFilters : props.filters
+            dashboardOrganisationTypeFilters : props.filters,
+            dashboardShallowFilters : props.filters
           };
         case EntityType.Folder:
           return {
