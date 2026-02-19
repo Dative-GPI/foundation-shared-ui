@@ -11,3 +11,16 @@ export enum SnackbarVariants {
   Standard = "standard",
   Full = "full"
 }
+
+export type DialogMultiFormVariant = "standard" | "submit";
+export enum DialogMultiFormVariants {
+  Standard = "standard",
+  Submit = "submit"
+}
+
+export type DialogMultiFormMode = "pagination" | "tabs" | "hidden";
+export enum DialogMultiFormModes {
+  Pagination = "pagination",
+  Tabs = "tabs",
+  Hidden = "hidden"
+}

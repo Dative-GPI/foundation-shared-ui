@@ -14,11 +14,11 @@
         gap="16px"
         width="fill"
       >
-        <FSText
+        <FSSpan
           font="text-button"
         >
           {{ $props.label }}
-        </FSText>
+        </FSSpan>
         <FSRow
           :wrap="false"
           align="center-left"
@@ -26,11 +26,11 @@
           <FSIcon>
             mdi-view-dashboard-outline
           </FSIcon>
-          <FSText
+          <FSSpan
             font="text-overline"
           >
             {{ $tr('ui.dashboards.dynamic', '{0} dashboard(s)', $props.dashboardsCount) }}
-          </FSText>
+          </FSSpan>
         </FSRow>
         <FSRow
           :wrap="false"
@@ -40,18 +40,18 @@
             variant="fill"
             :value="automaticTransition"
           />
-          <FSText
+          <FSSpan
             font="text-overline"
             v-if="automaticTransition"
           >
             {{$tr('ui.playlist.transition-delay.dynamic', 'Transition : {0}', getTimeBestString($props.delay ?? 0))}}
-          </FSText>
-          <FSText
+          </FSSpan>
+          <FSSpan
             font="text-overline"
             v-else
           >
             {{ $tr('ui.playlist.automatic-transition', 'Automatic transition') }}
-          </FSText>
+          </FSSpan>
         </FSRow>
         <FSRow
           :wrap="false"
@@ -61,11 +61,11 @@
             variant="fill"
             :value="$props.looped"
           />
-          <FSText
+          <FSSpan
             font="text-overline"
           >
             {{ $tr('entity.playlist.looped', 'Looped') }}
-          </FSText>
+          </FSSpan>
         </FSRow>
       </FSCol>
       <slot
@@ -85,7 +85,7 @@ import { getTimeBestString } from "@dative-gpi/foundation-shared-components/util
 import FSIconCheck from "../FSIconCheck.vue";
 import FSTile from "../tiles/FSTile.vue";
 import FSIcon from "../FSIcon.vue";
-import FSText from "../FSText.vue";
+import FSSpan from "../FSSpan.vue";
 import FSRow from "../FSRow.vue";
 import FSCol from "../FSCol.vue";
 
@@ -95,7 +95,7 @@ export default defineComponent({
     FSIconCheck,
     FSIcon,
     FSTile,
-    FSText,
+    FSSpan,
     FSRow,
     FSCol
   },

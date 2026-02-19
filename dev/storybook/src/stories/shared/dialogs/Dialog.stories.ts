@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSTranslateField from "@dative-gpi/foundation-shared-components/components/fields/FSTranslateField.vue";
 import FSDialogMultiForm from "@dative-gpi/foundation-shared-components/components/FSDialogMultiForm.vue";
+import FSDialogContent from "@dative-gpi/foundation-shared-components/components/FSDialogContent.vue";
 import FSTextField from "@dative-gpi/foundation-shared-components/components/fields/FSTextField.vue";
 import FSDialogSubmit from "@dative-gpi/foundation-shared-components/components/FSDialogSubmit.vue";
 import FSDialogRemove from "@dative-gpi/foundation-shared-components/components/FSDialogRemove.vue";
@@ -11,52 +14,62 @@ import FSButton from "@dative-gpi/foundation-shared-components/components/FSButt
 import FSDialog from "@dative-gpi/foundation-shared-components/components/FSDialog.vue";
 import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
+import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
+import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
-import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 
 import DialogFormRef from "./DialogFormRef.vue";
-import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
 
-const meta = {
+const meta: Meta<typeof FSDialog> = {
   title: 'Foundation/Shared/Dialog',
   component: FSDialog,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
-  }
-} satisfies Meta<typeof FSDialog>;
+    ...addSubcomponentsArgTypes([FSDialogContent], FSDialog),
+    ...addComponentEmits(FSDialog),
+  },
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Submit: Story = {
-  args: {
-    value1: false,
-    showCancelButton1: true,
-    showSubmitButton1: true
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSDialogSubmit, FSTextField, FSButton, FSCard, FSSpan, FSCol, FSRow },
-    props: Object.keys(argTypes),
+export const Default: Story = {
+  render: (args) => ({
+    components: { FSDialog },
     setup() {
-      return {
-        args
-      };
+      return { args };
     },
     template: `
-    <div style="display: flex; gap: 10px;">
+      <FSDialog
+        v-model="args.modelValue"
+        v-bind="args"
+      />
+    `,
+  }),
+  args: {
+    modelValue: true,
+    title: "Basic dialog",
+    width: "500px",
+  },
+};
+
+export const Submit: Story = {
+  render: (args) => ({
+    components: { FSDialogSubmit, FSSpan, FSButton },
+    setup() {
+      const dialogOpen = ref(false);
+      return { args, dialogOpen };
+    },
+    template: `
       <FSButton
         color="primary"
         label="Dialog submit"
-        @click="() => args.value1 = true"
+        @click="dialogOpen = true"
       />
       <FSDialogSubmit
-        width="500px"
-        title="Form 1"
-        :showCancelButton="args.showCancelButton1"
-        :showSubmitButton="args.showSubmitButton1"
-        v-model="args.value1"
+        v-model="dialogOpen"
+        v-bind="args"
       >
         <template #body>
           <FSSpan v-for="i in 100" :key="i" style="min-height: fit-content">
@@ -64,252 +77,252 @@ export const Submit: Story = {
           </FSSpan>
         </template>
       </FSDialogSubmit>
-    </div>`
-  })
-}
+    `,
+  }),
+  args: {
+    width: "500px",
+    title: "Form 1",
+    showCancelButton: true,
+    showSubmitButton: true,
+  },
+};
 
 export const Form: Story = {
-  args: {
-    value1: false,
-    value2: false,
-    value4: false,
-    validation2: false,
-    label1: "",
-    label2: "",
-    label4: ""
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSTranslateField, FSDialogForm, FSTextField, FSButton, FSCard, FSSpan, FSCol, FSRow, DialogFormRef },
-    props: Object.keys(argTypes),
+  render: (args) => ({
+    components: { FSDialogForm, FSTextField, FSButton, FSRow },
     setup() {
-      return {
-        args
-      };
+      const dialogOpen = ref(false);
+      const label = ref("");
+      return { args, dialogOpen, label };
     },
     template: `
-    <div style="display: flex; gap: 10px;">
       <FSButton
         color="primary"
         label="Dialog form"
-        @click="() => args.value1 = true"
+        @click="dialogOpen = true"
       />
       <FSDialogForm
-        width="500px"
-        title="Form 1"
-        subtitle="Fill the form"
-        @click:submitButton="() => {
-          args.value1 = false;
-        }"
-        v-model="args.value1"
+        v-model="dialogOpen"
+        v-bind="args"
+        @click:submitButton="dialogOpen = false"
       >
         <template #body>
           <FSTextField
-            label="Label 1"
+            label="Label"
             :required="true"
             :rules="[v => !!v || 'Label is required']"
-            v-model="args.label1"
+            v-model="label"
           />
         </template>
       </FSDialogForm>
+    `,
+  }),
+  args: {
+    width: "500px",
+    title: "Form 1",
+    subtitle: "Fill the form",
+  },
+};
+
+export const FormWithValidation: Story = {
+  render: (args) => ({
+    components: { FSDialogForm, FSTextField, FSSpan, FSButton },
+    setup() {
+      const dialogOpen = ref(false);
+      const validation = ref(false);
+      const label = ref("");
+      return { args, dialogOpen, validation, label };
+    },
+    template: `
       <FSButton
         color="primary"
         label="Dialog form with validation"
-        @click="() => args.value2 = true"
+        @click="dialogOpen = true"
       />
       <FSDialogForm
-        width="500px"
-        title="Form 2"
-        subtitle="Fill the form"
-        :validation="args.validation2"
-        @click:submitButton="() => {
-          args.validation2 = true;
-        }"
-        @click:validateButton="() => {
-          args.validation2 = false;
-          args.value2 = false;
-        }"
-        v-model="args.value2"
+        v-model="dialogOpen"
+        v-bind="args"
+        :validation="validation"
+        @click:submitButton="validation = true"
+        @click:validateButton="() => { validation = false; dialogOpen = false; }"
       >
         <template #body>
           <FSTextField
-            label="Label 2"
+            label="Label"
             :required="true"
             :rules="[v => !!v || 'Label is required']"
-            v-model="args.label2"
+            v-model="label"
           />
         </template>
         <template #validation>
-          <FSSpan
-            color="success"
-          >
+          <FSSpan color="success">
             Validation done, you may close this dialog
           </FSSpan>
         </template>
       </FSDialogForm>
-      
+    `,
+  }),
+  args: {
+    width: "500px",
+    title: "Form with validation",
+    subtitle: "Fill the form",
+  },
+};
 
+export const FormNoButtons: Story = {
+  render: (args) => ({
+    components: { FSDialogForm, FSTranslateField, FSButton },
+    setup() {
+      const dialogOpen = ref(false);
+      const label = ref("");
+      return { args, dialogOpen, label };
+    },
+    template: `
       <FSButton
         color="primary"
         label="Disabled buttons dialog"
-        @click="() => args.value4 = true"
+        @click="dialogOpen = true"
       />
       <FSDialogForm
-        width="500px"
-        title="No buttons dialog"
-        :showCancelButton="false"
-        :showSubmitButton="false"
-        v-model="args.value4"
+        v-model="dialogOpen"
+        v-bind="args"
       >
         <template #body>
           <FSTranslateField
-            label="Label 4"
+            label="Label"
             :required="true"
             :rules="[v => !!v || 'Label is required']"
-            v-model="args.label4"
+            v-model="label"
           />
         </template>
       </FSDialogForm>
-      <DialogFormRef/> 
-    </div>`
-  })
-}
+    `,
+  }),
+  args: {
+    width: "500px",
+    title: "No buttons dialog",
+    showCancelButton: false,
+    showSubmitButton: false,
+  },
+};
+
+export const FormRef: Story = {
+  render: () => ({
+    components: { DialogFormRef },
+    template: `<DialogFormRef />`,
+  }),
+};
 
 export const MultipleForm: Story = {
-  args: {
-    value1: false,
-    showCancelButton1: true,
-    showSubmitButton1: true,
-    label11: "",
-    label12: ""
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSDialogMultiForm, FSTextField, FSButton, FSCard, FSSpan, FSCol, FSRow },
-    props: Object.keys(argTypes),
+  render: (args) => ({
+    components: { FSDialogMultiForm, FSTextField, FSButton },
     setup() {
-      return { args };
+      const dialogOpen = ref(false);
+      const label1 = ref("");
+      const label2 = ref("");
+      const label3 = ref("");
+      return { args, dialogOpen, label1, label2, label3 };
     },
     template: `
-    <div style="display: flex; gap: 10px;">
       <FSButton
         color="primary"
         label="Dialog multiform"
-        @click="() => args.value1 = true"
+        @click="dialogOpen = true"
       />
       <FSDialogMultiForm
-        width="500px"
-        title="Form 1"
-        subtitle="3 pages form"
-        :showCancelButton="args.showCancelButton1"
-        :showSubmitButton="args.showSubmitButton1"
-        :steps="3"
-        @click:submitButton="() => {
-          args.value1 = false;
-        }"
-        v-model="args.value1"
+        v-model="dialogOpen"
+        v-bind="args"
+        @click:submitButton="dialogOpen = false"
       >
         <template #step-1>
-          <FSTextField
-            label="Label 1"
-            v-model="args.label1"
-          />
+          <FSTextField label="Label 1" v-model="label1" />
         </template>
         <template #step-2>
-          <FSTextField
-            label="Label 2"
-            v-model="args.label2"
-          />
+          <FSTextField label="Label 2" v-model="label2" />
         </template>
         <template #step-3>
-          <FSTextField
-            label="Label 3"
-            v-model="args.label3"
-          />
+          <FSTextField label="Label 3" v-model="label3" />
         </template>
       </FSDialogMultiForm>
-    </div>`
-  })
-}
+    `,
+  }),
+  args: {
+    width: "500px",
+    title: "Form 1",
+    subtitle: "3 pages form",
+    showCancelButton: true,
+    showSubmitButton: true,
+    steps: 3,
+  },
+};
 
 export const Remove: Story = {
-  args: {
-    value1: false,
-    removing1: false,
-    value2: false,
-    removing2: false,
-    value3: false,
-    removing3: false
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSDialogRemove, FSButton, FSCard, FSSpan, FSCol, FSRow },
-    props: Object.keys(argTypes),
+  render: (args) => ({
+    components: { FSDialogRemove, FSButton, FSRow },
     setup() {
-      return { args };
+      const dialog1 = ref(false);
+      const removing1 = ref(false);
+      const dialog2 = ref(false);
+      const removing2 = ref(false);
+      const dialog3 = ref(false);
+      const removing3 = ref(false);
+      return { args, dialog1, removing1, dialog2, removing2, dialog3, removing3 };
     },
     template: `
-    <div style="display: flex; gap: 10px;">
-      <FSButton
-        label="Dialog - singular"
-        @click="() => args.value1 = true"
-      />
-      <FSDialogRemove
-        :removeTotal="1"
-        :removing="args.removing1"
-        @click:submitButton="() => args.removing1 = true"
-        v-model="args.value1"
-      />
-      <FSButton
-        label="Dialog - plural"
-        @click="() => args.value2 = true"
-      />
-      <FSDialogRemove
-        :removeTotal="12"
-        :removing="args.removing2"
-        @click:submitButton="() => args.removing2 = true"
-        v-model="args.value2"
-      />
-      <FSButton
-        label="Dialog - large number"
-        @click="() => args.value3 = true"
-      />
-      <FSDialogRemove
-        :removeTotal="9999999"
-        :removing="args.removing3"
-        @click:submitButton="() => args.removing3 = true"
-        v-model="args.value3"
-      />
-    </div>`
-  })
-}
+      <FSRow gap="10px">
+        <FSButton
+          label="Dialog - singular"
+          @click="dialog1 = true"
+        />
+        <FSButton
+          label="Dialog - plural"
+          @click="dialog2 = true"
+        />
+        <FSButton
+          label="Dialog - large number"
+          @click="dialog3 = true"
+        />
 
+        <FSDialogRemove
+          v-model="dialog1"
+          :removeTotal="1"
+          :removing="removing1"
+          @click:submitButton="removing1 = true"
+        />
+        <FSDialogRemove
+          v-model="dialog2"
+          :removeTotal="12"
+          :removing="removing2"
+          @click:submitButton="removing2 = true"
+        />
+        <FSDialogRemove
+          v-model="dialog3"
+          :removeTotal="9999999"
+          :removing="removing3"
+          @click:submitButton="removing3 = true"
+        />
+      </FSRow>
+    `,
+  }),
+  args: {},
+};
 
 export const FullScreen: Story = {
-  args: {
-    value1: false,
-    showCancelButton1: true,
-    showSubmitButton1: true
-  },
-  render: (args, { argTypes }) => ({
-    components: { FSDialog, FSTextField, FSButton, FSCard, FSSpan, FSCol, FSRow, FSFadeOut },
-    props: Object.keys(argTypes),
+  render: (args) => ({
+    components: { FSDialog, FSFadeOut, FSCard, FSCol, FSSpan, FSButton },
     setup() {
-      return {
-        args
-      };
+      const dialogOpen = ref(false);
+      return { args, dialogOpen };
     },
     template: `
-    <div style="display: flex; gap: 10px;">
       <FSButton
         color="primary"
-        label="Dialog submit"
-        @click="() => args.value1 = true"
+        label="Dialog fullscreen"
+        @click="dialogOpen = true"
       />
       <FSDialog
-        title="Form 1"
-        :showCancelButton="args.showCancelButton1"
-        :showSubmitButton="args.showSubmitButton1"
-        v-model="value1"
-        :fullscreen="true"
-        width="100%"
+        v-model="dialogOpen"
+        v-bind="args"
       >
         <FSCard width="100%" height="100%" padding="20px" :border="false">
           <FSFadeOut maxHeight="100%" :scrollOutside="false">
@@ -317,49 +330,40 @@ export const FullScreen: Story = {
               <FSSpan v-for="i in 100" :key="i" style="min-height: fit-content">
                 This is a fullscreen dialog
               </FSSpan>
-              <FSButton label="Close" @click="() => args.value1 = false" />
+              <FSButton label="Close" @click="dialogOpen = false" />
             </FSCol>
           </FSFadeOut>
         </FSCard>
-      </FSDialogForm>
-    </div>`
-  })
-}
+      </FSDialog>
+    `,
+  }),
+  args: {
+    title: "Form 1",
+    fullscreen: true,
+    width: "100%",
+  },
+};
 
 export const TabsForm: Story = {
-  args: {
-    value1: false,
-    showCancelButton1: true,
-    showSubmitButton1: true,
-    label1: "",
-    label2: "",
-    label3: ""
-  },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSDialogMultiForm, FSTextField, FSButton, FSRow, FSSpan, FSIcon, FSChip },
-    props: Object.keys(argTypes),
     setup() {
-      return { args };
+      const dialogOpen = ref(false);
+      const label1 = ref("");
+      const label2 = ref("");
+      const label3 = ref("");
+      return { args, dialogOpen, label1, label2, label3 };
     },
     template: `
-    <div style="display: flex; gap: 10px;">
       <FSButton
         color="primary"
         label="Dialog multiform"
-        @click="() => args.value1 = true"
+        @click="dialogOpen = true"
       />
       <FSDialogMultiForm
-        width="500px"
-        title="Form 1"
-        subtitle="3 pages form"
-        :showCancelButton="args.showCancelButton1"
-        :showSubmitButton="args.showSubmitButton1"
-        :steps="3"
-        mode="tabs"
-        @click:submitButton="() => {
-          args.value1 = false;
-        }"
-        v-model="args.value1"
+        v-model="dialogOpen"
+        v-bind="args"
+        @click:submitButton="dialogOpen = false"
       >
         <template #tab-1>
           <FSRow gap="8px">
@@ -368,29 +372,27 @@ export const TabsForm: Story = {
             <FSChip label="2" />
           </FSRow>
         </template>
-  
         <template #tab-2-icon>mdi-home</template>
         <template #tab-2-label>Home</template>
-
         <template #step-1>
-          <FSTextField
-            label="Label 1"
-            v-model="args.label1"
-          />
+          <FSTextField label="Label 1" v-model="label1" />
         </template>
         <template #step-2>
-          <FSTextField
-            label="Label 2"
-            v-model="args.label2"
-          />
+          <FSTextField label="Label 2" v-model="label2" />
         </template>
         <template #step-3>
-          <FSTextField
-            label="Label 3"
-            v-model="args.label3"
-          />
+          <FSTextField label="Label 3" v-model="label3" />
         </template>
       </FSDialogMultiForm>
-    </div>`
-  })
-}
+    `,
+  }),
+  args: {
+    width: "500px",
+    title: "Form 1",
+    subtitle: "3 pages form",
+    showCancelButton: true,
+    showSubmitButton: true,
+    steps: 3,
+    mode: "tabs",
+  },
+};
