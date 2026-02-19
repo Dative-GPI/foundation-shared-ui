@@ -104,7 +104,7 @@
 import { computed, defineComponent, type PropType, ref } from "vue";
 
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
-import { type ColorBase, ColorEnum, type DialogMultiFormMode, DialogMultiFormModes } from "@dative-gpi/foundation-shared-components/models";
+import { type ColorBase, ColorEnum, type DialogMultiFormMode, DialogMultiFormModes, type DialogMultiFormVariant } from "@dative-gpi/foundation-shared-components/models";
 import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composables";
 
 import FSPagination from "./FSPagination.vue";
@@ -118,6 +118,7 @@ import FSTabs from "./FSTabs.vue";
 import FSTab from "./FSTab.vue";
 import FSIcon from "./FSIcon.vue";
 import FSWindow from "./FSWindow.vue";
+import { DialogMultiFormVariants } from "@dative-gpi/foundation-shared-components/models";
 
 export default defineComponent({
   name: "FSDialogMultiFormBody",
@@ -146,9 +147,9 @@ export default defineComponent({
       default: "auto"
     },
     variant: {
-      type: String as PropType<"standard" | "submit">,
+      type: String as PropType<DialogMultiFormVariant>,
       required: false,
-      default: "submit"
+      default: DialogMultiFormVariants.Submit
     },
     steps: {
       type: Number,
