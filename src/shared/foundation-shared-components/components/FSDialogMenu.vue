@@ -11,12 +11,25 @@
       :class="classes"
     >
       <template
-        v-for="(_, name) in $slots"
-        v-slot:[name]="slotData"
+        #default="slotData"
       >
         <slot
-          :name="name"
+          v-if="$slots.body"
+          name="body"
           v-bind="slotData"
+        />
+        <slot
+          v-else
+          name="default"
+          v-bind="slotData"
+        />
+      </template>
+      <template
+        v-if="$slots['top-right']"
+        #top-right
+      >
+        <slot
+          name="top-right"
         />
       </template>
     </FSCard>
