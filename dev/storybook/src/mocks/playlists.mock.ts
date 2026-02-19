@@ -7,7 +7,7 @@ export const PLAYLISTS: PlaylistInfosDTO[] = [{
   label: "Playlist 1",
   description: "This is the first playlist",
   looped: true,
-  delay: 2,
+  delay: 0,
   dashboards: []
 }, {
   id: "playlist2",
@@ -15,7 +15,14 @@ export const PLAYLISTS: PlaylistInfosDTO[] = [{
   code: "p2",
   label: "Playlist 2",
   looped: false,
-  delay: 0,
+  delay: 5,
   description: "This is the second playlist",
-  dashboards: []
+  dashboards: [
+    {
+      id: "dashboard1",
+      dashboardScopedId: "dashboardScopedId1",
+      dashboardType: 1,
+      index: 0
+    }
+  ]
 }];

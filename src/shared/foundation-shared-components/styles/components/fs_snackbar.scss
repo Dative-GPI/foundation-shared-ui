@@ -1,0 +1,7 @@
+.fs-snackbar {
+    .v-snackbar__wrapper {
+        border-radius: var(--fs-snackbar-border-radius);
+        background-color: var(--fs-snackbar-background-color);
+        color: var(--fs-snackbar-color);
+    }
+}

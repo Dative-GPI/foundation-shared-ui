@@ -5,6 +5,7 @@
     :border="false"
     :height="actualSize"
     :width="actualSize"
+    :disableHoverStyle="true"
   >
     <FSRow
       align="center-center"
