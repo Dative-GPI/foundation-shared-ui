@@ -2,7 +2,7 @@
   <v-slide-group
     class="fs-slide-group"
     ref="slideGroupRef"
-    :showArrows="true"
+    :showArrows="$props.showArrows"
     :id="elementId"
     :style="style"
     v-bind="$attrs"
@@ -83,6 +83,10 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 250
+    },
+    showArrows: {
+      type: [Boolean, String] as PropType<boolean | string>,
+      default: true
     }
   },
   setup(props) {

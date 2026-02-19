@@ -99,7 +99,7 @@
   <script lang="ts">
 import { defineComponent, ref, type PropType, useSlots, computed, type VNode } from "vue";
   
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
   
 import FSSlideGroup from "./FSSlideGroup.vue";
 import FSWrapGroup from "./FSWrapGroup.vue";
@@ -135,9 +135,9 @@ export default defineComponent({
       default: "wrap"
     },
     chipVariant: {
-      type: String as PropType<"standard" | "full" | "borderless">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "full"
+      default: CardVariants.Full
     },
     color: {
       type: String as PropType<ColorBase>,
