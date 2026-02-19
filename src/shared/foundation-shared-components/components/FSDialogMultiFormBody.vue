@@ -104,7 +104,7 @@
 import { computed, defineComponent, type PropType, ref } from "vue";
 
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type ColorBase, ColorEnum, type DialogMultiFormMode, DialogMultiFormModes } from "@dative-gpi/foundation-shared-components/models";
 import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composables";
 
 import FSPagination from "./FSPagination.vue";
@@ -225,9 +225,9 @@ export default defineComponent({
       default: false
     },
     mode: {
-      type: String as PropType<"pagination" | "tabs" | "none">,
+      type: String as PropType<DialogMultiFormMode>,
       required: false,
-      default: "pagination"
+      default: DialogMultiFormModes.Pagination
     },
     tabsColor: {
       type: String as PropType<ColorBase>,

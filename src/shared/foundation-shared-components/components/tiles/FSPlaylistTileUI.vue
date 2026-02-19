@@ -85,7 +85,7 @@ import { getTimeBestString } from "@dative-gpi/foundation-shared-components/util
 import FSIconCheck from "../FSIconCheck.vue";
 import FSTile from "../tiles/FSTile.vue";
 import FSIcon from "../FSIcon.vue";
-import FSText from "../FSText.vue";
+import FSSpan from "../FSSpan.vue";
 import FSRow from "../FSRow.vue";
 import FSCol from "../FSCol.vue";
 
@@ -95,7 +95,7 @@ export default defineComponent({
     FSIconCheck,
     FSIcon,
     FSTile,
-    FSText,
+    FSSpan,
     FSRow,
     FSCol
   },

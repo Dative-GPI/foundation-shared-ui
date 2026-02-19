@@ -11,3 +11,10 @@ export enum SnackbarVariants {
   Standard = "standard",
   Full = "full"
 }
+
+export type DialogMultiFormMode = "pagination" | "tabs" | "hidden";
+export enum DialogMultiFormModes {
+  Pagination = "pagination",
+  Tabs = "tabs",
+  Hidden = "hidden"
+}
