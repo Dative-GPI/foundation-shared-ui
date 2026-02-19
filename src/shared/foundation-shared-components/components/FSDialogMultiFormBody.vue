@@ -225,7 +225,7 @@ export default defineComponent({
       default: false
     },
     mode: {
-      type: String as PropType<"pagination" | "tabs">,
+      type: String as PropType<"pagination" | "tabs" | "none">,
       required: false,
       default: "pagination"
     },
