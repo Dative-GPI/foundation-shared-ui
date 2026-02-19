@@ -16,7 +16,7 @@
                     :color="pin.color || 'primary'"
                     :label="pin.label"
                     :latlng="{ lat: pin.lat, lng: pin.lng }"
-                    :html="pinInstances[index].getElement()"
+                    :html="pinElements[index]"
                     @click="onPinClick(index)"
                     @ready="onPinReady(index)"
                 />
@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, nextTick } from 'vue';
+import { defineComponent, ref, nextTick } from 'vue';
 
 import { useDynamicVNode } from '@dative-gpi/foundation-shared-components/composables';
 
@@ -89,6 +89,8 @@ export default defineComponent({
         const colors = ['primary', 'success', 'error', 'warning', 'info'];
 
         const pinInstances = Array.from({ length: maxPins }, () => useDynamicVNode<{ lat: number; lng: number }>(CustomPin));
+
+        const pinElements = pinInstances.map(instance => instance.getElement());
 
         const mountPin = async (index: number) => {
             if (index >= activePins.value.length) return;
@@ -150,7 +152,7 @@ export default defineComponent({
             center,
             selectedIndex,
             maxPins,
-            pinInstances,
+            pinElements,
             addRandomPin,
             removeLastPin,
             onPinClick,

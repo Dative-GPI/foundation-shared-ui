@@ -141,7 +141,7 @@ export default {
       }
     }, { immediate: true });
 
-    watch([() => props.variant, () => props.color, () => props.selected], () => {
+    watch([() => props.variant, () => props.color, () => props.selected, () => props.html], () => {
       if (!actualMarker.value || !map.value) {
         return;
       }

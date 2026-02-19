@@ -39,12 +39,20 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
   };
 
   const getElement = (style?: Partial<CSSStyleDeclaration>): HTMLElement => {
+    if (!mountPoint) {
+      mountPoint = document.createElement("div");
+    }
     mountPoint = document.createElement("div");
     Object.assign(mountPoint.style, style ?? {});
     return mountPoint;
   };
 
-  onBeforeUnmount(unmount);
+  const destroy = () => {
+    unmount();
+    mountPoint = null;
+  };
+
+  onBeforeUnmount(destroy);
 
   return {
     mount,
