@@ -7,13 +7,14 @@ export function useResize(
   let resizeObserver: ResizeObserver | null = null;
 
   onMounted(() => {
-    resizeObserver = new ResizeObserver(() => {
-      onResize();
-    });
-
-    const element = getElement();
-    if (element) {
-      resizeObserver.observe(element);
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        onResize();
+      });
+      const element = getElement();
+      if (element) {
+        resizeObserver.observe(element);
+      }
     }
 
     window.addEventListener('resize', onResize);
