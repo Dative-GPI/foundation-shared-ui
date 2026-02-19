@@ -44,19 +44,19 @@
             border-color: var(--fs-card-active-border-color) !important;
             color: var(--fs-card-active-color) !important;
 
-            & .fs-card-clickable {
+            & .fs-card-clickable:not(.fs-card-disable-hover-style) {
                 transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
                 background-color: var(--fs-card-active-background-color);
             }
         }
 
         @include clickscreen {
-            &:not(.fs-card-disabled):hover:not(:has( .fs-stopclick:hover)) {
+            &:not(.fs-card-disabled):not(.fs-card-disable-hover-style):hover:not(:has( .fs-stopclick:hover)) {
                 background-color: var(--fs-card-hover-background-color) !important;
                 border-color: var(--fs-card-hover-border-color) !important;
                 color: var(--fs-card-hover-color) !important;
 
-                & .fs-card-clickable {
+                & .fs-card-clickable:not(.fs-card-disable-hover-style) {
                     transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
                     background-color: var(--fs-card-hover-background-color);
                 }

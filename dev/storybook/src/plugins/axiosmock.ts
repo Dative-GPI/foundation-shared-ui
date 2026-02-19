@@ -111,6 +111,8 @@ export function mockApp() {
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/service-account-role-organisations", ROLEORGANISATIONS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/connectivity-scenarios", CONNECTIVITYSCENARIOS);
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/playlists", PLAYLISTS);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/playlists/playlist1", PLAYLISTS[0]);
+    onGetWithRegex("/api/foundation/core/v1/organisations/dative/playlists/playlist2", PLAYLISTS[1]);
 
     onGetWithRegex("/api/foundation/core/v1/organisations/dative/device-explorer-elements", DEVICEEXPLORERELEMENTS);
 
