@@ -53,6 +53,7 @@
     class="fs-map-overlay-desktop"
     ref="desktopOverlay"
     :elevation="true"
+    height="100%"
     :border="false"
   >
     <FSCol
