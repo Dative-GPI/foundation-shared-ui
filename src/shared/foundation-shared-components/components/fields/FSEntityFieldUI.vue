@@ -233,6 +233,10 @@ export default defineComponent({
         {
           id: EntityType.Folder,
           label: $tr("ui.common.folders", "Folders")
+        },
+        {
+          id: EntityType.Subgrouping,
+          label: $tr("ui.common.subgroupings", "Subgroupings")
         }
       ];
 
@@ -259,6 +263,8 @@ export default defineComponent({
           return "mdi-view-dashboard";
         case EntityType.Folder:
           return "mdi-folder";
+        case EntityType.Subgrouping:
+          return "mdi-shape-outline";
         default:
           return "mdi-cube";
       }
