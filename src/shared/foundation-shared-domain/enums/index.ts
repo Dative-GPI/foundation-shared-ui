@@ -17,6 +17,7 @@ export * from "./messages";
 export * from "./playlists";
 export * from "./roles";
 export * from "./times";
+export * from "./units";
 export * from "./users";
 export * from "./widgetTemplates";
 export * from "./reports";
