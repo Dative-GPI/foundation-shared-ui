@@ -22,5 +22,6 @@ export enum EntityType {
   Device = 5,
   User = 6,
   Dashboard = 7,
-  Folder = 8
+  Folder = 8,
+  Subgrouping = 9
 }

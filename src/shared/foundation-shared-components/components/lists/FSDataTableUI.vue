@@ -98,6 +98,14 @@
             @update:filter="(value) => toggleFilter(header.value, value)"
           >
             <template
+              #custom="{ filter, toggle, variant }"
+            >
+              <slot
+                :name="`${filterSlot(header)}-custom`"
+                v-bind="{ filter, toggle, variant }"
+              />
+            </template>
+            <template
               #default="{ filter }"
             >
               <slot
