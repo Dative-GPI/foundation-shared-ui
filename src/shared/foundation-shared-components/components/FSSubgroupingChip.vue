@@ -1,13 +1,15 @@
 <template>
   <FSChip
-    :height="$props.height"
-    :width="$props.width"
-    :variant="$props.variant"
     :color="borderColor"
+    :width="$props.width"
+    :height="$props.height"
+    :variant="$props.variant"
+    :disableHoverStyle="$props.disableHoverStyle"
+    :title="`${$props.groupingLabel} - ${$props.label}`"
   >
     <FSRow
-      align="center-center"
-      width="hug"
+      align="center-left"
+      width="fill"
       :wrap="false"
     >
       <FSRow
@@ -22,12 +24,11 @@
         >
           {{ $props.groupingIcon }}
         </FSIcon>
-        <FSText
+        <FSSpan
           font="text-overline"
-          :color="textColor"
         >
           {{ $props.groupingLabel }}
-        </FSText>
+        </FSSpan>
       </FSRow>
       <FSRow
         align="center-center"
@@ -37,16 +38,14 @@
       >
         <FSIcon
           :size="$props.iconSize"
-          :color="textColor"
         >
           {{ $props.icon }}
         </FSIcon>
-        <FSText
+        <FSSpan
           font="text-overline"
-          :color="textColor"
         >
           {{ $props.label }}
-        </FSText>
+        </FSSpan>
       </FSRow>
     </FSRow>
   </FSChip>
@@ -55,12 +54,13 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSIcon from "./FSIcon.vue";
-import FSText from "./FSText.vue";
+import FSSpan from "./FSSpan.vue";
 import FSChip from "./FSChip.vue";
 import FSRow from "./FSRow.vue";
+
 import { useColors } from "../composables";
 
 export default defineComponent({
@@ -68,7 +68,7 @@ export default defineComponent({
   components: {
     FSChip,
     FSIcon,
-    FSText,
+    FSSpan,
     FSRow
   },
   props: {
@@ -104,9 +104,9 @@ export default defineComponent({
       default: "hug"
     },
     variant: {
-      type: String as PropType<"standard" | "full" | "borderless">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "standard"
+      default: CardVariants.Background
     },
     color: {
       type: String as PropType<ColorBase>,
@@ -117,17 +117,20 @@ export default defineComponent({
       type: [Array, String, Number] as PropType<"s" | "m" | "l" | string[] | number[] | string | number | null>,
       required: false,
       default: "18px"
+    },
+    disableHoverStyle: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   setup(props) {
     const { getColors } = useColors();
     
     const borderColor = getColors(props.color).dark;
-    const textColor = getColors(ColorEnum.Dark).dark;
 
     return {
       borderColor,
-      textColor,
       ColorEnum
     };
   }

@@ -4,6 +4,7 @@
     :width="$props.width"
     :variant="$props.variant"
     :color="borderColor"
+    :disableHoverStyle="$props.disableHoverStyle"
   >
     <FSRow
       align="center-center"
@@ -36,7 +37,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSIcon from "./FSIcon.vue";
 import FSText from "./FSText.vue";
@@ -84,14 +85,19 @@ export default defineComponent({
       default: ColorEnum.Light
     },
     variant: {
-      type: String as PropType<"standard" | "full" | "borderless">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "standard"
+      default: CardVariants.Background
     },
     iconSize: {
       type: [Array, String, Number] as PropType<"s" | "m" | "l" | string[] | number[] | string | number | null>,
       required: false,
       default: "18px"
+    },
+    disableHoverStyle: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   setup(props) {

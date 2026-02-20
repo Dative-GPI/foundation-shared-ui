@@ -61,14 +61,17 @@
       <FSCard
         padding="16px 24px"
       >
-        <FSButton
-          style="position: absolute;top:3px;right:3px;"
-          icon="mdi-close"
-          variant="icon"
-          iconSize="18px"
-          :color="ColorEnum.Dark"
-          @click="menuOpen = false"
-        />
+        <template
+          #top-right
+        >
+          <FSButton
+            icon="mdi-close"
+            variant="icon"
+            iconSize="18px"
+            :color="ColorEnum.Dark"
+            @click="menuOpen = false"
+          />
+        </template>
         <FSCol
           v-if="hasSlots"
           gap="12px"

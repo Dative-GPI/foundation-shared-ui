@@ -123,15 +123,19 @@
       />
     </template>
     <template
-      #filter.subgroupings="{ filter }"
+      #filter.subgroupings-custom="{ filter, toggle, variant }"
     >
       <FSSubgroupingChip
         v-if="filter.value && subgroupingMap[filter.value]"
+        width="100%"
         :groupingLabel="subgroupingMap[filter.value].groupingLabel"
         :groupingIcon="subgroupingMap[filter.value].groupingIcon"
         :groupingColor="subgroupingMap[filter.value].groupingColor"
         :label="subgroupingMap[filter.value].label"
         :icon="subgroupingMap[filter.value].icon"
+        :color="'primary'"
+        :variant="variant"
+        @click="toggle()"
       />
     </template>
     <template
@@ -389,6 +393,7 @@ export default defineComponent({
         sort: (a: DeviceOrganisationAlert, b: DeviceOrganisationAlert) => alphanumericSort(a?.criticity, b?.criticity)
       },
       subgroupings: {
+
         fixedFilters: subgroupingFilters.value,
         methodFilterRaw: (value: string | null, item: DeviceOrganisationInfos) => {
           if (!value) {
