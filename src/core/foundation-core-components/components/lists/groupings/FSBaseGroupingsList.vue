@@ -2,6 +2,8 @@
   <FSDataTable
     defaultMode="iterator"
     :loading="fetchingGroupings"
+    :singleSelect="$props.singleSelect"
+    :selectable="$props.selectable"
     :items="groupings"
     :itemTo="$props.itemTo"
     :modelValue="$props.modelValue"
@@ -74,6 +76,16 @@ export default defineComponent({
       type: Object as PropType<GroupingFilters>,
       required: false,
       default: null
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    singleSelect: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     modelValue: {
       type: Array as PropType<string[]>,
