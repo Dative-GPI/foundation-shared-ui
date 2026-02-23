@@ -147,14 +147,14 @@ export default defineComponent({
           return {
             modelsIds: props.modelValue
           } satisfies ModelFilters;
-        case EntityType.Subgrouping:
-          return {
-            subgroupingsIds: props.modelValue
-          } satisfies SubgroupingFilters;
         case EntityType.Grouping:
           return {
             groupingsIds: props.modelValue
           } satisfies GroupingFilters;
+        case EntityType.Subgrouping:
+          return {
+            subgroupingsIds: props.modelValue
+          } satisfies SubgroupingFilters;
         default:
           return undefined;
       };
