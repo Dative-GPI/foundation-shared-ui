@@ -45,6 +45,8 @@ export default defineComponent({
           return defineAsyncComponent(() => import("../lists/models/FSSimpleModelsList.vue"));
         case EntityType.Subgrouping:
           return defineAsyncComponent(() => import("../lists/subgroupings/FSSimpleSubgroupingsList.vue"));
+        case EntityType.Grouping:
+          return defineAsyncComponent(() => import("../lists/groupings/FSSimpleGroupingsList.vue"));
         default:
           return null;
       };
@@ -88,6 +90,11 @@ export default defineComponent({
           return {
             ...attrs,
             modelFilters : props.filters
+          };
+        case EntityType.Grouping:
+          return {
+            ...attrs,
+            groupingFilters : props.filters
           };
         case EntityType.Subgrouping:
           return {

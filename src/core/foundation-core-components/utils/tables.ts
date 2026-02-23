@@ -22,6 +22,7 @@ export const GROUPS_SELECT = "ui.tables.group.select";
 export const LOCATIONS_SELECT = "ui.tables.location.select";
 export const MODELS_SELECT = "ui.tables.model.select";
 export const DASHBOARDS_SELECT = "ui.tables.dashboard-mock.select";
+export const GROUPINGS_SELECT = "ui.tables.grouping.select";
 export const SUBGROUPINGS_SELECT = "ui.tables.subgrouping.select";
 
 export const WIDGET_DASHBOARDS_EXPLORER = "ui.tables.folder-mock.widget";

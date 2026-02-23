@@ -64,7 +64,7 @@
 import { defineComponent, type PropType, computed } from "vue";
 
 import { EntityType } from "@dative-gpi/foundation-shared-domain/enums";
-import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DashboardShallowFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, LocationFilters, ModelFilters, SubgroupingFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DashboardShallowFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, GroupingFilters, LocationFilters, ModelFilters, SubgroupingFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
 
 import { TABLES as T } from "../../utils";
 
@@ -151,6 +151,10 @@ export default defineComponent({
           return {
             subgroupingsIds: props.modelValue
           } satisfies SubgroupingFilters;
+        case EntityType.Grouping:
+          return {
+            groupingsIds: props.modelValue
+          } satisfies GroupingFilters;
         default:
           return undefined;
       };
@@ -168,6 +172,8 @@ export default defineComponent({
           return T.LOCATIONS_SELECT;
         case EntityType.Model:
           return T.MODELS_SELECT;
+        case EntityType.Grouping:
+          return T.GROUPINGS_SELECT;
         case EntityType.Subgrouping:
           return T.SUBGROUPINGS_SELECT;
         default:
@@ -212,6 +218,11 @@ export default defineComponent({
         case EntityType.Model:
           return {
             modelsFilters: props.filters,
+            ...attrs
+          };
+        case EntityType.Grouping:
+          return {
+            groupingsFilters: props.filters,
             ...attrs
           };
         case EntityType.Subgrouping:

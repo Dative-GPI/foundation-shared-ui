@@ -159,6 +159,27 @@ export const DialogDashboards: Story = {
   },
 };
 
+export const Groupings: Story = {
+  render: (args) => ({
+    components: { FSSelectEntitiesList },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSSelectEntitiesList
+        :entityType="args.entityType"
+        :showRemove="true"
+        :selectable="true"
+        v-model="args.modelValue"
+      />
+    `,
+  }),
+  args: {
+    entityType: EntityType.Grouping,
+    modelValue: []
+  },
+};
+
 export const Subgroupings: Story = {
   render: (args) => ({
     components: { FSSelectEntitiesList },
