@@ -4,10 +4,6 @@
     :loading="fetchingGroupings"
     :items="groupings"
     :itemTo="$props.itemTo"
-    :selectable="$props.selectable"
-    :showSearch="$props.showSearch"
-    :singleSelect="$props.singleSelect"
-    :disableTable="$props.disableTable"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -79,31 +75,11 @@ export default defineComponent({
       required: false,
       default: null
     },
-    selectable: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    singleSelect: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     modelValue: {
       type: Array as PropType<string[]>,
       required: false,
       default: () => []
     },
-    showSearch: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    disableTable: {
-      type: Boolean,
-      required: false,
-      default: true
-    }
   },
   emits: ["update:modelValue"],
   setup(props) {
