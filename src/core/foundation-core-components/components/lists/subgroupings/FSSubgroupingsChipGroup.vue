@@ -3,6 +3,7 @@
     v-if="$props.subgroupings && $props.subgroupings.length > 0"
     :items="$props.subgroupings"
     :maxItems="$props.maxItems"
+    :variant="$props.variant"
   >
     <template
       #item.chip="{ item }"
@@ -28,6 +29,7 @@ import type { SubgroupingInfos } from "@dative-gpi/foundation-core-domain/models
 
 import FSSubgroupingChip from "@dative-gpi/foundation-shared-components/components/FSSubgroupingChip.vue";
 import FSChipGroup from "@dative-gpi/foundation-shared-components/components/FSChipGroup.vue";
+import { ChipGroupVariants, type ChipGroupVariant } from "@dative-gpi/foundation-shared-components/models";
 
 export default defineComponent({
   name: "FSSubgroupingsChipGroup",
@@ -48,7 +50,12 @@ export default defineComponent({
       type: Number as PropType<number | null>,
       required: false,
       default: 1
-    }
+    },
+    variant: {
+      type: String as PropType<ChipGroupVariant>,
+      required: false,
+      default: ChipGroupVariants.Menu
+    },
   }
 });
 </script>

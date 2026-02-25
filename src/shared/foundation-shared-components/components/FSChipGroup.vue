@@ -1,7 +1,49 @@
 <template>
   <FSWrapGroup
-    v-if="$props.variant === 'wrap' && $props.items"
+    v-if="$props.variant == ChipGroupVariants.Wrap"
     v-bind="$attrs"
+  >
+    <template
+      v-for="(item, index) in $props.items"
+      :key="index"
+    >
+      <slot
+        name="item.chip"
+        v-bind="{ index, item }"
+      >
+        <FSChip
+          :variant="$props.chipVariant"
+          :color="$props.color"
+          :label="item.label ?? item"
+        />
+      </slot>
+    </template>
+    <slot />
+  </FSWrapGroup>
+  <FSSlideGroup
+    v-else-if="$props.variant == ChipGroupVariants.Slide"
+    v-bind="$attrs"
+  >
+    <template
+      v-for="(item, index) in $props.items"
+      :key="index"
+    >
+      <slot
+        name="item.chip"
+        v-bind="{ index, item }"
+      >
+        <FSChip
+          :variant="$props.chipVariant"
+          :color="$props.color"
+          :label="item.label ?? item"
+        />
+      </slot>
+    </template>
+    <slot />
+  </FSSlideGroup>
+  <FSRow
+    v-else-if="$props.variant == ChipGroupVariants.Menu && $props.items"
+    :wrap="false"
   >
     <template
       v-for="(item, index) in $props.items.slice(0, $props.maxItems ?? $props.items.length)"
@@ -70,28 +112,7 @@
       </FSCard>
     </FSMenu>
     <slot />
-  </FSWrapGroup>
-  <FSSlideGroup
-    v-else-if="$props.variant === 'slide'"
-    v-bind="$attrs"
-  >
-    <template
-      v-for="(item, index) in $props.items"
-      :key="index"
-    >
-      <slot
-        name="item.chip"
-        v-bind="{ index, item }"
-      >
-        <FSChip
-          :variant="$props.chipVariant"
-          :color="$props.color"
-          :label="item.label ?? item"
-        />
-      </slot>
-    </template>
-    <slot />
-  </FSSlideGroup>
+  </FSRow>
 </template>
   
   <script lang="ts">
@@ -106,6 +127,7 @@ import FSChip from "./FSChip.vue";
 import FSCard from "./FSCard.vue";
 import FSMenu from "./FSMenu.vue";
 import FSCol from "./FSCol.vue";
+
 import { useColors } from "../composables";
   
 export default defineComponent({
@@ -156,6 +178,7 @@ export default defineComponent({
 
     return {
       menuActivatorColor,
+      ChipGroupVariants,
       ColorEnum,
       menuOpen
     };
