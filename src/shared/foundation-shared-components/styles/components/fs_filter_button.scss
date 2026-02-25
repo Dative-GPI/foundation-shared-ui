@@ -1,5 +1,10 @@
 .fs-filter-button-menu {
-    width: 300px;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.fs-filter-button-menu * {
+    min-width: 0;
 }
 
 .fs-filter-button-chip {

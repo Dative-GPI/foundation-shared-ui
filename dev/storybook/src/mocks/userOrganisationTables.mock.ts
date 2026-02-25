@@ -144,6 +144,14 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: true
+        }, {
+            columnId: "6",
+            text: "Subgroupings",
+            value: "subgroupings",
+            index: 4,
+            hidden: false,
+            sortable: false,
+            filterable: true
         }],
         sortByKey: null,
         sortByOrder: null
@@ -955,6 +963,34 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
                 sortable: true,
                 filterable: true
             }
+        ],
+        sortByKey: null,
+        sortByOrder: null
+    },
+    {
+        id: "21",
+        code: "subgroupings1",
+        mode: "table",
+        rowsPerPage: -1,
+        columns: [
+            {
+                columnId: "sub1",
+                text: "Subgrouping label",
+                value: "label",
+                sortable: true,
+                filterable: false,
+                index: 0,
+                hidden: false
+            },
+            {
+                columnId: "sub2",
+                text: "Devices count",
+                value: "deviceOrganisationsCount",
+                sortable: true,
+                filterable: false,
+                index: 1,
+                hidden: false
+            },
         ],
         sortByKey: null,
         sortByOrder: null

@@ -24,3 +24,9 @@ export enum DialogMultiFormModes {
   Tabs = "tabs",
   Hidden = "hidden"
 }
+
+export type ChipGroupVariant = "wrap" | "slide";
+export enum ChipGroupVariants {
+  Wrap = "wrap",
+  Slide = "slide"
+}
