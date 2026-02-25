@@ -97,7 +97,7 @@
   <script lang="ts">
 import { defineComponent, ref, type PropType, computed } from "vue";
   
-import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ChipGroupVariant, ChipGroupVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
   
 import FSSlideGroup from "./FSSlideGroup.vue";
 import FSWrapGroup from "./FSWrapGroup.vue";
@@ -126,9 +126,9 @@ export default defineComponent({
       default: () => []
     },
     variant: {
-      type: String as PropType<"wrap" | "slide">,
+      type: String as PropType<ChipGroupVariant>,
       required: false,
-      default: "wrap"
+      default: ChipGroupVariants.Wrap
     },
     chipVariant: {
       type: String as PropType<CardVariant>,

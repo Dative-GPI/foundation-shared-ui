@@ -5,7 +5,7 @@
     :itemTo="$props.itemTo"
     :tableCode="$props.tableCode"
     :selectable="$props.selectable"
-    :showSearch="true"
+    :showSearch="$props.showSearch"
     :disableIterator="true"
     :singleSelect="$props.singleSelect"
     :groupBy="groupBy"
@@ -27,15 +27,22 @@
     >
       <FSRow
         height="54px"
-        padding="16px 16px 16px 56px"
         align="center-left"
-        :style="{ backgroundColor: getColors(ColorEnum.Light).base }"
       >
-        <FSGroupingChip
-          :label="getGroupingLabel(item.value)"
-          :iconColor="getGroupingColor(item.value)"
-          :icon="getGroupingIcon(item.value)"
-        />
+        <FSCard
+          padding="16px 16px 16px 56px"
+          height="100%"
+          width="100%"
+          :borderRadius="0"
+          :variant="CardVariants.Full"
+          :color="getColors(ColorEnum.Light).base"
+        >
+          <FSGroupingChip
+            :label="getGroupingLabel(item.value)"
+            :iconColor="getGroupingColor(item.value)"
+            :icon="getGroupingIcon(item.value)"
+          />
+        </FSCard>
       </FSRow>
     </template>
     <template
@@ -75,9 +82,10 @@ import FSDataTable from "../FSDataTable.vue";
 import FSSubgroupingTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSSubgroupingTileUI.vue";
 import FSGroupingChip from "@dative-gpi/foundation-shared-components/components/FSGroupingChip.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
+import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
-import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum, CardVariants } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
 export default defineComponent({
@@ -87,6 +95,7 @@ export default defineComponent({
     FSGroupingChip,
     FSDataTable,
     FSIcon,
+    FSCard,
     FSRow
   },
   props: {
@@ -114,12 +123,18 @@ export default defineComponent({
       required: false,
       default: false
     },
+    showSearch: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
     modelValue: {
       type: Array as PropType<string[]>,
       required: false,
       default: () => []
     }
   },
+  inheritAttrs: false,
   emits: ["update:modelValue"],
   setup(props) {
     const { getMany: fetchSubgroupings, fetching: fetchingSubgroupings, entities: subgroupings } = useSubgroupings();
@@ -142,15 +157,15 @@ export default defineComponent({
     });
 
     const getGroupingLabel = (groupingId: string): string => {
-      return groupingMap.value[groupingId]?.label ?? "";
+      return groupingMap.value[groupingId].label;
     };
 
     const getGroupingColor = (groupingId: string): string => {
-      return groupingMap.value[groupingId]?.color ?? "";
+      return groupingMap.value[groupingId].color;
     };
 
     const getGroupingIcon = (groupingId: string): string => {
-      return groupingMap.value[groupingId]?.icon ?? "";
+      return groupingMap.value[groupingId].icon;
     };
 
     const isSelected = (id: string) => {
@@ -169,10 +184,11 @@ export default defineComponent({
       getGroupingColor,
       getGroupingIcon,
       subgroupings,
+      CardVariants,
       isSelected,
       getColors,
       ColorEnum,
-      groupBy
+      groupBy,
     };
   }
 });

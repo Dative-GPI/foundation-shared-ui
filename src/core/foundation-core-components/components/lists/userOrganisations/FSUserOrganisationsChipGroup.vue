@@ -28,7 +28,7 @@ import FSLoader from "@dative-gpi/foundation-shared-components/components/FSLoad
 import FSChipGroup from "@dative-gpi/foundation-shared-components/components/FSChipGroup.vue";
   
 export default defineComponent({
-  name: "FSChipUserOrganisationsList",
+  name: "FSUserOrganisationsChipGroup",
   components: {
     FSChipGroup,
     FSLoader,

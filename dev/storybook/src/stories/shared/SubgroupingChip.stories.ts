@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
+import { SUBGROUPINGS } from '@/mocks/subgroupings.mock';
+
 import FSSubgroupingChip from "@dative-gpi/foundation-shared-components/components/FSSubgroupingChip.vue";
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
@@ -22,11 +24,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    groupingIcon: "mdi-flash",
-    groupingLabel: "Usage énergétique",
-    groupingColor: "#FF9800",
-    icon: "mdi-gondola",
-    label: "Remontées mécaniques"
+    groupingIcon: SUBGROUPINGS[1].groupingIcon,
+    groupingLabel: SUBGROUPINGS[1].groupingLabel,
+    groupingColor: SUBGROUPINGS[1].groupingColor,
+    icon: SUBGROUPINGS[1].icon,
+    label: SUBGROUPINGS[1].label
   },
   render: (args) => ({
     components: { FSSubgroupingChip },
@@ -40,52 +42,5 @@ export const Default: Story = {
       />
     </div>
     `
-  })
-}
-
-export const Variations: Story = {
-  args: {
-    groupingIcon: "mdi-flash",
-    groupingLabel: "Usage énergétique",
-    groupingColor: "#FF9800",
-    icon: "mdi-gondola",
-    label: "Remontées mécaniques"
-  },
-  render: () => ({
-    components: { FSSubgroupingChip, FSText },
-    template: `
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-      <FSText> Different colors </FSText>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <FSSubgroupingChip
-          groupingIcon="mdi-flash"
-          groupingLabel="Usage énergétique"
-          groupingColor="#FF9800"
-          icon="mdi-gondola"
-          label="Remontées mécaniques"
-        />
-        <FSSubgroupingChip
-          groupingIcon="mdi-folder-outline"
-          groupingLabel="Grouping 1"
-          groupingColor="#FF0000"
-          icon="mdi-account-outline"
-          label="Subgrouping 1"
-        />
-        <FSSubgroupingChip
-          groupingIcon="mdi-folder-outline"
-          groupingLabel="Grouping 1"
-          groupingColor="#00FF00"
-          icon="mdi-account-outline"
-          label="Subgrouping 2"
-        />
-        <FSSubgroupingChip
-          groupingIcon="mdi-cog-outline"
-          groupingLabel="Configuration"
-          groupingColor="primary"
-          icon="mdi-tune"
-          label="Paramètres avancés"
-        />
-      </div>
-    </div>`
   })
 }

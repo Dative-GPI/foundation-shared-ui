@@ -3,7 +3,6 @@
     v-if="$props.subgroupings && $props.subgroupings.length > 0"
     :items="$props.subgroupings"
     :maxItems="$props.maxItems"
-    :variant="$props.variant"
   >
     <template
       #item.chip="{ item }"
@@ -31,7 +30,7 @@ import FSSubgroupingChip from "@dative-gpi/foundation-shared-components/componen
 import FSChipGroup from "@dative-gpi/foundation-shared-components/components/FSChipGroup.vue";
 
 export default defineComponent({
-  name: "FSSubgroupingsChipList",
+  name: "FSSubgroupingsChipGroup",
   components: {
     FSSubgroupingChip,
     FSChipGroup
@@ -44,11 +43,6 @@ export default defineComponent({
     itemTo: {
       type: Function as PropType<(item: SubgroupingInfos) => Partial<RouteLocation>>,
       required: false
-    },
-    variant: {
-      type: String as PropType<"wrap" | "slide">,
-      required: false,
-      default: "wrap"
     },
     maxItems: {
       type: Number as PropType<number | null>,

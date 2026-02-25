@@ -118,7 +118,7 @@
     <template
       #item.subgroupings="{ item }"
     >
-      <FSSubgroupingsChipList
+      <FSSubgroupingsChipGroup
         :subgroupings="item.subgroupings"
       />
     </template>
@@ -216,13 +216,13 @@ import FSIconCheck from "@dative-gpi/foundation-shared-components/components/FSI
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
-import FSSubgroupingsChipList from "../subgroupings/FSSubgroupingsChipList.vue";
+import FSSubgroupingsChipGroup from "../subgroupings/FSSubgroupingsChipGroup.vue";
 
 export default defineComponent({
   name: "FSBaseDeviceOrganisationsList",
   components: {
     FSDeviceOrganisationTileUI,
-    FSSubgroupingsChipList,
+    FSSubgroupingsChipGroup,
     FSSubgroupingChip,
     FSStatusesCarousel,
     FSConnectivity,

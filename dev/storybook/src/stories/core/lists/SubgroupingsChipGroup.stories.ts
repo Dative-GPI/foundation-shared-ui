@@ -2,19 +2,19 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
-import FSSubgroupingsChipList from "@dative-gpi/foundation-core-components/components/lists/subgroupings/FSSubgroupingsChipList.vue";
+import FSSubgroupingsChipGroup from "@dative-gpi/foundation-core-components/components/lists/subgroupings/FSSubgroupingsChipGroup.vue";
 import FSChipGroup from '@dative-gpi/foundation-shared-components/components/FSChipGroup.vue';
 
 import { SubgroupingInfos } from "@dative-gpi/foundation-core-domain/models";
 
-const meta: Meta<typeof FSSubgroupingsChipList> = {
-    title: 'Foundation/Core/Lists/SubgroupingsChipList',
+const meta: Meta<typeof FSSubgroupingsChipGroup> = {
+    title: 'Foundation/Core/Lists/SubgroupingsChipGroup',
     subcomponents: { FSChipGroup },
-    component: FSSubgroupingsChipList,
+    component: FSSubgroupingsChipGroup,
     tags: ['autodocs'],
     argTypes: {
-        ...addSubcomponentsArgTypes([FSChipGroup], FSSubgroupingsChipList),
-        ...addComponentEmits(FSSubgroupingsChipList)
+        ...addSubcomponentsArgTypes([FSChipGroup], FSSubgroupingsChipGroup),
+        ...addComponentEmits(FSSubgroupingsChipGroup)
     },
 };
 
@@ -66,12 +66,12 @@ const SUBGROUPINGS = [
 
 export const Multiple: Story = {
     render: (args) => ({
-        components: { FSSubgroupingsChipList },
+        components: { FSSubgroupingsChipGroup },
         setup() {
             return { args };
         },
         template: `
-            <FSSubgroupingsChipList
+            <FSSubgroupingsChipGroup
                 :subgroupings="args.subgroupings"
             />
     `,
@@ -83,12 +83,12 @@ export const Multiple: Story = {
 
 export const Single: Story = {
     render: (args) => ({
-        components: { FSSubgroupingsChipList },
+        components: { FSSubgroupingsChipGroup },
         setup() {
             return { args };
         },
         template: `
-            <FSSubgroupingsChipList
+            <FSSubgroupingsChipGroup
                 :subgroupings="args.subgroupings"
             />
     `,

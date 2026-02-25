@@ -26,6 +26,7 @@ export default defineComponent({
       default: () => ({})
     }
   },
+  inheritAttrs: false,
   setup(props) {
     const { entities: subgroupings, getMany, fetching } = useSubgroupings();
 

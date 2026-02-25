@@ -42,6 +42,7 @@
         :singleSelect="$props.singleSelect"
         :entity-type="$props.entityType"
         :tableCode="tableCode"
+        :selectable="true"
         :modelValue="$props.modelValue"
         @update:modelValue="$emit('update:modelValue', $event)"
         v-bind="baseTableAttrs"

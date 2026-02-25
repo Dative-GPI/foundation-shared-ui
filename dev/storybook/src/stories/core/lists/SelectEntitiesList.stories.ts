@@ -169,7 +169,6 @@ export const Groupings: Story = {
       <FSSelectEntitiesList
         :entityType="args.entityType"
         :showRemove="true"
-        :selectable="true"
         v-model="args.modelValue"
       />
     `,
