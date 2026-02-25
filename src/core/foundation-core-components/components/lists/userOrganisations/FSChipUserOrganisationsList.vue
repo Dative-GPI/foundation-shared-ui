@@ -12,7 +12,7 @@
   <FSChipGroup
     v-else
     :color="ColorEnum.Light"
-    :labels="userOrganisations?.map(u => u.name)"
+    :items="userOrganisations?.map(u => u.name)"
     v-bind="$attrs"
   />
 </template>
