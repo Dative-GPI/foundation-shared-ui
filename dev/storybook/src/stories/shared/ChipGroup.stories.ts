@@ -40,31 +40,35 @@ export const Wrap: Story = {
   })
 }
 
-export const MaxItems: Story = {
+export const Menu: Story = {
   render: () => ({
     components: { FSChipGroup, FSSubgroupingChip, FSText },
     template: `
     <div style="display: flex; flex-direction: column; gap: 20px;">
       <FSText font="text-h3"> With labels (maxItems=1) </FSText>
       <FSChipGroup
+        variant="menu"
         :items="['Bâtiment', 'Usage énergétique', 'Remontées mécaniques', 'Parking']"
         :maxItems="1"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText font="text-h3"> With labels (single, maxItems=1) </FSText>
       <FSChipGroup
+        variant="menu"
         :items="['Bâtiment']"
         :maxItems="1"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText font="text-h3"> With labels (maxItems=2) </FSText>
       <FSChipGroup
+        variant="menu"
         :items="['Bâtiment', 'Usage énergétique', 'Remontées mécaniques', 'Parking']"
         :maxItems="2"
       />
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText font="text-h3"> With slot item.chip (maxItems=1) </FSText>
       <FSChipGroup
+        variant="menu"
         :items="[
           { groupingIcon: 'mdi-flash', groupingLabel: 'Usage énergétique', groupingColor: '#FF9800', icon: 'mdi-office-building', label: 'Bâtiment' },
           { groupingIcon: 'mdi-office-building', groupingLabel: 'Bâtiment', groupingColor: '#2196F3', icon: 'mdi-flash', label: 'Usage énergétique' },
@@ -86,6 +90,7 @@ export const MaxItems: Story = {
       <div style="width: 100%; border-bottom: 2px dotted lightgrey" />
       <FSText font="text-h3"> Without maxItems (all visible) </FSText>
       <FSChipGroup
+        variant="menu"
         :items="['Bâtiment', 'Usage énergétique', 'Remontées mécaniques', 'Parking']"
       />
     </div>`
