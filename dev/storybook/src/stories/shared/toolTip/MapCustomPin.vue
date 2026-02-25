@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
 import { useDynamicVNode } from '@dative-gpi/foundation-shared-components/composables';
 
@@ -69,12 +69,10 @@ export default defineComponent({
             lng.value = event.lng;
         };
 
-        watch([lat, lng], () => {
-            mount({
-                lat: lat.value,
-                lng: lng.value
-            });
-        }, { immediate: true });
+        mount(() => ({
+            lat: lat.value,
+            lng: lng.value
+        }));
 
         return {
             location,

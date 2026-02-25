@@ -1,10 +1,10 @@
-import { h, render, getCurrentInstance, onBeforeUnmount, type Component, type VNode } from "vue";
+import { h, render, getCurrentInstance, onBeforeUnmount, toValue, type Component, type MaybeRefOrGetter, watch } from "vue";
 
 export function useDynamicVNode<TProps extends Record<string, any>>(component: Component<TProps>) {
 
-  let vnode: VNode | null = null;
   let container: HTMLElement | null = null;
   let mountPoint: HTMLElement | null = null;
+  let stopWatching: (() => void) | null = null;
 
   const instance = getCurrentInstance();
   if (!instance) {
@@ -13,7 +13,7 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
 
   const appContext = instance.appContext;
 
-  const mount = async (props: TProps) => {
+  const mount = (getProps: MaybeRefOrGetter<TProps>) => {
     if (!mountPoint) {
       throw new Error(`You must call getElement() first to create the mount point`);
     }
@@ -23,18 +23,25 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
       mountPoint.appendChild(container);
     }
 
-    vnode = h(component, props);
-    vnode.appContext = appContext;
-
-    render(vnode, container);
+    if (stopWatching) {
+      stopWatching();
+    }
+    stopWatching = watch(getProps, () => {
+      const vnode = h(component, toValue(getProps));
+      vnode.appContext = appContext;
+      render(vnode, container!);
+    }, { immediate: true });
   };
 
   const unmount = () => {
+    if (stopWatching) {
+      stopWatching();
+      stopWatching = null;
+    }
     if (container) {
       render(null, container);
       container.remove();
     }
-    vnode = null;
     container = null;
   };
 
@@ -42,14 +49,16 @@ export function useDynamicVNode<TProps extends Record<string, any>>(component: C
     if (!mountPoint) {
       mountPoint = document.createElement("div");
     }
-    mountPoint = document.createElement("div");
     Object.assign(mountPoint.style, style ?? {});
     return mountPoint;
   };
 
   const destroy = () => {
     unmount();
-    mountPoint = null;
+    if (mountPoint) {
+      mountPoint.remove();
+      mountPoint = null;
+    }
   };
 
   onBeforeUnmount(destroy);
