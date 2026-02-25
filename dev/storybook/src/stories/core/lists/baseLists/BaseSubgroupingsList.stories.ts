@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import FSBaseSubgroupingsList from "@dative-gpi/foundation-core-components/components/lists/subgroupings/FSBaseSubgroupingsList.vue";
+import FSDataTableUI from '@dative-gpi/foundation-core-components/components/lists/FSDataTableUI.vue';
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
@@ -10,7 +11,7 @@ const meta: Meta<typeof FSBaseSubgroupingsList> = {
   subcomponents: { FSDataTable },
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSDataTable], FSBaseSubgroupingsList),
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseSubgroupingsList),
     ...addComponentEmits(FSBaseSubgroupingsList)
   },
 };

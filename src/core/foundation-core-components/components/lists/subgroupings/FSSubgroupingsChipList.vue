@@ -1,18 +1,22 @@
 <template>
   <FSChipGroup
     v-if="$props.subgroupings && $props.subgroupings.length > 0"
+    :items="$props.subgroupings"
+    :maxItems="$props.maxItems"
     :variant="$props.variant"
   >
-    <FSSubgroupingChip
-      v-for="(item, index) in $props.subgroupings"  
-      :key="index"
-      :groupingLabel="item.groupingLabel"
-      :groupingIcon="item.groupingIcon"
-      :groupingColor="item.groupingColor"
-      :label="item.label"
-      :icon="item.icon"
-      :to="$props.itemTo ? $props.itemTo(item) : null"
-    />
+    <template
+      #item.chip="{ item }"
+    >
+      <FSSubgroupingChip
+        :groupingLabel="item.groupingLabel"
+        :groupingIcon="item.groupingIcon"
+        :groupingColor="item.groupingColor"
+        :label="item.label"
+        :icon="item.icon"
+        :to="$props.itemTo ? $props.itemTo(item) : null"
+      />
+    </template>
   </FSChipGroup>
 </template>
 
@@ -42,9 +46,14 @@ export default defineComponent({
       required: false
     },
     variant: {
-      type: String as PropType<"wrap" | "slide" | "menu">,
+      type: String as PropType<"wrap" | "slide">,
       required: false,
-      default: "menu"
+      default: "wrap"
+    },
+    maxItems: {
+      type: Number as PropType<number | null>,
+      required: false,
+      default: 1
     }
   }
 });

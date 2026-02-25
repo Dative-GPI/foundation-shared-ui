@@ -3,7 +3,7 @@
     :height="$props.height"
     :width="$props.width"
     :variant="$props.variant"
-    :color="borderColor"
+    :color="chipColor"
     :disableHoverStyle="$props.disableHoverStyle"
   >
     <FSRow
@@ -103,11 +103,11 @@ export default defineComponent({
   setup(props) {
     const { getColors } = useColors();
     
-    const borderColor = getColors(props.color).dark;
+    const chipColor = getColors(props.color).dark;
     const textColor = getColors(ColorEnum.Dark).dark;
 
     return {
-      borderColor,
+      chipColor,
       textColor,
       ColorEnum
     };

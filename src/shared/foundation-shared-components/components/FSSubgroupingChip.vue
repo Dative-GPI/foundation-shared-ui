@@ -1,6 +1,6 @@
 <template>
   <FSChip
-    :color="borderColor"
+    :color="chipColor"
     :width="$props.width"
     :height="$props.height"
     :variant="$props.variant"
@@ -127,10 +127,10 @@ export default defineComponent({
   setup(props) {
     const { getColors } = useColors();
     
-    const borderColor = getColors(props.color).dark;
+    const chipColor = getColors(props.color).dark;
 
     return {
-      borderColor,
+      chipColor,
       ColorEnum
     };
   }

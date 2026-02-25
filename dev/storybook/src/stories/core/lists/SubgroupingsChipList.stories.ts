@@ -1,13 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+
 import FSSubgroupingsChipList from "@dative-gpi/foundation-core-components/components/lists/subgroupings/FSSubgroupingsChipList.vue";
+import FSChipGroup from '@dative-gpi/foundation-shared-components/components/FSChipGroup.vue';
 
 import { SubgroupingInfos } from "@dative-gpi/foundation-core-domain/models";
 
 const meta: Meta<typeof FSSubgroupingsChipList> = {
-    title: 'Foundation/Core/Lists/FSSubgroupingsChipList',
+    title: 'Foundation/Core/Lists/SubgroupingsChipList',
+    subcomponents: { FSChipGroup },
     component: FSSubgroupingsChipList,
-    tags: ['autodocs']
+    tags: ['autodocs'],
+    argTypes: {
+        ...addSubcomponentsArgTypes([FSChipGroup], FSSubgroupingsChipList),
+        ...addComponentEmits(FSSubgroupingsChipList)
+    },
 };
 
 export default meta;
@@ -63,11 +71,9 @@ export const Multiple: Story = {
             return { args };
         },
         template: `
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             <FSSubgroupingsChipList
                 :subgroupings="args.subgroupings"
             />
-        </div>
     `,
     }),
     args: {
@@ -82,11 +88,9 @@ export const Single: Story = {
             return { args };
         },
         template: `
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             <FSSubgroupingsChipList
                 :subgroupings="args.subgroupings"
             />
-        </div>
     `,
     }),
     args: {

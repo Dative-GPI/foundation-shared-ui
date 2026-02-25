@@ -1,49 +1,25 @@
 <template>
   <FSWrapGroup
-    v-if="$props.variant === 'wrap'"
+    v-if="$props.variant === 'wrap' && $props.items"
     v-bind="$attrs"
   >
-    <FSChip
-      v-for="(label, index) in $props.labels"
+    <template
+      v-for="(item, index) in $props.items.slice(0, $props.maxItems ?? $props.items.length)"
       :key="index"
-      :variant="$props.chipVariant"
-      :color="$props.color"
-      :label="label"
-    />
-    <slot />
-  </FSWrapGroup>
-  <FSSlideGroup
-    v-else-if="$props.variant === 'slide'"
-    v-bind="$attrs"
-  >
-    <FSChip
-      v-for="(label, index) in $props.labels"
-      :key="index"
-      :variant="$props.chipVariant"
-      :color="$props.color"
-      :label="label"
-    />
-    <slot />
-  </FSSlideGroup>
-  <FSRow
-    v-else-if="$props.variant === 'menu'"
-    align="center-left"
-    width="hug"
-    :wrap="false"
-    v-bind="$attrs"
-  >
-    <component
-      v-if="hasSlots"
-      :is="slotElements[0]"
-    />
-    <FSChip
-      v-else
-      :variant="$props.chipVariant"
-      :color="$props.color"
-      :label="menuLabels[0]"
-    />
+    >
+      <slot
+        name="item.chip"
+        v-bind="{ index, item }"
+      >
+        <FSChip
+          :variant="$props.chipVariant"
+          :color="$props.color"
+          :label="item.label ?? item"
+        />
+      </slot>
+    </template>
     <FSMenu
-      v-if="slotElements.length > 1 || menuLabels.length > 1"
+      v-if="$props.maxItems && $props.items.length > $props.maxItems"
       location="bottom end"
       v-model="menuOpen"
     >
@@ -53,7 +29,7 @@
         <FSChip
           v-bind="activatorProps"
           variant="full"
-          :label="`+${hasSlots ? (slotElements.length - 1) : (menuLabels.length - 1)}`"
+          :label="`+${$props.items.length - $props.maxItems}`"
           :color="menuActivatorColor"
           :clickable="true"
         />
@@ -73,34 +49,53 @@
           />
         </template>
         <FSCol
-          v-if="hasSlots"
           gap="12px"
         >
-          <component
-            v-for="(element, index) in slotElements.slice(1)"
+          <template
+            v-for="(item, index) in $props.items"
             :key="index"
-            :is="element"
-          />
-        </FSCol>
-        <FSCol
-          v-else
-          gap="12px"
-        >
-          <FSChip
-            v-for="(label, index) in menuLabels"
-            :key="index"
-            :variant="$props.chipVariant"
-            :color="$props.color"
-            :label="label"
-          />
+          >
+            <slot
+              name="item.chip"
+              v-bind="{ index, item }"
+            >
+              <FSChip
+                :variant="$props.chipVariant"
+                :color="$props.color"
+                :label="item.label ?? item"
+              />
+            </slot>
+          </template>
         </FSCol>
       </FSCard>
     </FSMenu>
-  </FSRow>
+    <slot />
+  </FSWrapGroup>
+  <FSSlideGroup
+    v-else-if="$props.variant === 'slide'"
+    v-bind="$attrs"
+  >
+    <template
+      v-for="(item, index) in $props.items"
+      :key="index"
+    >
+      <slot
+        name="item.chip"
+        v-bind="{ index, item }"
+      >
+        <FSChip
+          :variant="$props.chipVariant"
+          :color="$props.color"
+          :label="item.label ?? item"
+        />
+      </slot>
+    </template>
+    <slot />
+  </FSSlideGroup>
 </template>
   
   <script lang="ts">
-import { defineComponent, ref, type PropType, useSlots, computed, type VNode } from "vue";
+import { defineComponent, ref, type PropType, computed } from "vue";
   
 import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
   
@@ -111,7 +106,6 @@ import FSChip from "./FSChip.vue";
 import FSCard from "./FSCard.vue";
 import FSMenu from "./FSMenu.vue";
 import FSCol from "./FSCol.vue";
-import FSRow from "./FSRow.vue";
 import { useColors } from "../composables";
   
 export default defineComponent({
@@ -123,17 +117,16 @@ export default defineComponent({
     FSChip,
     FSCard,
     FSMenu,
-    FSCol,
-    FSRow
+    FSCol
   },
   props: {
-    labels: {
-      type: Array as PropType<string[]>,
+    items: {
+      type: Array as PropType<any[] | string[]>,
       required: false,
       default: () => []
     },
     variant: {
-      type: String as PropType<"wrap" | "slide" | "menu">,
+      type: String as PropType<"wrap" | "slide">,
       required: false,
       default: "wrap"
     },
@@ -146,33 +139,16 @@ export default defineComponent({
       type: String as PropType<ColorBase>,
       required: false,
       default: ColorEnum.Light
+    },
+    maxItems: {
+      type: Number as PropType<number | null>,
+      required: false,
+      default: null
     }
   },
   setup(props) {
-    const slots = useSlots();
     const { getColors } = useColors();
     const menuOpen = ref(false);
-
-    const slotElements = computed((): VNode[] => {
-      const defaultSlot = slots.default?.();
-      if (!defaultSlot) {
-        return [];
-      }
-      return defaultSlot.flatMap(node => {
-        if (node.type === Symbol.for('v-fgt')) {
-          return (node.children as VNode[]) ?? [];
-        }
-        return [node];
-      }).filter(node => typeof node.type !== 'symbol');
-    });
-
-    const hasSlots = computed((): boolean => {
-      return slotElements.value.length > 0;
-    });
-
-    const menuLabels = computed((): string[] => {
-      return props.labels ?? [];
-    });
 
     const menuActivatorColor = computed((): string => {
       return getColors(props.color).dark;
@@ -180,10 +156,7 @@ export default defineComponent({
 
     return {
       menuActivatorColor,
-      slotElements,
-      menuLabels,
       ColorEnum,
-      hasSlots,
       menuOpen
     };
   }

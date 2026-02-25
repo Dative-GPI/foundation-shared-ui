@@ -36,6 +36,7 @@ export default defineComponent({
       default: null
     }
   },
+  inheritAttrs: false,
   setup() {
     return {
       ColorEnum,
