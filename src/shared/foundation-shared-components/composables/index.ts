@@ -5,6 +5,7 @@ export * from "./useBreakpoints";
 export * from "./useColors";
 export * from "./useCountUp";
 export * from "./useDebounce";
+export * from "./useDomRenderer";
 export * from "./useElementVisibility";
 export * from "./useMapLayers";
 export * from "./useRules";
