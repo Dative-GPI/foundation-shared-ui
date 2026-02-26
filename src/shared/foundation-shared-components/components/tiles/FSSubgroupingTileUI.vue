@@ -7,7 +7,7 @@
       #append-info
     >
       <FSEntityCountBadge
-        :label="$tr('ui.common.devices', 'Équipements')"
+        :label="$tr('ui.common.devices', 'Devices')"
         :count="$props.deviceOrganisationsCount ?? 0"
         :color="ColorEnum.Primary"
       />
