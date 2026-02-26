@@ -22,9 +22,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
-import { useDynamicVNode } from '@dative-gpi/foundation-shared-components/composables';
+import { useDomRenderer } from '@dative-gpi/foundation-shared-components/composables';
 
 import CustomPin from './CustomPin.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
@@ -41,12 +41,13 @@ export default defineComponent({
     },
     inheritAttrs: false,
     setup() {
-        const { mount, getElement: getMarkerHtml } = useDynamicVNode<{ lat: number; lng: number }>(CustomPin);
+        const renderer = useDomRenderer<{ lat: number; lng: number }>(CustomPin);
 
         const lat = ref(48.8566);
         const lng = ref(2.3522);
 
-        const markerElement = getMarkerHtml();
+        const handle = renderer.mount(() => ({ lat: lat.value, lng: lng.value }));
+        const markerElement = handle.getElement();
 
         const location = computed(() => ({
             "id": "3fb7ebf0-3227-4767-bb96-001384efdd57",
@@ -68,13 +69,6 @@ export default defineComponent({
             lat.value = event.lat;
             lng.value = event.lng;
         };
-
-        watch([lat, lng], () => {
-            mount({
-                lat: lat.value,
-                lng: lng.value
-            });
-        }, { immediate: true });
 
         return {
             location,

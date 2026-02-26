@@ -18,7 +18,6 @@
                     :latlng="{ lat: pin.lat, lng: pin.lng }"
                     :html="pinElements[index]"
                     @click="onPinClick(index)"
-                    @ready="onPinReady(index)"
                 />
             </FSMapMarkerClusterGroup>
             <template #overlay-body>
@@ -46,9 +45,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, nextTick } from 'vue';
+import { defineComponent, ref, nextTick, computed } from 'vue';
 
-import { useDynamicVNode } from '@dative-gpi/foundation-shared-components/composables';
+import { useDomRenderer } from '@dative-gpi/foundation-shared-components/composables';
 
 import CustomPin from './CustomPin.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
@@ -88,32 +87,18 @@ export default defineComponent({
 
         const colors = ['primary', 'success', 'error', 'warning', 'info'];
 
-        const pinInstances = Array.from({ length: maxPins }, () => useDynamicVNode<{ lat: number; lng: number }>(CustomPin));
+        // Une seule instance du composable pour tous les pins
+        const renderer = useDomRenderer<{ lat: number; lng: number }>(CustomPin);
 
-        const pinElements = pinInstances.map(instance => instance.getElement());
+        // Map id -> { handle, element }
+        const pinHandles = new Map<string, { handle: ReturnType<typeof renderer.mount>; element: HTMLElement }>();
 
-        const mountPin = async (index: number) => {
-            if (index >= activePins.value.length) return;
+        // Éléments DOM exposés au template, indexés par position dans activePins
+        const pinElements = computed(() =>
+            activePins.value.map(pin => pinHandles.get(pin.id)?.element ?? null)
+        );
 
-            const pin = activePins.value[index];
-            const instance = pinInstances[index];
-
-            await nextTick();
-            await instance.mount({
-                lat: pin.lat,
-                lng: pin.lng
-            });
-        };
-
-        const onPinReady = async (index: number) => {
-            await mountPin(index);
-        };
-
-        const onPinClick = (index: number) => {
-            selectedIndex.value = index;
-        };
-
-        const addRandomPin = async () => {
+        const addRandomPin = () => {
             if (activePins.value.length >= maxPins) return;
 
             const lat = 35 + Math.random() * 35;
@@ -121,29 +106,35 @@ export default defineComponent({
             const color = colors[Math.floor(Math.random() * colors.length)];
             const id = `pin-${Date.now()}-${Math.random()}`;
 
-            const pin: Pin = {
-                id,
-                label: `Pin ${activePins.value.length + 1}`,
-                lat,
-                lng,
-                color
-            };
+            const pin: Pin = { id, label: `Pin ${activePins.value.length + 1}`, lat, lng, color };
 
+            // mount() crée son propre slot de rendu réactif
+            const handle = renderer.mount(() => ({
+                lat: pin.lat,
+                lng: pin.lng
+            }));
+
+            pinHandles.set(id, { handle, element: handle.getElement() });
             activePins.value.push(pin);
-            await nextTick();
-            await mountPin(activePins.value.length - 1);
         };
 
         const removeLastPin = () => {
             if (activePins.value.length === 0) return;
 
-            const index = activePins.value.length - 1;
-            pinInstances[index].unmount();
+            const pin = activePins.value[activePins.value.length - 1];
+
+            // Démontage propre uniquement pour ce pin
+            pinHandles.get(pin.id)?.handle.unmount();
+            pinHandles.delete(pin.id);
             activePins.value.pop();
 
             if (selectedIndex.value !== null && selectedIndex.value >= activePins.value.length) {
                 selectedIndex.value = null;
             }
+        };
+
+        const onPinClick = (index: number) => {
+            selectedIndex.value = index;
         };
 
         return {
@@ -156,7 +147,6 @@ export default defineComponent({
             addRandomPin,
             removeLastPin,
             onPinClick,
-            onPinReady
         };
     },
 });
