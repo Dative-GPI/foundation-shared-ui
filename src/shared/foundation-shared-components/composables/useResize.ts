@@ -7,26 +7,22 @@ export function useResize(
   let resizeObserver: ResizeObserver | null = null;
 
   onMounted(() => {
-    if (typeof ResizeObserver !== 'undefined') {
-      resizeObserver = new ResizeObserver(() => {
-        onResize();
-      });
-      const element = getElement();
-      if (element) {
-        resizeObserver.observe(element);
-      }
+    const element = getElement();
+    if (!element) return;
+     if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(onResize);
+      resizeObserver.observe(element);
+    } else {
+      window.addEventListener('resize', onResize);
     }
-
-    window.addEventListener('resize', onResize);
   });
 
   onBeforeUnmount(() => {
-    window.removeEventListener('resize', onResize);
-    resizeObserver?.disconnect();
-    resizeObserver = null;
+     if (resizeObserver) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
+    } else {
+      window.removeEventListener('resize', onResize);
+    }
   });
-
-  return {
-    resize: onResize
-  };
 }
