@@ -14,12 +14,12 @@
         gap="6px"
       >
         <FSEntityCountBadge
-          :label="$tr('ui.common.folders', 'Folder(s)')"
+          :label="$tr('ui.common.folders', 'Folders')"
           :count="$props.recursiveFoldersIds?.length ?? 0"
           :color="ColorEnum.Primary"
         />
         <FSEntityCountBadge
-          :label="$tr('ui.common.dashboards', 'Dashboard(s)')"
+          :label="$tr('ui.common.dashboards', 'Dashboards')"
           :count="dashboardCount"
           :color="ColorEnum.Success"
         />
