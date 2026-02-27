@@ -2,7 +2,7 @@ import type { SubgroupingInfosDTO } from "@dative-gpi/foundation-core-domain/mod
 
 export const SUBGROUPINGS: SubgroupingInfosDTO[] = [
     {
-        id: "subgrouping1",
+        id: "1",
         label: "Neige",
         code: "neige",
         groupingColor: "#FF9800",
@@ -13,7 +13,7 @@ export const SUBGROUPINGS: SubgroupingInfosDTO[] = [
         deviceOrganisationsCount: 5
     },
     {
-        id: "subgrouping2",
+        id: "2",
         label: "Remontées mécaniques",
         code: "remontees-mecaniques",
         groupingColor: "#FF9800",
