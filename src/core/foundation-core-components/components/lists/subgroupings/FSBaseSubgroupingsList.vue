@@ -40,7 +40,6 @@
             :label="getGroupingLabel(item.value)"
             :iconColor="getGroupingColor(item.value)"
             :icon="getGroupingIcon(item.value)"
-            :clickable="false"
           />
         </FSCard>
       </FSRow>
