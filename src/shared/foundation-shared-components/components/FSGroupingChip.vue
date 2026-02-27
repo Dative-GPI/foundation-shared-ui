@@ -54,7 +54,6 @@ export default defineComponent({
     FSText,
     FSRow
   },
-  inheritAttrs: false,
   props: {
     label: {
       type: String as PropType<string>,

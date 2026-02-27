@@ -40,7 +40,7 @@ export const Default: Story = {
   },
 };
 
-export const Selectable: Story = {
+export const NotSelectable: Story = {
   render: (args) => ({
     components: { FSBaseSubgroupingsList },
     setup() {
@@ -56,7 +56,7 @@ export const Selectable: Story = {
   args: {
     modelValue: [],
     tableCode: 'subgroupings1',
-    selectable: true,
+    selectable: false,
   },
 };
 

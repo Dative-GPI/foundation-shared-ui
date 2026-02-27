@@ -6,7 +6,6 @@
     :tableCode="$props.tableCode"
     :selectable="$props.selectable"
     :showSearch="$props.showSearch"
-    :disableIterator="true"
     :singleSelect="$props.singleSelect"
     :groupBy="groupBy"
     :modelValue="$props.modelValue"
@@ -41,6 +40,7 @@
             :label="getGroupingLabel(item.value)"
             :iconColor="getGroupingColor(item.value)"
             :icon="getGroupingIcon(item.value)"
+            :clickable="false"
           />
         </FSCard>
       </FSRow>
@@ -60,6 +60,9 @@
         :modelValue="isSelected(item.id)"
         :singleSelect="$props.singleSelect"
         :deviceOrganisationsCount="item.deviceOrganisationsCount"
+        :groupingLabel="item.groupingLabel"
+        :groupingIcon="item.groupingIcon"
+        :groupingColor="item.groupingColor"
         :label="item.label"
         :icon="item.icon"
         :to="$props.itemTo && $props.itemTo(item)"
