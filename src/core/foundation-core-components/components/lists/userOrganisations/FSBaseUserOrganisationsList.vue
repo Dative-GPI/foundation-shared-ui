@@ -51,6 +51,13 @@
       />
     </template>
     <template
+      #item.allowNotifications="{ item }"
+    >
+      <FSIconCheck
+        :value="item.allowNotifications"
+      />
+    </template>
+    <template
       #item.tags="{ item }"
     >
       <FSTagGroup
