@@ -57,27 +57,35 @@
           <FSCol
             gap="6px"
           >
-            <FSChip
+            <template
               v-for="(filter, index) in searchedFilters"
-              class="fs-filter-button-chip"
-              :variant="getVariant(filter)"
-              :height="['30px', '24px']"
-              :color="$props.color"
-              :label="filter.text"
-              align="center-left"
-              :clickable="true"
-              :border="false"
               :key="index"
-              @click="() => onToggle(filter)"
             >
-              <template
-                #default
+              <slot
+                name="custom"
+                v-bind="{ filter, toggle: () => onToggle(filter), variant: getVariant(filter) }"
               >
-                <slot
-                  v-bind="{ filter }"
-                />
-              </template>
-            </FSChip>
+                <FSChip
+                  class="fs-filter-button-chip"
+                  :variant="getVariant(filter)"
+                  :height="['30px', '24px']"
+                  :color="$props.color"
+                  :label="filter.text"
+                  align="center-left"
+                  :clickable="true"
+                  :border="false"
+                  @click="() => onToggle(filter)"
+                >
+                  <template
+                    #default
+                  >
+                    <slot
+                      v-bind="{ filter }"
+                    />
+                  </template>
+                </FSChip>
+              </slot>
+            </template>
           </FSCol>
         </FSFadeOut>
       </FSCol>

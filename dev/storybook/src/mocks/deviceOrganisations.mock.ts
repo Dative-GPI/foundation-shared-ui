@@ -5,6 +5,7 @@ import { MANUFACTURERS } from "./manufacturers.mock";
 import { MODELSTATUSES } from "./modelStatuses.mock";
 import { ARTICLES } from "./articles.mock";
 import { MODELS } from "./models.mock";
+import { SUBGROUPINGS } from "./subgroupings.mock";
 
 const ONLINE_PROCESSED = new Date();
 const ONLINE_ENQUEUED = new Date(ONLINE_PROCESSED.getTime() - (5 * 60 * 1000));
@@ -240,7 +241,8 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     latitude: null,
     longitude: null,
     locationLatitude: null,
-    locationLongitude: null
+    locationLongitude: null,
+    subgroupings: SUBGROUPINGS
 }, {
     id: "2",
     deviceId: "2",
@@ -261,7 +263,7 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     groupId: null,
     groupLabel: null,
     groupIcon: null,
-    label: "Device 2 with a very very very very long name",
+    label: "Device 2 with a very very very very long name Device 2 with a very very very very long name Device 2 with a very very very very long name Device 2 with a very very very very long name",
     code: "980002",
     imageId: "1",
     tags: [],
@@ -282,7 +284,8 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     latitude: null,
     longitude: null,
     locationLatitude: null,
-    locationLongitude: null
+    locationLongitude: null,
+    subgroupings: []
 }, {
     id: "3",
     deviceId: "3",
@@ -324,7 +327,8 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     latitude: null,
     longitude: null,
     locationLatitude: null,
-    locationLongitude: null
+    locationLongitude: null,
+    subgroupings: []
 }, {
     id: "4",
     deviceId: "4",
@@ -366,5 +370,6 @@ export const DEVICEORGANISATIONS: DeviceOrganisationDetailsDTO[] = [{
     latitude: null,
     longitude: null,
     locationLatitude: null,
-    locationLongitude: null
+    locationLongitude: null,
+    subgroupings: [SUBGROUPINGS[0], SUBGROUPINGS[1]]
 }];

@@ -29,5 +29,6 @@ export interface GroupingInfosDTO {
 }
 
 export interface GroupingFilters {
+  groupingsIds?: string[] | null;
   search?: string | null;
 }
