@@ -43,7 +43,9 @@ export function useDomRenderer<TProps extends Record<string, any>>(component: Co
 
     const unmount = () => {
       const subscriber = subscribers.get(id);
-      if (!subscriber) return;
+      if (!subscriber) {
+        return;
+      }
 
       if (subscriber.stopWatching) {
         subscriber.stopWatching();
