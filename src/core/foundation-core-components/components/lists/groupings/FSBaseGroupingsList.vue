@@ -2,12 +2,10 @@
   <FSDataTable
     defaultMode="iterator"
     :loading="fetchingGroupings"
+    :singleSelect="$props.singleSelect"
+    :selectable="$props.selectable"
     :items="groupings"
     :itemTo="$props.itemTo"
-    :selectable="$props.selectable"
-    :showSearch="$props.showSearch"
-    :singleSelect="$props.singleSelect"
-    :disableTable="$props.disableTable"
     :modelValue="$props.modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -94,16 +92,6 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    showSearch: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    disableTable: {
-      type: Boolean,
-      required: false,
-      default: true
-    }
   },
   emits: ["update:modelValue"],
   setup(props) {

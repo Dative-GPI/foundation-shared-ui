@@ -158,3 +158,70 @@ export const DialogDashboards: Story = {
     selecteds: [],
   },
 };
+
+export const Groupings: Story = {
+  render: (args) => ({
+    components: { FSSelectEntitiesList },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSSelectEntitiesList
+        :entityType="args.entityType"
+        :showRemove="true"
+        v-model="args.modelValue"
+      />
+    `,
+  }),
+  args: {
+    entityType: EntityType.Grouping,
+    modelValue: []
+  },
+};
+
+export const Subgroupings: Story = {
+  render: (args) => ({
+    components: { FSSelectEntitiesList },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSSelectEntitiesList
+        :entityType="args.entityType"
+        :showRemove="true"
+        v-model="args.modelValue"
+      />
+    `,
+  }),
+  args: {
+    entityType: EntityType.Subgrouping,
+    modelValue: []
+  },
+};
+
+export const DialogSubgroupings: Story = {
+  render: (args) => ({
+    components: { FSDialogSelectEntities, FSButton },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSDialogSelectEntities
+        :entityType="args.entityType"
+        v-model:selecteds="args.selecteds"
+        v-model:modelValue="args.modelValue"
+        @update:selecteds="args['onUpdate:selecteds']"
+        @update:modelValue="args['onUpdate:modelValue']"
+      />
+      <FSButton
+        @click="args.modelValue = true"
+        label="Open Dialog"
+      />
+    `,
+  }),
+  args: {
+    entityType: EntityType.Subgrouping,
+    selecteds: [],
+    modelValue: false
+  },
+};

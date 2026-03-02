@@ -1,4 +1,4 @@
-import { onMounted, onBeforeUnmount } from 'vue';
+import { watch } from 'vue';
 
 export function useResize(
   getElement: () => HTMLElement | null | undefined,
@@ -6,23 +6,23 @@ export function useResize(
 ) {
   let resizeObserver: ResizeObserver | null = null;
 
-  onMounted(() => {
-    const element = getElement();
-    if (!element) return;
-     if (typeof ResizeObserver !== 'undefined') {
-      resizeObserver = new ResizeObserver(onResize);
-      resizeObserver.observe(element);
-    } else {
-      window.addEventListener('resize', onResize);
-    }
-  });
+  watch(
+    () => getElement(),
+    (newElement, _, onCleanup) => {
+      if (newElement && typeof ResizeObserver !== 'undefined') {
+        resizeObserver = new ResizeObserver(() => {
+          onResize();
+        });
+        resizeObserver.observe(newElement);
 
-  onBeforeUnmount(() => {
-     if (resizeObserver) {
-      resizeObserver.disconnect();
-      resizeObserver = null;
-    } else {
-      window.removeEventListener('resize', onResize);
-    }
-  });
+        onCleanup(() => {
+          resizeObserver?.disconnect();
+          resizeObserver = null;
+        });
+      }
+    },
+    { immediate: true }
+  );
+
+  return {};
 }

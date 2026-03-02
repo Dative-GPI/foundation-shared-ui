@@ -3,8 +3,20 @@
         "FSGroupTile": {
             "from": "@dative-gpi/foundation-core-components/components/tiles/FSGroupTile.vue"
         },
+        "FSGroupingTile": {
+            "from": "@dative-gpi/foundation-core-components/components/tiles/FSGroupingTile.vue"
+        },
+        "FSSubgroupingTile": {
+            "from": "@dative-gpi/foundation-core-components/components/tiles/FSSubgroupingTile.vue"
+        },
         "FSDeviceOrganisationTile": {
             "from": "@dative-gpi/foundation-core-components/components/tiles/FSDeviceOrganisationTile.vue"
+        },
+        "FSTileGroupingsList": {
+            "from": "@dative-gpi/foundation-core-components/components/lists/groupings/FSTileGroupingsList.vue"
+        },
+        "FSTileSubgroupingsList": {
+            "from": "@dative-gpi/foundation-core-components/components/lists/subgroupings/FSTileSubgroupingsList.vue"
         },
         "FSDataTable": {
             "from": "@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue"
