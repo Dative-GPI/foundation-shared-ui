@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, nextTick, computed } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 
 import { useDomRenderer } from '@dative-gpi/foundation-shared-components/composables';
 
@@ -91,7 +91,7 @@ export default defineComponent({
         const renderer = useDomRenderer<{ lat: number; lng: number }>(CustomPin);
 
         // Map id -> { handle, element }
-        const pinHandles = new Map<string, { handle: ReturnType<typeof renderer.mount>; element: HTMLElement }>();
+        const pinHandles = new Map<string, { handle: ReturnType<typeof renderer.subscribe>; element: HTMLElement }>();
 
         // Éléments DOM exposés au template, indexés par position dans activePins
         const pinElements = computed(() =>
@@ -109,7 +109,7 @@ export default defineComponent({
             const pin: Pin = { id, label: `Pin ${activePins.value.length + 1}`, lat, lng, color };
 
             // mount() crée son propre slot de rendu réactif
-            const handle = renderer.mount(() => ({
+            const handle = renderer.subscribe(() => ({
                 lat: pin.lat,
                 lng: pin.lng
             }));
@@ -124,7 +124,7 @@ export default defineComponent({
             const pin = activePins.value[activePins.value.length - 1];
 
             // Démontage propre uniquement pour ce pin
-            pinHandles.get(pin.id)?.handle.unmount();
+            pinHandles.get(pin.id)?.handle.unsubscribe();
             pinHandles.delete(pin.id);
             activePins.value.pop();
 

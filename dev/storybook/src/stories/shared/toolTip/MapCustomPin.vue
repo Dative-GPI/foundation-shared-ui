@@ -46,7 +46,7 @@ export default defineComponent({
         const lat = ref(48.8566);
         const lng = ref(2.3522);
 
-        const handle = renderer.mount(() => ({ lat: lat.value, lng: lng.value }));
+        const handle = renderer.subscribe(() => ({ lat: lat.value, lng: lng.value }));
         const markerElement = handle.getElement();
 
         const location = computed(() => ({
