@@ -260,8 +260,8 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             filterable: false
         }, {
             columnId: "5",
-            text: "Last Activity",
-            value: "lastActivity",
+            text: "Notifications Authorized",
+            value: "allowNotifications",
             index: 4,
             hidden: false,
             sortable: false,
