@@ -23,6 +23,7 @@ export class UserOrganisationInfos {
   name: string;
   startOnKioskMode: boolean;
   tags: string[];
+  lastActivity: number | null;
 
   constructor(params: UserOrganisationInfosDTO) {
     this.id = params.id;
@@ -46,6 +47,7 @@ export class UserOrganisationInfos {
     this.name = params.name;
     this.startOnKioskMode = params.startOnKioskMode;
     this.tags = params.tags && params.tags.slice() || [];
+    this.lastActivity = params.lastActivity;
   }
 }
 
@@ -71,6 +73,7 @@ export interface UserOrganisationInfosDTO {
   name: string;
   startOnKioskMode: boolean;
   tags: string[] | null;
+  lastActivity: number | null;
 }
 
 export interface UserOrganisationFilters {
