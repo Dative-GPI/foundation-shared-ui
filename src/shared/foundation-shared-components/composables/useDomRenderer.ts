@@ -1,20 +1,18 @@
 import { h, render, getCurrentInstance, onBeforeUnmount, toValue, type Component, type MaybeRefOrGetter, watch } from "vue";
 
-interface RenderHandle {
+export interface RenderHandle {
   unsubscribe: () => void;
   getElement: (style?: Partial<CSSStyleDeclaration>) => HTMLElement;
 }
 
 interface Subscription {
-  container: HTMLElement;
   mountPoint: HTMLElement;
   stopWatching: () => void;
 }
 
 function destroySubscription(subscription: Subscription) {
   subscription.stopWatching();
-  render(null, subscription.container);
-  subscription.container.remove();
+  render(null, subscription.mountPoint);
   subscription.mountPoint.remove();
 }
 
@@ -31,25 +29,22 @@ export function useDomRenderer<TProps extends Record<string, any>>(component: Co
   const subscribe = (getProps: MaybeRefOrGetter<TProps>, style?: Partial<CSSStyleDeclaration>): RenderHandle => {
     const mountPoint = document.createElement("div");
 
-    const container = document.createElement("div");
-    mountPoint.appendChild(container);
-
     const stopWatching = watch(
-      getProps,
-      () => {
-        const vnode = h(component, toValue(getProps));
+      () => toValue(getProps),
+      (props) => {
+        const vnode = h(component, props);
         vnode.appContext = appContext;
-        render(vnode, container);
+        render(vnode, mountPoint);
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     );
 
-    const subscription: Subscription = { container, mountPoint, stopWatching };
+    const subscription: Subscription = { mountPoint, stopWatching };
     subscriptions.add(subscription);
 
     const unsubscribe = () => {
       if (!subscriptions.has(subscription)) {
-        return;
+        throw new Error("This render handle has already been unsubscribed");;
       }
       destroySubscription(subscription);
       subscriptions.delete(subscription);
@@ -78,6 +73,5 @@ export function useDomRenderer<TProps extends Record<string, any>>(component: Co
 
   return {
     subscribe,
-    unsubscribeAll,
   };
 }

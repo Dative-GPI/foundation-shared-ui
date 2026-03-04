@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, type Ref, watch, ref, onUnmounted, computed } from 'vue';
+import { inject, type PropType, type Ref, watch, ref, onUnmounted } from 'vue';
 import { type RouteLocation } from "vue-router";
 
 import { type Map, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup } from 'leaflet';
@@ -102,33 +102,34 @@ export default {
 
     const actualMarker = ref(marker(props.latlng ?? [0, 0], { icon: getMarkerIcon() }));
 
-    const markerElement = computed(() => {
-      return actualMarker.value.getElement();
-    });
-
-    const onClick = (event: MouseEvent) => {
+    const onClick = (event: { originalEvent: MouseEvent }) => {
       if (props.to) {
-        handleRoutingEvent(event, props.to, true);
+        handleRoutingEvent(event.originalEvent, props.to, true);
         return;
       }
 
       emit('click', {
-        ...event,
+        ...event.originalEvent,
         latlng: props.latlng
       });
     }
 
-    const onAuxClick = (event: MouseEvent) => {
+    const onAuxClick = (event: { originalEvent: MouseEvent }) => {
       if (props.to) {
-        handleRoutingEvent(event, props.to);
+        handleRoutingEvent(event.originalEvent, props.to);
         return;
       }
 
       emit('auxclick', {
-        ...event,
+        ...event.originalEvent,
         latlng: props.latlng
       });
     }
+
+    // Use Leaflet's event system instead of DOM listeners.
+    // This is resilient to setIcon() recreating the underlying DOM element.
+    actualMarker.value.on('click', onClick);
+    actualMarker.value.on('contextmenu', onAuxClick);
 
     watch(map, () => {
       if (!map.value) {
@@ -159,16 +160,10 @@ export default {
       actualMarker.value.setLatLng(props.latlng);
     });
 
-    watch(markerElement, (newMarkerElement) => {
-      if (!newMarkerElement) {
-        return;
-      }
-
-      newMarkerElement.addEventListener('click', onClick);
-      newMarkerElement.addEventListener('auxclick', onAuxClick);
-    }, { immediate: true });
-
     onUnmounted(() => {
+      actualMarker.value.off('click', onClick);
+      actualMarker.value.off('contextmenu', onAuxClick);
+
       if (actualMarker.value && map.value) {
         if (markerClusterGroup && markerClusterGroup.value) {
           markerClusterGroup.value.removeLayer(actualMarker.value as Marker);

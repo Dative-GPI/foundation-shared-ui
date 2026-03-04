@@ -56,7 +56,6 @@ export default defineComponent({
     },
     setup(props) {
         const onClickButton = () => {
-            //:href="`https://www.google.com/maps/search/?api=1&query=${$props.lat},${$props.lng}`"
             window.open(`https://www.google.com/maps/search/?api=1&query=${props.lat},${props.lng}`, '_blank');
         };
         return {
