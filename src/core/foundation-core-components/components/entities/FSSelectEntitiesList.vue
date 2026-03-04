@@ -223,7 +223,7 @@ export default defineComponent({
           };
         case EntityType.Grouping:
           return {
-            groupingsFilters: props.filters,
+            groupingFilters: props.filters,
             ...attrs
           };
         case EntityType.Subgrouping:

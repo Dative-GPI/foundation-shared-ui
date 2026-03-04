@@ -240,7 +240,7 @@ export default defineComponent({
         },
         {
           id: EntityType.Subgrouping,
-          label: $tr("ui.common.subgroupings", "Subgroupings")
+          label: $tr("ui.common.subgroupings", "Categories")
         }
       ];
 

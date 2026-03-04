@@ -72,7 +72,7 @@ export default defineComponent({
       type: Function as PropType<(item: GroupingInfos) => Partial<RouteLocation>>,
       required: false
     },
-    groupingsFilters: {
+    groupingFilters: {
       type: Object as PropType<GroupingFilters>,
       required: false,
       default: null
@@ -101,9 +101,9 @@ export default defineComponent({
       return props.modelValue.includes(id);
     };
 
-    watch(() => props.groupingsFilters, (next, previous) => {
+    watch(() => props.groupingFilters, (next, previous) => {
       if ((!next && !previous) || !_.isEqual(next, previous)) {
-        fetchGroupings(props.groupingsFilters);
+        fetchGroupings(props.groupingFilters);
       }
     }, { immediate: true });
 
