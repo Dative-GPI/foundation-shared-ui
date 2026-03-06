@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { inject, type PropType, type Ref, watch, ref, onUnmounted, computed } from 'vue';
+import { inject, type PropType, type Ref, watch, ref, onUnmounted } from 'vue';
 import { type RouteLocation } from "vue-router";
 
 import { type Map, divIcon, type LatLng, marker, type Marker, type MarkerClusterGroup } from 'leaflet';
@@ -48,26 +48,30 @@ export default {
     to: {
       type: Object as PropType<RouteLocation | null>,
       required: false
+    },
+    html: {
+      type: [String, HTMLElement] as PropType<string | HTMLElement>,
+      required: false
     }
   },
   emits: ['click', 'auxclick'],
   setup(props, { emit }) {
     const map = inject<Ref<Map | null>>(MAP);
     const markerClusterGroup = inject<Ref<MarkerClusterGroup | null>>(MARKERCLUSTERGROUP, ref(null));
-      
+
     const { getColors } = useColors();
     const { handleRoutingEvent } = useRouting();
 
-    if(!map) {
+    if (!map) {
       throw new Error('FSMapTileLayer must be used inside a FSMap component');
     }
 
-    if(!map.value) {
+    if (!map.value) {
       throw new Error('FSMapTileLayer must be used inside a FSMap component with a map');
     }
-      
+
     const getMarkerIcon = () => {
-      if(props.variant === 'gps') {
+      if (props.variant === 'gps') {
         const size = 16;
         return divIcon({
           html: gpsMarkerHtml(),
@@ -77,7 +81,7 @@ export default {
         });
       }
 
-      if(props.variant === 'location') {
+      if (props.variant === 'location') {
         const size = 36;
         return divIcon({
           html: locationMarkerHtml(props.icon ?? "mdi-map-marker", getColors(props.color).base, props.label),
@@ -89,7 +93,7 @@ export default {
 
       const size = 16;
       return divIcon({
-        html: pinMarkerHtml(getColors(props.color).base, props.label),
+        html: props.html ?? pinMarkerHtml(getColors(props.color).base, props.label),
         iconSize: [size, size],
         className: props.selected ? 'fs-map-marker fs-map-pin fs-map-pin-selected' : 'fs-map-marker fs-map-pin',
         iconAnchor: [size / 2, size / 2],
@@ -98,48 +102,49 @@ export default {
 
     const actualMarker = ref(marker(props.latlng ?? [0, 0], { icon: getMarkerIcon() }));
 
-    const markerElement = computed(() => {
-      return actualMarker.value.getElement();
-    });
-
-    const onClick = (event: MouseEvent) => {
-      if(props.to) {
-        handleRoutingEvent(event, props.to, true);
+    const onClick = (event: { originalEvent: MouseEvent }) => {
+      if (props.to) {
+        handleRoutingEvent(event.originalEvent, props.to, true);
         return;
       }
-      
+
       emit('click', {
-        ...event,
+        ...event.originalEvent,
         latlng: props.latlng
       });
     }
 
-    const onAuxClick = (event: MouseEvent) => {
-      if(props.to) {
-        handleRoutingEvent(event, props.to);
+    const onAuxClick = (event: { originalEvent: MouseEvent }) => {
+      if (props.to) {
+        handleRoutingEvent(event.originalEvent, props.to);
         return;
       }
 
       emit('auxclick', {
-        ...event,
+        ...event.originalEvent,
         latlng: props.latlng
       });
     }
 
+    // Use Leaflet's event system instead of DOM listeners.
+    // This is resilient to setIcon() recreating the underlying DOM element.
+    actualMarker.value.on('click', onClick);
+    actualMarker.value.on('contextmenu', onAuxClick);
+
     watch(map, () => {
-      if(!map.value) {
+      if (!map.value) {
         return;
       }
 
-      if(markerClusterGroup && markerClusterGroup.value) {
+      if (markerClusterGroup && markerClusterGroup.value) {
         actualMarker.value.addTo(markerClusterGroup.value);
       } else {
         actualMarker.value.addTo(map.value);
       }
     }, { immediate: true });
 
-    watch([() => props.variant, () => props.color, () => props.selected], () => {
-      if(!actualMarker.value || !map.value) {
+    watch([() => props.variant, () => props.color, () => props.selected, () => props.html], () => {
+      if (!actualMarker.value || !map.value) {
         return;
       }
 
@@ -148,25 +153,19 @@ export default {
     });
 
     watch([() => props.latlng?.lat, () => props.latlng?.lng], () => {
-      if(!actualMarker.value || !map.value || !props.latlng) {
+      if (!actualMarker.value || !map.value || !props.latlng) {
         return;
       }
 
       actualMarker.value.setLatLng(props.latlng);
     });
 
-    watch(markerElement, (newMarkerElement) => {
-      if(!newMarkerElement) {
-        return;
-      }
-
-      newMarkerElement.addEventListener('click', onClick);
-      newMarkerElement.addEventListener('auxclick', onAuxClick);
-    }, { immediate: true });
-
     onUnmounted(() => {
-      if(actualMarker.value && map.value) {
-        if(markerClusterGroup && markerClusterGroup.value) {
+      actualMarker.value.off('click', onClick);
+      actualMarker.value.off('contextmenu', onAuxClick);
+
+      if (actualMarker.value && map.value) {
+        if (markerClusterGroup && markerClusterGroup.value) {
           markerClusterGroup.value.removeLayer(actualMarker.value as Marker);
         } else {
           map.value.removeLayer(actualMarker.value as Marker);
