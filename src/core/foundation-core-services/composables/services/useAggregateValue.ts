@@ -12,6 +12,7 @@ export const useAggregateValue = () => {
   const fetching = ref(false);
   const error = ref<string | null>(null);
   const value = ref<number | null>(null);
+  const unit = ref<string | null>(null);
   
   const fetch = async (filter: AggregateValueFilter) => {
     fetching.value = true;
@@ -62,8 +63,10 @@ export const useAggregateValue = () => {
       const dataSerie = await getManyDatas(periodFilters);
 
       const dataSerieValue = dataSerie?.[0]?.datas?.[0]?.values?.[0];
+      const dataSerieUnit = dataSerie?.[0]?.meta.valueUnits?.[0];;
 
       value.value = dataSerieValue == null ? null : Number(dataSerieValue);
+      unit.value = dataSerieUnit == null ? null : dataSerieUnit;
 
     } catch (exception: any) {
       error.value = exception.response?.data ?? exception.message;
@@ -76,6 +79,7 @@ export const useAggregateValue = () => {
     fetching,
     error,
     value,
+    unit,
     fetch,
   };
 };
