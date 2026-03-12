@@ -4,7 +4,7 @@ import { uuidv4 } from "@dative-gpi/bones-ui";
 
 import { getManyDatas } from "@dative-gpi/foundation-core-services/composables";
 
-import { RootMode } from "@dative-gpi/foundation-shared-domain/enums";
+import { PlotPer, RootMode } from "@dative-gpi/foundation-shared-domain/enums";
 
 import type { DataFiltersDTO, DataLeafDTO, AggregateValueFilter } from "@dative-gpi/foundation-core-domain/models";
 
@@ -21,7 +21,7 @@ export const useAggregateValue = () => {
       entitiesIds: filter.entitiesIds,
       entityType: filter.entityType,
       labelTemplate: "",
-      aggregateByEntity: 1,
+      aggregateByEntity: PlotPer.SinglePlot,
       aggregationTimeStep: undefined,
       duration: 0,
       durationTimeStep: undefined,
