@@ -21,7 +21,7 @@ export const useAggregateValue = () => {
       entitiesIds: filter.entitiesIds,
       entityType: filter.entityType,
       labelTemplate: "",
-      aggregateByEntity: 0,
+      aggregateByEntity: 1,
       aggregationTimeStep: undefined,
       duration: 0,
       durationTimeStep: undefined,
