@@ -1,7 +1,7 @@
 import type { DashboardOrganisationInfos, DashboardOrganisationTypeInfos, DashboardShallowInfos, FolderInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
-import { DashboardType } from "@dative-gpi/foundation-shared-domain/enums";
+import { DashboardExplorerElementType, DashboardType } from "@dative-gpi/foundation-shared-domain/enums";
 
 const { $tr } = useTranslationsProvider();
 
@@ -49,3 +49,13 @@ export enum FoldersListType {
 
 export type DashboardsListItem = DashboardShallowListItem | DashboardOrganisationListItem | OrganisationTypeDashboardListItem;
 export type FoldersListItem = DashboardShallowListItem | DashboardOrganisationListItem | FolderListItem;
+
+export const dashboardExplorerElementTypeLabel = (type: DashboardExplorerElementType): string => {
+  switch (type) {
+    case DashboardExplorerElementType.Folder:                    return $tr("ui.common.folder", "Folder");
+    case DashboardExplorerElementType.DashboardOrganisation:     return $tr("ui.common.custom", "Custom");
+    case DashboardExplorerElementType.DashboardShallow:          return $tr("ui.dashboard-type.shallow", "Shallow copy");
+    case DashboardExplorerElementType.DashboardOrganisationType: return $tr("ui.common.shared", "Shared");
+    default:                                                     return $tr("ui.common.none", "None");
+  }
+};
