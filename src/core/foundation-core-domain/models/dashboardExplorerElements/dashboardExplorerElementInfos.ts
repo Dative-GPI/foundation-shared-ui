@@ -182,6 +182,7 @@ export interface DashboardExplorerElementInfosDTO {
 
 export interface DashboardExplorerElementFilters {
   dashboardExplorerElementsIds?: string[] | null;
+  ancestorId?: string | null;
   parentId?: string | null;
   root?: boolean | null;
   search?: string | null;

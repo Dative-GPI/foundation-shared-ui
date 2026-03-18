@@ -288,7 +288,7 @@ export default defineComponent({
     const fetch = () => {
       if (props.recursiveSearch && search.value) {
         getManyDashboardExplorerElements({
-          parentId: props.parentId,
+          ancestorId: props.parentId,
           search: search.value,
           types: props.allowedTypes,
           ...props.dashboardExplorerElementsFilters

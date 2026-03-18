@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType, computed } from "vue";
+import { defineComponent, type PropType, computed, watch } from "vue";
 
 import { DashboardExplorerElementType, ListDirections } from "@dative-gpi/foundation-shared-domain/enums";
 import { useDashboardExplorerElements } from "@dative-gpi/foundation-core-services/composables";
@@ -116,7 +116,7 @@ export default defineComponent({
       });
     };
 
-    fetch();
+    watch(() => props.dashboardExplorerElementsFilters, fetch, { immediate: true });
 
     return {
       dashboards,
