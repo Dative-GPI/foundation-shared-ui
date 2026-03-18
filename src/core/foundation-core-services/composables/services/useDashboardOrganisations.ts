@@ -28,6 +28,7 @@ const DashboardOrganisationServiceFactoryIncomplete = new ServiceFactory("dashbo
 
 export const useDashboardOrganisation = ComposableFactory.get(DashboardOrganisationServiceFactory);
 export const useDashboardOrganisations = ComposableFactory.getMany(DashboardOrganisationServiceFactory);
+export const useSubscribeToDashboardOrganisations = ComposableFactory.subscribe(DashboardOrganisationServiceFactory);
 export const useCreateDashboardOrganisation = ComposableFactory.create(DashboardOrganisationServiceFactory);
 export const useUpdateDashboardOrganisation = ComposableFactory.update(DashboardOrganisationServiceFactory);
 export const useRemoveDashboardOrganisation = ComposableFactory.remove(DashboardOrganisationServiceFactory);
