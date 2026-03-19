@@ -69,14 +69,6 @@
       </FSRow>
     </template>
     <template
-      #item.modelsLabels="{ item }"
-    >
-      <FSTagGroup
-        :showRemove="false"
-        :tags="item.modelsLabels.map((d: any) => d.label)"
-      />
-    </template>
-    <template
       #item.scope="{ item }"
     >
       <FSChip
@@ -113,7 +105,8 @@ import { ChartOrigin, ChartType } from "@dative-gpi/foundation-shared-domain/enu
 import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
-import type { ChartModelLabel, ChartOrganisationFilters, ChartOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { ModelInfos } from "@dative-gpi/foundation-core-domain/models";
+import type { ChartOrganisationFilters, ChartOrganisationTypeFilters } from "@dative-gpi/foundation-core-domain/models";
 import { useChartOrganisations, useChartOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
 
 import FSChartTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSChartTileUI.vue";
@@ -199,7 +192,7 @@ export default defineComponent({
         tags: c.tags,
         multiple: c.multiple,
         chartType: c.chartType,
-        modelsLabels: c.modelsLabels
+        models: c.models
       })).concat(chartOrganisationTypes.value.map(c => ({
         id: c.id,
         imageId: c.imageId,
@@ -214,13 +207,13 @@ export default defineComponent({
         tags: c.tags,
         multiple: c.multiple,
         chartType: c.chartType,
-        modelsLabels: c.modelsLabels
+        models: c.models
       })));
     });
 
     const headersOptions = computed(() => ({
-      modelsLabels: {
-        fixedFilters: chartOrganisationTypes.value.map(c => c.modelsLabels).reduce((acc, models) => {
+      models: {
+        fixedFilters: chartOrganisationTypes.value.map(c => c.models).reduce((acc, models) => {
           for(const m of models){
             if(!acc.map((m) => m.id).includes(m.id)){
               acc.push(m);
@@ -234,7 +227,7 @@ export default defineComponent({
           value: '',
           text: '--'
         }),
-        methodFilter: (value: string, items: ChartModelLabel[]) => (items.length == 0 && value == '') || (items.length  > 0 && items.some(ml => ml.id == value))
+        methodFilter: (value: string, items: ModelInfos[]) => (items.length == 0 && value == '') || (items.length  > 0 && items.some(ml => ml.id == value))
       },
       chartType: {
         fixedFilters: getEnumEntries(ChartType).map(e => ({

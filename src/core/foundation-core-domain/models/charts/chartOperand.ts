@@ -7,8 +7,6 @@ export class ChartOperand {
   chartSerieHiddenCode: string;
   name: string;
   aggregation?: AggregationType;
-  modelId: string;
-  modelLabel: string;
   dataCategoryId: string;
   dataDefinitionId?: string;
   xAxisModifierHiddenCode?: string;
@@ -24,8 +22,6 @@ export class ChartOperand {
     this.chartSerieHiddenCode = params.chartSerieHiddenCode;
     this.name = params.name
     this.aggregation = (params.aggregation as AggregationType) ?? undefined;
-    this.modelId = params.modelId;
-    this.modelLabel = params.modelLabel;
     this.dataCategoryId = params.dataCategoryId;
     this.dataDefinitionId = params.dataDefinitionId;
     this.xAxisModifierHiddenCode = params.xAxisModifierHiddenCode;
@@ -43,8 +39,6 @@ export interface ChartOperandDTO {
   chartSerieHiddenCode: string;
   name: string;
   aggregation?: number;
-  modelId: string;
-  modelLabel: string;
   dataCategoryId: string;
   dataDefinitionId?: string;
   xAxisModifierHiddenCode?: string;
@@ -59,7 +53,6 @@ export interface CreateChartOperandDTO {
   chartSerieHiddenCode: string;
   name: string;
   aggregation?: number;
-  modelId: string;
   dataCategoryId: string;
   dataDefinitionId?: string;
   xAxisModifierHiddenCode?: string;

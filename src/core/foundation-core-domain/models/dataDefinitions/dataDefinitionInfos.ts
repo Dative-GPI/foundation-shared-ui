@@ -4,7 +4,6 @@ import type { DataTable } from "@dative-gpi/foundation-shared-domain/enums";
 
 export class DataDefinitionInfos {
   id: string;
-  modelId: string;
   dataCategoryId: string;
   dataCategoryCode: string;
   dataCategoryLabel: string;
@@ -19,7 +18,6 @@ export class DataDefinitionInfos {
 
   constructor(params: DataDefinitionInfosDTO) {
     this.id = params.id;
-    this.modelId = params.modelId;
     this.dataCategoryId = params.dataCategoryId;
     this.dataCategoryCode = params.dataCategoryCode;
     this.dataCategoryLabel = params.dataCategoryLabel;
@@ -36,7 +34,6 @@ export class DataDefinitionInfos {
   
 export interface DataDefinitionInfosDTO {
   id: string;
-  modelId: string;
   dataCategoryId: string;
   dataCategoryCode: string;
   dataCategoryLabel: string;
@@ -52,6 +49,7 @@ export interface DataDefinitionInfosDTO {
   
 export interface DataDefinitionFilters {
   modelsIds?: string[] | null;
+  modelId?: string | null;
   dataCategoryId?: string | null;
   dataTable?: DataTable | null;
   search?: string | null;

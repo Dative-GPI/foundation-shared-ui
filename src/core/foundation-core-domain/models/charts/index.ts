@@ -6,7 +6,6 @@ export * from "./chartFilter";
 export * from "./chartFilterTranslation";
 export * from "./chartFilterValue";
 export * from "./chartInfos";
-export * from "./chartModelLabel";
 export * from "./chartModifier";
 export * from "./chartOperand";
 export * from "./chartPlot";
