@@ -20,7 +20,7 @@ export class ChartOperand {
     this.chartId = params.chartId;
     this.hiddenCode = params.hiddenCode;
     this.chartSerieHiddenCode = params.chartSerieHiddenCode;
-    this.name = params.name
+    this.name = params.name;
     this.aggregation = (params.aggregation as AggregationType) ?? undefined;
     this.dataCategoryId = params.dataCategoryId;
     this.dataDefinitionId = params.dataDefinitionId;
