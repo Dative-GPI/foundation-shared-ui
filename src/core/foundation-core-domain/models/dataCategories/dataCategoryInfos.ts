@@ -29,7 +29,7 @@ export interface DataCategoryInfosDTO {
 }
 
 export interface DataCategoryFilters {
-  modelId?: string | null;
+  modelsIds?: string[] | null;
   correlated?: boolean | null;
   search?: string | null;
 }

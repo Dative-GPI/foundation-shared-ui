@@ -49,7 +49,6 @@ export interface DataDefinitionInfosDTO {
   
 export interface DataDefinitionFilters {
   modelsIds?: string[] | null;
-  modelId?: string | null;
   dataCategoryId?: string | null;
   dataTable?: DataTable | null;
   search?: string | null;
