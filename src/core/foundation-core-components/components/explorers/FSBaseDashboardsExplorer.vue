@@ -165,7 +165,7 @@ export default defineComponent({
     FSDashboardOrganisationTileUI,
     FSDashboardShallowTileUI,
     FSFolderTileUI,
-    // FSDataTable,
+    FSDataTable,
     FSIconCheck,
     FSTagGroup,
     FSImage,
