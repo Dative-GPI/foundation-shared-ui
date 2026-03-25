@@ -15,12 +15,6 @@ import type { DashboardExplorerElementFilters, DashboardExplorerElementInfos } f
 
 import FSSimpleList from "@dative-gpi/foundation-shared-components/components/lists/FSSimpleList.vue";
 
-const DASHBOARD_TYPES = [
-  DashboardExplorerElementType.DashboardOrganisation,
-  DashboardExplorerElementType.DashboardShallow,
-  DashboardExplorerElementType.DashboardOrganisationType
-];
-
 export default defineComponent({
   name: "FSSimpleDashboardsList",
   components: {
@@ -30,7 +24,11 @@ export default defineComponent({
     allowedTypes: {
       type: Array as PropType<DashboardExplorerElementType[]>,
       required: false,
-      default: () => DASHBOARD_TYPES
+      default: () => [
+        DashboardExplorerElementType.DashboardOrganisation,
+        DashboardExplorerElementType.DashboardShallow,
+        DashboardExplorerElementType.DashboardOrganisationType
+      ]
     },
     dashboardExplorerElementsFilters: {
       type: Object as PropType<DashboardExplorerElementFilters>,

@@ -25,22 +25,7 @@ export class DashboardExplorerElementInfos {
   recursiveDashboardOrganisationsIds: string[] | null;
   recursiveDashboardShallowsIds: string[] | null;
   path: PathCrumb[];
-
-  // DashboardOrganisation & DashboardShallow
-  folderId: string | null;
-  folderLabel: string | null;
-  folderIcon: string | null;
-
-  // DashboardShallow
-  dashboardOrganisationTypeId: string | null;
-  dashboardOrganisationTypeLabel: string | null;
-
-  // DashboardOrganisationType
-  organisationTypeId: string | null;
-  organisationTypeLabel: string | null;
-
   // Dashboard
-  dashboardId: string | null;
   scope: ApplicationScope | null;
   locked: boolean | null;
 
@@ -62,17 +47,6 @@ export class DashboardExplorerElementInfos {
     this.recursiveDashboardShallowsIds = params.recursiveDashboardShallowsIds?.slice() ?? null;
     this.path = params.path?.map(dto => new PathCrumb({ ...dto })).sort((a, b) => b.index - a.index) ?? [];
 
-    this.folderId = params.folderId ?? null;
-    this.folderLabel = params.folderLabel ?? null;
-    this.folderIcon = params.folderIcon ?? null;
-
-    this.dashboardOrganisationTypeId = params.dashboardOrganisationTypeId ?? null;
-    this.dashboardOrganisationTypeLabel = params.dashboardOrganisationTypeLabel ?? null;
-
-    this.organisationTypeId = params.organisationTypeId ?? null;
-    this.organisationTypeLabel = params.organisationTypeLabel ?? null;
-
-    this.dashboardId = params.dashboardId ?? null;
     this.scope = params.scope ?? null;
     this.locked = params.locked ?? null;
   }
@@ -80,18 +54,13 @@ export class DashboardExplorerElementInfos {
   static fromDashboardOrganisation = (d: DashboardOrganisationInfos): DashboardExplorerElementInfos => ({
     ...d,
     type: DashboardExplorerElementTypeEnum.DashboardOrganisation,
-    parentId: null,
-    parentLabel: null,
-    parentIcon: null,
+    parentId: d.folderId,
+    parentLabel: d.folderLabel,
+    parentIcon: d.folderIcon,
     recursiveFoldersIds: null,
     recursiveDashboardOrganisationsIds: null,
     recursiveDashboardShallowsIds: null,
     path: [],
-    dashboardOrganisationTypeId: null,
-    dashboardOrganisationTypeLabel: null,
-    organisationTypeId: null,
-    organisationTypeLabel: null,
-    dashboardId: d.dashboardId,
     scope: d.scope,
     locked: d.locked
   });
@@ -99,15 +68,13 @@ export class DashboardExplorerElementInfos {
   static fromDashboardShallow = (d: DashboardShallowInfos): DashboardExplorerElementInfos => ({
     ...d,
     type: DashboardExplorerElementTypeEnum.DashboardShallow,
-    parentId: null,
-    parentLabel: null,
-    parentIcon: null,
+    parentId: d.folderId,
+    parentLabel: d.folderLabel,
+    parentIcon: d.folderIcon,
     recursiveFoldersIds: null,
     recursiveDashboardOrganisationsIds: null,
     recursiveDashboardShallowsIds: null,
     path: [],
-    organisationTypeId: null,
-    organisationTypeLabel: null,
     locked: null
   });
 
@@ -121,12 +88,6 @@ export class DashboardExplorerElementInfos {
     recursiveDashboardOrganisationsIds: null,
     recursiveDashboardShallowsIds: null,
     path: [],
-    folderId: null,
-    folderLabel: null,
-    folderIcon: null,
-    dashboardOrganisationTypeId: null,
-    dashboardOrganisationTypeLabel: null,
-    dashboardId: d.dashboardId,
     scope: d.scope,
     locked: d.locked
   });
@@ -134,14 +95,6 @@ export class DashboardExplorerElementInfos {
   static fromFolder = (f: FolderInfos): DashboardExplorerElementInfos => ({
     ...f,
     type: DashboardExplorerElementTypeEnum.Folder,
-    folderId: null,
-    folderLabel: null,
-    folderIcon: null,
-    dashboardOrganisationTypeId: null,
-    dashboardOrganisationTypeLabel: null,
-    organisationTypeId: null,
-    organisationTypeLabel: null,
-    dashboardId: null,
     scope: null,
     locked: null
   });
@@ -165,17 +118,6 @@ export interface DashboardExplorerElementInfosDTO {
   recursiveDashboardShallowsIds?: string[] | null;
   path?: PathCrumbDTO[];
 
-  folderId?: string | null;
-  folderLabel?: string | null;
-  folderIcon?: string | null;
-
-  dashboardOrganisationTypeId?: string | null;
-  dashboardOrganisationTypeLabel?: string | null;
-
-  organisationTypeId?: string | null;
-  organisationTypeLabel?: string | null;
-
-  dashboardId?: string | null;
   scope?: ApplicationScope | null;
   locked?: boolean | null;
 }

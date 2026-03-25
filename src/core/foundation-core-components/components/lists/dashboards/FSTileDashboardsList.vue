@@ -62,12 +62,6 @@ import FSDashboardOrganisationTypeTileUI from "@dative-gpi/foundation-shared-com
 import FSDashboardShallowTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDashboardShallowTileUI.vue";
 import FSTileList from "@dative-gpi/foundation-shared-components/components/lists/FSTileList.vue";
 
-const DASHBOARD_TYPES = [
-  DashboardExplorerElementType.DashboardOrganisation,
-  DashboardExplorerElementType.DashboardShallow,
-  DashboardExplorerElementType.DashboardOrganisationType
-];
-
 export default defineComponent({
   name: "FSTileDashboardsList",
   components: {
@@ -80,7 +74,11 @@ export default defineComponent({
     allowedTypes: {
       type: Array as PropType<DashboardExplorerElementType[]>,
       required: false,
-      default: () => DASHBOARD_TYPES
+      default: () => [
+        DashboardExplorerElementType.DashboardOrganisation,
+        DashboardExplorerElementType.DashboardShallow,
+        DashboardExplorerElementType.DashboardOrganisationType
+      ]
     },
     modelValue: {
       type: Array as PropType<string[]>,
