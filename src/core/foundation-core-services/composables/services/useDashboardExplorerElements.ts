@@ -1,8 +1,10 @@
 import { ref } from "vue";
 
-import { DashboardExplorerElementDetails, type DashboardExplorerElementDetailsDTO, type DashboardExplorerElementFilters, DashboardExplorerElementInfos, type DashboardExplorerElementInfosDTO, type DashboardOrganisationDetails, type DashboardOrganisationTypeDetails, type DashboardShallowDetails, type FolderDetails } from "@dative-gpi/foundation-core-domain/models";
-import { type AddOrUpdateCallback, type DeleteCallback, type NotifyEvent, onCollectionChanged } from "@dative-gpi/bones-ui";
+import { DashboardExplorerElementDetails, type DashboardExplorerElementDetailsDTO, type DashboardExplorerElementFilters, DashboardExplorerElementInfos, type DashboardExplorerElementInfosDTO } from "@dative-gpi/foundation-core-domain/models";
+import { onCollectionChanged } from "@dative-gpi/bones-ui";
 import { ServiceFactory } from "@dative-gpi/bones-ui/core";
+import { createCollectionHandler } from "@dative-gpi/foundation-shared-services/tools/collectionTools";
+import { containsSearchTerm } from "@/shared/foundation-shared-components/utils";
 
 import { DASHBOARD_EXPLORER_ELEMENTS_URL } from "../../config/urls";
 
@@ -43,9 +45,8 @@ export const useDashboardExplorerElements = () => {
       if (!filters.value.search) {
         return (!!filters.value.root && !el.parentId) || (!!filters.value.parentId && filters.value.parentId === el.parentId);
       }
-      const fullText = `${el.label} ${el.code} ${el.tags.join(" ")}`;
       return (!filters.value.parentId || el.path.some(p => p.id === filters.value!.parentId)) &&
-        fullText.toLowerCase().includes(filters.value.search!.toLowerCase());
+        containsSearchTerm({ label: el.label, code: el.code, tags: el.tags }, filters.value.search);
     };
 
     const onCollectionChangedCustom = onCollectionChanged(entities, filterMethod);
@@ -53,53 +54,30 @@ export const useDashboardExplorerElements = () => {
     try {
       entities.value = await DashboardExplorerElementServiceFactory.getMany(filters.value);
 
-      subscribeToDashboardOrganisations("all", (ev: NotifyEvent, el: DashboardOrganisationDetails | any) => {
-        switch (ev) {
-          case "add":
-          case "update":
-            (onCollectionChangedCustom as AddOrUpdateCallback<DashboardExplorerElementInfos>)(ev, DashboardExplorerElementInfos.fromDashboardOrganisation(el));
-            break;
-          case "delete":
-            (onCollectionChangedCustom as DeleteCallback)(ev, el);
-            break;
-        }
-      });
-
-      subscribeToDashboardShallows("all", (ev: NotifyEvent, el: DashboardShallowDetails | any) => {
-        switch (ev) {
-          case "add":
-          case "update":
-            (onCollectionChangedCustom as AddOrUpdateCallback<DashboardExplorerElementInfos>)(ev, DashboardExplorerElementInfos.fromDashboardShallow(el));
-            break;
-          case "delete":
-            (onCollectionChangedCustom as DeleteCallback)(ev, el);
-            break;
-        }
-      });
-
-      subscribeToDashboardOrganisationTypes("all", (ev: NotifyEvent, el: DashboardOrganisationTypeDetails | any) => {
-        switch (ev) {
-          case "add":
-          case "update":
-            (onCollectionChangedCustom as AddOrUpdateCallback<DashboardExplorerElementInfos>)(ev, DashboardExplorerElementInfos.fromDashboardOrganisationType(el));
-            break;
-          case "delete":
-            (onCollectionChangedCustom as DeleteCallback)(ev, el);
-            break;
-        }
-      });
-
-      subscribeToFolders("all", (ev: NotifyEvent, el: FolderDetails | any) => {
-        switch (ev) {
-          case "add":
-          case "update":
-            (onCollectionChangedCustom as AddOrUpdateCallback<DashboardExplorerElementInfos>)(ev, DashboardExplorerElementInfos.fromFolder(el));
-            break;
-          case "delete":
-            (onCollectionChangedCustom as DeleteCallback)(ev, el);
-            break;
-        }
-      });
+      subscribeToDashboardOrganisations("all", 
+        createCollectionHandler(
+          onCollectionChangedCustom, 
+          DashboardExplorerElementInfos.fromDashboardOrganisation
+        )
+      );
+      subscribeToDashboardShallows("all", 
+        createCollectionHandler(
+          onCollectionChangedCustom, 
+          DashboardExplorerElementInfos.fromDashboardShallow
+        )
+      );
+      subscribeToDashboardOrganisationTypes("all", 
+        createCollectionHandler(
+          onCollectionChangedCustom, 
+          DashboardExplorerElementInfos.fromDashboardOrganisationType
+        )
+      );
+      subscribeToFolders("all", 
+        createCollectionHandler(
+          onCollectionChangedCustom, 
+          DashboardExplorerElementInfos.fromFolder
+        )
+      );
     }
     finally {
       fetching.value = false;

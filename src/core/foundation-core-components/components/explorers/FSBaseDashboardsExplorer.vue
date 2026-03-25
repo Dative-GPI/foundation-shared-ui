@@ -65,20 +65,6 @@
       </FSIcon>
     </template>
     <template
-      #item.main="{ item }"
-    >
-      <FSIcon
-        v-if="item.id === mainOrganisationDashboardId"
-      >
-        mdi-account-group-outline
-      </FSIcon>
-      <FSIcon
-        v-if="item.id === mainUserDashboardId"
-      >
-        mdi-home
-      </FSIcon>
-    </template>
-    <template
       #item.locked="{ item }"
     >
       <FSIconCheck
@@ -149,16 +135,15 @@
 </template>
   
 <script lang="ts">
-import { computed, defineComponent, onMounted, type PropType, ref, watch } from "vue";
+import { computed, defineComponent, type PropType, ref, watch } from "vue";
 import { type RouteLocation } from "vue-router";
 import _ from "lodash";
   
 import { DashboardExplorerElementType } from "@dative-gpi/foundation-shared-domain/enums";
-import { useDashboardExplorerElements, useAppOrganisationId, useCurrentUserOrganisation } from "@dative-gpi/foundation-core-services/composables";
+import { useDashboardExplorerElements } from "@dative-gpi/foundation-core-services/composables";
 import { type DashboardExplorerElementInfos, type DashboardExplorerElementFilters } from "@dative-gpi/foundation-core-domain/models";
 import { dashboardExplorerElementTypeLabel } from "@dative-gpi/foundation-core-components/utils";
 import { useDebounce } from "@dative-gpi/foundation-shared-components/composables";
-import { useOrganisation } from "@dative-gpi/foundation-shared-services/composables";
 
 import FSDashboardOrganisationTypeTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDashboardOrganisationTypeTileUI.vue";
 import FSDashboardOrganisationTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSDashboardOrganisationTileUI.vue";
@@ -180,7 +165,7 @@ export default defineComponent({
     FSDashboardOrganisationTileUI,
     FSDashboardShallowTileUI,
     FSFolderTileUI,
-    FSDataTable,
+    // FSDataTable,
     FSIconCheck,
     FSTagGroup,
     FSImage,
@@ -245,15 +230,9 @@ export default defineComponent({
   emits: ["update:modelValue", "update:types"],
   setup(props, { emit }) {
     const { entities, fetching: fetchingDashboardExplorerElements, getMany: getManyDashboardExplorerElements } = useDashboardExplorerElements();
-    const { fetch: fetchUserOrganisation, entity: userOrganisation } = useCurrentUserOrganisation();
-    const { entity: organisation, get: getOrganisation } = useOrganisation();
-    const { organisationId } = useAppOrganisationId();
     const { debounce } = useDebounce();
 
     const search = ref("");
-
-    const mainUserDashboardId = computed(() => userOrganisation.value?.mainDashboardId);
-    const mainOrganisationDashboardId = computed(() => organisation.value?.mainDashboardId);
 
     const dashboardExplorerElements = computed((): DashboardExplorerElementInfos[] => {
       return entities.value
@@ -307,16 +286,6 @@ export default defineComponent({
     // Delay to wait before fetching after a search change
     const debounceFetch = (): void => debounce(fetch, 1000);
 
-    onMounted(() => {
-      fetchUserOrganisation();
-    });
-
-    watch(() => organisationId.value, () => {
-      if (organisationId.value) {
-        getOrganisation(organisationId.value);
-      }
-    }, { immediate: true });
-
     watch([() => props.parentId, () => props.root, () => props.allowedTypes, () => props.dashboardExplorerElementsFilters], (next, previous) => {
       if ((!next && !previous) || !_.isEqual(next, previous)) {
         fetch();
@@ -333,8 +302,6 @@ export default defineComponent({
       fetchingDashboardExplorerElements,
       DashboardExplorerElementType,
       dashboardExplorerElements,
-      mainOrganisationDashboardId,
-      mainUserDashboardId,
       headersOptions,
       search,
       isSelected,

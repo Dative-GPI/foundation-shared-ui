@@ -51,52 +51,30 @@ export class DashboardExplorerElementInfos {
     this.locked = params.locked ?? null;
   }
 
-  static fromDashboardOrganisation = (d: DashboardOrganisationInfos): DashboardExplorerElementInfos => ({
+  static fromDashboardOrganisation = (d: DashboardOrganisationInfos): DashboardExplorerElementInfos => new DashboardExplorerElementInfos({
     ...d,
     type: DashboardExplorerElementTypeEnum.DashboardOrganisation,
     parentId: d.folderId,
     parentLabel: d.folderLabel,
-    parentIcon: d.folderIcon,
-    recursiveFoldersIds: null,
-    recursiveDashboardOrganisationsIds: null,
-    recursiveDashboardShallowsIds: null,
-    path: [],
-    scope: d.scope,
-    locked: d.locked
+    parentIcon: d.folderIcon
   });
 
-  static fromDashboardShallow = (d: DashboardShallowInfos): DashboardExplorerElementInfos => ({
+  static fromDashboardShallow = (d: DashboardShallowInfos): DashboardExplorerElementInfos => new DashboardExplorerElementInfos({
     ...d,
     type: DashboardExplorerElementTypeEnum.DashboardShallow,
     parentId: d.folderId,
     parentLabel: d.folderLabel,
-    parentIcon: d.folderIcon,
-    recursiveFoldersIds: null,
-    recursiveDashboardOrganisationsIds: null,
-    recursiveDashboardShallowsIds: null,
-    path: [],
-    locked: null
+    parentIcon: d.folderIcon
   });
 
-  static fromDashboardOrganisationType = (d: DashboardOrganisationTypeInfos): DashboardExplorerElementInfos => ({
+  static fromDashboardOrganisationType = (d: DashboardOrganisationTypeInfos): DashboardExplorerElementInfos => new DashboardExplorerElementInfos({
     ...d,
-    type: DashboardExplorerElementTypeEnum.DashboardOrganisationType,
-    parentId: null,
-    parentLabel: null,
-    parentIcon: null,
-    recursiveFoldersIds: null,
-    recursiveDashboardOrganisationsIds: null,
-    recursiveDashboardShallowsIds: null,
-    path: [],
-    scope: d.scope,
-    locked: d.locked
+    type: DashboardExplorerElementTypeEnum.DashboardOrganisationType
   });
 
-  static fromFolder = (f: FolderInfos): DashboardExplorerElementInfos => ({
+  static fromFolder = (f: FolderInfos): DashboardExplorerElementInfos => new DashboardExplorerElementInfos({
     ...f,
-    type: DashboardExplorerElementTypeEnum.Folder,
-    scope: null,
-    locked: null
+    type: DashboardExplorerElementTypeEnum.Folder
   });
 }
 
