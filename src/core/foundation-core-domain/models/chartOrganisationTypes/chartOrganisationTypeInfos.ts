@@ -1,5 +1,5 @@
-import type { ChartModelLabelDTO } from "../charts/chartModelLabel";
-import { ChartModelLabel } from "../charts/chartModelLabel";
+import type { ModelInfosDTO } from "../models/modelInfos";
+import { ModelInfos } from "../models/modelInfos";
 import type { ApplicationScope } from "@dative-gpi/foundation-shared-domain/enums";
 import type { ChartType, PlotPer } from "@dative-gpi/foundation-shared-domain/enums";
 
@@ -21,7 +21,7 @@ export class ChartOrganisationTypeInfos {
   tags: string[];
   multiple: boolean;
   chartType: ChartType;
-  modelsLabels: ChartModelLabel[];
+  models: ModelInfos[];
 
   constructor(params: ChartOrganisationTypeInfosDTO) {
     this.id = params.id;
@@ -41,7 +41,7 @@ export class ChartOrganisationTypeInfos {
     this.tags = params.tags.slice();
     this.multiple = params.multiple;
     this.chartType = params.chartType;
-    this.modelsLabels = params.modelsLabels.map((modelLabel) => new ChartModelLabel(modelLabel));
+    this.models = params.models?.map((m) => new ModelInfos(m)) ?? [];
   }
 }
 
@@ -63,7 +63,7 @@ export interface ChartOrganisationTypeInfosDTO {
   tags: string[];
   multiple: boolean;
   chartType: ChartType;
-  modelsLabels: ChartModelLabelDTO[];
+  models?: ModelInfosDTO[];
 }
 
 export interface ChartOrganisationTypeFilters {
