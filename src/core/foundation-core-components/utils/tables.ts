@@ -1,5 +1,5 @@
 
-export const DASHBOARDS_EXPLORER_MAIN = "ui.tables.dashboard-explorer-element.explorer-main";
+export const DASHBOARDS_EXPLORER_MAIN = "ui.tables.dashboard-explorer-element.main";
 export const DASHBOARDS_ORGANISATION_TYPE_MAIN = "ui.tables.dashboard-organisation-type.main";
 
 export const DEVICES_EXPLORER_MAIN = "ui.tables.device-explorer-element.main";
@@ -30,8 +30,6 @@ export const MODELS_SELECT = "ui.tables.model.select";
 export const DASHBOARDS_SELECT = "ui.tables.dashboard-explorer-element.select";
 export const GROUPINGS_SELECT = "ui.tables.grouping.select";
 export const SUBGROUPINGS_SELECT = "ui.tables.subgrouping.select";
-
-export const WIDGET_DASHBOARDS_EXPLORER = "ui.tables.dashboard-explorer-element.widget";
 
 export const LOCATION_DEVICES = "ui.tables.device.location-devices";
 export const DEVICE_ALERTS = "ui.tables.alert.device-alerts";
