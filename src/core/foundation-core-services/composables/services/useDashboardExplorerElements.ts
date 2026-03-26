@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { DashboardExplorerElementDetails, type DashboardExplorerElementDetailsDTO, type DashboardExplorerElementFilters, DashboardExplorerElementInfos, type DashboardExplorerElementInfosDTO } from "@dative-gpi/foundation-core-domain/models";
 import { onCollectionChanged } from "@dative-gpi/bones-ui";
 import { ServiceFactory } from "@dative-gpi/bones-ui/core";
-import { createCollectionHandler } from "@dative-gpi/foundation-shared-services/tools/collectionTools";
+import { createCollectionHandler } from "@/shared/foundation-shared-services/tools";
 import { containsSearchTerm } from "@/shared/foundation-shared-components/utils";
 
 import { DASHBOARD_EXPLORER_ELEMENTS_URL } from "../../config/urls";

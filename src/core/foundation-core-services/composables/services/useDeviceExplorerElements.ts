@@ -4,7 +4,7 @@ import { DeviceExplorerElementDetails, type DeviceExplorerElementDetailsDTO, typ
 import { onCollectionChanged } from "@dative-gpi/bones-ui";
 import { ServiceFactory } from "@dative-gpi/bones-ui/core";
 
-import { createCollectionHandler } from "@dative-gpi/foundation-shared-services/tools/collectionTools";
+import { createCollectionHandler } from "@/shared/foundation-shared-services/tools";
 import { containsSearchTerm } from "@/shared/foundation-shared-components/utils";
 
 import { DEVICE_EXPLORER_ELEMENTS_URL } from "../../config/urls";
