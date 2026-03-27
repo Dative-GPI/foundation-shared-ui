@@ -46,7 +46,7 @@ export const useDashboardExplorerElements = () => {
         return (!!filters.value.root && !el.parentId) || (!!filters.value.parentId && filters.value.parentId === el.parentId);
       }
       return (!filters.value.parentId || el.path.some(p => p.id === filters.value!.parentId)) &&
-        containsSearchTerm({ label: el.label, code: el.code, tags: el.tags }, filters.value.search);
+        containsSearchTerm({ label: el.label, code: el.code, tags: el.tags }, filters.value.search.toLowerCase());
     };
 
     const onCollectionChangedCustom = onCollectionChanged(entities, filterMethod);

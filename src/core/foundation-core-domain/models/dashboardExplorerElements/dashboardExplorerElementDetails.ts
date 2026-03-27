@@ -33,18 +33,18 @@ export class DashboardExplorerElementDetails extends DashboardExplorerElementInf
 
 export interface DashboardExplorerElementDetailsDTO extends DashboardExplorerElementInfosDTO {  
     // DashboardOrganisation & DashboardShallow
-    folderId: string | null;
-    folderLabel: string | null;
-    folderIcon: string | null;
+    folderId?: string;
+    folderLabel?: string | null;
+    folderIcon?: string | null;
   
     // DashboardShallow
-    dashboardOrganisationTypeId: string | null;
-    dashboardOrganisationTypeLabel: string | null;
+    dashboardOrganisationTypeId?: string | null;
+    dashboardOrganisationTypeLabel?: string | null;
   
     // DashboardOrganisationType
-    organisationTypeId: string | null;
-    organisationTypeLabel: string | null;
-
+    organisationTypeId?: string | null;
+    organisationTypeLabel?: string | null;
+    
     // Dashboard
-    dashboardId: string | null;  
+    dashboardId?: string | null;  
 }

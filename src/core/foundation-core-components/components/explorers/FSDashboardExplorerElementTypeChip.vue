@@ -15,7 +15,7 @@ import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.v
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 export default defineComponent({
-  name: "FSDashboardExplorerElementChip",
+  name: "FSDashboardExplorerElementTypeChip",
   components: {
     FSChip
   },

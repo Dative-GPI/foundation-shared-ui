@@ -53,7 +53,7 @@
     <template
       #item.type="{ item }"
     >
-      <FSDashboardExplorerElementChip
+      <FSDashboardExplorerElementTypeChip
         :type="item.type"
       />
     </template>
@@ -154,13 +154,13 @@ import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTa
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 
-import FSDashboardExplorerElementChip from "./FSDashboardExplorerElementChip.vue";
+import FSDashboardExplorerElementTypeChip from "./FSDashboardExplorerElementTypeChip.vue";
 import FSDataTable from "../lists/FSDataTable.vue";
 
 export default defineComponent({
   name: "FSBaseDashboardsExplorer",
   components: {
-    FSDashboardExplorerElementChip,
+    FSDashboardExplorerElementTypeChip,
     FSDashboardOrganisationTypeTileUI,
     FSDashboardOrganisationTileUI,
     FSDashboardShallowTileUI,
@@ -227,6 +227,7 @@ export default defineComponent({
       default: () => ({})
     }
   },
+  inheritAttrs: false,
   emits: ["update:modelValue", "update:types"],
   setup(props, { emit }) {
     const { entities, fetching: fetchingDashboardExplorerElements, getMany: getManyDashboardExplorerElements } = useDashboardExplorerElements();
@@ -237,7 +238,6 @@ export default defineComponent({
     const dashboardExplorerElements = computed((): DashboardExplorerElementInfos[] => {
       return entities.value
         .filter(e => props.allowedTypes.includes(e.type))
-        .slice()
         .sort((a, b) => a.type - b.type);
     });
 

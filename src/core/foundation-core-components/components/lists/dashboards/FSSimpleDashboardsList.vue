@@ -42,7 +42,6 @@ export default defineComponent({
     const dashboards = computed((): DashboardExplorerElementInfos[] => {
       return entities.value
         .filter(e => props.allowedTypes.includes(e.type))
-        .slice()
         .sort((a, b) => a.label.localeCompare(b.label));
     });
 
