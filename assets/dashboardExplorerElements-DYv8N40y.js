@@ -1,0 +1,1 @@
+var a=(i=>(i[i.None=0]="None",i[i.Folder=1]="Folder",i[i.DashboardOrganisation=2]="DashboardOrganisation",i[i.DashboardShallow=3]="DashboardShallow",i[i.DashboardOrganisationType=4]="DashboardOrganisationType",i))(a||{});export{a as D};
