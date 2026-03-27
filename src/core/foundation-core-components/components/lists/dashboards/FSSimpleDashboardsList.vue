@@ -7,14 +7,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType, watch, computed } from "vue";
-import _ from "lodash";
+import { defineComponent, type PropType, computed, watch } from "vue";
 
-import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DashboardShallowFilters } from "@dative-gpi/foundation-core-domain/models";
-import { useDashboardOrganisations, useDashboardOrganisationTypes, useDashboardShallows } from "@dative-gpi/foundation-core-services/composables";
-
-import { DashboardType } from '@dative-gpi/foundation-shared-domain/enums';
-import type { DashboardsListItem } from '@dative-gpi/foundation-core-components/utils';
+import { DashboardExplorerElementType } from "@dative-gpi/foundation-shared-domain/enums";
+import { useDashboardExplorerElements } from "@dative-gpi/foundation-core-services/composables";
+import type { DashboardExplorerElementFilters, DashboardExplorerElementInfos } from "@dative-gpi/foundation-core-domain/models";
 
 import FSSimpleList from "@dative-gpi/foundation-shared-components/components/lists/FSSimpleList.vue";
 
@@ -24,66 +21,43 @@ export default defineComponent({
     FSSimpleList,
   },
   props: {
-    dashboardOrganisationFilters: {
-      type: Object as PropType<DashboardOrganisationFilters>,
+    allowedTypes: {
+      type: Array as PropType<DashboardExplorerElementType[]>,
       required: false,
-      default: () => ({})
+      default: () => [
+        DashboardExplorerElementType.DashboardOrganisation,
+        DashboardExplorerElementType.DashboardShallow,
+        DashboardExplorerElementType.DashboardOrganisationType
+      ]
     },
-    dashboardOrganisationTypeFilters: {
-      type: Object as PropType<DashboardOrganisationTypeFilters>,
+    dashboardExplorerElementsFilters: {
+      type: Object as PropType<DashboardExplorerElementFilters>,
       required: false,
-      default: () => ({})
-    },
-    dashboardShallowFilters: {
-      type: Object as PropType<DashboardShallowFilters>,
-      required: false,
-      default: () => ({})
+      default:  () => ({})
     }
   },
-  setup(props){
-    const { entities: dashboardOrganisations, 
-            getMany: getManyDashboardOrganisations, 
-            fetching: fetchingDashboardOrganisations } = useDashboardOrganisations();
-    const { entities: dashboardOrganisationTypes, 
-            getMany: getManyDashboardOrganisationTypes, 
-            fetching: fetchingDashboardOrganisationTypes } = useDashboardOrganisationTypes();
-    const { entities: dashboardShallows, 
-            getMany: getManyDashboardShallows, 
-            fetching: fetchingDashboardShallows } = useDashboardShallows();
+  setup(props) {
+    const { entities, fetching, getMany } = useDashboardExplorerElements();
 
-    const fetching = computed(() => fetchingDashboardOrganisations.value 
-      || fetchingDashboardOrganisationTypes.value
-      || fetchingDashboardShallows.value);
-    
-    const dashboards = computed((): DashboardsListItem[] => {
-      return _.sortBy([
-        ...dashboardOrganisationTypes.value.map(g => ({
-          ...g,
-          dashboardType: DashboardType.OrganisationType
-        })) satisfies DashboardsListItem[],
-        ...dashboardOrganisations.value.map(d => ({
-          ...d,
-          dashboardType: DashboardType.Organisation
-        })) as DashboardsListItem[],
-        ...dashboardShallows.value.map(d => ({
-          ...d,
-          dashboardType: DashboardType.Shallow
-        })) as DashboardsListItem[]
-      ], d => d.label);
+    const dashboards = computed((): DashboardExplorerElementInfos[] => {
+      return entities.value
+        .filter(e => props.allowedTypes.includes(e.type))
+        .sort((a, b) => a.label.localeCompare(b.label));
     });
 
     const fetch = () => {
-      getManyDashboardOrganisations(props.dashboardOrganisationFilters);
-      getManyDashboardOrganisationTypes(props.dashboardOrganisationTypeFilters);
-      getManyDashboardShallows(props.dashboardShallowFilters);
-    }
+      getMany({
+        types: props.allowedTypes,
+        ...props.dashboardExplorerElementsFilters
+      });
+    };
 
-    watch(() => [props.dashboardOrganisationFilters, props.dashboardOrganisationTypeFilters, props.dashboardShallowFilters], fetch, { immediate: true });
+    watch(() => props.dashboardExplorerElementsFilters, fetch, { immediate: true });
 
     return {
       dashboards,
       fetching
-    }
+    };
   }
 });
 </script>

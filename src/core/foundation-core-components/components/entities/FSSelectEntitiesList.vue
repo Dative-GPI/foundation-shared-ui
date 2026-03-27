@@ -65,7 +65,7 @@
 import { defineComponent, type PropType, computed } from "vue";
 
 import { EntityType } from "@dative-gpi/foundation-shared-domain/enums";
-import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DashboardShallowFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, GroupingFilters, LocationFilters, ModelFilters, SubgroupingFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { DashboardExplorerElementFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, GroupingFilters, LocationFilters, ModelFilters, SubgroupingFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
 
 import { TABLES as T } from "../../utils";
 
@@ -124,10 +124,8 @@ export default defineComponent({
           } satisfies DeviceOrganisationFilters;
         case EntityType.Dashboard:
           return {
-            dashboardOrganisationsIds: props.modelValue,
-            dashboardOrganisationTypesIds: props.modelValue,
-            dashboardShallowsIds: props.modelValue
-          } satisfies DashboardOrganisationFilters & DashboardOrganisationTypeFilters & DashboardShallowFilters;
+            dashboardExplorerElementsIds: props.modelValue,
+          } satisfies DashboardExplorerElementFilters;
         case EntityType.Group:
           return {
             groupsIds: props.modelValue
@@ -191,9 +189,7 @@ export default defineComponent({
           };
         case EntityType.Dashboard:
           return {
-            dashboardShallowsFilters: props.filters,
-            dashboardOrganisationsFilters: props.filters,
-            dashboardOrganisationTypeFetchFilter: props.filters,
+            dashboardExplorerElementsFilters: props.filters,
             ...attrs
           };
         case EntityType.Group:

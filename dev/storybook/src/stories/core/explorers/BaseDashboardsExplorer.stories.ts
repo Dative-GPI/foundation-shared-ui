@@ -4,18 +4,19 @@ import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties'
 
 import FSDataTable from "@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue";
 import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
-import FSBaseFoldersExplorer from "@dative-gpi/foundation-core-components/components/explorers/FSBaseFoldersExplorer.vue";
+import FSBaseDashboardsExplorer from "@dative-gpi/foundation-core-components/components/explorers/FSBaseDashboardsExplorer.vue";
+import { DashboardExplorerElementType } from "@dative-gpi/foundation-shared-domain/enums";
 
-const meta: Meta<typeof FSBaseFoldersExplorer> = {
-  title: "Foundation/Core/Explorers/BaseFoldersExplorer",
-  component: FSBaseFoldersExplorer,
+const meta: Meta<typeof FSBaseDashboardsExplorer> = {
+  title: "Foundation/Core/Explorers/BaseDashboardsExplorer",
+  component: FSBaseDashboardsExplorer,
   tags: ["autodocs"],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseFoldersExplorer),
-    ...addComponentEmits(FSBaseFoldersExplorer),
+    ...addSubcomponentsArgTypes([FSDataTable, FSDataTableUI], FSBaseDashboardsExplorer),
+    ...addComponentEmits(FSBaseDashboardsExplorer),
     tableCode: {
       control: "select",
-      options: ["foldersExplorer1"],
+      options: ["dashboardsExplorer1"],
     }
   },
 };
@@ -26,15 +27,15 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     modelValue: [],
-    tableCode: "foldersExplorer1"
+    tableCode: "dashboardsExplorer1"
   },
   render: (args) => ({
-    components: { FSBaseFoldersExplorer },
+    components: { FSBaseDashboardsExplorer },
     setup() {
       return { args };
     },
     template: `
-      <FSBaseFoldersExplorer
+      <FSBaseDashboardsExplorer
         v-model:modelValue="args.modelValue"
         v-bind="args"
       />

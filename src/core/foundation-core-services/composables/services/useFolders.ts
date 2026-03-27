@@ -14,6 +14,7 @@ const FolderServiceFactory = new ServiceFactory<FolderDetailsDTO, FolderDetails>
 
 export const useFolder = ComposableFactory.get(FolderServiceFactory);
 export const useFolders = ComposableFactory.getMany(FolderServiceFactory);
+export const useSubscribeToFolders = ComposableFactory.subscribe(FolderServiceFactory);
 export const useCreateFolder = ComposableFactory.create(FolderServiceFactory);
 export const useUpdateFolder = ComposableFactory.update(FolderServiceFactory);
 export const useRemoveFolder = ComposableFactory.remove(FolderServiceFactory);

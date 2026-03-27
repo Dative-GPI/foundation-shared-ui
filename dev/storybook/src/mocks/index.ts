@@ -9,6 +9,7 @@ export * from "./customProperties.mock";
 export * from "./customPropertyValues.mock";
 export * from "./dataCategories.mock";
 export * from "./dataDefinitions.mock";
+export * from "./dashboardExplorerElements.mock";
 export * from "./dashboardOrganisations.mock";
 export * from "./dashboardOrganisationTypes.mock";
 export * from "./dashboardShallows.mock";

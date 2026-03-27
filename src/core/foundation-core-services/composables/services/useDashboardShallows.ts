@@ -23,6 +23,7 @@ const DashboardShallowServiceFactoryIncomplete = new ServiceFactory("dashboardSh
 
 export const useDashboardShallow = ComposableFactory.get(DashboardShallowServiceFactory);
 export const useDashboardShallows = ComposableFactory.getMany(DashboardShallowServiceFactory);
+export const useSubscribeToDashboardShallows = ComposableFactory.subscribe(DashboardShallowServiceFactory);
 export const useCreateDashboardShallow = ComposableFactory.create(DashboardShallowServiceFactory);
 export const useUpdateDashboardShallow = ComposableFactory.update(DashboardShallowServiceFactory);
 export const useRemoveDashboardShallow = ComposableFactory.remove(DashboardShallowServiceFactory);

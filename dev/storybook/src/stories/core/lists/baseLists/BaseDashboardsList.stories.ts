@@ -1,14 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
+import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+
 import FSBaseDashboardsList from "@dative-gpi/foundation-core-components/components/lists/dashboards/FSBaseDashboardsList.vue";
+import FSBaseDashboardsExplorer from "@dative-gpi/foundation-core-components/components/explorers/FSBaseDashboardsExplorer.vue";
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
+import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
 
 const meta: Meta<typeof FSBaseDashboardsList> = {
   title: 'Foundation/Core/Lists/Base Lists/BaseDashboardsList',
   component: FSBaseDashboardsList,
-  subcomponents: { FSDataTable },
   tags: ['autodocs'],
   argTypes: {
+    ...addSubcomponentsArgTypes([FSBaseDashboardsExplorer, FSDataTable, FSDataTableUI], FSBaseDashboardsList),
+    ...addComponentEmits(FSBaseDashboardsList),
+    tableCode: {
+      control: "select",
+      options: ["dashboardsExplorer1"],
+    }
   },
 };
 
@@ -24,12 +33,12 @@ export const Default: Story = {
     template: `
       <FSBaseDashboardsList
         v-model:modelValue="args.modelValue"
-        v-mode:type="args.type"
         v-bind="args"
       />
     `,
   }),
   args: {
-    tableCode: 'dashboards1'
+    modelValue: [],
+    tableCode: 'dashboardsExplorer1'
   },
 };
