@@ -549,7 +549,7 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
         {
             columnId: "4",
             text: "Models",
-            value: "modelsLabels",
+            value: "models",
             index: 2,
             hidden: false,
             sortable: false,
