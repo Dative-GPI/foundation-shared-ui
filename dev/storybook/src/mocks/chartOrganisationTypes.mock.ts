@@ -1,4 +1,44 @@
-import type { ChartOrganisationTypeInfosDTO } from "@dative-gpi/foundation-core-domain/models";
+import type { ChartOrganisationTypeInfosDTO, ModelInfosDTO } from "@dative-gpi/foundation-core-domain/models";
+
+const MODEL_RACK_OVEN: ModelInfosDTO = {
+    id: "808479dc-6e96-4380-9c35-df21bd155c22",
+    manufacturerId: "1",
+    manufacturerLabel: "Manufacturer 1",
+    imageId: null,
+    code: "rack-oven",
+    label: "Four à chariot",
+    connectable: true
+};
+
+const MODEL_CONVECTION_OVEN: ModelInfosDTO = {
+    id: "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
+    manufacturerId: "1",
+    manufacturerLabel: "Manufacturer 1",
+    imageId: null,
+    code: "convection-oven",
+    label: "Four ventilé",
+    connectable: true
+};
+
+const MODEL_SOLEO: ModelInfosDTO = {
+    id: "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
+    manufacturerId: "1",
+    manufacturerLabel: "Manufacturer 1",
+    imageId: null,
+    code: "soleo-evo",
+    label: "SOLEO EVO",
+    connectable: true
+};
+
+const MODEL_ORION: ModelInfosDTO = {
+    id: "9a588e50-3461-4ff7-9edb-4d6d310357e2",
+    manufacturerId: "1",
+    manufacturerLabel: "Manufacturer 1",
+    imageId: null,
+    code: "orion-evo",
+    label: "ORION EVO",
+    connectable: true
+};
 
 export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
   {
@@ -12,23 +52,11 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 1,
-      "modelsLabels": [
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          },
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          },
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          },
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          }
+      "models": [
+          MODEL_CONVECTION_OVEN,
+          MODEL_RACK_OVEN,
+          MODEL_SOLEO,
+          MODEL_ORION
       ],
       "label": "   P1 : Planning de production",
       "title": "P1 : Planning de production",
@@ -45,23 +73,11 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 2,
-      "modelsLabels": [
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          },
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          },
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          },
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          }
+      "models": [
+          MODEL_RACK_OVEN,
+          MODEL_SOLEO,
+          MODEL_CONVECTION_OVEN,
+          MODEL_ORION
       ],
       "label": "   P2: Suivi de production",
       "title": "P2: Suivi de production (répartition de la production en recette)",
@@ -78,11 +94,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 7,
-      "modelsLabels": [
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          }
+      "models": [
+          MODEL_RACK_OVEN
       ],
       "label": "   P5 : Table de production (Four à chariot)",
       "title": "P5 : Table de production (Four à chariot)",
@@ -99,11 +112,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 7,
-      "modelsLabels": [
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          }
+      "models": [
+          MODEL_ORION
       ],
       "label": "   P5 : Table de production (Four ORION)",
       "title": "P5 : Table de production (Four ORION)",
@@ -120,11 +130,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 7,
-      "modelsLabels": [
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          }
+      "models": [
+          MODEL_SOLEO
       ],
       "label": "   P5 : Table de production (Four SOLEO)",
       "title": "P5 : Table de production (Four SOLEO)",
@@ -141,11 +148,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 7,
-      "modelsLabels": [
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          }
+      "models": [
+          MODEL_CONVECTION_OVEN
       ],
       "label": "   P5 : Table de production (Four ventilé)",
       "title": "P5 : Table de production (Four ventilé)",
@@ -162,11 +166,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 2,
-      "modelsLabels": [
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          }
+      "models": [
+          MODEL_ORION
       ],
       "label": "  E1 : Mode ECO (Orion) ",
       "title": "E1 : Utilisation du mode ECO ",
@@ -183,11 +184,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 2,
-      "modelsLabels": [
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          }
+      "models": [
+          MODEL_RACK_OVEN
       ],
       "label": "  E1 : Mode ECO (Rack oven)",
       "title": "E1 : Utilisation du mode ECO ",
@@ -204,11 +202,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 2,
-      "modelsLabels": [
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          }
+      "models": [
+          MODEL_SOLEO
       ],
       "label": "  E1 : Mode ECO (Soleo)",
       "title": "E1 : Utilisation du mode ECO  ",
@@ -225,11 +220,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       ],
       "multiple": false,
       "chartType": 2,
-      "modelsLabels": [
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          }
+      "models": [
+          MODEL_CONVECTION_OVEN
       ],
       "label": "  E1: Mode ECO (Ventilé)",
       "title": "E1: Utilisation du mode ECO ",
@@ -244,23 +236,11 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       "tags": [],
       "multiple": false,
       "chartType": 6,
-      "modelsLabels": [
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          },
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          },
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          },
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          }
+      "models": [
+          MODEL_CONVECTION_OVEN,
+          MODEL_SOLEO,
+          MODEL_ORION,
+          MODEL_RACK_OVEN
       ],
       "label": " C07 : Consommation globale sur la période",
       "title": " C07 : Consommation globale sur la période",
@@ -275,23 +255,11 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       "tags": [],
       "multiple": false,
       "chartType": 1,
-      "modelsLabels": [
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          },
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          },
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          },
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          }
+      "models": [
+          MODEL_RACK_OVEN,
+          MODEL_ORION,
+          MODEL_SOLEO,
+          MODEL_CONVECTION_OVEN
       ],
       "label": " C08 : Conso globale (par heure) -> Wh ",
       "title": " C08 : Conso globale (par heure) -> Wh ",
@@ -306,11 +274,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       "tags": [],
       "multiple": false,
       "chartType": 1,
-      "modelsLabels": [
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          }
+      "models": [
+          MODEL_ORION
       ],
       "label": "C01 : Conso - par étage -> kWh (ORION)",
       "title": "C01 : Conso - par étage -> kWh",
@@ -325,11 +290,8 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       "tags": [],
       "multiple": false,
       "chartType": 1,
-      "modelsLabels": [
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          }
+      "models": [
+          MODEL_SOLEO
       ],
       "label": "C01 : Conso - par étage -> kWh (SOLEO)",
       "title": "C01 : Conso - par étage -> kWh",
@@ -344,15 +306,9 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       "tags": [],
       "multiple": false,
       "chartType": 1,
-      "modelsLabels": [
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          },
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          }
+      "models": [
+          MODEL_RACK_OVEN,
+          MODEL_CONVECTION_OVEN
       ],
       "label": "C01 : Conso - par étage -> kWh (Ventilé / Four à chariot)",
       "title": "C01 : Conso - par étage -> kWh (Ventilé / Four à chariot)",
@@ -367,23 +323,11 @@ export const CHARTORGANISATIONTYPES: ChartOrganisationTypeInfosDTO[] = [
       "tags": [],
       "multiple": false,
       "chartType": 1,
-      "modelsLabels": [
-          {
-              "id": "b0bd50e9-3166-4a72-aff5-abb1c8e3861d",
-              "label": "SOLEO EVO"
-          },
-          {
-              "id": "d4586ec6-3a8b-4588-9ac3-03df80ed0251",
-              "label": "Four ventilé"
-          },
-          {
-              "id": "9a588e50-3461-4ff7-9edb-4d6d310357e2",
-              "label": "ORION EVO"
-          },
-          {
-              "id": "808479dc-6e96-4380-9c35-df21bd155c22",
-              "label": "Four à chariot"
-          }
+      "models": [
+          MODEL_SOLEO,
+          MODEL_CONVECTION_OVEN,
+          MODEL_ORION,
+          MODEL_RACK_OVEN
       ],
       "label": "C03 : Conso détaillée par élément /heure",
       "title": "C03 : Conso détaillée par élément /heure",
