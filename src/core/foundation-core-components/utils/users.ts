@@ -1,7 +1,9 @@
+import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { UserType, UserValidityState } from "@dative-gpi/foundation-shared-domain/enums";
 
 const { $tr } = useTranslationsProvider();
+const { epochToShortTimeFormat } = useDateFormat();
 
 export const userTypeLabel = (type: UserType): string => {
   switch (type) {
@@ -30,3 +32,11 @@ export const userValidityLabel = (validity: UserValidityState): string => {
     default:                                  return "";
   }
 }
+
+export const formatLastActivity = (value?: string | null): string => {
+    if (!value) {
+      return "";
+    }
+    const timestamp = new Date(value).getTime();
+    return epochToShortTimeFormat(timestamp);
+};
