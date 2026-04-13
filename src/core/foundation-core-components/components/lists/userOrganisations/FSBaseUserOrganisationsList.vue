@@ -182,7 +182,7 @@ export default defineComponent({
       userValidityLabel,
       userTypeLabel,
       isSelected,
-      formatLastActivity
+      formatLastActivity,
     };
   }
 });

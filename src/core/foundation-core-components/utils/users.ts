@@ -1,6 +1,7 @@
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { UserType, UserValidityState } from "@dative-gpi/foundation-shared-domain/enums";
+import { isoToEpoch } from "@dative-gpi/foundation-shared-domain/tools";
 
 const { $tr } = useTranslationsProvider();
 const { epochToShortTimeFormat } = useDateFormat();
@@ -37,6 +38,6 @@ export const formatLastActivity = (value?: string | null): string => {
     if (!value) {
       return "";
     }
-    const timestamp = new Date(value).getTime();
+    const timestamp = isoToEpoch(value);
     return epochToShortTimeFormat(timestamp);
 };
