@@ -266,7 +266,16 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: false
-        }],
+        }, {
+            columnId: "6",
+            text: "Last activity",
+            value: "lastActivity",
+            index: 5,
+            hidden: false,
+            sortable: true,
+            filterable: true
+        }
+    ],
         sortByKey: null,
         sortByOrder: null
     },

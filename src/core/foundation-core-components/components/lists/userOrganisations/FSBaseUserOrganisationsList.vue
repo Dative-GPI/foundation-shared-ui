@@ -90,7 +90,7 @@
       <FSSpan
         font="text-overline"
       >
-        {{ epochToShortTimeFormat(item.lastActivity) }}
+        {{ epochToLongTimeFormat(item.lastActivity) }}
       </FSSpan>
     </template>
     <template
@@ -113,10 +113,11 @@ import { defineComponent, type PropType, watch } from "vue";
 import { type RouteLocation } from "vue-router";
 import _ from "lodash";
 
+import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
+
 import type { UserOrganisationFilters, UserOrganisationInfos } from "@dative-gpi/foundation-core-domain/models";
 import { userTypeLabel, userValidityLabel } from "@dative-gpi/foundation-core-components/utils";
 import { useUserOrganisations } from "@dative-gpi/foundation-core-services/composables";
-import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
 import FSDataTable from "../FSDataTable.vue";
 
@@ -166,7 +167,7 @@ export default defineComponent({
   emits: ["update:modelValue"],
   setup(props) {
     const { getMany: fetchUserOrganisations, entities: userOrganisations, fetching: fetchingUserOrganisations } = useUserOrganisations();
-    const { epochToShortTimeFormat } = useDateFormat();
+    const { epochToLongTimeFormat } = useDateFormat();
 
     const isSelected = (id: string): boolean => {
       return props.modelValue.includes(id);
@@ -181,10 +182,10 @@ export default defineComponent({
     return {
       fetchingUserOrganisations,
       userOrganisations,
-      epochToShortTimeFormat,
       userValidityLabel,
       userTypeLabel,
-      isSelected
+      isSelected,
+      epochToLongTimeFormat,
     };
   }
 });

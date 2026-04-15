@@ -21,7 +21,7 @@ export const USERORGANISATIONS: UserOrganisationInfosDTO[] = [{
   validity: 1,
   imageId: "1",
   roleId: "1",
-  lastActivity: new Date("2025-12-01").getTime(),
+  lastActivity: "2026-01-19T15:16:43.189058+00:00",
   startOnKioskMode: false
 }, {
   id: "2",
@@ -45,7 +45,7 @@ export const USERORGANISATIONS: UserOrganisationInfosDTO[] = [{
   imageId: "2",
   roleId: "1",
   startOnKioskMode: false,
-  lastActivity: new Date("2026-03-02").getTime()
+  lastActivity: "2026-04-15T10:30:00.000000+00:00"
 }, {
   id: "3",
   admin: false,
