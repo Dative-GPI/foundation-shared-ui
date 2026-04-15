@@ -4,7 +4,7 @@ import { UserType, UserValidityState } from "@dative-gpi/foundation-shared-domai
 import { isoToEpoch } from "@dative-gpi/foundation-shared-domain/tools";
 
 const { $tr } = useTranslationsProvider();
-const { epochToShortTimeFormat } = useDateFormat();
+const { epochToLongTimeFormat } = useDateFormat();
 
 export const userTypeLabel = (type: UserType): string => {
   switch (type) {
@@ -39,5 +39,5 @@ export const formatLastActivity = (value?: string | null): string => {
       return "";
     }
     const timestamp = isoToEpoch(value);
-    return epochToShortTimeFormat(timestamp);
+    return epochToLongTimeFormat(timestamp);
 };

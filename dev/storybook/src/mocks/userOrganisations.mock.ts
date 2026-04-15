@@ -45,7 +45,7 @@ export const USERORGANISATIONS: UserOrganisationInfosDTO[] = [{
   imageId: "2",
   roleId: "1",
   startOnKioskMode: false,
-  lastActivity: "2026-01-20T10:30:00.000000+00:00"
+  lastActivity: "2026-04-15T10:30:00.000000+00:00"
 }, {
   id: "3",
   admin: false,
