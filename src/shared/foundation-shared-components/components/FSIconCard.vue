@@ -38,7 +38,6 @@ export default defineComponent({
     FSCard,
     FSIcon,
     FSRow
-    FSIcon
   },
   props: {
     size: {

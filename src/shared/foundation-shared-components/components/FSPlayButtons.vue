@@ -55,8 +55,8 @@ export default defineComponent({
   name: "FSPlayButtons",
   components: {
     FSCard,
+    FSIcon,
     FSRow
-    FSIcon
   },
   props: {
     modelValue: {
