@@ -41,11 +41,15 @@ import { useColors, useSlots } from "@dative-gpi/foundation-shared-components/co
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
 import FSText from "./FSText.vue";
+import FSCol from "./FSCol.vue";
+import FSRow from "./FSRow.vue";
 
 export default defineComponent({
   name: "FSDivider",
   components: {
-    FSText
+    FSText,
+    FSCol,
+    FSRow
   },
   props: {
     label: {

@@ -77,6 +77,7 @@ import FSRichTextField from "./fields/FSRichTextField.vue";
 import FSIcon from "./FSIcon.vue";
 import FSSpan from "./FSSpan.vue";
 import FSText from "./FSText.vue";
+import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
 export default defineComponent({
@@ -86,6 +87,7 @@ export default defineComponent({
     FSIcon,
     FSSpan,
     FSText,
+    FSCol,
     FSRow
   },
   props: {

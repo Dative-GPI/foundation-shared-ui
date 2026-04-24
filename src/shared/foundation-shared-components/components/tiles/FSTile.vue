@@ -56,13 +56,15 @@ import { ColorEnum, type ColorBase } from "@dative-gpi/foundation-shared-compone
 
 import FSCard from "../FSCard.vue";
 import FSCheckbox from "../FSCheckbox.vue";
+import FSCol from "../FSCol.vue";
 
 export default defineComponent({
   name: "FSTile",
   inheritAttrs: false,
   components: {
     FSCard,
-    FSCheckbox
+    FSCheckbox,
+    FSCol
   },
   props: {
     to: {

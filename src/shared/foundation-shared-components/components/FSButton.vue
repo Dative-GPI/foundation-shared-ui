@@ -141,6 +141,7 @@ import { useColors } from "@dative-gpi/foundation-shared-components/composables"
 
 import FSRouterLink from './FSRouterLink.vue';
 import FSText from "./FSText.vue";
+import FSSpan from "./FSSpan.vue";
 import FSIcon from "./FSIcon.vue";
 import FSCard from './FSCard.vue';
 import FSCol from "./FSCol.vue";
@@ -158,6 +159,7 @@ export default defineComponent({
     FSRouterLink,
     FSCard,
     FSText,
+    FSSpan,
     FSIcon,
     FSCol,
     FSRow

@@ -61,6 +61,7 @@ import { useColors } from "@dative-gpi/foundation-shared-components/composables"
 import FSCard from "../FSCard.vue";
 import FSIcon from "../FSChip.vue";
 import FSText from "../FSText.vue";
+import FSRow from "../FSRow.vue";
 import FSCol from "../FSCol.vue";
 
 export default defineComponent({
@@ -69,6 +70,7 @@ export default defineComponent({
     FSCard,
     FSIcon,
     FSText,
+    FSRow,
     FSCol
   },
   props: {

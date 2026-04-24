@@ -30,11 +30,14 @@ import { sizeToVar } from "../utils";
 
 import FSCard from "./FSCard.vue";
 import FSIcon from "./FSIcon.vue";
+import FSRow from "./FSRow.vue";
 
 export default defineComponent({
   name: "FSIconCard",
   components: {
     FSCard,
+    FSIcon,
+    FSRow
     FSIcon
   },
   props: {

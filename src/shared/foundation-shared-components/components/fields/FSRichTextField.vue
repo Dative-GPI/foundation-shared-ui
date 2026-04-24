@@ -246,6 +246,7 @@ import FSTextField from "./FSTextField.vue";
 import FSIcon from "../FSIcon.vue";
 import FSCard from "../FSCard.vue";
 import FSText from "../FSText.vue";
+import FSSpan from "../FSSpan.vue";
 import FSMenu from '../FSMenu.vue';
 import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
@@ -256,6 +257,7 @@ export default defineComponent({
     FSAutoCompleteField,
     FSTextField,
     FSText,
+    FSSpan,
     FSIcon,
     FSCard,
     FSMenu,
