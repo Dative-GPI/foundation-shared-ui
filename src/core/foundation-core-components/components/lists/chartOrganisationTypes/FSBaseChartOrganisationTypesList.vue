@@ -70,11 +70,11 @@
       </FSRow>
     </template>
     <template
-      #item.modelsLabels="{ item }"
+      #item.models="{ item }"
     >
       <FSTagGroup
         variant="slide"
-        :tags="item.modelsLabels.map((d: any) => d.label)"
+        :tags="item.models.map((d: any) => d.label)"
         :showRemove="false"
       />
     </template>
@@ -109,7 +109,8 @@ import { getEnumEntries } from "@dative-gpi/foundation-shared-domain/tools";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { chartTypeLabel, chartIcon } from "@dative-gpi/foundation-shared-components/tools";
 
-import type { ChartModelLabel, ChartOrganisationTypeFilters, ChartOrganisationTypeInfos } from "@dative-gpi/foundation-core-domain/models";
+import type { ModelInfos } from "@dative-gpi/foundation-core-domain/models";
+import type { ChartOrganisationTypeFilters, ChartOrganisationTypeInfos } from "@dative-gpi/foundation-core-domain/models";
 import { useChartOrganisationTypes } from "@dative-gpi/foundation-core-services/composables";
 
 import FSChartTileUI from "@dative-gpi/foundation-shared-components/components/tiles/FSChartTileUI.vue";
@@ -168,8 +169,8 @@ export default defineComponent({
     const { entities: chartOrganisationTypes, fetching: fetchingChartOrganisationTypes, getMany: getManyChartOrganisationTypes } = useChartOrganisationTypes();
 
     const headersOptions = computed(() => ({
-      modelsLabels: {
-        fixedFilters: chartOrganisationTypes.value.map(c => c.modelsLabels).reduce((acc, models) => {
+      models: {
+        fixedFilters: chartOrganisationTypes.value.map(c => c.models).reduce((acc, models) => {
           for (const m of models) {
             if (!acc.map((m) => m.id).includes(m.id)) {
               acc.push(m);
@@ -183,7 +184,7 @@ export default defineComponent({
           value: '',
           text: '--'
         }),
-        methodFilter: (value: string, items: ChartModelLabel[]) => (items.length == 0 && value == '') || (items.length  > 0 && items.some(ml => ml.id == value))
+        methodFilter: (value: string, items: ModelInfos[]) => (items.length == 0 && value == '') || (items.length  > 0 && items.some(ml => ml.id == value))
       },
       chartType: {
         fixedFilters: getEnumEntries(ChartType).map(e => ({

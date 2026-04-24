@@ -30,5 +30,6 @@ export interface ModelInfosDTO {
 
 export interface ModelFilters {
     modelsIds?: string[] | null;
+    codes?: string[] | null;
     search?: string | null;
 }

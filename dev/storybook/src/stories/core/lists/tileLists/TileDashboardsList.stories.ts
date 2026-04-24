@@ -33,8 +33,5 @@ export const Default: Story = {
   }),
   args: {
     modelValue: [],
-    dashboardOrganisationFilters: {},
-    dashboardOrganisationTypeFilters: {},
-    dashboardShallowFilters: {},
   }
 };

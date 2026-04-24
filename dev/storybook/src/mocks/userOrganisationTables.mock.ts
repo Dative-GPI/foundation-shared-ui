@@ -266,7 +266,16 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
             hidden: false,
             sortable: false,
             filterable: false
-        }],
+        }, {
+            columnId: "6",
+            text: "Last activity",
+            value: "lastActivity",
+            index: 5,
+            hidden: false,
+            sortable: true,
+            filterable: true
+        }
+    ],
         sortByKey: null,
         sortByOrder: null
     },
@@ -549,7 +558,7 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
         {
             columnId: "4",
             text: "Models",
-            value: "modelsLabels",
+            value: "models",
             index: 2,
             hidden: false,
             sortable: false,
@@ -1000,6 +1009,71 @@ export const USERORGANISATIONTABLES: UserOrganisationTableInfosDTO[] = [
                 hidden: false
             },
         ],
+        sortByKey: null,
+        sortByOrder: null
+    },
+    {
+        id: "22",
+        code: "dashboardsExplorer1",
+        mode: "table",
+        rowsPerPage: 10,
+        columns: [{
+            columnId: "dee-both1",
+            text: "Type",
+            value: "type",
+            index: 0,
+            hidden: false,
+            sortable: true,
+            filterable: true
+        }, {
+            columnId: "dee-both2",
+            text: "Icon",
+            value: "icon",
+            index: 1,
+            hidden: false,
+            sortable: false,
+            filterable: false
+        }, {
+            columnId: "dee-both3",
+            text: "Image",
+            value: "imageId",
+            index: 2,
+            hidden: false,
+            sortable: false,
+            filterable: false
+        }, {
+            columnId: "dee-both4",
+            text: "Label",
+            value: "label",
+            index: 3,
+            hidden: false,
+            sortable: true,
+            filterable: true
+        }, {
+            columnId: "dee-both5",
+            text: "Code",
+            value: "code",
+            index: 4,
+            hidden: false,
+            sortable: true,
+            filterable: true
+        }, {
+            columnId: "dee-both6",
+            text: "Tags",
+            value: "tags",
+            index: 5,
+            hidden: false,
+            sortable: false,
+            filterable: false
+        }, {
+            columnId: "dee-dash1",
+            text: "Locked",
+            value: "locked",
+            index: 6,
+            hidden: false,
+            sortable: true,
+            filterable: true
+        }],
         sortByKey: null,
         sortByOrder: null
     }
