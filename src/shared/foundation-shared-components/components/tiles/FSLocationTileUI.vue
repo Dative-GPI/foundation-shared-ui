@@ -60,6 +60,7 @@ import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-compone
 
 import FSEntityCountBadge from './FSEntityCountBadge.vue';
 import FSSimpleTileUI from './FSSimpleTileUI.vue';
+import FSIcon from "../FSIcon.vue";
 import FSColor from "../FSColor.vue";
 import FSSpan from "../FSSpan.vue";
 import FSCol from "../FSCol.vue";
@@ -70,6 +71,7 @@ export default defineComponent({
   components: {
     FSEntityCountBadge,
     FSSimpleTileUI,
+    FSIcon,
     FSColor,
     FSSpan,
     FSCol,

@@ -170,6 +170,7 @@ import FSCardPlaceholder from "./FSCardPlaceholder.vue";
 import FSImageUI from "./FSImageUI.vue";
 import FSCard from "./FSCard.vue";
 import FSText from "./FSText.vue";
+import FSSpan from "./FSSpan.vue";
 import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
@@ -182,6 +183,7 @@ export default defineComponent({
     FSImageUI,
     FSCard,
     FSText,
+    FSSpan,
     FSCol,
     FSRow
   },

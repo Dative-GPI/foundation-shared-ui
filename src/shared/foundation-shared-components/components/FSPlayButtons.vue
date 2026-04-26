@@ -49,12 +49,14 @@ import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
 import FSIcon from '@dative-gpi/foundation-shared-components/components/FSIcon.vue';
 import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 
 export default defineComponent({
   name: "FSPlayButtons",
   components: {
     FSCard,
-    FSIcon
+    FSIcon,
+    FSRow
   },
   props: {
     modelValue: {

@@ -68,6 +68,7 @@ import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 import FSButton from "./FSButton.vue";
 import FSCard from "./FSCard.vue";
 import FSText from "./FSText.vue";
+import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
 export default defineComponent({
@@ -76,6 +77,7 @@ export default defineComponent({
     FSButton,
     FSCard,
     FSText,
+    FSCol,
     FSRow
   },
   props: {
