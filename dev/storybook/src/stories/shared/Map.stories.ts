@@ -250,7 +250,7 @@ export const MultiLocationMap: Story = {
 export const CustomPinMap: Story = {
   args: {
     currentLayer: MapLayers.Snow,
-    allowedLayers: [MapLayers.Map, MapLayers.Imagery, MapLayers.Snow],
+    allowedLayers: [MapLayers.Map, MapLayers.Imagery, MapLayers.Snow, MapLayers.OpenStreetMap],
     grayscale: false,
     enableScrollWheelZoom: true,
   },
