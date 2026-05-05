@@ -124,11 +124,14 @@ export default defineComponent({
       return getManyDataCategories({ ...props.dataCategoriesFilters, search: search ?? undefined });
     };
 
-    const items = computed(() => dataCategories.value.map((dataCategory) => ({
-      id: dataCategory.id,
-      label: `${dataCategory.label} (${dataCategory.models.map((model) => model.label).join(", ")})`,
-      correlated: dataCategory.correlated
-    })));
+    const items = computed(() => dataCategories.value.map((dataCategory) => {
+      const modelsLabel = dataCategory.models.map((m) => m.label).join(", ");
+      return {
+        id: dataCategory.id,
+        label: modelsLabel ? `${dataCategory.label} (${modelsLabel})` : dataCategory.label,
+        correlated: dataCategory.correlated
+      };
+    }));
 
     const { toggleSet, init, onUpdate } = useAutocomplete(
       dataCategories,
