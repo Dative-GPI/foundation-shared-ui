@@ -17,9 +17,6 @@ export class ModelInfos {
 export interface ModelInfosDTO {
     id: string;
     imageId?: string | null;
-    imageBlurHash?: string | null;
-    imageHeight?: number | null;
-    imageWidth?: number | null;
     code: string;
     label: string;
     connectable: boolean;
