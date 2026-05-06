@@ -49,6 +49,11 @@ export default defineComponent({
         label: $tr("ui.map-layer.map", "Map")
       },
       {
+        id: MapLayers.OpenStreetMap,
+        icon: 'mdi-map-plus',
+        label: $tr("ui.map-layer.open-street-map", "Open Street Map")
+      },
+      {
         id: MapLayers.Imagery,
         icon: 'mdi-satellite',
         label: $tr("ui.map-layer.imagery", "Imagery")
