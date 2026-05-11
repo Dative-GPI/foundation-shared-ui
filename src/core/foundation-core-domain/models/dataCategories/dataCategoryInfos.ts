@@ -3,7 +3,6 @@ import { ModelInfos } from "../models/modelInfos";
 
 export class DataCategoryInfos {
   id: string;
-  applicationId: string;
   code: string;
   label: string;
   correlated: boolean;
@@ -11,7 +10,6 @@ export class DataCategoryInfos {
 
   constructor(params: DataCategoryInfosDTO) {
     this.id = params.id;
-    this.applicationId = params.applicationId;
     this.code = params.code;
     this.label = params.label;
     this.correlated = params.correlated;
@@ -21,7 +19,6 @@ export class DataCategoryInfos {
 
 export interface DataCategoryInfosDTO {
   id: string;
-  applicationId: string;
   code: string;
   label: string;
   correlated: boolean;
