@@ -389,7 +389,7 @@ export default defineComponent({
       if(!map.value || !props.bounds) {
         return;
       }
-      fitBounds(props.bounds, { maxZoom: 14 });
+      fitBounds(props.bounds, { maxZoom: props.zoom });
     });
 
     watch(() => props.enableScrollWheelZoom, (newValue) => {
