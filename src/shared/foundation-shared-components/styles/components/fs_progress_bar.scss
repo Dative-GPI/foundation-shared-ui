@@ -45,6 +45,18 @@
         left: var(--progress-bar-center-position);
         transform: translateX(-50%);
     }
+
+    .fs-progress-bar-centered-cursor {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 12px;
+        border-radius: 4px;
+        background-color: var(--progress-bar-fill-color);
+        left: var(--progress-bar-value-position);
+        transform: translateX(-50%);
+        transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 }
 
 .fs-progress-bar-centered-labels {

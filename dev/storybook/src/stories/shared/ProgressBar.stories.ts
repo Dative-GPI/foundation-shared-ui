@@ -51,3 +51,25 @@ export const Interval: Story = {
     `
   }),
 };
+
+export const IntervalCursor: Story = {
+  args: {
+    modelValue: 5,
+    min: -10,
+    max: 10,
+    cursor: true,
+    showLabels: true,
+    showValue: true,
+  },
+  render: (args, { argTypes }) => ({
+    components: { FSProgressBar },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSProgressBar
+        v-bind="args"
+      />
+    `
+  }),
+};

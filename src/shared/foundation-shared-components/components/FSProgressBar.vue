@@ -12,12 +12,23 @@
         <div
           class="fs-progress-bar-centered"
         >
-          <div
-            class="fs-progress-bar-centered-fill"
-          ></div>
-          <div
-            class="fs-progress-bar-centered-marker"
-          ></div>
+          <template
+            v-if="$props.cursor"
+          >
+            <div
+              class="fs-progress-bar-centered-cursor"
+            ></div>
+          </template>
+          <template
+            v-else
+          >
+            <div
+              class="fs-progress-bar-centered-fill"
+            ></div>
+            <div
+              class="fs-progress-bar-centered-marker"
+            ></div>
+          </template>
         </div>
         <div
           v-if="$props.showLabels"
@@ -108,6 +119,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    cursor: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   setup(props) {
@@ -173,7 +189,8 @@ export default defineComponent({
           '--progress-bar-fill-color': fillColor,
           '--progress-bar-fill-left': `${fillLeft.value}%`,
           '--progress-bar-fill-width': `${fillWidth.value}%`,
-          '--progress-bar-center-position': `${centerPercent.value}%`
+          '--progress-bar-center-position': `${centerPercent.value}%`,
+          '--progress-bar-value-position': `${valuePercent.value}%`
         };
       }
       return {
