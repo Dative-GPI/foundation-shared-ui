@@ -4,21 +4,49 @@
     :style="style"
   >
     <div
-      class="fs-progress-bar-gradient"
+      class="fs-progress-bar-wrapper"
     >
-      <div></div>
+      <div
+        class="fs-progress-bar-track"
+      >
+        <div
+          v-if="$props.cursor"
+          class="fs-progress-bar-cursor"
+        ></div>
+        <div
+          v-else
+          class="fs-progress-bar-fill"
+        ></div>
+      </div>
+      <div
+        v-if="positionedLabels.length"
+        class="fs-progress-bar-labels"
+      >
+        <div
+          v-for="label in positionedLabels"
+          :key="label.value"
+          class="fs-progress-bar-label"
+          :style="{ left: `${label.percent}%` }"
+        >
+          <FSText
+            font="text-overline"
+          >
+            {{ label.display }}
+          </FSText>
+        </div>
+      </div>
     </div>
     <FSText
       v-if="$props.showValue"
       font="text-button"
     >
-      {{ fixedRate }}%
+      {{ displayValue }}
     </FSText>
   </FSRow>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type StyleValue } from "vue";
+import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
 import { useColors } from '@dative-gpi/foundation-shared-components/composables';
 
@@ -50,6 +78,31 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    valueFormat: {
+      type: String as PropType<"percentage" | "raw">,
+      required: false,
+      default: "percentage"
+    },
+    min: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    max: {
+      type: Number,
+      required: false,
+      default: 1
+    },
+    labels: {
+      type: Array as PropType<Array<{ value: number; text?: string }>>,
+      required: false,
+      default: () => []
+    },
+    cursor: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   setup(props) {
@@ -58,37 +111,63 @@ export default defineComponent({
     const lightColors = getColors(ColorEnum.Light);
     const successColors = getColors(ColorEnum.Success);
     const errorColors = getColors(ColorEnum.Error);
- 
-    const fixedRate = computed(() => {
-      return (props.modelValue * 100).toFixed(0);
+
+    const isValid = computed(() => props.max > props.min);
+
+    const range = computed(() => props.max - props.min);
+
+    const valuePercent = computed(() => {
+      if (!isValid.value) { return 0; }
+      const clamped = Math.min(Math.max(props.modelValue, props.min), props.max);
+      return ((clamped - props.min) / range.value) * 100;
     });
 
-    const relativeWidth = computed(() => {
-      return props.modelValue ? 100 / props.modelValue : 0;
-    });
-    
-    const startColor = computed(() => {
-      return props.startColor ?? errorColors.base;
+    const zeroPercent = computed(() => {
+      if (!isValid.value) { return 0; }
+      const zero = Math.min(Math.max(0, props.min), props.max);
+      return ((zero - props.min) / range.value) * 100;
     });
 
-    const endColor = computed(() => {
-      return props.endColor ?? successColors.base;
+    const fillLeft = computed(() => Math.min(zeroPercent.value, valuePercent.value));
+
+    const fillWidth = computed(() => Math.abs(valuePercent.value - zeroPercent.value));
+
+    const fillColor = computed(() => {
+      return props.modelValue >= 0
+        ? (props.endColor ?? successColors.base)
+        : (props.startColor ?? errorColors.base);
     });
 
-    const style = computed((): StyleValue => {
-      return {
-        '--progress-bar-background-color': lightColors.dark,
-        '--progress-bar-gradient-start-color': startColor.value,
-        '--progress-bar-gradient-end-color': endColor.value,
-        '--progress-bar-gradient-width': `min(100%, ${fixedRate.value}%)`,
-        '--progress-bar-total-relative-width': `${relativeWidth.value}%`
-      };
+    const positionedLabels = computed(() => {
+      return props.labels.map(label => ({
+        value: label.value,
+        display: label.text ?? label.value,
+        percent: isValid.value
+          ? ((label.value - props.min) / range.value) * 100
+          : 0
+      }));
     });
+
+    const displayValue = computed(() => {
+      if (props.valueFormat === "raw") { return props.modelValue.toFixed(2); }
+      return `${Math.round(valuePercent.value)}%`;
+    });
+
+    const style = computed((): StyleValue => ({
+      "--progress-bar-background": lightColors.dark,
+      "--progress-bar-gradient-start": props.startColor ?? errorColors.base,
+      "--progress-bar-gradient-end": props.endColor ?? successColors.base,
+      "--progress-bar-fill-color": fillColor.value,
+      "--progress-bar-fill-left": `${fillLeft.value}%`,
+      "--progress-bar-fill-width": `${fillWidth.value}%`,
+      "--progress-bar-cursor-position": `${valuePercent.value}%`
+    }));
 
     return {
-      style,
-      fixedRate
-    }
-  },
+      positionedLabels,
+      displayValue,
+      style
+    };
+  }
 });
 </script>
