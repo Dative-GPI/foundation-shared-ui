@@ -31,3 +31,23 @@ export const Default: Story = {
     `
   }),
 };
+
+export const Interval: Story = {
+  args: {
+    modelValue: -0.6,
+    min: -1,
+    max: 1,
+    showLabels: true,
+  },
+  render: (args, { argTypes }) => ({
+    components: { FSProgressBar },
+    setup() {
+      return { args };
+    },
+    template: `
+      <FSProgressBar
+        v-bind="args"
+      />
+    `
+  }),
+};

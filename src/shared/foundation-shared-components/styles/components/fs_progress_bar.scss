@@ -12,3 +12,49 @@
         border-radius: 4px;
     }
 }
+
+.fs-progress-bar-centered-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fs-progress-bar-centered {
+    position: relative;
+    background-color: var(--progress-bar-background-color);
+    height: 8px;
+    border-radius: 4px;
+
+    .fs-progress-bar-centered-fill {
+        position: absolute;
+        height: 100%;
+        background-color: var(--progress-bar-fill-color);
+        left: var(--progress-bar-fill-left);
+        width: var(--progress-bar-fill-width);
+        border-radius: 4px;
+        transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fs-progress-bar-centered-marker {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: var(--progress-bar-background-color);
+        left: var(--progress-bar-center-position);
+        transform: translateX(-50%);
+    }
+}
+
+.fs-progress-bar-centered-labels {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    .fs-progress-bar-centered-label-middle {
+        position: absolute;
+        left: var(--progress-bar-center-position);
+        transform: translateX(-50%);
+    }
+}
