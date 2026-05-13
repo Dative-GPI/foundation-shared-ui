@@ -7,6 +7,10 @@ const meta = {
   component: FSProgressBar,
   tags: ['autodocs'],
   argTypes: {
+    valueFormat: {
+      control: 'radio',
+      options: ['percentage', 'raw']
+    }
   },
 } satisfies Meta<typeof FSProgressBar>;
 
@@ -19,7 +23,7 @@ export const Default: Story = {
     modelValue: 0.70,
     showValue: true,
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSProgressBar },
     setup() {
       return { args };
@@ -37,9 +41,11 @@ export const Interval: Story = {
     modelValue: -0.6,
     min: -1,
     max: 1,
-    showLabels: true,
+    valueFormat: 'raw',
+    showValue: true,
+    labels: [{ value: -1 }, { value: 0 }, { value: 1 }],
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSProgressBar },
     setup() {
       return { args };
@@ -58,10 +64,10 @@ export const IntervalCursor: Story = {
     min: -10,
     max: 10,
     cursor: true,
-    showLabels: true,
     showValue: true,
+    labels: [{ value: -10 }, { value: 0 }, { value: 10 }],
   },
-  render: (args, { argTypes }) => ({
+  render: (args) => ({
     components: { FSProgressBar },
     setup() {
       return { args };

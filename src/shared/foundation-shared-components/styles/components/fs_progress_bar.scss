@@ -1,72 +1,45 @@
-.fs-progress-bar-gradient {
-    flex: 1;
-    background-color: var(--progress-bar-background-color);
-    height: 8px;
-    border-radius: 4px;
-
-    div {
-        transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-        height: 100%;
-        background: linear-gradient(to right, var(--progress-bar-gradient-start-color) 0%, var(--progress-bar-gradient-end-color) var(--progress-bar-total-relative-width));
-        width: var(--progress-bar-gradient-width);
-        border-radius: 4px;
-    }
-}
-
-.fs-progress-bar-centered-wrapper {
+.fs-progress-bar-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
 
-.fs-progress-bar-centered {
+.fs-progress-bar-track {
     position: relative;
-    background-color: var(--progress-bar-background-color);
+    background-color: var(--progress-bar-background);
     height: 8px;
     border-radius: 4px;
 
-    .fs-progress-bar-centered-fill {
+    .fs-progress-bar-fill {
         position: absolute;
         height: 100%;
-        background-color: var(--progress-bar-fill-color);
         left: var(--progress-bar-fill-left);
         width: var(--progress-bar-fill-width);
+        background: linear-gradient(to right, var(--progress-bar-gradient-start) 0%, var(--progress-bar-gradient-end) 100%);
         border-radius: 4px;
         transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .fs-progress-bar-centered-marker {
-        position: absolute;
-        top: 0;
-        height: 100%;
-        width: 2px;
-        background-color: var(--progress-bar-background-color);
-        left: var(--progress-bar-center-position);
-        transform: translateX(-50%);
-    }
-
-    .fs-progress-bar-centered-cursor {
+    .fs-progress-bar-cursor {
         position: absolute;
         top: 0;
         height: 100%;
         width: 12px;
         border-radius: 4px;
         background-color: var(--progress-bar-fill-color);
-        left: var(--progress-bar-value-position);
+        left: var(--progress-bar-cursor-position);
         transform: translateX(-50%);
         transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
-.fs-progress-bar-centered-labels {
+.fs-progress-bar-labels {
     position: relative;
-    display: flex;
-    justify-content: space-between;
+    height: 16px;
 
-    .fs-progress-bar-centered-label-middle {
+    .fs-progress-bar-label {
         position: absolute;
-        left: var(--progress-bar-center-position);
         transform: translateX(-50%);
     }
 }

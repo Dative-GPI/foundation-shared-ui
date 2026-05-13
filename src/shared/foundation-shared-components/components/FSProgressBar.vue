@@ -3,65 +3,39 @@
     align="center-center"
     :style="style"
   >
-    <template
-      v-if="isCentered"
+    <div
+      class="fs-progress-bar-wrapper"
     >
       <div
-        class="fs-progress-bar-centered-wrapper"
+        class="fs-progress-bar-track"
       >
         <div
-          class="fs-progress-bar-centered"
-        >
-          <template
-            v-if="$props.cursor"
-          >
-            <div
-              class="fs-progress-bar-centered-cursor"
-            ></div>
-          </template>
-          <template
-            v-else
-          >
-            <div
-              class="fs-progress-bar-centered-fill"
-            ></div>
-            <div
-              class="fs-progress-bar-centered-marker"
-            ></div>
-          </template>
-        </div>
+          v-if="$props.cursor"
+          class="fs-progress-bar-cursor"
+        ></div>
         <div
-          v-if="$props.showLabels"
-          class="fs-progress-bar-centered-labels"
+          v-else
+          class="fs-progress-bar-fill"
+        ></div>
+      </div>
+      <div
+        v-if="positionedLabels.length"
+        class="fs-progress-bar-labels"
+      >
+        <div
+          v-for="label in positionedLabels"
+          :key="label.value"
+          class="fs-progress-bar-label"
+          :style="{ left: `${label.percent}%` }"
         >
           <FSText
             font="text-overline"
           >
-            {{ $props.min }}
-          </FSText>
-          <FSText
-            font="text-overline"
-            class="fs-progress-bar-centered-label-middle"
-          >
-            0
-          </FSText>
-          <FSText
-            font="text-overline"
-          >
-            {{ $props.max }}
+            {{ label.display }}
           </FSText>
         </div>
       </div>
-    </template>
-    <template
-      v-else
-    >
-      <div
-        class="fs-progress-bar-gradient"
-      >
-        <div></div>
-      </div>
-    </template>
+    </div>
     <FSText
       v-if="$props.showValue"
       font="text-button"
@@ -72,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, type StyleValue } from "vue";
+import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
 import { useColors } from '@dative-gpi/foundation-shared-components/composables';
 
@@ -105,20 +79,25 @@ export default defineComponent({
       required: false,
       default: true
     },
+    valueFormat: {
+      type: String as PropType<"percentage" | "raw">,
+      required: false,
+      default: "percentage"
+    },
     min: {
       type: Number,
       required: false,
-      default: undefined
+      default: 0
     },
     max: {
       type: Number,
       required: false,
-      default: undefined
+      default: 1
     },
-    showLabels: {
-      type: Boolean,
+    labels: {
+      type: Array as PropType<Array<{ value: number; text?: string }>>,
       required: false,
-      default: true
+      default: () => []
     },
     cursor: {
       type: Boolean,
@@ -133,80 +112,62 @@ export default defineComponent({
     const successColors = getColors(ColorEnum.Success);
     const errorColors = getColors(ColorEnum.Error);
 
-    const fixedRate = computed(() => {
-      return (props.modelValue * 100).toFixed(0);
-    });
+    const isValid = computed(() => props.max > props.min);
 
-    const relativeWidth = computed(() => {
-      return props.modelValue ? 100 / props.modelValue : 0;
-    });
-
-    const startColor = computed(() => {
-      return props.startColor ?? errorColors.base;
-    });
-
-    const endColor = computed(() => {
-      return props.endColor ?? successColors.base;
-    });
-
-    const isCentered = computed(() => {
-      return props.min !== undefined && props.max !== undefined;
-    });
-
-    const effectiveMin = computed(() => props.min ?? -1);
-    const effectiveMax = computed(() => props.max ?? 1);
-
-    const centerPercent = computed(() => {
-      return ((0 - effectiveMin.value) / (effectiveMax.value - effectiveMin.value)) * 100;
-    });
+    const range = computed(() => props.max - props.min);
 
     const valuePercent = computed(() => {
-      const clamped = Math.min(Math.max(props.modelValue, effectiveMin.value), effectiveMax.value);
-      return ((clamped - effectiveMin.value) / (effectiveMax.value - effectiveMin.value)) * 100;
+      if (!isValid.value) { return 0; }
+      const clamped = Math.min(Math.max(props.modelValue, props.min), props.max);
+      return ((clamped - props.min) / range.value) * 100;
     });
 
-    const fillLeft = computed(() => {
-      return Math.min(centerPercent.value, valuePercent.value);
+    const zeroPercent = computed(() => {
+      if (!isValid.value) { return 0; }
+      const zero = Math.min(Math.max(0, props.min), props.max);
+      return ((zero - props.min) / range.value) * 100;
     });
 
-    const fillWidth = computed(() => {
-      return Math.abs(valuePercent.value - centerPercent.value);
+    const fillLeft = computed(() => Math.min(zeroPercent.value, valuePercent.value));
+
+    const fillWidth = computed(() => Math.abs(valuePercent.value - zeroPercent.value));
+
+    const fillColor = computed(() => {
+      return props.modelValue >= 0
+        ? (props.endColor ?? successColors.base)
+        : (props.startColor ?? errorColors.base);
+    });
+
+    const positionedLabels = computed(() => {
+      return props.labels.map(label => ({
+        value: label.value,
+        display: label.text ?? label.value,
+        percent: isValid.value
+          ? ((label.value - props.min) / range.value) * 100
+          : 0
+      }));
     });
 
     const displayValue = computed(() => {
-      return isCentered.value
-        ? props.modelValue.toFixed(2)
-        : `${fixedRate.value}%`;
+      if (props.valueFormat === "raw") { return props.modelValue.toFixed(2); }
+      return `${Math.round(valuePercent.value)}%`;
     });
 
-    const style = computed((): StyleValue => {
-      if (isCentered.value) {
-        const fillColor = props.modelValue >= 0
-          ? (props.endColor ?? successColors.dark)
-          : (props.startColor ?? errorColors.dark);
-        return {
-          '--progress-bar-background-color': lightColors.dark,
-          '--progress-bar-fill-color': fillColor,
-          '--progress-bar-fill-left': `${fillLeft.value}%`,
-          '--progress-bar-fill-width': `${fillWidth.value}%`,
-          '--progress-bar-center-position': `${centerPercent.value}%`,
-          '--progress-bar-value-position': `${valuePercent.value}%`
-        };
-      }
-      return {
-        '--progress-bar-background-color': lightColors.dark,
-        '--progress-bar-gradient-start-color': startColor.value,
-        '--progress-bar-gradient-end-color': endColor.value,
-        '--progress-bar-gradient-width': `min(100%, ${fixedRate.value}%)`,
-        '--progress-bar-total-relative-width': `${relativeWidth.value}%`
-      };
-    });
+    const style = computed((): StyleValue => ({
+      "--progress-bar-background": lightColors.dark,
+      "--progress-bar-gradient-start": props.startColor ?? errorColors.base,
+      "--progress-bar-gradient-end": props.endColor ?? successColors.base,
+      "--progress-bar-fill-color": fillColor.value,
+      "--progress-bar-fill-left": `${fillLeft.value}%`,
+      "--progress-bar-fill-width": `${fillWidth.value}%`,
+      "--progress-bar-cursor-position": `${valuePercent.value}%`
+    }));
 
     return {
-      isCentered,
-      style,
-      displayValue
-    }
-  },
+      positionedLabels,
+      displayValue,
+      style
+    };
+  }
 });
 </script>
