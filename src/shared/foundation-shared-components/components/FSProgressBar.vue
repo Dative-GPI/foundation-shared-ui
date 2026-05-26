@@ -10,11 +10,11 @@
         class="fs-progress-bar-track"
       >
         <div
-          v-if="$props.cursor"
+          v-if="$props.cursor && isValueInRange"
           class="fs-progress-bar-cursor"
         ></div>
         <div
-          v-else
+          v-if="!$props.cursor"
           class="fs-progress-bar-fill"
         ></div>
       </div>
@@ -26,6 +26,10 @@
           v-for="label in positionedLabels"
           :key="label.value"
           class="fs-progress-bar-label"
+          :class="{
+            'fs-progress-bar-label--start': label.percent === 0,
+            'fs-progress-bar-label--end': label.percent === 100
+          }"
           :style="{ left: `${label.percent}%` }"
         >
           <FSText
@@ -116,10 +120,22 @@ export default defineComponent({
 
     const range = computed(() => props.max - props.min);
 
+    const clampedValue = computed(() => {
+      if (!isValid.value) { 
+        return props.min; 
+      }
+      return Math.min(Math.max(props.modelValue, props.min), props.max);
+    });
+
     const valuePercent = computed(() => {
-      if (!isValid.value) { return 0; }
-      const clamped = Math.min(Math.max(props.modelValue, props.min), props.max);
-      return ((clamped - props.min) / range.value) * 100;
+      if (!isValid.value) { 
+        return 0; 
+      }
+      return ((clampedValue.value - props.min) / range.value) * 100;
+    });
+
+    const isValueInRange = computed(() => {
+      return props.modelValue >= props.min && props.modelValue <= props.max;
     });
 
     const zeroPercent = computed(() => {
@@ -132,20 +148,34 @@ export default defineComponent({
 
     const fillWidth = computed(() => Math.abs(valuePercent.value - zeroPercent.value));
 
+    const gradientStartStop = computed(() => {
+      if (fillWidth.value === 0) { return "0%"; }
+      return `${-(fillLeft.value / fillWidth.value) * 100}%`;
+    });
+
+    const gradientEndStop = computed(() => {
+      if (fillWidth.value === 0) { return "100%"; }
+      return `${((100 - fillLeft.value) / fillWidth.value) * 100}%`;
+    });
+
     const fillColor = computed(() => {
-      return props.modelValue >= 0
+      return clampedValue.value >= 0
         ? (props.endColor ?? successColors.base)
         : (props.startColor ?? errorColors.base);
     });
 
     const positionedLabels = computed(() => {
-      return props.labels.map(label => ({
-        value: label.value,
-        display: label.text ?? label.value,
-        percent: isValid.value
+      return props.labels.map(label => {
+        const percent = isValid.value
           ? ((label.value - props.min) / range.value) * 100
-          : 0
-      }));
+          : 0;
+
+        return {
+          value: label.value,
+          display: label.text ?? label.value,
+          percent: Math.min(Math.max(percent, 0), 100)
+        };
+      });
     });
 
     const displayValue = computed(() => {
@@ -156,7 +186,9 @@ export default defineComponent({
     const style = computed((): StyleValue => ({
       "--progress-bar-background": lightColors.dark,
       "--progress-bar-gradient-start": props.startColor ?? errorColors.base,
+      "--progress-bar-gradient-start-stop": gradientStartStop.value,
       "--progress-bar-gradient-end": props.endColor ?? successColors.base,
+      "--progress-bar-gradient-end-stop": gradientEndStop.value,
       "--progress-bar-fill-color": fillColor.value,
       "--progress-bar-fill-left": `${fillLeft.value}%`,
       "--progress-bar-fill-width": `${fillWidth.value}%`,
@@ -165,6 +197,7 @@ export default defineComponent({
 
     return {
       positionedLabels,
+      isValueInRange,
       displayValue,
       style
     };

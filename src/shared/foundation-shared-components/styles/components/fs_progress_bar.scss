@@ -16,7 +16,7 @@
         height: 100%;
         left: var(--progress-bar-fill-left);
         width: var(--progress-bar-fill-width);
-        background: linear-gradient(to right, var(--progress-bar-gradient-start) 0%, var(--progress-bar-gradient-end) 100%);
+        background-color: var(--progress-bar-fill-color);
         border-radius: 4px;
         transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -41,5 +41,13 @@
     .fs-progress-bar-label {
         position: absolute;
         transform: translateX(-50%);
+
+        &.fs-progress-bar-label--start {
+            transform: translateX(0);
+        }
+
+        &.fs-progress-bar-label--end {
+            transform: translateX(-100%);
+        }
     }
 }
