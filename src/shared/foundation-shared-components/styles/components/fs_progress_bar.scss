@@ -16,21 +16,38 @@
         height: 100%;
         left: var(--progress-bar-fill-left);
         width: var(--progress-bar-fill-width);
-        background-color: var(--progress-bar-fill-color);
+        background: linear-gradient(
+            to right,
+            var(--progress-bar-gradient-start) var(--progress-bar-gradient-start-stop),
+            var(--progress-bar-gradient-end)   var(--progress-bar-gradient-end-stop)
+        );
         border-radius: 4px;
         transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .fs-progress-bar-cursor {
         position: absolute;
-        top: 0;
-        height: 100%;
-        width: 12px;
-        border-radius: 4px;
-        background-color: var(--progress-bar-fill-color);
+        top: 50%;
         left: var(--progress-bar-cursor-position);
-        transform: translateX(-50%);
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: linear-gradient(
+            to right,
+            var(--progress-bar-gradient-start),
+            var(--progress-bar-gradient-end)
+        );
+        transform: translate(-50%, -50%);
         transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .fs-progress-bar-cursor-label {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            pointer-events: none;
+        }
     }
 }
 

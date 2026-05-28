@@ -12,7 +12,16 @@
         <div
           v-if="$props.cursor && isValueInRange"
           class="fs-progress-bar-cursor"
-        ></div>
+        >
+          <FSText
+            v-if="$props.showValue"
+            class="fs-progress-bar-cursor-label"
+            font="text-overline"
+            :ellipsis="false"
+          >
+            {{ displayValue }}
+          </FSText>
+        </div>
         <div
           v-if="!$props.cursor"
           class="fs-progress-bar-fill"
@@ -41,7 +50,7 @@
       </div>
     </div>
     <FSText
-      v-if="$props.showValue"
+      v-if="$props.showValue && !$props.cursor"
       font="text-button"
     >
       {{ displayValue }}
@@ -158,12 +167,6 @@ export default defineComponent({
       return `${((100 - fillLeft.value) / fillWidth.value) * 100}%`;
     });
 
-    const fillColor = computed(() => {
-      return clampedValue.value >= 0
-        ? (props.endColor ?? successColors.base)
-        : (props.startColor ?? errorColors.base);
-    });
-
     const positionedLabels = computed(() => {
       return props.labels.map(label => {
         const percent = isValid.value
@@ -189,7 +192,6 @@ export default defineComponent({
       "--progress-bar-gradient-start-stop": gradientStartStop.value,
       "--progress-bar-gradient-end": props.endColor ?? successColors.base,
       "--progress-bar-gradient-end-stop": gradientEndStop.value,
-      "--progress-bar-fill-color": fillColor.value,
       "--progress-bar-fill-left": `${fillLeft.value}%`,
       "--progress-bar-fill-width": `${fillWidth.value}%`,
       "--progress-bar-cursor-position": `${valuePercent.value}%`
