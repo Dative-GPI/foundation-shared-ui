@@ -1,1 +1,0 @@
-import{a0 as t,L as e,g as s,U as n}from"./vue.esm-bundler-DR0_aU9U.js";function i(){const o=t(!1);return e(()=>{window.requestAnimationFrame(()=>{o.value=!0})}),{ssrBootStyles:s(()=>o.value?void 0:{transition:"none !important"}),isBooted:n(o)}}export{i as u};
