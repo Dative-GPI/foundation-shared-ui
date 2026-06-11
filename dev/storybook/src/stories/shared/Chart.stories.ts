@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSChart from '@dative-gpi/foundation-shared-components/components/FSChart.vue';
+import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
+import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
+import ChartWithTooltip from './chart/ChartWithTooltip.vue';
 
 const meta = {
   title: 'Foundation/Shared/Chart',
@@ -108,5 +112,68 @@ export const MultiSeries: Story = {
       return { args };
     },
     template: `<FSChart v-bind="args" />`
+  })
+};
+
+export const WithLegend: Story = {
+  args: {
+    legendPosition: 'left',
+    option: {
+      tooltip: { trigger: 'item' },
+      series: [{
+        type: 'pie',
+        radius: ['40%', '70%'],
+        data: [
+          { value: 1048, name: 'Search Engine' },
+          { value: 735, name: 'Direct' },
+          { value: 580, name: 'Email' },
+          { value: 484, name: 'Union Ads' },
+          { value: 300, name: 'Video Ads' }
+        ]
+      }]
+    }
+  },
+  render: (args) => ({
+    components: { FSChart, FSCol, FSRow, FSText },
+    setup() {
+      const legendItems = [
+        { color: '#5470c6', label: 'Search Engine', value: '1 048' },
+        { color: '#91cc75', label: 'Direct', value: '735'   },
+        { color: '#fac858', label: 'Email', value: '580'   },
+        { color: '#ee6666', label: 'Union Ads', value: '484'   },
+        { color: '#73c0de', label: 'Video Ads', value: '300'   }
+      ];
+      return { args, legendItems };
+    },
+    template: `
+      <FSChart v-bind="args">
+        <template #legend>
+          <FSCol align="center-center" gap="12px">
+            <FSRow
+              v-for="item in legendItems"
+              :key="item.label"
+              align="center-left"
+              gap="8px"
+              width="hug"
+            >
+              <div :style="{ width: '12px', height: '12px', borderRadius: '50%', background: item.color, flexShrink: '0' }" />
+              <FSCol gap="0" width="hug">
+                <FSText font="text-overline">{{ item.label }}</FSText>
+                <FSText font="text-body-2">{{ item.value }}</FSText>
+              </FSCol>
+            </FSRow>
+          </FSCol>
+        </template>
+      </FSChart>`
+  })
+};
+
+export const WithTooltip: Story = {
+  args: {
+    option: {}
+  },
+  render: () => ({
+    components: { ChartWithTooltip },
+    template: `<FSCol height="fill"><ChartWithTooltip /></FSCol>`
   })
 };
