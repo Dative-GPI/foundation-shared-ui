@@ -39,7 +39,7 @@ export const Default: Story = {
     setup() {
       return { args };
     },
-    template: `<div style="width: 600px; height: 400px;"><FSChart v-bind="args" /></div>`
+    template: `<FSChart v-bind="args" />`
   })
 };
 
@@ -57,7 +57,7 @@ export const LineChart: Story = {
     setup() {
       return { args };
     },
-    template: `<div style="width: 600px; height: 400px;"><FSChart v-bind="args" /></div>`
+    template: `<FSChart v-bind="args" />`
   })
 };
 
@@ -84,7 +84,7 @@ export const PieChart: Story = {
     setup() {
       return { args };
     },
-    template: `<div style="width: 600px; height: 400px;"><FSChart v-bind="args" /></div>`
+    template: `<FSChart v-bind="args" />`
   })
 };
 
@@ -107,6 +107,6 @@ export const MultiSeries: Story = {
     setup() {
       return { args };
     },
-    template: `<div style="width: 600px; height: 400px;"><FSChart v-bind="args" /></div>`
+    template: `<FSChart v-bind="args" />`
   })
 };
