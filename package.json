@@ -21,6 +21,7 @@
     "src/shared/foundation-shared-domain",
     "src/shared/foundation-shared-components",
     "src/shared/foundation-shared-loader",
+    "src/shared/foundation-shared-visualization",
     "dev/storybook",
     "tests"
   ],

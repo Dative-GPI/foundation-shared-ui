@@ -7,7 +7,7 @@ import { computed, defineComponent, ref } from "vue";
 import { useDomRenderer } from "@dative-gpi/bones-ui";
 import type { EChartsOption, TooltipComponentFormatterCallbackParams } from "echarts";
 
-import FSChart from "@dative-gpi/foundation-shared-components/components/FSChart.vue";
+import FSChart from "@dative-gpi/foundation-shared-visualization/components/FSChart.vue";
 
 import ChartTooltip from "./ChartTooltip.vue";
 

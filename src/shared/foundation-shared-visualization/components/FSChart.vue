@@ -42,15 +42,9 @@
 import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, ref, watch } from "vue";
 import { type ECharts, type EChartsOption, init as initECharts } from "echarts";
 import { useResize } from "@dative-gpi/bones-ui/composables";
-import FSCol from "../components/FSCol.vue";
-import FSRow from "../components/FSRow.vue";
 
 export default defineComponent({
   name: "FSChart",
-  components: {
-    FSCol,
-    FSRow
-  },
   props: {
     option: {
       type: Object as PropType<EChartsOption>,

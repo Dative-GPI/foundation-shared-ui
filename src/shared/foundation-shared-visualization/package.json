@@ -1,0 +1,27 @@
+{
+  "name": "@dative-gpi/foundation-shared-visualization",
+  "repository": {
+    "url": "https://github.com/Dative-GPI/foundation-shared-ui.git"
+  },
+  "sideEffects": false,
+  "version": "1.0.0",
+  "description": "",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.ts",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@dative-gpi/foundation-shared-components": "1.0.0"
+  },
+  "peerDependencies": {
+    "@dative-gpi/bones-ui": "^1.1.0",
+    "echarts": "6.1.0"
+  },
+  "devDependencies": {
+    "@types/color": "3.0.6",
+    "sass": "1.71.1",
+    "sass-loader": "13.3.2"
+  }
+}

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
-import FSChart from '@dative-gpi/foundation-shared-components/components/FSChart.vue';
+import FSChart from '@dative-gpi/foundation-shared-visualization/components/FSChart.vue';
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
