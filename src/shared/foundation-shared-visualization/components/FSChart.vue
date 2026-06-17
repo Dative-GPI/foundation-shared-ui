@@ -1,39 +1,38 @@
 <template>
-  <FSRow
-    v-if="$slots.legend"
-    :style="{ flexDirection }"
-    align="center-center"
-    height="fill"
-    :wrap="false"
-    gap="32px"
-  >
-    <FSCol
-      height="fill"
-      align="center-center"
-      gap="16px"
-    >
-
-      <slot
-        name="legend"
-      />
-    </FSCol>
-    <FSCol
-      height="fill"
-      align="center-center"
-    >
-      <div
-        ref="chartEl"
-        style="width: 100%; height: 100%"
-      />
-    </FSCol>
-  </FSRow>
   <FSCol
-    v-else
     :height="$props.height"
   >
+    <FSRow
+      v-if="$slots.legend"
+      :style="{ flexDirection }"
+      align="center-center"
+      height="fill"
+      :wrap="false"
+      gap="32px"
+    >
+      <FSCol
+        height="fill"
+        align="center-center"
+        gap="16px"
+      >
+        <slot
+          name="legend"
+        />
+      </FSCol>
+      <FSCol
+        height="fill"
+        align="center-center"
+      >
+        <div
+          ref="chartEl"
+          class="fs-chart-wrapper"
+        />
+      </FSCol>
+    </FSRow>
     <div
+      v-else
       ref="chartEl"
-      style="width: 100%; height: 100%"
+      class="fs-chart-wrapper"
     />
   </FSCol>
 </template>
@@ -42,6 +41,7 @@
 import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, ref, watch } from "vue";
 import { type ECharts, type EChartsOption, init as initECharts } from "echarts";
 import { useResize } from "@dative-gpi/bones-ui/composables";
+import { type LegendPosition, LegendPositions } from "../models";
 
 export default defineComponent({
   name: "FSChart",
@@ -55,9 +55,8 @@ export default defineComponent({
       default: "100%"
     },
     legendPosition: {
-      type: String as PropType<"top" | "bottom" | "left" | "right">,
-      required: false,
-      default: "bottom"
+      type: String as PropType<LegendPosition>,
+      default: LegendPositions.Bottom
     }
   },
   setup(props) {
@@ -66,10 +65,10 @@ export default defineComponent({
 
     const flexDirection = computed(() => {
       switch (props.legendPosition) {
-        case "left":   return "row";
-        case "right":  return "row-reverse";
-        case "top":    return "column";
-        default:       return "column-reverse";
+        case LegendPositions.Left:   return "row";
+        case LegendPositions.Right:  return "row-reverse";
+        case LegendPositions.Top:    return "column";
+        default:               return "column-reverse";
       }
     });
 

@@ -6,13 +6,14 @@ import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 import ChartWithTooltip from './ChartWithTooltip.vue';
+import { LegendPositions } from '@dative-gpi/foundation-shared-visualization/models';
 
 const meta = {
   title: 'Shared/Visualizations/Chart',
   component: FSChart,
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([], FSChart),
+    ...addSubcomponentsArgTypes([FSCol], FSChart),
     ...addComponentEmits(FSChart),
   }
 } satisfies Meta<typeof FSChart>;
@@ -117,7 +118,7 @@ export const MultiSeries: Story = {
 
 export const WithLegend: Story = {
   args: {
-    legendPosition: 'left',
+    legendPosition: LegendPositions.Right,
     option: {
       tooltip: { trigger: 'item' },
       series: [{

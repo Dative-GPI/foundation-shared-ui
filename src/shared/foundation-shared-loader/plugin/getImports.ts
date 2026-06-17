@@ -16,6 +16,10 @@ export function getImports (source: string, skipShared: boolean, skipCore: boole
         resolvedComponents.push(component)
         addImport(imports, component.name, component.symbol, (sharedImportMap.components as any)[component.name].from)
       }
+      else if (!skipShared && component.name in visualizationImportMap.components) {
+        resolvedComponents.push(component)
+        addImport(imports, component.name, component.symbol, (visualizationImportMap.components as any)[component.name].from)
+      }
       else if (!skipCore && component.name in coreImportMap.components) {
         resolvedComponents.push(component)
         addImport(imports, component.name, component.symbol, (coreImportMap.components as any)[component.name].from)
@@ -23,10 +27,6 @@ export function getImports (source: string, skipShared: boolean, skipCore: boole
       else if (!skipAdmin && component.name in adminImportMap.components) {
         resolvedComponents.push(component)
         addImport(imports, component.name, component.symbol, (adminImportMap.components as any)[component.name].from)
-      }
-      else if (!skipShared && component.name in visualizationImportMap.components) {
-        resolvedComponents.push(component)
-        addImport(imports, component.name, component.symbol, (visualizationImportMap.components as any)[component.name].from)
       }
     })
     // directives.forEach(directive => {
