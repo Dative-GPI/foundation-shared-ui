@@ -6,7 +6,7 @@ import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FS
 import FSGroupingTile from "@dative-gpi/foundation-core-components/components/tiles/FSGroupingTile.vue";
 
 const meta: Meta<typeof FSGroupingTile> = {
-  title: 'Foundation/Core/Tiles/Grouping',
+  title: 'Core/Components/Tiles/Grouping',
   component: FSGroupingTile,
   tags: ['autodocs'],
   argTypes: {

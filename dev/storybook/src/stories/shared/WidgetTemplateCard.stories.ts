@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSWidgetTemplateCardUI from "@dative-gpi/foundation-shared-components/components/FSWidgetTemplateCardUI.vue";
 
 const meta = {
-  title: 'Foundation/Shared/WidgetTemplateCard',
+  title: 'Shared/Components/WidgetTemplateCard',
   component: FSWidgetTemplateCardUI,
   tags: ['autodocs'],
   argTypes: {

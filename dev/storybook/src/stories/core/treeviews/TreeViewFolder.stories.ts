@@ -4,7 +4,7 @@ import FSTreeViewFolder from "@dative-gpi/foundation-core-components/components/
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Core/TreeViews/TreeViewFolder',
+  title: 'Core/Components/TreeViews/TreeViewFolder',
   component: FSTreeViewFolder,
   tags: ['autodocs'],
   argTypes: {

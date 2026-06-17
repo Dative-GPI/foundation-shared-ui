@@ -7,7 +7,7 @@ import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 
 const meta: Meta<typeof CountUpDemo> = {
-  title: "Animation/useCountUp",
+  title: "Shared/Animations/useCountUp",
   tags: ["autodocs"],
   argTypes: {
     value: { 

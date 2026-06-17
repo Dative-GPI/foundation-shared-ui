@@ -7,7 +7,7 @@ import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/l
 import FSBaseAuthTokensList from "@dative-gpi/foundation-core-components/components/lists/authTokens/FSBaseAuthTokensList.vue";
 
 const meta: Meta<typeof FSBaseAuthTokensList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseAuthTokensList',
+  title: 'Core/Components/Lists/Base Lists/BaseAuthTokensList',
   component: FSBaseAuthTokensList,
   subcomponents: { FSDataTable },
   tags: ['autodocs'],

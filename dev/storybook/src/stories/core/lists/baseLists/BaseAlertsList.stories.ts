@@ -7,7 +7,7 @@ import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/l
 import FSBaseAlertsList from "@dative-gpi/foundation-core-components/components/lists/alerts/FSBaseAlertsList.vue";
 
 const meta: Meta<typeof FSBaseAlertsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseAlertsList',
+  title: 'Core/Components/Lists/Base Lists/BaseAlertsList',
   component: FSBaseAlertsList,
   tags: ['autodocs'],
   argTypes: {

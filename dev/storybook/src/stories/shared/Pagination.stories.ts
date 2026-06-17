@@ -7,7 +7,7 @@ import FSButton from "@dative-gpi/foundation-shared-components/components/FSButt
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Pagination',
+  title: 'Shared/Components/Pagination',
   component: FSPagination,
   tags: ['autodocs'],
   argTypes: {

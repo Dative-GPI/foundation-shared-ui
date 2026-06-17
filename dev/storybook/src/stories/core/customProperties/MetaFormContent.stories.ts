@@ -6,7 +6,7 @@ import { PropertyDataType } from '@dative-gpi/foundation-shared-domain/enums';
 import FSMetaFormContent from "@dative-gpi/foundation-core-components/components/customProperties/FSMetaFormContent.vue";
 
 const meta: Meta<typeof FSMetaFormContent> = {
-  title: 'Foundation/Core/CustomProperties/MetaFormContent',
+  title: 'Core/Components/CustomProperties/MetaFormContent',
   component: FSMetaFormContent,
   tags: ['autodocs'],
   argTypes: {

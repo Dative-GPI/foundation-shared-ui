@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSDivider from "@dative-gpi/foundation-shared-components/components/FSDivider.vue";
 
 const meta = {
-    title: 'Foundation/Shared/Divider',
+    title: 'Shared/Components/Divider',
     component: FSDivider,
     tags: ['autodocs'],
 } satisfies Meta<typeof FSDivider>;

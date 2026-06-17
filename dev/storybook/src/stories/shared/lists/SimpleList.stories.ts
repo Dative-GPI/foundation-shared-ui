@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSSimpleList from "@dative-gpi/foundation-shared-components/components/lists/FSSimpleList.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Lists/SimpleList',
+  title: 'Shared/Components/Lists/SimpleList',
   component: FSSimpleList,
   tags: ['autodocs'],
 } satisfies Meta<typeof FSSimpleList>;

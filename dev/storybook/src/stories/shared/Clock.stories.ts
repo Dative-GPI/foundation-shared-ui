@@ -8,7 +8,7 @@ import FSClock from "@dative-gpi/foundation-shared-components/components/FSClock
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Clock',
+  title: 'Shared/Components/Clock',
   component: FSClock,
   tags: ['autodocs'],
   argTypes: {

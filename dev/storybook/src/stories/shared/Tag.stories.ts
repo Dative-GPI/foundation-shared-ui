@@ -6,7 +6,7 @@ import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.v
 import FSTag from "@dative-gpi/foundation-shared-components/components/FSTag.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Tag',
+  title: 'Shared/Components/Tag',
   component: FSTag,
   tags: ['autodocs'],
   argTypes: {

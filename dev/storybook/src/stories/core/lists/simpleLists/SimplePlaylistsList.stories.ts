@@ -6,7 +6,7 @@ import FSSimpleList from "@dative-gpi/foundation-shared-components/components/li
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 const meta: Meta<typeof FSSimplePlaylistsList> = {
-  title: "Foundation/Core/Lists/Simple Lists/SimplePLaylistsList",
+  title: "Core/Components/Lists/Simple Lists/SimplePLaylistsList",
   component: FSSimplePlaylistsList,
   tags: ["autodocs"],
   argTypes: {

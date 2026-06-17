@@ -6,7 +6,7 @@ import FSButton from '@dative-gpi/foundation-shared-components/components/FSButt
 import FSInstantPicker from "@dative-gpi/foundation-shared-components/components/FSInstantPicker.vue";
 
 const meta = {
-  title: 'Foundation/Shared/InstantPicker',
+  title: 'Shared/Components/InstantPicker',
   component: FSInstantPicker,
   tags: ['autodocs'],
   argTypes: {

@@ -11,7 +11,7 @@ import FSTab from "@dative-gpi/foundation-shared-components/components/FSTab.vue
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Tests',
+  title: 'Shared/Components/Tests',
   component: FSTabs,
   tags: ['autodocs'],
   argTypes: {

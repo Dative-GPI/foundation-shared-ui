@@ -6,7 +6,7 @@ import FSEntityField from "@dative-gpi/foundation-core-components/components/ent
 import { addComponentEmits } from '@/utils/properties';
 
 const meta = {
-  title: 'Foundation/Core/EntityField',
+  title: 'Core/Components/EntityField',
   component: FSEntityField,
   tags: ['autodocs'],
   argTypes: {

@@ -5,7 +5,7 @@ import FSCarouselItem from "@dative-gpi/foundation-shared-components/components/
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Carousel',
+  title: 'Shared/Components/Carousel',
   component: FSCarousel,
   tags: ['autodocs'],
   argTypes: {

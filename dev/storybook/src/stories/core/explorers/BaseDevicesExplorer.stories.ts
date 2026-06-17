@@ -7,7 +7,7 @@ import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/l
 import FSBaseDevicesExplorer from "@dative-gpi/foundation-core-components/components/explorers/FSBaseDevicesExplorer.vue";
 
 const meta: Meta<typeof FSBaseDevicesExplorer> = {
-  title: "Foundation/Core/Explorers/BaseDevicesExplorer",
+  title: "Core/Components/Explorers/BaseDevicesExplorer",
   component: FSBaseDevicesExplorer,
   tags: ["autodocs"],
   argTypes: {

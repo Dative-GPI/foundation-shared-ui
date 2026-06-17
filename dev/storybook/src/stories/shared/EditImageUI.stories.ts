@@ -5,7 +5,7 @@ import FSEditImageUI from "@dative-gpi/foundation-shared-components/components/F
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 
 const meta = {
-  title: 'Foundation/Shared/EditImage/EditImageUI',
+  title: 'Shared/Components/EditImage/EditImageUI',
   component: FSEditImageUI,
   tags: ['autodocs'],
   argTypes: {

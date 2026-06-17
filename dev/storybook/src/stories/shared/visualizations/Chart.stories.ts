@@ -8,7 +8,7 @@ import FSText from '@dative-gpi/foundation-shared-components/components/FSText.v
 import ChartWithTooltip from './ChartWithTooltip.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Visualizations/Chart',
+  title: 'Shared/Visualizations/Chart',
   component: FSChart,
   tags: ['autodocs'],
   argTypes: {

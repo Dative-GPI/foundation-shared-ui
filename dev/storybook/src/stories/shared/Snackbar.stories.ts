@@ -8,7 +8,7 @@ import FSButton from "@dative-gpi/foundation-shared-components/components/FSButt
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta: Meta<typeof FSSnackbar> = {
-  title: 'Foundation/Shared/Snackbar',
+  title: 'Shared/Components/Snackbar',
   component: FSSnackbar,
   tags: ['autodocs'],
   argTypes: {

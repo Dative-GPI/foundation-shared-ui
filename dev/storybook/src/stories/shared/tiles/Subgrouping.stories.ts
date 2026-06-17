@@ -9,7 +9,7 @@ import FSSubgroupingTileUI from "@dative-gpi/foundation-shared-components/compon
 import FSLoadTile from '@dative-gpi/foundation-shared-components/components/tiles/FSLoadTile.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Tiles/Subgrouping',
+  title: 'Shared/Components/Tiles/Subgrouping',
   component: FSSubgroupingTileUI,
   tags: ['autodocs'],
   argTypes: {

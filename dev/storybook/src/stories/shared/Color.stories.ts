@@ -7,7 +7,7 @@ import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.v
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Color',
+  title: 'Shared/Components/Color',
   component: FSColor,
   tags: ['autodocs'],
   argTypes: {

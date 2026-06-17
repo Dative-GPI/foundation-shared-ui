@@ -8,7 +8,7 @@ import FSNumberField from "@dative-gpi/foundation-shared-components/components/f
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/DurationField',
+  title: 'Shared/Components/Input fields/DurationField',
   component: FSDurationField,
   tags: ['autodocs'],
   argTypes: {

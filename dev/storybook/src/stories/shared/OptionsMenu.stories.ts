@@ -6,7 +6,7 @@ import FSMenu from '@dative-gpi/foundation-shared-components/components/FSMenu.v
 import FSOptionsMenu from '@dative-gpi/foundation-shared-components/components/FSOptionsMenu.vue';
 
 const meta: Meta<typeof FSOptionsMenu> = {
-  title: 'Foundation/Shared/Menu/OptionsMenu',
+  title: 'Shared/Components/Menu/OptionsMenu',
   component: FSOptionsMenu,
   tags: ['autodocs'],
   argTypes: {

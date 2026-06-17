@@ -7,7 +7,7 @@ import FSRichTextField from '@dative-gpi/foundation-shared-components/components
 import type { RichTextVariable } from '@dative-gpi/foundation-shared-components/models/richTextVariable';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TranslateRichTextField',
+  title: 'Shared/Components/Input fields/TranslateRichTextField',
   component: FSTranslateRichTextField,
   tags: ['autodocs'],
   argTypes: {

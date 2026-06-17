@@ -9,7 +9,7 @@ import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.v
 import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Chip',
+  title: 'Shared/Components/Chip',
   component: FSChip,
   tags: ['autodocs'],
   argTypes: {

@@ -8,7 +8,7 @@ import FSSearchField from '@dative-gpi/foundation-shared-components/components/f
 import FSClosableSearchField from "@dative-gpi/foundation-shared-components/components/fields/FSClosableSearchField.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/ClosableSearchField',
+  title: 'Shared/Components/Input fields/ClosableSearchField',
   component: FSClosableSearchField,
   tags: ['autodocs'],
   argTypes: {

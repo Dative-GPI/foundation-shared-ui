@@ -8,7 +8,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import { IconRules } from "@dative-gpi/foundation-shared-components/models";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/IconField',
+  title: 'Shared/Components/Input fields/IconField',
   component: FSIconField,
   tags: ['autodocs'],
   argTypes: {

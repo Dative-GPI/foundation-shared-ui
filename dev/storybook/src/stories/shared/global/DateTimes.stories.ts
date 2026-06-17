@@ -9,7 +9,7 @@ import { useAppTimeZone, useDateFormat } from "@dative-gpi/foundation-shared-ser
 import { isoToEpoch } from "@dative-gpi/foundation-shared-domain/tools";
 
 const meta = {
-  title: 'Foundation/Shared/Global/DateTimes',
+  title: 'Shared/Components/Global/DateTimes',
   tags: ['autodocs'],
   argTypes: {
     onClick: { action: 'clicked' }

@@ -4,7 +4,7 @@ import FSSlider from "@dative-gpi/foundation-shared-components/components/FSSlid
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Slider',
+  title: 'Shared/Components/Slider',
   component: FSSlider,
   tags: ['autodocs'],
   argTypes: {

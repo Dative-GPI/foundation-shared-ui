@@ -6,7 +6,7 @@ import FSAutocompleteField from '@dative-gpi/foundation-shared-components/compon
 import FSAutocompleteServiceAccountRoleOrganisation from "@dative-gpi/foundation-core-components/components/autocompletes/FSAutocompleteServiceAccountRoleOrganisation.vue";
 
 const meta: Meta<typeof FSAutocompleteServiceAccountRoleOrganisation> = {
-  title: 'Foundation/Core/Autocompletes/AutocompleteServiceAccountRoleOrganisation',
+  title: 'Core/Components/Autocompletes/AutocompleteServiceAccountRoleOrganisation',
   component: FSAutocompleteServiceAccountRoleOrganisation,
   tags: ['autodocs'],
   argTypes: {

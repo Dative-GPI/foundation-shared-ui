@@ -6,7 +6,7 @@ import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FS
 import FSPlaylistTile from '@dative-gpi/foundation-core-components/components/tiles/FSPlaylistTile.vue';
 
 const meta: Meta<typeof FSPlaylistTile> = {
-  title: 'Foundation/Core/Tiles/Playlist',
+  title: 'Core/Components/Tiles/Playlist',
   component: FSPlaylistTile,
   tags: ['autodocs'],
   argTypes: {

@@ -5,7 +5,7 @@ import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.v
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Button',
+  title: 'Shared/Components/Button',
   component: FSButton,
   tags: ['autodocs'],
   argTypes: {

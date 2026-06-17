@@ -5,7 +5,7 @@ import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.v
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Selects/SelectLanguage',
+  title: 'Shared/Components/Selects/SelectLanguage',
   component: FSSelectField,
   tags: ['autodocs'],
   argTypes: {

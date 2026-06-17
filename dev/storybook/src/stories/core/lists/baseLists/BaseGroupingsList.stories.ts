@@ -5,7 +5,7 @@ import FSDataTable from '@dative-gpi/foundation-core-components/components/lists
 import FSBaseGroupingsList from "@dative-gpi/foundation-core-components/components/lists/groupings/FSBaseGroupingsList.vue";
 
 const meta: Meta<typeof FSBaseGroupingsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseGroupingsList',
+  title: 'Core/Components/Lists/Base Lists/BaseGroupingsList',
   component: FSBaseGroupingsList,
   tags: ['autodocs'],
   argTypes: {

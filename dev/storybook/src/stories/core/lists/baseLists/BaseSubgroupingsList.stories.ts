@@ -8,7 +8,7 @@ import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.v
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 const meta: Meta<typeof FSBaseSubgroupingsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseSubgroupingsList',
+  title: 'Core/Components/Lists/Base Lists/BaseSubgroupingsList',
   component: FSBaseSubgroupingsList,
   subcomponents: { FSDataTable },
   tags: ['autodocs'],

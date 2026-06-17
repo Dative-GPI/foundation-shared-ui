@@ -4,7 +4,7 @@ import FSBaseScenarioOrganisationTypesList from "@dative-gpi/foundation-core-com
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
 
 const meta: Meta<typeof FSBaseScenarioOrganisationTypesList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseScenarioOrganisationTypesList',
+  title: 'Core/Components/Lists/Base Lists/BaseScenarioOrganisationTypesList',
   component: FSBaseScenarioOrganisationTypesList,
   subcomponents: { FSDataTable },
   tags: ['autodocs'],

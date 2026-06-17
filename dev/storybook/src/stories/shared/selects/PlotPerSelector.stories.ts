@@ -4,7 +4,7 @@ import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties'
 import FSPlotPerSelector from '@dative-gpi/foundation-core-components/components/selects/FSPlotPerSelector.vue';
 
 const meta: Meta<typeof FSPlotPerSelector> = {
-  title: 'Foundation/Core/Selects/PlotPerSelector',
+  title: 'Core/Components/Selects/PlotPerSelector',
   component: FSPlotPerSelector,
   tags: ['autodocs'],
   argTypes: {

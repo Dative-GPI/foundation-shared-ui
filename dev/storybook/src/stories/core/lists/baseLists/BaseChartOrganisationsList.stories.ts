@@ -6,7 +6,7 @@ import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties'
 import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
 
 const meta: Meta<typeof FSBaseChartOrganisationsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseChartOrganisationsList',
+  title: 'Core/Components/Lists/Base Lists/BaseChartOrganisationsList',
   component: FSBaseChartOrganisationsList,
   tags: ['autodocs'],
   argTypes: {

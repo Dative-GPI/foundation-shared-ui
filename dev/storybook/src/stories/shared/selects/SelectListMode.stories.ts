@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSSelectListMode from "@dative-gpi/foundation-shared-components/components/selects/FSSelectListMode.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Selects/SelectListMode',
+  title: 'Shared/Components/Selects/SelectListMode',
   component: FSSelectListMode,
   tags: ['autodocs'],
 } satisfies Meta<typeof FSSelectListMode>;

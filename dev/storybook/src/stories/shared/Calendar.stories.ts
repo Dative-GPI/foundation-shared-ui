@@ -9,7 +9,7 @@ import FSSimpleCalendar from "@dative-gpi/foundation-shared-components/component
 import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Calendar',
+  title: 'Shared/Components/Calendar',
   component: FSSimpleCalendarHeader,
   tags: ['autodocs'],
 } satisfies Meta<typeof FSSimpleCalendarHeader>;

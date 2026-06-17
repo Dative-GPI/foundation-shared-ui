@@ -8,7 +8,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import { NumberRules } from "@dative-gpi/foundation-shared-components/models";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/NumberField',
+  title: 'Shared/Components/Input fields/NumberField',
   component: FSNumberField,
   tags: ['autodocs'],
   argTypes: {

@@ -4,7 +4,7 @@ import FSGradientField from "@dative-gpi/foundation-shared-components/components
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/GradientField',
+  title: 'Shared/Components/Input fields/GradientField',
   component: FSGradientField,
   tags: ['autodocs'],
   argTypes: {

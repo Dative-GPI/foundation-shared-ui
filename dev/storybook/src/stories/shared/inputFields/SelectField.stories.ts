@@ -8,7 +8,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import { SelectRules } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/SelectField',
+  title: 'Shared/Components/Input fields/SelectField',
   component: FSSelectField,
   tags: ['autodocs'],
   argTypes: {

@@ -4,7 +4,7 @@ import FSStatus from "@dative-gpi/foundation-shared-components/components/device
 import type { FSDeviceStatusGroup, FSModelStatus } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
-  title: 'Foundation/Shared/Status',
+  title: 'Shared/Components/Status',
   component: FSStatus,
   tags: ['autodocs'],
   argTypes: {

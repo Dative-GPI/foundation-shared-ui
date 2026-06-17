@@ -22,7 +22,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import DialogFormRef from "./DialogFormRef.vue";
 
 const meta: Meta<typeof FSDialog> = {
-  title: 'Foundation/Shared/Dialog',
+  title: 'Shared/Components/Dialog',
   component: FSDialog,
   tags: ['autodocs'],
   argTypes: {

@@ -7,7 +7,7 @@ import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/l
 import FSBaseDeviceOrganisationsList from "@dative-gpi/foundation-core-components/components/lists/deviceOrganisations/FSBaseDeviceOrganisationsList.vue";
 
 const meta: Meta<typeof FSBaseDeviceOrganisationsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseDeviceOrganisationsList',
+  title: 'Core/Components/Lists/Base Lists/BaseDeviceOrganisationsList',
   component: FSBaseDeviceOrganisationsList,
   tags: ['autodocs'],
   argTypes: {

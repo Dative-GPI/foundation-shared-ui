@@ -9,7 +9,7 @@ import FSGroupingTileUI from "@dative-gpi/foundation-shared-components/component
 import FSLoadTile from '@dative-gpi/foundation-shared-components/components/tiles/FSLoadTile.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Tiles/Grouping',
+  title: 'Shared/Components/Tiles/Grouping',
   component: FSGroupingTileUI,
   tags: ['autodocs'],
   argTypes: {
