@@ -5,10 +5,10 @@ import FSChart from '@dative-gpi/foundation-shared-visualization/components/FSCh
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
-import ChartWithTooltip from './chart/ChartWithTooltip.vue';
+import ChartWithTooltip from './ChartWithTooltip.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Chart',
+  title: 'Foundation/Shared/Visualizations/Chart',
   component: FSChart,
   tags: ['autodocs'],
   argTypes: {
