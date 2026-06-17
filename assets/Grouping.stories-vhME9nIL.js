@@ -1,0 +1,54 @@
+import{a as y,b as G}from"./properties-Qw-O9fbT.js";import{F as V}from"./FSGroupingTileUI-BsDi0jYJ.js";import{F as v}from"./FSTile-D4h9K5XP.js";import{d as I,w as C,E as m,m as $,K as q,L as l,M as s}from"./vue.esm-bundler-NVdFPFZB.js";import{F as k}from"./FSLoadTile-DF_gJ9W6.js";import{a as U}from"./useGroupings-B4e7QrQK.js";import{_ as B}from"./_plugin-vue_export-helper-DlAUqK2U.js";import"./FSEntityCountBadge-CRHeOWFC.js";import"./FSColor-on4KTt7-.js";import"./FSCard-ghpSlWxI.js";import"./FSRow-Dg2RhQyl.js";import"./css-CUVOJ3aO.js";import"./useBreakpoints-DO2FQykY.js";import"./FSRouterLink-D11oKEEH.js";import"./vue-router-WBcFvCV3.js";import"./useColors-B9SkzYFF.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./theme-DuZszYeY.js";import"./VProgressCircular-Cjpa4WUk.js";import"./color-BS29f5Yp.js";import"./useRender-CaGCh2Xu.js";import"./intersectionObserver-DwVsweQn.js";import"./resizeObserver-Df0UXoOw.js";import"./size-D7Cgj1jW.js";import"./tag-DuA9585q.js";import"./FSSpan-B28b2m0n.js";import"./useSlots-DEXetpJf.js";import"./badge-D9p4Oj7n.js";import"./FSSimpleTileUI-goCvgFxx.js";import"./FSIconCard-fi7H3dxW.js";import"./FSIcon-DzQOa56z.js";import"./VIcon-Cu6WQqXu.js";import"./icons-Cl0t_6pZ.js";import"./FSImage-BlYox72k.js";import"./FSImageUI-CdvzmuqZ.js";import"./FSLoader-DOgbrYCd.js";import"./dimensions-CS_qJJhy.js";import"./elevation-DQ_qKX67.js";import"./locale-DER8LJer.js";import"./proxiedModel-VL_RP4zk.js";import"./VImg-BdZHkGCX.js";import"./rounded-CS1_z6Jk.js";import"./transition-a5pzBS6c.js";import"./index-B4rZgXN-.js";import"./useImages-CuuQm3J3.js";import"./composableFactory-C8uMcJZX.js";import"./serviceFactory-DI_gyWBF.js";import"./eventQueue-D85hWBFd.js";import"./uuid-DTaye2KM.js";import"./base-CmdGny12.js";import"./useAppAuthToken-CxB5IoRP.js";import"./FSCol-KRtq6OYO.js";import"./FSCheckbox-D5kCrb66.js";import"./useRules-eFcMZq7y.js";import"./VCheckboxBtn-BSFWUORg.js";import"./VSelectionControl-BqUEMQy8.js";import"./density-CE2FkSgs.js";import"./index-B-eFr4Nw.js";import"./VLabel-BtnooUPU.js";import"./VInput-BA20Y-wG.js";import"./index-ByfGjSW7.js";import"./base-CxE7IGU1.js";import"./useAppOrganisationId-DLYVMJh2.js";const S=I({name:"FSGroupingTile",components:{FSGroupingTileUI:V,FSLoadTile:k},props:{groupingId:{type:String,required:!0},modelValue:{type:Boolean,required:!1,default:!1},selectable:{type:Boolean,required:!1,default:!0}},emits:["update:modelValue"],inheritAttrs:!1,setup(e){const{get:o,getting:a,entity:p}=U();return C(()=>e.groupingId,()=>{o(e.groupingId)},{immediate:!0}),{getting:a,entity:p}}});function L(e,o,a,p,w,E){const F=l("FSLoadTile"),T=l("FSGroupingTileUI");return e.getting?(s(),m(F,{key:0,selectable:e.$props.selectable,modelValue:e.$props.modelValue,"onUpdate:modelValue":o[0]||(o[0]=i=>e.$emit("update:modelValue",i))},null,8,["selectable","modelValue"])):e.entity?(s(),m(T,$({key:1,icon:e.entity.icon,iconColor:e.entity.color,label:e.entity.label,code:e.entity.code,subgroupingCount:e.entity.subgroupingCount,selectable:e.$props.selectable,modelValue:e.$props.modelValue,"onUpdate:modelValue":o[1]||(o[1]=i=>e.$emit("update:modelValue",i))},e.$attrs),null,16,["icon","iconColor","label","code","subgroupingCount","selectable","modelValue"])):q("",!0)}const r=B(S,[["render",L]]);S.__docgenInfo={displayName:"FSGroupingTile",exportName:"default",description:"",tags:{},props:[{name:"groupingId",type:{name:"string"},required:!0},{name:"modelValue",type:{name:"boolean"},required:!1,defaultValue:{func:!1,value:"false"}},{name:"selectable",type:{name:"boolean"},required:!1,defaultValue:{func:!1,value:"true"}}],events:[{name:"update:modelValue"}],sourceFiles:["/home/runner/work/foundation-shared-ui/foundation-shared-ui/src/core/foundation-core-components/components/tiles/FSGroupingTile.vue"]};const ze={title:"Core/Components/Tiles/Grouping",component:r,tags:["autodocs"],argTypes:{...G([V,v],r),...y(r)}},t={render:e=>({components:{FSGroupingTile:r},setup(){return{args:e}},template:`
+      <FSGroupingTile
+        v-model="args.modelValue"
+        v-bind="args"
+      />
+    `}),args:{modelValue:!1,groupingId:"1"}},n={render:e=>({components:{FSGroupingTile:r},setup(){return{args:e}},template:`
+      <FSGroupingTile
+        v-model="args.modelValue"
+        v-bind="args"
+      />
+    `}),args:{modelValue:!1,groupingId:"2",selectable:!0}};var u,d,g;t.parameters={...t.parameters,docs:{...(u=t.parameters)==null?void 0:u.docs,source:{originalSource:`{
+  render: args => ({
+    components: {
+      FSGroupingTile
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+      <FSGroupingTile
+        v-model="args.modelValue"
+        v-bind="args"
+      />
+    \`
+  }),
+  args: {
+    modelValue: false,
+    groupingId: '1'
+  }
+}`,...(g=(d=t.parameters)==null?void 0:d.docs)==null?void 0:g.source}}};var c,f,b;n.parameters={...n.parameters,docs:{...(c=n.parameters)==null?void 0:c.docs,source:{originalSource:`{
+  render: args => ({
+    components: {
+      FSGroupingTile
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+      <FSGroupingTile
+        v-model="args.modelValue"
+        v-bind="args"
+      />
+    \`
+  }),
+  args: {
+    modelValue: false,
+    groupingId: '2',
+    selectable: true
+  }
+}`,...(b=(f=n.parameters)==null?void 0:f.docs)==null?void 0:b.source}}};const He=["Default","Selectable"];export{t as Default,n as Selectable,He as __namedExportsOrder,ze as default};

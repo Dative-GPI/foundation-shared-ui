@@ -1,0 +1,90 @@
+import{F as s}from"./FSGrid-BbagDfOD.js";import{F as o}from"./FSIcon-DzQOa56z.js";import"./vue.esm-bundler-NVdFPFZB.js";import"./FSText-DR713pSR.js";import"./useColors-B9SkzYFF.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./theme-DuZszYeY.js";import"./useBreakpoints-DO2FQykY.js";import"./useSlots-DEXetpJf.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";import"./FSCol-KRtq6OYO.js";import"./css-CUVOJ3aO.js";import"./FSRow-Dg2RhQyl.js";import"./VIcon-Cu6WQqXu.js";import"./color-BS29f5Yp.js";import"./useRender-CaGCh2Xu.js";import"./icons-Cl0t_6pZ.js";import"./size-D7Cgj1jW.js";import"./tag-DuA9585q.js";const O={title:"Shared/Components/Lists/Grid",component:s,tags:["autodocs"],argTypes:{onClick:{action:"clicked"}}},e={args:{args:{items:[{label:"Permission 1",code:"permission1",value:"1"},{label:"Permission 2",code:"permission2",value:"2"},{label:"Permission 3",code:"permission3",value:"3"},{label:"Permission 4",code:"permission4",value:"4"},{label:"Permission 5",code:"permission5",value:"5"}]}},render:(r,{argTypes:m})=>({components:{FSGrid:s,FSIcon:o},props:Object.keys(m),setup(){return{...r}},template:`
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; gap: 10px;">
+        <FSGrid
+          :items="args.items"
+        >
+          <template #header="{ item }">
+            {{ item.label }}
+          </template>
+          <template #item-end="{ item }">
+            {{ item.value }}
+          </template>
+          <template #header.permission1="{ item }">
+            <FSIcon>
+              mdi-check-circle
+            </FSIcon>
+          </template>
+          <template #item-end.permission1="{ item }">
+            <FSIcon>
+              mdi-check-circle
+            </FSIcon>
+          </template>
+        </FSGrid>
+      </div>
+    </div>`})};var i,n,t;e.parameters={...e.parameters,docs:{...(i=e.parameters)==null?void 0:i.docs,source:{originalSource:`{
+  args: {
+    args: {
+      items: [{
+        label: "Permission 1",
+        code: "permission1",
+        value: "1"
+      }, {
+        label: "Permission 2",
+        code: "permission2",
+        value: "2"
+      }, {
+        label: "Permission 3",
+        code: "permission3",
+        value: "3"
+      }, {
+        label: "Permission 4",
+        code: "permission4",
+        value: "4"
+      }, {
+        label: "Permission 5",
+        code: "permission5",
+        value: "5"
+      }]
+    }
+  },
+  render: (args, {
+    argTypes
+  }) => ({
+    components: {
+      FSGrid,
+      FSIcon
+    },
+    props: Object.keys(argTypes),
+    setup() {
+      return {
+        ...args
+      };
+    },
+    template: \`
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; gap: 10px;">
+        <FSGrid
+          :items="args.items"
+        >
+          <template #header="{ item }">
+            {{ item.label }}
+          </template>
+          <template #item-end="{ item }">
+            {{ item.value }}
+          </template>
+          <template #header.permission1="{ item }">
+            <FSIcon>
+              mdi-check-circle
+            </FSIcon>
+          </template>
+          <template #item-end.permission1="{ item }">
+            <FSIcon>
+              mdi-check-circle
+            </FSIcon>
+          </template>
+        </FSGrid>
+      </div>
+    </div>\`
+  })
+}`,...(t=(n=e.parameters)==null?void 0:n.docs)==null?void 0:t.source}}};const T=["Variations"];export{e as Variations,T as __namedExportsOrder,O as default};
