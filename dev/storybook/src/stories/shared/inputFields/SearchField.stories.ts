@@ -5,7 +5,7 @@ import FSTextField from '@dative-gpi/foundation-shared-components/components/fie
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/SearchField',
+  title: 'Shared/Components/Input fields/SearchField',
   component: FSSearchField,
   subcomponents: { FSTextField },
   tags: ['autodocs'],

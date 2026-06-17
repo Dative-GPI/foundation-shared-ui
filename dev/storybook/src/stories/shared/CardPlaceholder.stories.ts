@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSCardPlaceholder from "@dative-gpi/foundation-shared-components/components/FSCardPlaceholder.vue";
 
 const meta = {
-  title: 'Foundation/Shared/CardPlaceholder',
+  title: 'Shared/Components/CardPlaceholder',
   component: FSCardPlaceholder,
   tags: ['autodocs'],
   argTypes: {

@@ -4,7 +4,7 @@ import FSSelectedMapLayer from "@dative-gpi/foundation-shared-components/compone
 import { MapLayers } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
-  title: 'Foundation/Shared/Selects/SelectMapLayer',
+  title: 'Shared/Components/Selects/SelectMapLayer',
   component: FSSelectedMapLayer,
   tags: ['autodocs'],
 } satisfies Meta<typeof FSSelectedMapLayer>;

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSIconCard from "@dative-gpi/foundation-shared-components/components/FSIconCard.vue";
 
 const meta = {
-  title: 'Foundation/Shared/IconCard',
+  title: 'Shared/Components/IconCard',
   component: FSIconCard,
   tags: ['autodocs'],
   argTypes: {

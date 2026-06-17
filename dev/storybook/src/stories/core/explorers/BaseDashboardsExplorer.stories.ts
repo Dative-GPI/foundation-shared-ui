@@ -8,7 +8,7 @@ import FSBaseDashboardsExplorer from "@dative-gpi/foundation-core-components/com
 import { DashboardExplorerElementType } from "@dative-gpi/foundation-shared-domain/enums";
 
 const meta: Meta<typeof FSBaseDashboardsExplorer> = {
-  title: "Foundation/Core/Explorers/BaseDashboardsExplorer",
+  title: "Core/Components/Explorers/BaseDashboardsExplorer",
   component: FSBaseDashboardsExplorer,
   tags: ["autodocs"],
   argTypes: {

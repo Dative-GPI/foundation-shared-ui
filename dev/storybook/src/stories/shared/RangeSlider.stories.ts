@@ -6,7 +6,7 @@ import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties'
 import { VRangeSlider } from 'vuetify/components';
 
 const meta = {
-  title: 'Foundation/Shared/RangeSlider',
+  title: 'Shared/Components/RangeSlider',
   component: FSRangeSlider,
   tags: ['autodocs'],
   argTypes: {

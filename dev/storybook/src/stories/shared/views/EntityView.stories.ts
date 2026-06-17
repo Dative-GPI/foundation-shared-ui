@@ -18,7 +18,7 @@ import FSBaseEntityMobileView from '@dative-gpi/foundation-shared-components/com
 import FSBaseEntityDesktopView from '@dative-gpi/foundation-shared-components/components/views/desktop/FSBaseEntityDesktopView.vue';
 
 const meta = {
-  title: 'Foundation/Shared/views/EntityView',
+  title: 'Shared/Components/views/EntityView',
   component: FSEntityView,
   tags: ['autodocs'],
   argTypes: {

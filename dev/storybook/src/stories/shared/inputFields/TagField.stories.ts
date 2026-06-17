@@ -8,7 +8,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import { TagRules } from "@dative-gpi/foundation-shared-components/models";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TagField',
+  title: 'Shared/Components/Input fields/TagField',
   component: FSTagField,
   tags: ['autodocs'],
   argTypes: {

@@ -4,7 +4,7 @@ import FSRadioGroup from "@dative-gpi/foundation-shared-components/components/FS
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Toggles/Radio',
+  title: 'Shared/Components/Toggles/Radio',
   component: FSRadioGroup,
   tags: ['autodocs'],
   argTypes: {

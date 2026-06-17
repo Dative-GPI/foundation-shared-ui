@@ -16,7 +16,7 @@ import FSAgendaVerticalEvent from '@dative-gpi/foundation-shared-components/comp
 import FSSelectAgendaMode from '@dative-gpi/foundation-shared-components/components/agenda/FSSelectAgendaMode.vue';
 
 const meta: Meta<typeof FSAgenda> = {
-  title: 'Foundation/Shared/Agenda',
+  title: 'Shared/Components/Agenda',
   component: FSAgenda,
   subcomponents: {
     FSAgendaDialogCalendar,

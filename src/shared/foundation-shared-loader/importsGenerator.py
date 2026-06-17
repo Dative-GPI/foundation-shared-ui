@@ -5,6 +5,7 @@ PROJECTS =  {
         "foundation-shared-components": "../foundation-shared-components/components",
         "foundation-admin-components": "../../admin/foundation-admin-components/components",
         "foundation-core-components": "../../core/foundation-core-components/components",
+        "foundation-shared-visualization": "../foundation-shared-visualization/components"
         # Ajoutez d'autres projets ici si nécessaire
     }
 

@@ -8,7 +8,7 @@ import { addComponentEmits } from '@/utils/properties';
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Card',
+  title: 'Shared/Components/Card',
   component: FSCard,
   tags: ['autodocs'],
   argTypes: {

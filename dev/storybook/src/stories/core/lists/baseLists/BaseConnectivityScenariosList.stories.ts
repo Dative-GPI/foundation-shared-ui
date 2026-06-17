@@ -7,7 +7,7 @@ import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/l
 import FSBaseConnectivityScenariosList from "@dative-gpi/foundation-core-components/components/lists/connectivityScenarios/FSBaseConnectivityScenariosList.vue";
 
 const meta: Meta<typeof FSBaseConnectivityScenariosList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseConnectivityScenariosList',
+  title: 'Core/Components/Lists/Base Lists/BaseConnectivityScenariosList',
   component: FSBaseConnectivityScenariosList,
   subcomponents: { FSDataTable },
   tags: ['autodocs'],

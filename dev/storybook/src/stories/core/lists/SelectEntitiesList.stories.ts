@@ -10,7 +10,7 @@ import FSDialogSelectEntities from '@dative-gpi/foundation-core-components/compo
 import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
 
 const meta: Meta<typeof FSSelectEntitiesList> = {
-  title: 'Foundation/Core/Lists/SelectEntitiesList',
+  title: 'Core/Components/Lists/SelectEntitiesList',
   component: FSSelectEntitiesList,
   tags: ['autodocs'],
   argTypes: {

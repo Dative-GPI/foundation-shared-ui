@@ -5,7 +5,7 @@ import FSTimeStepField from "@dative-gpi/foundation-shared-components/components
 import { addComponentEmits } from '@/utils/properties';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TimeStepField',
+  title: 'Shared/Components/Input fields/TimeStepField',
   component: FSTimeStepField,
   tags: ['autodocs'],
   argTypes: {

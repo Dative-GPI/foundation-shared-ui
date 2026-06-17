@@ -9,7 +9,7 @@ import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue
 import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
-  title: 'Foundation/Shared/views/SimpleView',
+  title: 'Shared/Components/views/SimpleView',
   component: FSSimpleView,
   tags: ['autodocs'],
   argTypes: {

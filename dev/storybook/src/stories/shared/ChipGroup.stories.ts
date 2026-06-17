@@ -5,7 +5,7 @@ import FSChipGroup from "@dative-gpi/foundation-shared-components/components/FSC
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 
 const meta = {
-  title: 'Foundation/Shared/ChipGroup',
+  title: 'Shared/Components/ChipGroup',
   component: FSChipGroup,
   tags: ['autodocs'],
 } satisfies Meta<typeof FSChipGroup>;

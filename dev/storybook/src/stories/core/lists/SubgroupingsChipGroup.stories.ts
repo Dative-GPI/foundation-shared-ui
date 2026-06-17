@@ -8,7 +8,7 @@ import FSChipGroup from '@dative-gpi/foundation-shared-components/components/FSC
 import { SubgroupingInfos } from "@dative-gpi/foundation-core-domain/models";
 
 const meta: Meta<typeof FSSubgroupingsChipGroup> = {
-    title: 'Foundation/Core/Lists/SubgroupingsChipGroup',
+    title: 'Core/Components/Lists/SubgroupingsChipGroup',
     subcomponents: { FSChipGroup },
     component: FSSubgroupingsChipGroup,
     tags: ['autodocs'],

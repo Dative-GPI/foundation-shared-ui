@@ -5,7 +5,7 @@ import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Image',
+  title: 'Shared/Components/Image',
   component: FSImage,
   tags: ['autodocs'],
   argTypes: {

@@ -4,7 +4,7 @@ import FSBaseFoldersList from "@dative-gpi/foundation-core-components/components
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
 
 const meta: Meta<typeof FSBaseFoldersList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseFoldersList',
+  title: 'Core/Components/Lists/Base Lists/BaseFoldersList',
   component: FSBaseFoldersList,
   subcomponents: { FSDataTable },
   tags: ['autodocs'],

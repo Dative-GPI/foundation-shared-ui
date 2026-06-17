@@ -8,7 +8,7 @@ import FSDataTable from '@dative-gpi/foundation-core-components/components/lists
 import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/lists/FSDataTableUI.vue';
 
 const meta: Meta<typeof FSBaseDashboardsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseDashboardsList',
+  title: 'Core/Components/Lists/Base Lists/BaseDashboardsList',
   component: FSBaseDashboardsList,
   tags: ['autodocs'],
   argTypes: {

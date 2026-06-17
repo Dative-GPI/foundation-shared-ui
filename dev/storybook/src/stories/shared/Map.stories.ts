@@ -14,7 +14,7 @@ import { uuidv4 } from '@dative-gpi/bones-ui';
 import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Map',
+  title: 'Shared/Components/Map',
   component: FSMap,
   tags: ['autodocs'],
   argTypes: {

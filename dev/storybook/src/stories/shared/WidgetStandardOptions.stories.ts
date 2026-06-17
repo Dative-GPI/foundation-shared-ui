@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import FSWidgetStandardOptions from "@dative-gpi/foundation-shared-components/components/FSWidgetStandardOptions.vue";
 
 const meta = {
-  title: 'Foundation/Shared/WidgetStandardOptions',
+  title: 'Shared/Components/WidgetStandardOptions',
   component: FSWidgetStandardOptions,
   tags: ['autodocs'],
   argTypes: {

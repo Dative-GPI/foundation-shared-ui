@@ -4,7 +4,7 @@ import FSCheckbox from "@dative-gpi/foundation-shared-components/components/FSCh
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Toggles/Checkbox',
+  title: 'Shared/Components/Toggles/Checkbox',
   component: FSCheckbox,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSDeviceOrganisationTile from "@dative-gpi/foundation-core-components/components/tiles/FSDeviceOrganisationTile.vue";
 
 const meta = {
-  title: 'Foundation/Core/Tiles/DeviceOrganisation',
+  title: 'Core/Components/Tiles/DeviceOrganisation',
   component: FSDeviceOrganisationTile,
   tags: ['autodocs'],
   argTypes: {

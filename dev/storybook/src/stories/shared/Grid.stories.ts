@@ -5,7 +5,7 @@ import FSIcon from '@dative-gpi/foundation-shared-components/components/FSIcon.v
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Lists/Grid',
+  title: 'Shared/Components/Lists/Grid',
   component: FSGrid,
   tags: ['autodocs'],
   argTypes: {

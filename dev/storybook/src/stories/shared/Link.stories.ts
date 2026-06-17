@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSLink from "@dative-gpi/foundation-shared-components/components/FSLink.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Link',
+  title: 'Shared/Components/Link',
   component: FSLink,
   tags: ['autodocs'],
   argTypes: {

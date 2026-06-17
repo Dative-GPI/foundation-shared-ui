@@ -4,7 +4,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Global/Layout',
+  title: 'Shared/Components/Global/Layout',
   tags: ['autodocs'],
   argTypes: {
     onClick: { action: 'clicked' }

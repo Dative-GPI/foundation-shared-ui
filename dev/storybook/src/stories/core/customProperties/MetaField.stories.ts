@@ -7,7 +7,7 @@ import FSMetaField from "@dative-gpi/foundation-core-components/components/custo
 import { CustomPropertyInfos } from '@dative-gpi/foundation-core-domain/models';
 
 const meta: Meta<typeof FSMetaField> = {
-  title: 'Foundation/Core/CustomProperties/MetaField',
+  title: 'Core/Components/CustomProperties/MetaField',
   component: FSMetaField,
   tags: ['autodocs'],
   argTypes: {

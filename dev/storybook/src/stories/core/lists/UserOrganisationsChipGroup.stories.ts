@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSUserOrganisationsChipGroup from "@dative-gpi/foundation-core-components/components/lists/userOrganisations/FSUserOrganisationsChipGroup.vue";
 
 const meta: Meta<typeof FSUserOrganisationsChipGroup> = {
-    title: 'Foundation/Core/Lists/FSUserOrganisationsChipGroup',
+    title: 'Core/Components/Lists/FSUserOrganisationsChipGroup',
     component: FSUserOrganisationsChipGroup,
     tags: ['autodocs']
 };

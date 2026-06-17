@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSBreadcrumbs from "@dative-gpi/foundation-shared-components/components/FSBreadcrumbs.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Breadcrumbs',
+  title: 'Shared/Components/Breadcrumbs',
   component: FSBreadcrumbs,
   tags: ['autodocs'],
   argTypes: {

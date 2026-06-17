@@ -4,7 +4,7 @@ import FSSimpleTileUI from "@dative-gpi/foundation-shared-components/components/
 import { icon } from 'leaflet';
 
 const meta = {
-  title: 'Foundation/Shared/Tiles/SimpleTile',
+  title: 'Shared/Components/Tiles/SimpleTile',
   component: FSSimpleTileUI,
   tags: ['autodocs'],
   argTypes: {

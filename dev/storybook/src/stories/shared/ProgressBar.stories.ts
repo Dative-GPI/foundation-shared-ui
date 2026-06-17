@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSProgressBar from "@dative-gpi/foundation-shared-components/components/FSProgressBar.vue";
 
 const meta = {
-  title: 'Foundation/Shared/ProgressBar',
+  title: 'Shared/Components/ProgressBar',
   component: FSProgressBar,
   tags: ['autodocs'],
   argTypes: {

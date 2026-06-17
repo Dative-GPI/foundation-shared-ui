@@ -6,7 +6,7 @@ import FSTileList from '@dative-gpi/foundation-shared-components/components/list
 import FSTileGroupingsList from "@dative-gpi/foundation-core-components/components/lists/groupings/FSTileGroupingsList.vue";
 
 const meta: Meta<typeof FSTileGroupingsList> = {
-  title: 'Foundation/Core/Lists/Tile Lists/TileGroupingsList',
+  title: 'Core/Components/Lists/Tile Lists/TileGroupingsList',
   component: FSTileGroupingsList,
   tags: ['autodocs'],
   argTypes: {

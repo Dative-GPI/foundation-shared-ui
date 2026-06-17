@@ -3,7 +3,7 @@ import FSWrapGroup from "@dative-gpi/foundation-shared-components/components/FSW
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 const meta: Meta<typeof FSWrapGroup> = {
-  title: 'Foundation/Shared/Global/Containers/WrapGroup',
+  title: 'Shared/Components/Global/Containers/WrapGroup',
   component: FSWrapGroup,
   tags: ['autodocs'],
   argTypes: {

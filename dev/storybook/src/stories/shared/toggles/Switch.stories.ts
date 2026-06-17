@@ -4,7 +4,7 @@ import FSSwitch from "@dative-gpi/foundation-shared-components/components/FSSwit
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Toggles/Switch',
+  title: 'Shared/Components/Toggles/Switch',
   component: FSSwitch,
   tags: ['autodocs'],
   argTypes: {

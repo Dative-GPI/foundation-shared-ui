@@ -6,7 +6,7 @@ import FSAutocompleteField from '@dative-gpi/foundation-shared-components/compon
 import FSAutocompleteDataCategory from "@dative-gpi/foundation-core-components/components/autocompletes/FSAutocompleteDataCategory.vue";
 
 const meta: Meta<typeof FSAutocompleteDataCategory> = {
-  title: 'Foundation/Core/Autocompletes/AutocompleteDataCategory',
+  title: 'Core/Components/Autocompletes/AutocompleteDataCategory',
   component: FSAutocompleteDataCategory,
   tags: ['autodocs'],
   argTypes: {

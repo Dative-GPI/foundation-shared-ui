@@ -8,7 +8,7 @@ import FSAutocompleteField from '@dative-gpi/foundation-shared-components/compon
 import FSAutocompleteChart from "@dative-gpi/foundation-core-components/components/autocompletes/FSAutocompleteChart.vue";
 
 const meta: Meta<typeof FSAutocompleteChart> = {
-  title: 'Foundation/Core/Autocompletes/AutocompleteChart',
+  title: 'Core/Components/Autocompletes/AutocompleteChart',
   component: FSAutocompleteChart,
   tags: ['autodocs'],
   argTypes: {

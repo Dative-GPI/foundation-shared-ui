@@ -8,7 +8,7 @@ import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue
 
 
 const meta = {
-  title: 'Foundation/Shared/MapAddressField',
+  title: 'Shared/Components/MapAddressField',
   component: FSMapAddressField,
   tags: ['autodocs'],
   argTypes: {

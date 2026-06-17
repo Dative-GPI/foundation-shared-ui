@@ -7,7 +7,7 @@ import FSTextField from '@dative-gpi/foundation-shared-components/components/fie
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/RichTextField',
+  title: 'Shared/Components/Input fields/RichTextField',
   component: FSRichTextField,
   tags: ['autodocs'],
   argTypes: {

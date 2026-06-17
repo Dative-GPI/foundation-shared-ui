@@ -6,7 +6,7 @@ import FSCommentTileUI from "@dative-gpi/foundation-shared-components/components
 
 
 const meta: Meta<typeof FSBaseCommentsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseCommentsList',
+  title: 'Core/Components/Lists/Base Lists/BaseCommentsList',
   component: FSBaseCommentsList,
   subcomponents: { FSCommentTileUI, FSCommentField },
   tags: ['autodocs'],

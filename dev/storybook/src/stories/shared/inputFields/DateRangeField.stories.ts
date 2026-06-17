@@ -10,7 +10,7 @@ import { useAppTimeZone } from "@dative-gpi/foundation-shared-services/composabl
 import { DateRules } from "@dative-gpi/foundation-shared-components/models";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/DateRangeField',
+  title: 'Shared/Components/Input fields/DateRangeField',
   component: FSDateRangeField,
   tags: ['autodocs'],
   argTypes: {

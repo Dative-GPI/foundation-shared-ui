@@ -6,7 +6,7 @@ import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Selects/SelectUserOrganisation',
+  title: 'Shared/Components/Selects/SelectUserOrganisation',
   component: FSSelectField,
   tags: ['autodocs'],
   argTypes: {

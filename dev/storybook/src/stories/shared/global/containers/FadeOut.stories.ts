@@ -5,7 +5,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSButton from "@dative-gpi/foundation-shared-components/components/FSButton.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Global/Containers/FadeOut',
+  title: 'Shared/Components/Global/Containers/FadeOut',
   tags: ['autodocs'],
   argTypes: {}
 };

@@ -9,7 +9,7 @@ import FSText from "@dative-gpi/foundation-shared-components/components/FSText.v
 import FSChip from '@dative-gpi/foundation-shared-components/components/FSChip.vue';
 
 const meta = {
-  title: 'Foundation/Shared/SubgroupingChip',
+  title: 'Shared/Components/SubgroupingChip',
   component: FSSubgroupingChip,
   subcomponents: { FSChip },
   tags: ['autodocs'],

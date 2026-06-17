@@ -7,7 +7,7 @@ import FSPoliciesValidationField from "@dative-gpi/foundation-shared-components/
 import FSForm from '@dative-gpi/foundation-shared-components/components/FSForm.vue';
 
 const meta = {
-  title: 'Foundation/Shared/PoliciesValidationField',
+  title: 'Shared/Components/PoliciesValidationField',
   component: FSPoliciesValidationField,
   tags: ['autodocs'],
   argTypes: {

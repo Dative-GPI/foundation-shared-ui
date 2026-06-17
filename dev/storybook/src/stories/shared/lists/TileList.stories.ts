@@ -7,7 +7,7 @@ import { ref } from 'vue';
 import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
 const meta: Meta<typeof FSTileList> = {
-  title: 'Foundation/Shared/Lists/TileList',
+  title: 'Shared/Components/Lists/TileList',
   component: FSTileList,
   tags: ['autodocs'],
   argTypes: {

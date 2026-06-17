@@ -10,7 +10,7 @@ import type { RouteLocation } from 'vue-router';
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Lists/DataTable',
+  title: 'Shared/Components/Lists/DataTable',
   component: FSDataTableUI,
   tags: ['autodocs'],
   argTypes: {
