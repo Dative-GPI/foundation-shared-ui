@@ -1,0 +1,27 @@
+import{a as b,b as L}from"./properties-Qw-O9fbT.js";import{F as d}from"./FSTileList-5zRShxmj.js";import{d as T,w as M,E as S,H as v,m as y,L as s,M as $,k as h}from"./vue.esm-bundler-C5-CUMHT.js";import{F as C}from"./FSModelTileUI-B9B-RBtt.js";import{L as I}from"./lists-Dmp0D7yf.js";import{u as _}from"./useModels-BN_kP-yZ.js";import{_ as q}from"./_plugin-vue_export-helper-DlAUqK2U.js";import"./FSCol-DedFW0nl.js";import"./css-DSFbdPon.js";import"./useBreakpoints-pPMhsL5T.js";import"./FSLoader-BTZOtjrt.js";import"./useColors-BAnxS_-e.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./theme-CB6As9Cd.js";import"./color-D7ZCcSxD.js";import"./dimensions-Bm76csmg.js";import"./elevation-DfTZ1KyC.js";import"./locale-BNkeanE6.js";import"./proxiedModel-CV-HTW34.js";import"./useRender-_COxrB9K.js";import"./FSFadeOut-DOLGFW1u.js";import"./uuid-DTaye2KM.js";import"./FSSlideGroup-5yThapiu.js";import"./FSButtonNextIcon-TA3Aju3l.js";import"./FSButton-DohpVEzP.js";import"./FSRouterLink-CMTOFxCD.js";import"./vue-router-Bg3goQnP.js";import"./FSText-C8rmUTxK.js";import"./useSlots-ol4Nk6ew.js";import"./FSSpan-D6aG51_c.js";import"./FSIcon-CNpmwcOd.js";import"./VIcon-IlEzlDWp.js";import"./icons-CucLNLjN.js";import"./size-DwliOKuO.js";import"./tag-enhOFdJJ.js";import"./FSCard-DYe1QD8j.js";import"./FSRow-C8aYwBu-.js";import"./VProgressCircular-D7Gk7a1O.js";import"./intersectionObserver-D1RZdbEq.js";import"./resizeObserver-hE1ulDL8.js";import"./VSlideGroup-Bd_pvRRU.js";import"./index-pS3mXfMR.js";import"./display-IUfV935l.js";import"./goto-Ba_J3Vzv.js";import"./group-B4VRq_l_.js";import"./VSlideGroupItem-BppNUl7y.js";import"./FSSearchField-DfSRPhxD.js";import"./FSTextField-V-eBW8wn.js";import"./FSBaseField-B1fPD4-R.js";import"./useRules-D4S0gmXa.js";import"./VTextField-CPakm9mu.js";import"./VField-Cbr0bjXl.js";import"./transition-CgRUW3r8.js";import"./VLabel-COLF1QPQ.js";import"./VInput-Y0iB4nur.js";import"./density-qUtw3dk7.js";import"./loader-CVb0Ac9O.js";import"./VProgressLinear-F46fcvb0.js";import"./anchor-Dj2AEc5N.js";import"./rounded-Ctowy803.js";import"./easing-DY7PVvcf.js";import"./VDefaultsProvider-Dy-3lUkF.js";import"./forwardRefs-C-GTDzx5.js";import"./index-B3ZVJx30.js";import"./useTranslations-DAi7IZoP.js";import"./eventQueue-D85hWBFd.js";import"./FSSimpleTileUI-CcRMbNDG.js";import"./FSIconCard-C8bYj-2A.js";import"./FSImage-CTV3ARHO.js";import"./FSImageUI-DrqF_CxM.js";import"./VImg-DXeUU_wB.js";import"./useImages-CyYFl-Jz.js";import"./composableFactory-Cxup7bUM.js";import"./serviceFactory-DI_gyWBF.js";import"./base-CmdGny12.js";import"./useAppAuthToken-DMcDmCCx.js";import"./FSTile-DmLtcb1O.js";import"./FSCheckbox-BwFpn-kB.js";import"./VCheckboxBtn-ODJx5um2.js";import"./VSelectionControl-D13_Swsb.js";import"./index-asyjLxvi.js";import"./filter-C1K_d8Vd.js";import"./modelInfos-C734A82I.js";import"./base-BFVjoMA-.js";import"./useAppOrganisationId-CSdtG-as.js";const u=T({name:"FSTileModelsList",components:{FSTileList:d,FSModelTileUI:C},props:{modelFilters:{type:Object,required:!1,default:()=>({})},modelValue:{type:Array,required:!1,default:()=>[]},selectable:{type:Boolean,required:!1,default:!1}},emits:["update:modelValue"],setup(e){const{entities:t,getMany:m,fetching:l}=_();return M(()=>e.modelFilters,()=>{m(e.modelFilters)},{immediate:!0}),{models:t,fetching:l,ListDirections:I}}});function w(e,t,m,l,c,U){const f=s("FSModelTileUI"),g=s("FSTileList");return $(),S(g,y({items:e.models,loading:e.fetching,selectable:e.$props.selectable,modelValue:e.$props.modelValue,"onUpdate:modelValue":t[0]||(t[0]=o=>e.$emit("update:modelValue",o))},e.$attrs),{"item.tile":v(({item:o,toggleSelect:V,direction:F})=>[h(f,{imageId:o.imageId,label:o.label,code:o.code,width:F===e.ListDirections.Column?"fill":void 0,selectable:e.$props.selectable,modelValue:(e.$props.modelValue??[]).includes(o.id),"onUpdate:modelValue":k=>V(o)},null,8,["imageId","label","code","width","selectable","modelValue","onUpdate:modelValue"])]),_:1},16,["items","loading","selectable","modelValue"])}const i=q(u,[["render",w]]);u.__docgenInfo={displayName:"FSTileModelsList",exportName:"default",description:"",tags:{},props:[{name:"modelFilters",type:{name:"ModelFilters"},required:!1,defaultValue:{func:!0,value:"() => ({})"}},{name:"modelValue",type:{name:"string[]"},required:!1,defaultValue:{func:!0,value:"() => []"}},{name:"selectable",type:{name:"boolean"},required:!1,defaultValue:{func:!1,value:"false"}}],events:[{name:"update:modelValue"}],sourceFiles:["/home/runner/work/foundation-shared-ui/foundation-shared-ui/src/core/foundation-core-components/components/lists/models/FSTileModelsList.vue"]};const uo={title:"Core/Components/Lists/Tile Lists/TileModelsList",component:i,tags:["autodocs"],argTypes:{...L([d],i),...b(i)}},r={args:{modelValue:[],modelFilters:{}},render:e=>({components:{FSTileModelsList:i},setup(){return{args:e}},template:`
+      <FSTileModelsList
+      v-model:modelValue="args.modelValue"
+        v-bind="args"
+      />
+    `})};var p,a,n;r.parameters={...r.parameters,docs:{...(p=r.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    modelValue: [],
+    modelFilters: {}
+  },
+  render: args => ({
+    components: {
+      FSTileModelsList
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+      <FSTileModelsList
+      v-model:modelValue="args.modelValue"
+        v-bind="args"
+      />
+    \`
+  })
+}`,...(n=(a=r.parameters)==null?void 0:a.docs)==null?void 0:n.source}}};const co=["Default"];export{r as Default,co as __namedExportsOrder,uo as default};
