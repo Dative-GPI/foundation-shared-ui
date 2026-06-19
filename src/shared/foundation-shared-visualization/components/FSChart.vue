@@ -8,10 +8,12 @@
       align="center-center"
       height="fill"
       :wrap="false"
-      gap="32px"
+      gap="16px"
     >
       <FSCol
-        height="fill"
+        :height="legendHeight"
+        :width="legendWidth"
+        style="flex-grow: 0;"
         align="center-center"
         gap="16px"
       >
@@ -65,12 +67,23 @@ export default defineComponent({
 
     const flexDirection = computed(() => {
       switch (props.legendPosition) {
-        case LegendPositions.Left:   return "row";
-        case LegendPositions.Right:  return "row-reverse";
-        case LegendPositions.Top:    return "column";
-        default:               return "column-reverse";
+        case LegendPositions.Left:   
+          return "row";
+        case LegendPositions.Right:  
+          return "row-reverse";
+        case LegendPositions.Top:    
+          return "column";
+        default:               
+          return "column-reverse";
       }
     });
+
+    const isVertical = computed(() =>
+      props.legendPosition === LegendPositions.Top || props.legendPosition === LegendPositions.Bottom
+    );
+
+    const legendHeight = computed(() => isVertical.value ? "hug" : "fill");
+    const legendWidth = computed(() => isVertical.value ? "fill" : "hug");
 
     useResize(() => chartEl.value, () => {
       chart?.resize();
@@ -99,6 +112,8 @@ export default defineComponent({
 
     return {
       chartEl,
+      legendWidth,
+      legendHeight,
       flexDirection
     };
   }
