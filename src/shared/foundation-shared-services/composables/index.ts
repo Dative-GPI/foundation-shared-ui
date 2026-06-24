@@ -7,4 +7,4 @@ export * from "./useFoundationShared";
 export * from "./useRouting";
 export * from "./useDateExpression";
 export * from "./useTimeDuration";
-export * from "./useUnitFormatter";
+export * from "./useUnitFormat";
