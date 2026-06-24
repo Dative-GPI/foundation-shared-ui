@@ -11,6 +11,5 @@ export * from "./permissions";
 export * from "./terminals";
 export * from "./timeZones";
 export * from "./translations";
-export * from "./units";
 export * from "./userLegalInformations";
 export * from "./users";
