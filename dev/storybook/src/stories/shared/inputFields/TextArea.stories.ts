@@ -8,7 +8,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import { TextRules } from "@dative-gpi/foundation-shared-components/models";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TextArea',
+  title: 'Shared/Components/Input fields/TextArea',
   component: FSTextArea,
   tags: ['autodocs'],
   argTypes: {

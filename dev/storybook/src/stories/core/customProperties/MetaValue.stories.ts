@@ -6,7 +6,7 @@ import FSMetaValue from "@dative-gpi/foundation-core-components/components/custo
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Core/CustomProperties/MetaValue',
+  title: 'Core/Components/CustomProperties/MetaValue',
   component: FSMetaValue,
   tags: ['autodocs'],
   argTypes: {

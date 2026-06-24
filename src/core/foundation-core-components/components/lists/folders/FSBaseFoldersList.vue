@@ -58,8 +58,6 @@ import { defineComponent, type PropType, watch } from "vue";
 
 import { useFolders } from "@dative-gpi/foundation-core-services/composables";
 
-import { DashboardType } from "@dative-gpi/foundation-shared-domain/enums";
-import { FoldersListType } from "@dative-gpi/foundation-core-components/utils";
 import type { FolderFilters, DashboardInfos } from "@dative-gpi/foundation-core-domain/models";
 
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
@@ -119,9 +117,7 @@ export default defineComponent({
       fetchingFolders,
       folders,
       onSelect,
-      isSelected,
-      FoldersListType,
-      DashboardType
+      isSelected
     };
   }
 });

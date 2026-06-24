@@ -8,7 +8,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import { TimeRules } from "@dative-gpi/foundation-shared-components/models";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TimeField',
+  title: 'Shared/Components/Input fields/TimeField',
   component: FSTimeField,
   tags: ['autodocs'],
   argTypes: {

@@ -11,8 +11,9 @@ import { type Map, divIcon, type LatLng, marker, type Marker, type MarkerCluster
 import { useColors } from "../../composables";
 import { useRouting } from '@dative-gpi/foundation-shared-services/composables';
 
-import { gpsMarkerHtml, locationMarkerHtml, pinMarkerHtml } from '../../utils/leafletMarkers';
 import { MAP, MARKERCLUSTERGROUP } from './keys';
+import { ColorEnum, type ColorBase } from '@dative-gpi/foundation-shared-components/models';
+import { gpsMarkerHtml, locationMarkerHtml, pinMarkerHtml } from '../../utils/leafletMarkers';
 
 export default {
   name: 'FSMapMarker',
@@ -23,8 +24,8 @@ export default {
       required: false
     },
     color: {
-      type: String,
-      default: 'primary',
+      type: String as PropType<ColorBase>,
+      default: ColorEnum.Primary,
       required: false
     },
     latlng: {

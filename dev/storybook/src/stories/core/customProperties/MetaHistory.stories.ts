@@ -4,7 +4,7 @@ import { EntityType, FilterType, PropertyDataType } from '@dative-gpi/foundation
 import FSMetaHistory from "@dative-gpi/foundation-core-components/components/customProperties/FSMetaHistory.vue";
 
 const meta = {
-  title: 'Foundation/Core/CustomProperties/MetaHistory',
+  title: 'Core/Components/CustomProperties/MetaHistory',
   component: FSMetaHistory,
   tags: ['autodocs'],
   argTypes: {

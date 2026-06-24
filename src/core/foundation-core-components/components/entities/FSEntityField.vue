@@ -41,7 +41,7 @@ import { defineComponent, ref, type PropType, computed } from "vue";
 
 import { EntityType } from "@dative-gpi/foundation-shared-domain/enums";
 
-import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, LocationFilters, ModelFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { DashboardExplorerElementFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, GroupingFilters, LocationFilters, ModelFilters, SubgroupingFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
 
 import FSEntityFieldUI from "@dative-gpi/foundation-shared-components/components/fields/FSEntityFieldUI.vue";
 
@@ -138,10 +138,8 @@ export default defineComponent({
           } satisfies DeviceOrganisationFilters;
         case EntityType.Dashboard:
           return {
-            dashboardOrganisationsIds: props.modelValue,
-            dashboardOrganisationTypesIds: props.modelValue,
-            dashboardShallowsIds: props.modelValue
-          } satisfies DashboardOrganisationFilters & DashboardOrganisationTypeFilters;
+            dashboardExplorerElementsIds: props.modelValue,
+          } satisfies DashboardExplorerElementFilters;
         case EntityType.Group:
           return {
             groupsIds: props.modelValue
@@ -162,6 +160,14 @@ export default defineComponent({
           return {
             modelsIds: props.modelValue
           } satisfies ModelFilters;
+        case EntityType.Grouping:
+          return {
+            groupingsIds: props.modelValue
+          } satisfies GroupingFilters;
+        case EntityType.Subgrouping:
+          return {
+            subgroupingsIds: props.modelValue
+          } satisfies SubgroupingFilters;
         default:
           return undefined;
       };

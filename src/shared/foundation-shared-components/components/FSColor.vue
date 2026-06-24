@@ -14,7 +14,7 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType } from "vue";
 
-import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type CardVariant, CardVariants, type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
 import FSCard from "./FSCard.vue";
@@ -26,9 +26,9 @@ export default defineComponent({
   },
   props: {
     variant: {
-      type: String as PropType<"standard" | "full">,
+      type: String as PropType<CardVariant>,
       required: false,
-      default: "standard"
+      default: CardVariants.Standard
     },
     color: {
       type: String as PropType<ColorBase>,

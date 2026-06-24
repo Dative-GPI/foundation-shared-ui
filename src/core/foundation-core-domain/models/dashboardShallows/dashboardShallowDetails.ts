@@ -51,7 +51,7 @@ export class DashboardShallowDetails extends DashboardShallowInfos {
 
   get widgets() {
     return this.defaultWidgets.map(d => {
-      const override = this.overrideWidgets.find(od => od.widgetId === d.id);
+      const override = this.overrideWidgets.find(od => od.hiddenCode === d.hiddenCode);
       return override ? new WidgetInfos({ ...d, ...override }) : d;
     });
   }

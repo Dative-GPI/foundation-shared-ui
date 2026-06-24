@@ -4,7 +4,7 @@ import FSAggregationSelector from "@dative-gpi/foundation-shared-components/comp
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Selects/AggregationSelector',
+  title: 'Shared/Components/Selects/AggregationSelector',
   component: FSAggregationSelector,
   tags: ['autodocs'],
   argTypes: {

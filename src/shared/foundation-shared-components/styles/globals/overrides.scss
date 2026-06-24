@@ -175,7 +175,7 @@ $nthOverlay: 25;
     color: var(--fs-group-color);
     min-width: 32px !important;
     width: 32px !important;
-    flex: 1 1 0 !important;
+    flex: 0 1 32px !important;
 
     @include touchscreen {
         display: none !important;

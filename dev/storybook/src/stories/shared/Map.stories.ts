@@ -14,7 +14,7 @@ import { uuidv4 } from '@dative-gpi/bones-ui';
 import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Map',
+  title: 'Shared/Components/Map',
   component: FSMap,
   tags: ['autodocs'],
   argTypes: {
@@ -52,7 +52,7 @@ const locations = [
     "id": "83963f32-6bd5-453d-b271-2b5a41672966",
     "label": "Dative GPI",
     "icon": "mdi-laptop",
-    "color": "primary",
+    "color": "#FF0000",
     "address": {
       "formattedAddress": "100 rue de norvège, Colombier Saugnieu, France",
       "locality": "Colombier Saugnieu",
@@ -250,7 +250,7 @@ export const MultiLocationMap: Story = {
 export const CustomPinMap: Story = {
   args: {
     currentLayer: MapLayers.Snow,
-    allowedLayers: [MapLayers.Map, MapLayers.Imagery, MapLayers.Snow],
+    allowedLayers: [MapLayers.Map, MapLayers.Imagery, MapLayers.Snow, MapLayers.OpenStreetMap],
     grayscale: false,
     enableScrollWheelZoom: true,
   },

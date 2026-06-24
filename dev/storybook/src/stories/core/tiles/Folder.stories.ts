@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSFolderTile from "@dative-gpi/foundation-core-components/components/tiles/FSFolderTile.vue";
 
 const meta = {
-  title: 'Foundation/Core/Tiles/Folder',
+  title: 'Core/Components/Tiles/Folder',
   component: FSFolderTile,
   tags: ['autodocs'],
   argTypes: {

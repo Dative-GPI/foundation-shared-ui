@@ -10,7 +10,7 @@ import { AutocompleteRules } from '@dative-gpi/foundation-shared-components/mode
 const international = ["Alpha", "Beta", "Charly", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliett", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray", "Yankee", "Zulu"];
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/AutocompleteField',
+  title: 'Shared/Components/Input fields/AutocompleteField',
   component: FSAutocompleteField,
   tags: ['autodocs'],
   argTypes: {

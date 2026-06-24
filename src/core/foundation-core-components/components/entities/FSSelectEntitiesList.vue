@@ -42,6 +42,7 @@
         :singleSelect="$props.singleSelect"
         :entity-type="$props.entityType"
         :tableCode="tableCode"
+        :selectable="true"
         :modelValue="$props.modelValue"
         @update:modelValue="$emit('update:modelValue', $event)"
         v-bind="baseTableAttrs"
@@ -64,7 +65,7 @@
 import { defineComponent, type PropType, computed } from "vue";
 
 import { EntityType } from "@dative-gpi/foundation-shared-domain/enums";
-import type { DashboardOrganisationFilters, DashboardOrganisationTypeFilters, DashboardShallowFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, LocationFilters, ModelFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
+import type { DashboardExplorerElementFilters, DeviceOrganisationFilters, FolderFilters, GroupFilters, GroupingFilters, LocationFilters, ModelFilters, SubgroupingFilters, UserOrganisationFilters } from "@dative-gpi/foundation-core-domain/models";
 
 import { TABLES as T } from "../../utils";
 
@@ -123,10 +124,8 @@ export default defineComponent({
           } satisfies DeviceOrganisationFilters;
         case EntityType.Dashboard:
           return {
-            dashboardOrganisationsIds: props.modelValue,
-            dashboardOrganisationTypesIds: props.modelValue,
-            dashboardShallowsIds: props.modelValue
-          } satisfies DashboardOrganisationFilters & DashboardOrganisationTypeFilters & DashboardShallowFilters;
+            dashboardExplorerElementsIds: props.modelValue,
+          } satisfies DashboardExplorerElementFilters;
         case EntityType.Group:
           return {
             groupsIds: props.modelValue
@@ -147,6 +146,14 @@ export default defineComponent({
           return {
             modelsIds: props.modelValue
           } satisfies ModelFilters;
+        case EntityType.Grouping:
+          return {
+            groupingsIds: props.modelValue
+          } satisfies GroupingFilters;
+        case EntityType.Subgrouping:
+          return {
+            subgroupingsIds: props.modelValue
+          } satisfies SubgroupingFilters;
         default:
           return undefined;
       };
@@ -156,6 +163,18 @@ export default defineComponent({
       switch(props.entityType) {
         case EntityType.Device:
           return T.DEVICES_SELECT;
+        case EntityType.Dashboard:
+          return T.DASHBOARDS_SELECT;
+        case EntityType.Group:
+          return T.GROUPS_SELECT;
+        case EntityType.Location:
+          return T.LOCATIONS_SELECT;
+        case EntityType.Model:
+          return T.MODELS_SELECT;
+        case EntityType.Grouping:
+          return T.GROUPINGS_SELECT;
+        case EntityType.Subgrouping:
+          return T.SUBGROUPINGS_SELECT;
         default:
           return null;
       };
@@ -170,9 +189,7 @@ export default defineComponent({
           };
         case EntityType.Dashboard:
           return {
-            dashboardShallowsFilters: props.filters,
-            dashboardOrganisationsFilters: props.filters,
-            dashboardOrganisationTypeFetchFilter: props.filters,
+            dashboardExplorerElementsFilters: props.filters,
             ...attrs
           };
         case EntityType.Group:
@@ -198,6 +215,16 @@ export default defineComponent({
         case EntityType.Model:
           return {
             modelsFilters: props.filters,
+            ...attrs
+          };
+        case EntityType.Grouping:
+          return {
+            groupingFilters: props.filters,
+            ...attrs
+          };
+        case EntityType.Subgrouping:
+          return {
+            subgroupingFilters: props.filters,
             ...attrs
           };
         default:

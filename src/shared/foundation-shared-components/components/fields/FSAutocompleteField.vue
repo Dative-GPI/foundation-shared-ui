@@ -291,6 +291,7 @@
           >
             <FSRow
               align="center-left"
+              :title="item.raw[$props.itemTitle!]"
               :wrap="false"
             >
               <FSCheckbox

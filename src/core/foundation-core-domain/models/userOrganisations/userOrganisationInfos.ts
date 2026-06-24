@@ -1,3 +1,4 @@
+import { isoToEpoch } from "@dative-gpi/foundation-shared-domain/tools";
 import type { UserType, UserValidityState } from "@dative-gpi/foundation-shared-domain/enums";
 import type { RoleType } from "@dative-gpi/foundation-shared-domain/enums";
 
@@ -23,6 +24,7 @@ export class UserOrganisationInfos {
   name: string;
   startOnKioskMode: boolean;
   tags: string[];
+  lastActivity: number | null;
 
   constructor(params: UserOrganisationInfosDTO) {
     this.id = params.id;
@@ -46,6 +48,7 @@ export class UserOrganisationInfos {
     this.name = params.name;
     this.startOnKioskMode = params.startOnKioskMode;
     this.tags = params.tags && params.tags.slice() || [];
+    this.lastActivity = params.lastActivity ? isoToEpoch(params.lastActivity) : null;
   }
 }
 
@@ -71,6 +74,7 @@ export interface UserOrganisationInfosDTO {
   name: string;
   startOnKioskMode: boolean;
   tags: string[] | null;
+  lastActivity: string | null;
 }
 
 export interface UserOrganisationFilters {

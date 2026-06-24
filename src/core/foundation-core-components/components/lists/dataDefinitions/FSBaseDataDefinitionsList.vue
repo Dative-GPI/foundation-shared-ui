@@ -28,17 +28,18 @@
     <template
       #item.tile="{ index, item }"
     >
-      <FSClickable
+      <FSCard
         :key="index"
         padding="12px"
         height="60px"
         width="233px"
-        :color="isSelected(item.id) ? ColorEnum.Primary : ColorEnum.Light"
+        :color="ColorEnum.Primary"
+        :variant="isSelected(item.id) ? CardVariants.Standard : CardVariants.Background"
         @click="$emit('update:modelValue', [item.id])"
         v-bind="$attrs"
       >
         <template
-          #default
+          #default="{ contentVariant }"
         >
           <FSRow
             align="center-center"
@@ -54,11 +55,12 @@
             <v-spacer/>
             <FSIcon
               :color="ColorEnum.Primary"
+              :variant="contentVariant"
               icon="mdi-link"
             />
           </FSRow>
         </template>
-      </FSClickable>
+      </FSCard>
     </template>
   </FSDataTable>
 </template>
@@ -67,7 +69,7 @@
 import { defineComponent, type PropType, watch } from "vue";
 import _ from "lodash";
 
-import {ColorEnum} from "@dative-gpi/foundation-shared-components/models";
+import { CardVariants, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import { useDataDefinitions } from "@dative-gpi/foundation-core-services/composables";
 import type { DataDefinitionFilters } from "@dative-gpi/foundation-core-domain/models";
@@ -76,7 +78,7 @@ import FSDataTable from "../FSDataTable.vue";
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 import FSSpan from "@dative-gpi/foundation-shared-components/components/FSSpan.vue";
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
-import FSClickable from "@dative-gpi/foundation-shared-components/components/FSClickable.vue";
+import FSCard from "@dative-gpi/foundation-shared-components/components/FSCard.vue";
 import FSButtonCheckbox from "@dative-gpi/foundation-shared-components/components/buttons/FSButtonCheckbox.vue";
 
 export default defineComponent({
@@ -84,7 +86,7 @@ export default defineComponent({
   components: {
     FSButtonCheckbox,
     FSDataTable,
-    FSClickable,
+    FSCard,
     FSSpan,
     FSIcon,
     FSRow,
@@ -123,6 +125,7 @@ export default defineComponent({
     return {
       fetchingDataDefinitions,
       dataDefinitions,
+      CardVariants,
       ColorEnum,
       isSelected
     };

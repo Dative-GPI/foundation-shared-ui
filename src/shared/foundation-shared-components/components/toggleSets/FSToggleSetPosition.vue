@@ -24,8 +24,13 @@ import type { PropType } from "vue";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { Position } from "@dative-gpi/foundation-shared-domain/enums";
 
+import FSToggleSet from "../FSToggleSet.vue";
+
 export default defineComponent({
   name: "FSToggleSetPosition",
+  components: {
+    FSToggleSet
+  },
   props: {
     modelValue: {
       type: Number as PropType<Position>,

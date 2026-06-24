@@ -5,7 +5,7 @@ import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.v
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/TreeView',
+  title: 'Shared/Components/TreeView',
   component: FSTreeView,
   tags: ['autodocs'],
   argTypes: {

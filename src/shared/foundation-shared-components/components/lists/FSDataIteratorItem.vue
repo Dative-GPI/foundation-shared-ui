@@ -63,6 +63,7 @@ import { defineComponent, type PropType } from "vue";
 import { type FSDataTableColumn } from "@dative-gpi/foundation-shared-components/models";
 
 import FSRow from "../FSRow.vue";
+import FSCol from "../FSCol.vue";
 import FSText from "../FSText.vue";
 import FSTile from '../tiles/FSTile.vue';
 
@@ -71,6 +72,7 @@ export default defineComponent({
   components: {
     FSTile,
     FSText,
+    FSCol,
     FSRow
   },
   props: {

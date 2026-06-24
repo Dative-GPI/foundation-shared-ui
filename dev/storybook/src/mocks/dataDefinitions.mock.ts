@@ -1,11 +1,9 @@
 import type { DataDefinitionInfosDTO } from "@dative-gpi/foundation-core-domain/models";
 
 import { DATACATEGORIES } from "./dataCategories.mock";
-import { MODELS } from "./models.mock";
 
 export const DATADEFINITIONS: DataDefinitionInfosDTO[] = [{
     id: "1",
-    modelId: MODELS[0].id,
     dataCategoryId: DATACATEGORIES[0].id,
     dataCategoryCode: DATACATEGORIES[0].code,
     dataCategoryLabel: DATACATEGORIES[0].label,
@@ -19,7 +17,6 @@ export const DATADEFINITIONS: DataDefinitionInfosDTO[] = [{
     mappings: []
 }, {
     id: "2",
-    modelId: MODELS[0].id,
     dataCategoryId: DATACATEGORIES[1].id,
     dataCategoryCode: DATACATEGORIES[1].code,
     dataCategoryLabel: DATACATEGORIES[1].label,
@@ -33,7 +30,6 @@ export const DATADEFINITIONS: DataDefinitionInfosDTO[] = [{
     mappings: []
 }, {
     id: "3",
-    modelId: MODELS[0].id,
     dataCategoryId: DATACATEGORIES[1].id,
     dataCategoryCode: DATACATEGORIES[1].code,
     dataCategoryLabel: DATACATEGORIES[1].label,
@@ -47,7 +43,6 @@ export const DATADEFINITIONS: DataDefinitionInfosDTO[] = [{
     mappings: []
 }, {
     id: "4",
-    modelId: MODELS[0].id,
     dataCategoryId: DATACATEGORIES[2].id,
     dataCategoryCode: DATACATEGORIES[2].code,
     dataCategoryLabel: DATACATEGORIES[2].label,
@@ -61,7 +56,6 @@ export const DATADEFINITIONS: DataDefinitionInfosDTO[] = [{
     mappings: []
 }, {
     id: "5",
-    modelId: MODELS[0].id,
     dataCategoryId: DATACATEGORIES[2].id,
     dataCategoryCode: DATACATEGORIES[2].code,
     dataCategoryLabel: DATACATEGORIES[2].label,

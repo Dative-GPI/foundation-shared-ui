@@ -6,7 +6,7 @@ import FSModelTile from '@dative-gpi/foundation-core-components/components/tiles
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 const meta: Meta<typeof FSModelTile> = {
-  title: 'Foundation/Core/Tiles/Model',
+  title: 'Core/Components/Tiles/Model',
   component: FSModelTile,
   tags: ['autodocs'],
   argTypes: {

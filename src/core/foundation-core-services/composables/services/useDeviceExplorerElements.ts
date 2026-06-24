@@ -1,8 +1,11 @@
 import { ref } from "vue";
 
-import { DeviceExplorerElementDetails, type DeviceExplorerElementDetailsDTO, type DeviceExplorerElementFilters, DeviceExplorerElementInfos, type DeviceExplorerElementInfosDTO, type DeviceOrganisationDetails, type GroupDetails } from "@dative-gpi/foundation-core-domain/models";
-import { type AddOrUpdateCallback, type DeleteCallback, type NotifyEvent, onCollectionChanged } from "@dative-gpi/bones-ui";
+import { DeviceExplorerElementDetails, type DeviceExplorerElementDetailsDTO, type DeviceExplorerElementFilters, DeviceExplorerElementInfos, type DeviceExplorerElementInfosDTO } from "@dative-gpi/foundation-core-domain/models";
+import { onCollectionChanged } from "@dative-gpi/bones-ui";
 import { ServiceFactory } from "@dative-gpi/bones-ui/core";
+
+import { createCollectionHandler } from "@dative-gpi/foundation-shared-services/tools";
+import { containsSearchTerm } from "@dative-gpi/foundation-shared-components/utils";
 
 import { DEVICE_EXPLORER_ELEMENTS_URL } from "../../config/urls";
 
@@ -42,9 +45,8 @@ export const useDeviceExplorerElements = () => {
         return (filters.value.root && !el.parentId) || (!!filters.value.parentId && filters.value.parentId == el.parentId);
       }
     
-      const fullText = `${el.label} ${el.code} ${el.tags.join(" ")}`;
       return (!filters.value.parentId || el.path.some(p => p.id === filters.value!.parentId)) &&
-        (fullText.toLowerCase().includes(filters.value.search.toLowerCase()));
+                containsSearchTerm({ label: el.label, code: el.code, tags: el.tags }, filters.value.search.toLowerCase());
     };
 
     const onCollectionChangedCustom = onCollectionChanged(entities, filterMethod);
@@ -52,29 +54,19 @@ export const useDeviceExplorerElements = () => {
     try {
       entities.value = await DeviceExplorerElementServiceFactory.getMany(filters.value);
 
-      subscribeToDeviceOrganisations("all", (ev: NotifyEvent, el: DeviceOrganisationDetails | any) => {
-        switch(ev) {
-          case "add":
-          case "update":
-            (onCollectionChangedCustom as AddOrUpdateCallback<DeviceExplorerElementInfos>)(ev, DeviceExplorerElementInfos.fromDeviceOrganisation(el));
-            break;
-          case "delete":
-            (onCollectionChangedCustom as DeleteCallback)(ev, el);
-            break;
-        }
-      });
+      subscribeToDeviceOrganisations("all", 
+        createCollectionHandler(
+          onCollectionChangedCustom, 
+          DeviceExplorerElementInfos.fromDeviceOrganisation
+        )
+      );
 
-      subscribeToGroups("all", (ev: NotifyEvent, el: GroupDetails | any) => {
-        switch(ev) {
-          case "add":
-          case "update":
-            (onCollectionChangedCustom as AddOrUpdateCallback<DeviceExplorerElementInfos>)(ev, DeviceExplorerElementInfos.fromGroup(el));
-            break;
-          case "delete":
-            (onCollectionChangedCustom as DeleteCallback)(ev, el);
-            break;
-        }
-      });
+      subscribeToGroups("all", 
+        createCollectionHandler(
+          onCollectionChangedCustom, 
+          DeviceExplorerElementInfos.fromGroup
+        )
+      );
 
       watchDevicesStatuses();
       watchDevicesConnectivity();

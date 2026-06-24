@@ -6,7 +6,7 @@ import FSTimelineItem from "@dative-gpi/foundation-shared-components/components/
 import { VTimeline } from 'vuetify/components';
 
 const meta = {
-  title: 'Foundation/Shared/Timeline',
+  title: 'Shared/Components/Timeline',
   component: FSTimeline,
   subcomponents: { FSTimelineItem },
   tags: ['autodocs'],

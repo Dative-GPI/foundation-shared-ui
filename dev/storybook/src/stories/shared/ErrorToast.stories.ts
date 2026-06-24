@@ -5,7 +5,7 @@ import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
 
 const meta = {
-  title: 'Foundation/Shared/ErrorToast',
+  title: 'Shared/Components/ErrorToast',
   component: FSErrorToast,
   tags: ['autodocs'],
 } satisfies Meta<typeof FSErrorToast>;

@@ -5,6 +5,7 @@ import { ModelStatusInfos, type ModelStatusInfosDTO } from "../modelStatuses/mod
 import { type EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 import { PathCrumb, type PathCrumbDTO } from "../shared/pathCrumb";
 import { Address, type AddressDTO } from '@dative-gpi/foundation-shared-domain';
+import { SubgroupingInfos } from "../subgroupings";
 
 export class DeviceOrganisationInfos {
   id: string;
@@ -46,6 +47,7 @@ export class DeviceOrganisationInfos {
   connectivity: DeviceConnectivityDetails;
   alerts: DeviceOrganisationAlert[];
   worstAlert: DeviceOrganisationAlert | null;
+  subgroupings: SubgroupingInfos[];
 
   constructor(params: DeviceOrganisationInfosDTO) {
     this.id = params.id;
@@ -88,6 +90,7 @@ export class DeviceOrganisationInfos {
     this.alerts = params.alerts.map(dto => new DeviceOrganisationAlert(dto));
     this.worstAlert = params.worstAlert != null ?
       new DeviceOrganisationAlert(params.worstAlert) : null;
+    this.subgroupings = params.subgroupings.map(dto => new SubgroupingInfos(dto));
   }
 }
 
@@ -131,6 +134,7 @@ export interface DeviceOrganisationInfosDTO {
   connectivity: DeviceConnectivityDetailsDTO;
   alerts: DeviceOrganisationAlertDTO[];
   worstAlert: DeviceOrganisationAlertDTO | null;
+  subgroupings: SubgroupingInfos[];
 }
 
 export interface DeviceOrganisationFilters {

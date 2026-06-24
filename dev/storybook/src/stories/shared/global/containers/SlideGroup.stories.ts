@@ -3,7 +3,7 @@ import FSSlideGroup from "@dative-gpi/foundation-shared-components/components/FS
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 
 const meta: Meta<typeof FSSlideGroup> = {
-  title: 'Foundation/Shared/Global/Containers/SlideGroup',
+  title: 'Shared/Components/Global/Containers/SlideGroup',
   component: FSSlideGroup,
   tags: ['autodocs'],
   argTypes: {

@@ -8,7 +8,7 @@ import FSButton from '@dative-gpi/foundation-shared-components/components/FSButt
 import FSRangePicker from "@dative-gpi/foundation-shared-components/components/FSRangePicker.vue";
 
 const meta = {
-  title: 'Foundation/Shared/RangePicker',
+  title: 'Shared/Components/RangePicker',
   component: FSRangePicker,
   tags: ['autodocs'],
   argTypes: {

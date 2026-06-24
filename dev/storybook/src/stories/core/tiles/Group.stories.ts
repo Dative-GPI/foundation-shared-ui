@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSGroupTile from "@dative-gpi/foundation-core-components/components/tiles/FSGroupTile.vue";
 
 const meta = {
-  title: 'Foundation/Core/Tiles/Group',
+  title: 'Core/Components/Tiles/Group',
   component: FSGroupTile,
   tags: ['autodocs'],
   argTypes: {

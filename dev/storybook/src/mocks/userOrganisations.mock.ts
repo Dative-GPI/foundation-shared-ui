@@ -20,7 +20,9 @@ export const USERORGANISATIONS: UserOrganisationInfosDTO[] = [{
   userType: 1,
   validity: 1,
   imageId: "1",
-  roleId: "1"
+  roleId: "1",
+  lastActivity: "2026-01-19T15:16:43.189058+00:00",
+  startOnKioskMode: false
 }, {
   id: "2",
   admin: false,
@@ -41,7 +43,9 @@ export const USERORGANISATIONS: UserOrganisationInfosDTO[] = [{
   userType: 1,
   validity: 1,
   imageId: "2",
-  roleId: "1"
+  roleId: "1",
+  startOnKioskMode: false,
+  lastActivity: "2026-04-15T10:30:00.000000+00:00"
 }, {
   id: "3",
   admin: false,
@@ -62,7 +66,9 @@ export const USERORGANISATIONS: UserOrganisationInfosDTO[] = [{
   userType: 1,
   validity: 1,
   imageId: "3",
-  roleId: "1"
+  roleId: "1",
+  startOnKioskMode: false,
+  lastActivity: null
 }];
 
 export const CURRENT_USERORGANISATION: UserOrganisationDetailsDTO = {
@@ -402,5 +408,7 @@ export const CURRENT_USERORGANISATION: UserOrganisationDetailsDTO = {
   "firstName": "DATIVEs",
   "lastName": "GPIs",
   "name": "DATIVEs GPIs",
-  "tags": []
+  "tags": [],
+  startOnKioskMode: false,
+  lastActivity: null
 }

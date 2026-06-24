@@ -28,10 +28,18 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    variant: {
+      type: String as () => "fill" | "outline",
+      required: false,
+      default: "outline"
     }
   },
   setup(props) {
     const icon = computed((): string => {
+      if (props.variant === "fill") {
+        return props.value ? "mdi-check-circle" : "mdi-close-circle";
+      }
       return props.value ? "mdi-check-circle-outline" : "mdi-close-circle-outline";
     });
 

@@ -11,7 +11,7 @@
     :label="entity.label"
     :code="entity.code"
     :color="entity.color"
-    :address="entity.address.placeLabel"
+    :address="entity.address.formattedAddress"
     :deviceCount="entity.deviceOrganisationsCount"
     :selectable="$props.selectable"
     :modelValue="modelValue"
@@ -51,6 +51,7 @@ export default defineComponent({
     }
   },
   emits: ['update:modelValue'],
+  inheritAttrs: false,
   setup(props) {
     const { get, getting, entity } = useLocation();
 

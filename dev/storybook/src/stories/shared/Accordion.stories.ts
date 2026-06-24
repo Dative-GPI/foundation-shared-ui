@@ -9,7 +9,7 @@ import { addSubcomponentsArgTypes } from '@/utils/properties';
 import { VExpansionPanels } from 'vuetify/components';
 
 const meta: Meta<typeof FSAccordion> = {
-  title: 'Foundation/Shared/Accordion',
+  title: 'Shared/Components/Accordion',
   component: FSAccordion,
   tags: ['autodocs'],
   argTypes: {

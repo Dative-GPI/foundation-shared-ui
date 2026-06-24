@@ -7,7 +7,7 @@ import { useAddress } from '@dative-gpi/foundation-shared-components/composables
 import { ref } from 'vue';
 
 const meta = {
-  title: 'Foundation/Shared/Autocompletes/AutocompleteAddress',
+  title: 'Shared/Components/Autocompletes/AutocompleteAddress',
   component: FSAutocompleteAddress,
   tags: ['autodocs'],
   argTypes: {

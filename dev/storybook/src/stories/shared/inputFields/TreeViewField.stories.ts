@@ -9,7 +9,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import { TreeViewRules } from '@dative-gpi/foundation-shared-components/models';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TreeViewField',
+  title: 'Shared/Components/Input fields/TreeViewField',
   component: FSTreeViewField,
   tags: ['autodocs'],
   argTypes: {

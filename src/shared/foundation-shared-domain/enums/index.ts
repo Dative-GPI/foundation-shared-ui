@@ -5,6 +5,7 @@ export * from "./applications";
 export * from "./charts";
 export * from "./connectivities";
 export * from "./customProperties";
+export * from "./dashboardExplorerElements";
 export * from "./dashboards";
 export * from "./datas";
 export * from "./dates";

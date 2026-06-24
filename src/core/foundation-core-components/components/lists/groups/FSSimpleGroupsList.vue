@@ -26,6 +26,7 @@ export default defineComponent({
       default: () => ({})
     }
   },
+  innheritAttrs: false,
   setup(props){
     const { entities: groups, getMany, fetching } = useGroups();
 

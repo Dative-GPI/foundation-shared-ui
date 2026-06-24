@@ -6,7 +6,7 @@ import FSSimpleList from "@dative-gpi/foundation-shared-components/components/li
 import FSTile from "@dative-gpi/foundation-shared-components/components/tiles/FSTile.vue";
 
 const meta: Meta<typeof FSSimpleUserOrganisationsList> = {
-  title: "Foundation/Core/Lists/Simple Lists/SimpleUserOrganisationsList",
+  title: "Core/Components/Lists/Simple Lists/SimpleUserOrganisationsList",
   component: FSSimpleUserOrganisationsList,
   subcomponents: { FSSimpleList, FSTile },
   tags: ["autodocs"],

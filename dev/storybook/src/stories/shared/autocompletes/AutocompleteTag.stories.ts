@@ -4,7 +4,7 @@ import FSAutocompleteTag from "@dative-gpi/foundation-shared-components/componen
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/AutocompleteTag',
+  title: 'Shared/Components/Input fields/AutocompleteTag',
   component: FSAutocompleteTag,
   tags: ['autodocs'],
   argTypes: {

@@ -135,36 +135,25 @@
         />
       </FSRow>
     </FSRow>
-    <FSClickable
+    <template
       v-else
-      borderStyle="dashed"
-      variant="background"
-      :height="$props.height"
-      :width="$props.width"
-      @click="() => invisibleButtonRef.input.click()"
     >
-      <FSRow
-        align="center-center"
-        :wrap="false"
-      >
-        <FSIcon>
-          mdi-plus-box-outline
-        </FSIcon>
-        <FSText
-          font="text-body"
-          :lineClamp="2"
-        >
-          {{ $tr('edit-image.add-image', 'Add an image.') }}
-        </FSText>
-        <FSButtonFileMini
-          class="fs-edit-image-hidden-button"
-          ref="invisibleButtonRef"
-          accept=".jpg,.jpeg,.png"
-          :readFile="false"
-          @update:metadata="onUpload"
-        />
-      </FSRow>
-    </FSClickable>
+      <FSButtonFileMini
+        class="fs-edit-image-hidden-button"
+        ref="invisibleButtonRef"
+        accept=".jpg,.jpeg,.png"
+        :readFile="false"
+        @update:metadata="onUpload"
+      />
+      <FSCardPlaceholder
+        v-if="invisibleButtonRef"
+        :height="$props.height"
+        :width="$props.width"
+        icon="mdi-plus-box-outline"
+        :label="$tr('edit-image.add-image', 'Add an image.')"
+        @click="() => invisibleButtonRef!.input.click()"
+      />
+    </template>
   </FSCol>
 </template>
 
@@ -177,10 +166,11 @@ import { useFiles } from "@dative-gpi/foundation-shared-services/composables";
 
 import FSButtonRemoveMini from "./buttons/FSButtonRemoveMini.vue";
 import FSButtonFileMini from "./buttons/FSButtonFileMini.vue";
-import FSClickable from "./FSClickable.vue";
+import FSCardPlaceholder from "./FSCardPlaceholder.vue";
 import FSImageUI from "./FSImageUI.vue";
 import FSCard from "./FSCard.vue";
 import FSText from "./FSText.vue";
+import FSSpan from "./FSSpan.vue";
 import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
@@ -188,11 +178,12 @@ export default defineComponent({
   name: "FSEditImageUI",
   components: {
     FSButtonRemoveMini,
+    FSCardPlaceholder,
     FSButtonFileMini,
-    FSClickable,
     FSImageUI,
     FSCard,
     FSText,
+    FSSpan,
     FSCol,
     FSRow
   },

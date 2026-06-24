@@ -29,6 +29,7 @@ const DashboardOrganisationTypeServiceFactory = new ServiceFactory<DashboardOrga
 
 export const useDashboardOrganisationType = ComposableFactory.get(DashboardOrganisationTypeServiceFactory);
 export const useDashboardOrganisationTypes = ComposableFactory.getMany(DashboardOrganisationTypeServiceFactory);
+export const useSubscribeToDashboardOrganisationTypes = ComposableFactory.subscribe(DashboardOrganisationTypeServiceFactory);
 export const useUpdateDashboardOrganisationType = ComposableFactory.update(DashboardOrganisationTypeServiceFactory);
 export const useRemoveDashboardOrganisationType = ComposableFactory.remove(DashboardOrganisationTypeServiceFactory);
 export const usePublishDashboardOrganisationType = ComposableFactory.custom(DashboardOrganisationTypeServiceFactory.publish);

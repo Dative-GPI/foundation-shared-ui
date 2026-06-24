@@ -5,7 +5,7 @@ import FSText from "@dative-gpi/foundation-shared-components/components/FSText.v
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Global/Texts',
+  title: 'Shared/Components/Global/Texts',
   component: FSSpan,
   tags: ['autodocs'],
   argTypes: {

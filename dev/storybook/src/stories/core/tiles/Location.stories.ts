@@ -6,7 +6,7 @@ import FSLocationTile from '@dative-gpi/foundation-core-components/components/ti
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 const meta: Meta<typeof FSLocationTile> = {
-  title: 'Foundation/Core/Tiles/Location',
+  title: 'Core/Components/Tiles/Location',
   component: FSLocationTile,
   tags: ['autodocs'],
   argTypes: {

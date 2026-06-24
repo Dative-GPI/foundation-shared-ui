@@ -4,7 +4,7 @@
     :toggleSet="!$props.toggleSetDisabled && toggleSet"
     :multiple="$props.multiple"
     :placeholder="placeholder"
-    :items="dataCategories"
+    :items="items"
     :loading="loading"
     :modelValue="$props.modelValue"
     @update:modelValue="onUpdate"
@@ -124,6 +124,15 @@ export default defineComponent({
       return getManyDataCategories({ ...props.dataCategoriesFilters, search: search ?? undefined });
     };
 
+    const items = computed(() => dataCategories.value.map((dataCategory) => {
+      const modelsLabel = dataCategory.models.map((m) => m.label).join(", ");
+      return {
+        id: dataCategory.id,
+        label: modelsLabel ? `${dataCategory.label} (${modelsLabel})` : dataCategory.label,
+        correlated: dataCategory.correlated
+      };
+    }));
+
     const { toggleSet, init, onUpdate } = useAutocomplete(
       dataCategories,
       [() => props.dataCategoriesFilters],
@@ -132,7 +141,7 @@ export default defineComponent({
     );
 
     return {
-      dataCategories,
+      items,
       placeholder,
       ColorEnum,
       toggleSet,

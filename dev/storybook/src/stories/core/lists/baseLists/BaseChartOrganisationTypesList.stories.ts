@@ -7,7 +7,7 @@ import FSDataTableUI from '@dative-gpi/foundation-shared-components/components/l
 import FSBaseChartOrganisationTypesList from "@dative-gpi/foundation-core-components/components/lists/chartOrganisationTypes/FSBaseChartOrganisationTypesList.vue";
 
 const meta: Meta<typeof FSBaseChartOrganisationTypesList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseChartOrganisationTypesList',
+  title: 'Core/Components/Lists/Base Lists/BaseChartOrganisationTypesList',
   component: FSBaseChartOrganisationTypesList,
   subcomponents: { FSDataTable },
   tags: ['autodocs'],

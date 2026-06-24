@@ -4,7 +4,7 @@ import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FS
 import FSLocationTileUI from '@dative-gpi/foundation-shared-components/components/tiles/FSLocationTileUI.vue';
 
 const meta: Meta<typeof FSLocationTileUI> = {
-  title: 'Foundation/Shared/Tiles/Location',
+  title: 'Shared/Components/Tiles/Location',
   component: FSLocationTileUI,
   subcomponents: { FSTile },
   tags: ['autodocs'],

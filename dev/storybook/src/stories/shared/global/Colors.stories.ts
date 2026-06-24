@@ -5,7 +5,7 @@ import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Global/Colors',
+  title: 'Shared/Components/Global/Colors',
   tags: ['autodocs'],
   argTypes: {
     onClick: { action: 'clicked' }

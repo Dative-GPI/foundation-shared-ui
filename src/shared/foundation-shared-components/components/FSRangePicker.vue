@@ -89,6 +89,7 @@ import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { computeTicks, TimePrecision } from '@dative-gpi/foundation-shared-components/utils';
 
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
+import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
 import FSPlayButtons from '@dative-gpi/foundation-shared-components/components/FSPlayButtons.vue';
@@ -100,6 +101,7 @@ export default defineComponent({
   name: "FSRangePicker",
   components: {
     FSCol,
+    FSRow,
     FSSpan,
     FSText,
     FSTermField,

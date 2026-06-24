@@ -4,20 +4,20 @@ import { MODELS } from "./models.mock";
 
 export const DATACATEGORIES: DataCategoryInfosDTO[] = [{
     id: "1",
-    modelId: MODELS[0].id,
     code: "power",
     label: "Power",
-    correlated: false
+    correlated: false,
+    models: [MODELS[0]]
 }, {
     id: "2",
-    modelId: MODELS[0].id,
     code: "temperatures",
     label: "Temperatures",
-    correlated: true
+    correlated: true,
+    models: [MODELS[1]]
 }, {
     id: "3",
-    modelId: MODELS[0].id,
     code: "energies",
     label: "Energies",
-    correlated: true
+    correlated: true,
+    models: [MODELS[1], MODELS[0]]
 }];

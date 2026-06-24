@@ -99,6 +99,7 @@ import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composa
 import FSFadeOut from "./FSFadeOut.vue";
 import FSButton from "./FSButton.vue";
 import FSForm from "./FSForm.vue";
+import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
 export default defineComponent({
@@ -107,6 +108,7 @@ export default defineComponent({
     FSFadeOut,
     FSButton,
     FSForm,
+    FSCol,
     FSRow
   },
   props: {

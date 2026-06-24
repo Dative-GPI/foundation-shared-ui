@@ -1,5 +1,3 @@
-import type { ChartModelLabelDTO } from "./chartModelLabel";
-import { ChartModelLabel } from "./chartModelLabel";
 import type { ApplicationScope } from "@dative-gpi/foundation-shared-domain/enums";
 import type { ChartType } from "@dative-gpi/foundation-shared-domain/enums";
 
@@ -18,7 +16,6 @@ export class ChartInfos {
   tags: string[];
   multiple: boolean;
   chartType: ChartType;
-  modelsLabels: ChartModelLabel[];
 
   constructor(params: ChartInfosDTO) {
     this.id = params.id;
@@ -35,7 +32,6 @@ export class ChartInfos {
     this.tags = params.tags.slice();
     this.multiple = params.multiple;
     this.chartType = params.chartType;
-    this.modelsLabels = params.modelsLabels.map((modelLabel) => new ChartModelLabel(modelLabel));
   }
 }
 
@@ -54,5 +50,4 @@ export interface ChartInfosDTO {
   tags: string[];
   multiple: boolean;
   chartType: ChartType;
-  modelsLabels: ChartModelLabelDTO[];
 }

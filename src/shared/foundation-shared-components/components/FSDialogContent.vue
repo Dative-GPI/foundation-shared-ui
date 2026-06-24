@@ -6,37 +6,46 @@
     :color="$props.color"
     :width="cardWidth"
   >
-    <template
-      #header
-    >
-      <FSCol>
-        <FSRow
-          align="center-left"
-          :wrap="false"
-        >
-          <FSText
-            font="text-h2"
-          >
-            {{ $props.title }}
-          </FSText>
+    <FSCol>
+      <slot
+        name="header"
+        v-bind="{ title: $props.title, subtitle: $props.subtitle }"
+      >
+        <FSCol>
           <FSRow
-            align="center-right"
+            align="center-left"
+            :wrap="false"
           >
-            <FSButton
-              icon="mdi-close"
-              variant="icon"
-              :color="ColorEnum.Dark"
-              @click="$emit('update:modelValue', false)"
-            />
+            <FSText
+              font="text-h2"
+            >
+              {{ $props.title }}
+            </FSText>
+            <FSRow
+              align="center-right"
+            >
+              <FSButton
+                icon="mdi-close"
+                variant="icon"
+                :color="ColorEnum.Dark"
+                @click="$emit('update:modelValue', false)"
+              />
+            </FSRow>
           </FSRow>
-        </FSRow>
-        <FSText
-          v-if="$props.subtitle"
-        >
-          {{ $props.subtitle }}
-        </FSText>
-      </FSCol>
-    </template>
+          <FSText
+            v-if="$props.subtitle"
+          >
+            {{ $props.subtitle }}
+          </FSText>
+        </FSCol>
+      </slot>
+      <slot
+        name="body"
+      />
+      <slot
+        name="footer"
+      />
+    </FSCol>
     <template
       v-for="(_, name) in $slots"
       v-slot:[name]="slotData"
@@ -59,6 +68,7 @@ import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 import FSButton from "./FSButton.vue";
 import FSCard from "./FSCard.vue";
 import FSText from "./FSText.vue";
+import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
 export default defineComponent({
@@ -67,6 +77,7 @@ export default defineComponent({
     FSButton,
     FSCard,
     FSText,
+    FSCol,
     FSRow
   },
   props: {

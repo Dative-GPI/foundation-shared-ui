@@ -4,7 +4,7 @@ import FSTimeRangeField from "@dative-gpi/foundation-shared-components/component
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TimeRangeField',
+  title: 'Shared/Components/Input fields/TimeRangeField',
   component: FSTimeRangeField,
   tags: ['autodocs'],
   argTypes: {

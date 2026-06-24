@@ -6,7 +6,7 @@ import FSSimpleTileUI from '@dative-gpi/foundation-shared-components/components/
 import { ChartType } from '@dative-gpi/foundation-shared-domain/enums';
 
 const meta = {
-  title: 'Foundation/Shared/Tiles/Chart',
+  title: 'Shared/Components/Tiles/Chart',
   component: FSChartTileUI,
   tags: ['autodocs'],
   argTypes: {

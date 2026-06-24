@@ -64,6 +64,7 @@ import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSImage from "../FSImage.vue";
 import FSSpan from "../FSSpan.vue";
+import FSIcon from "../FSIcon.vue";
 import FSTile from "./FSTile.vue";
 import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
@@ -73,6 +74,7 @@ export default defineComponent({
   components: {
     FSImage,
     FSSpan,
+    FSIcon,
     FSTile,
     FSCol,
     FSRow

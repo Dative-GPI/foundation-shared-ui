@@ -10,7 +10,8 @@ export interface MapLayer {
 export enum MapLayers {
   Map = "map",
   Imagery = "imagery",
-  Snow= "snow"
+  Snow= "snow",
+  OpenStreetMap = "open-street-map"
 }
 
 export enum MapOverlayPositions {

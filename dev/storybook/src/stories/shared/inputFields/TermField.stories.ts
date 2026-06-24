@@ -14,7 +14,7 @@ import FSTextField from '@dative-gpi/foundation-shared-components/components/fie
 import FSAutocompleteTimeZone from '@dative-gpi/foundation-shared-components/components/autocompletes/FSAutocompleteTimeZone.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/TermField',
+  title: 'Shared/Components/Input fields/TermField',
   component: FSTermField,
   tags: ['autodocs'],
   argTypes: {

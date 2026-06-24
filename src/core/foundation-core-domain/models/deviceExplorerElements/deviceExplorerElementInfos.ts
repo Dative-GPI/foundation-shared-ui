@@ -75,35 +75,19 @@ export class DeviceExplorerElementInfos {
     this.worstAlert = params.worstAlert ? new DeviceOrganisationAlert(params.worstAlert) : null;
   }
 
-  static fromDeviceOrganisation = (deviceOrganisation: DeviceOrganisationInfos): DeviceExplorerElementInfos => ({
+  static fromDeviceOrganisation = (deviceOrganisation: DeviceOrganisationInfos): DeviceExplorerElementInfos => new DeviceExplorerElementInfos({
     ...deviceOrganisation,
     type: DeviceExplorerElementType.DeviceOrganisation,
     parentId: deviceOrganisation.groupId,
-    icon: null,
-    groupsIds: null,
-    deviceOrganisationsIds: null,
-    modelsIds: null,
-    recursiveGroupsIds: null,
-    recursiveDeviceOrganisationsIds: null,
-    recursiveModelsIds: null
-  });
-
-  static fromGroup = (group: GroupInfos): DeviceExplorerElementInfos => ({
-    ...group,
-    type: DeviceExplorerElementType.Group,
-    manufacturerLabel: null,
-    articleLabel:  null,
-    modelLabel: null,
-    ownerLabel: null,
-    managerName: null,
-    unrestricted: null,
-    online: null,
-    meta: null,
-    modelStatuses: null,
     status: null,
     connectivity: null,
     alerts: null,
     worstAlert: null
+  });
+
+  static fromGroup = (group: GroupInfos): DeviceExplorerElementInfos => new DeviceExplorerElementInfos({
+    ...group,
+    type: DeviceExplorerElementType.Group
   });
 }
 

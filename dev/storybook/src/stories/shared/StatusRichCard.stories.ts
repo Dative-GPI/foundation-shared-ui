@@ -5,7 +5,7 @@ import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.v
 import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 
 const meta = {
-  title: 'Foundation/Shared/StatusRichCard',
+  title: 'Shared/Components/StatusRichCard',
   component: FSStatusRichCard,
   tags: ['autodocs'],
   argTypes: {

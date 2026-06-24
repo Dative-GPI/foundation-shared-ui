@@ -116,6 +116,29 @@
       </FSSpan>
     </template>
     <template
+      #item.subgroupings="{ item }"
+    >
+      <FSSubgroupingsChipGroup
+        :subgroupings="item.subgroupings"
+      />
+    </template>
+    <template
+      #filter.subgroupings-custom="{ filter, toggle, variant }"
+    >
+      <FSSubgroupingChip
+        v-if="filter.value && subgroupingMap[filter.value]"
+        width="100%"
+        :groupingLabel="subgroupingMap[filter.value].groupingLabel"
+        :groupingIcon="subgroupingMap[filter.value].groupingIcon"
+        :groupingColor="subgroupingMap[filter.value].groupingColor"
+        :label="subgroupingMap[filter.value].label"
+        :icon="subgroupingMap[filter.value].icon"
+        :color="'primary'"
+        :variant="variant"
+        @click="toggle()"
+      />
+    </template>
+    <template
       #item.actions="{ item }"
     >
       <slot
@@ -188,15 +211,19 @@ import FSDeviceOrganisationTileUI from "@dative-gpi/foundation-shared-components
 import FSStatusesCarousel from "@dative-gpi/foundation-shared-components/components/deviceOrganisations/FSStatusesCarousel.vue";
 import FSConnectivity from "@dative-gpi/foundation-shared-components/components/deviceOrganisations/FSConnectivity.vue";
 import FSWorstAlert from "@dative-gpi/foundation-shared-components/components/deviceOrganisations/FSWorstAlert.vue";
+import FSSubgroupingChip from "@dative-gpi/foundation-shared-components/components/FSSubgroupingChip.vue";
 import FSIconCheck from "@dative-gpi/foundation-shared-components/components/FSIconCheck.vue";
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
+import FSSubgroupingsChipGroup from "../subgroupings/FSSubgroupingsChipGroup.vue";
 
 export default defineComponent({
   name: "FSBaseDeviceOrganisationsList",
   components: {
     FSDeviceOrganisationTileUI,
+    FSSubgroupingsChipGroup,
+    FSSubgroupingChip,
     FSStatusesCarousel,
     FSConnectivity,
     FSWorstAlert,
@@ -261,7 +288,33 @@ export default defineComponent({
       return entities.value;
     });
 
-    const headersOptions = computed(() => ({
+    const subgroupingFilters = computed(() => {
+      const filters: { value: string | null, text: string }[] = [{
+        value: null,
+        text: "—"
+      }];
+      
+      const uniqueSubgroupings = _.uniqBy(
+        entities.value.flatMap(device => device.subgroupings),
+        'id'
+      );
+      
+      filters.push(...uniqueSubgroupings.map(subgrouping => ({
+        value: subgrouping.id,
+        text: `${subgrouping.groupingLabel} - ${subgrouping.label}`
+      })));
+      
+      return filters.sort((a, b) => a.text.localeCompare(b.text));
+    });
+
+    const subgroupingMap = computed(() => {
+      return _.chain(entities.value)
+        .flatMap(device => device.subgroupings)
+        .keyBy('id')
+        .value();
+    });
+
+    const headersOptions = computed((): Record<string, any> => ({
       status: {
         fixedFilters: [{
           value: true,
@@ -339,6 +392,17 @@ export default defineComponent({
         },
         sort: (a: DeviceOrganisationAlert, b: DeviceOrganisationAlert) => alphanumericSort(a?.criticity, b?.criticity)
       },
+      subgroupings: {
+
+        fixedFilters: subgroupingFilters.value,
+        methodFilterRaw: (value: string | null, item: DeviceOrganisationInfos) => {
+          if (!value) {
+            return item.subgroupings.length === 0;
+          }
+          return item.subgroupings.some(s => s.id === value);
+        },
+        sort: (a: any[], b: any[]) => a.length - b.length
+      },
       ...customProperties.value.reduce((acc, cp) => ({
         ...acc,
         [`meta.${cp.code}`]: {
@@ -382,6 +446,7 @@ export default defineComponent({
       deviceOrganisations,
       ConnectivityStatus,
       customProperties,
+      subgroupingMap,
       headersOptions,
       isSelected
     };

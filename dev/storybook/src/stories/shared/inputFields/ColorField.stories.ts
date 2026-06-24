@@ -4,7 +4,7 @@ import FSColorField from "@dative-gpi/foundation-shared-components/components/fi
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/ColorField',
+  title: 'Shared/Components/Input fields/ColorField',
   component: FSColorField,
   tags: ['autodocs'],
   argTypes: {

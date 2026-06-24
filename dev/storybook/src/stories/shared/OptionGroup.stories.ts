@@ -6,7 +6,7 @@ import FSButton from "@dative-gpi/foundation-shared-components/components/FSButt
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
 
 const meta = {
-  title: 'Foundation/Shared/OptionGroup',
+  title: 'Shared/Components/OptionGroup',
   component: FSOptionGroup,
   tags: ['autodocs'],
   argTypes: {

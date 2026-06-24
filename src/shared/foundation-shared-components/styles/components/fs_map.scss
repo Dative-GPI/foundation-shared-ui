@@ -27,12 +27,18 @@
     transition: height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .fs-map-overlay-desktop {
+.fs-map-overlay-desktop {
     position: absolute;
     top: 0;
     left: 0;
     margin: 12px;
     max-height: calc(100% - 24px);
+    display: flex;
+    flex-direction: column;
+
+    .fs-card {
+      min-height: 0;
+    }
   }
 
   .fs-map-layer-button {

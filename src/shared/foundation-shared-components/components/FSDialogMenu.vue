@@ -10,6 +10,11 @@
       :color="$props.color"
       :class="classes"
     >
+      <FSCol>
+        <slot
+          name="body"
+        />
+      </FSCol>
       <template
         v-for="(_, name) in $slots"
         v-slot:[name]="slotData"
@@ -30,11 +35,13 @@ import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-compone
 import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composables";
 
 import FSCard from "./FSCard.vue";
+import FSCol from "./FSCol.vue";
 
 export default defineComponent({
   name: "FSDialogMenu",
   components: {
-    FSCard
+    FSCard,
+    FSCol
   },
   props: {
     classes: {

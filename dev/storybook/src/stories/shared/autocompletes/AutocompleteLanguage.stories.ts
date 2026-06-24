@@ -4,7 +4,7 @@ import FSAutocompleteLanguage from "@dative-gpi/foundation-shared-components/com
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Autocompletes/AutocompleteLanguage',
+  title: 'Shared/Components/Autocompletes/AutocompleteLanguage',
   component: FSAutocompleteLanguage,
   tags: ['autodocs'],
   argTypes: {

@@ -1,0 +1,8 @@
+{
+    "components": {
+        "FSChart": {
+            "from": "@dative-gpi/foundation-shared-visualization/components/FSChart.vue"
+        }
+    },
+    "directives": []
+}

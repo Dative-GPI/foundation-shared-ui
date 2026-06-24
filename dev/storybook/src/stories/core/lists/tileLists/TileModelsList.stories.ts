@@ -6,7 +6,7 @@ import FSTileList from '@dative-gpi/foundation-shared-components/components/list
 import FSTileModelsList from "@dative-gpi/foundation-core-components/components/lists/models/FSTileModelsList.vue";
 
 const meta: Meta<typeof FSTileModelsList> = {
-  title: 'Foundation/Core/Lists/Tile Lists/TileModelsList',
+  title: 'Core/Components/Lists/Tile Lists/TileModelsList',
   component: FSTileModelsList,
   tags: ['autodocs'],
   argTypes: {

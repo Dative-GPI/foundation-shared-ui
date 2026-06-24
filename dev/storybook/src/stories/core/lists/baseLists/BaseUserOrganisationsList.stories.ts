@@ -4,7 +4,7 @@ import FSBaseUserOrganisationsList from "@dative-gpi/foundation-core-components/
 import FSDataTable from '@dative-gpi/foundation-core-components/components/lists/FSDataTable.vue';
 
 const meta: Meta<typeof FSBaseUserOrganisationsList> = {
-  title: 'Foundation/Core/Lists/Base Lists/BaseUserOrganisationsList',
+  title: 'Core/Components/Lists/Base Lists/BaseUserOrganisationsList',
   component: FSBaseUserOrganisationsList,
   subcomponents: { FSDataTable },
   tags: ['autodocs'],

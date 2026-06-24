@@ -1,19 +1,7 @@
 <template>
-  <a
-    v-if="$props.href"
-    :href="$props.href"
-    :class="classes"
-    :style="style"
-  >
-    <slot>
-      <FSSpan>
-        {{ $props.label }}
-      </FSSpan>
-    </slot>
-  </a>
   <FSRouterLink
-    v-else-if="$props.to"
     :to="$props.to"
+    :href="$props.href"
     :class="classes"
     :style="style"
     v-bind="$attrs"

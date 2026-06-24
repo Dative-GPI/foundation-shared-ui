@@ -57,6 +57,18 @@ export const useMapLayers = () => {
               className: 'fs-map-tile-base-layer'
             })
           ]
+        },
+        {
+          name: MapLayers.OpenStreetMap,
+          label: $tr("ui.map-layer.open-street-map", "OpenStreetMap"),
+          image: new URL("../assets/images/map/open-street-map.png", import.meta.url).href,
+          layers: [
+            tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
+              maxZoom: 19,
+              attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+              className: 'fs-map-tile-base-layer'
+            })
+          ]
         }
       ];
     } catch (err) {

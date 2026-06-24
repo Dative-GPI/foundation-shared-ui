@@ -1,5 +1,5 @@
 <template>
-  <FSClickable
+  <FSCard
     class="fs-image-card"
     :height="height"
     :width="width"
@@ -22,20 +22,20 @@
         </FSSpan>
       </FSRow>
     </FSRow>
-  </FSClickable>
+  </FSCard>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
-import FSClickable from "./FSClickable.vue";
+import FSCard from "./FSCard.vue";
 import FSSpan from "./FSSpan.vue";
 import FSRow from "./FSRow.vue";
 
 export default defineComponent({
   name: "FSImageCard",
   components: {
-    FSClickable,
+    FSCard,
     FSSpan,
     FSRow
   },

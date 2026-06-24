@@ -40,6 +40,7 @@ import { useBreakpoints } from "@dative-gpi/foundation-shared-components/composa
 import type { FSGridMosaic } from "@dative-gpi/foundation-shared-components/models";
 
 import FSGrid from "./FSGrid.vue";
+import FSText from "./FSText.vue";
 import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
@@ -47,6 +48,7 @@ export default defineComponent({
   name: "FSGridMosaic",
   components: {
     FSGrid,
+    FSText,
     FSCol,
     FSRow
   },

@@ -68,6 +68,7 @@ import { ApplicationScope, ChartType } from "@dative-gpi/foundation-shared-domai
 import { chartIcon } from "@dative-gpi/foundation-shared-components/tools";
 
 import FSImage from "../FSImage.vue";
+import FSIcon from "../FSIcon.vue";
 import FSTile from "./FSTile.vue";
 import FSSpan from "../FSSpan.vue";
 import FSRow from "../FSRow.vue";
@@ -80,6 +81,7 @@ export default defineComponent({
   name: "FSChartTileUI",
   components: {
     FSImage,
+    FSIcon,
     FSTile,
     FSRow,
     FSCol,

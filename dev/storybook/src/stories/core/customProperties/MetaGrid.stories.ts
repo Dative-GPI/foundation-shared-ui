@@ -5,7 +5,7 @@ import FSIcon from '@dative-gpi/foundation-shared-components/components/FSIcon.v
 import { FilterType, PropertyDataType, PropertyEntity } from '@dative-gpi/foundation-shared-domain/enums';
 
 const meta = {
-  title: 'Foundation/Core/CustomProperties/MetaGrid',
+  title: 'Core/Components/CustomProperties/MetaGrid',
   component: FSMetaGrid,
   tags: ['autodocs'],
   argTypes: {

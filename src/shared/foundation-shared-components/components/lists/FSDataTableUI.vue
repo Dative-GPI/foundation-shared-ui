@@ -98,6 +98,14 @@
             @update:filter="(value) => toggleFilter(header.value, value)"
           >
             <template
+              #custom="{ filter, toggle, variant }"
+            >
+              <slot
+                :name="`${filterSlot(header)}-custom`"
+                v-bind="{ filter, toggle, variant }"
+              />
+            </template>
+            <template
               #default="{ filter }"
             >
               <slot
@@ -741,10 +749,12 @@ import FSFilterButton from "./FSFilterButton.vue";
 import FSHiddenButton from "./FSHiddenButton.vue";
 import FSHeaderButton from "./FSHeaderButton.vue";
 import FSOptionGroup from "../FSOptionGroup.vue";
+import FSSlideGroup from "../FSSlideGroup.vue";
 import FSToggleSet from "../FSToggleSet.vue";
 import FSDraggable from "./FSDraggable.vue";
 import FSCheckbox from "../FSCheckbox.vue";
 import FSDivider from "../FSDivider.vue";
+import FSButton from '../FSButton.vue';
 import FSCard from "../FSCard.vue";
 import FSChip from "../FSChip.vue";
 import FSIcon from "../FSIcon.vue";
@@ -763,10 +773,12 @@ export default defineComponent({
     FSSearchField,
     FSSelectField,
     FSOptionGroup,
+    FSSlideGroup,
     FSDraggable,
     FSToggleSet,
     FSCheckbox,
     FSDivider,
+    FSButton,
     FSCard,
     FSChip,
     FSIcon,

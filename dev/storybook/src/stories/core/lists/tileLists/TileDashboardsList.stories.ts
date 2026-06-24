@@ -6,7 +6,7 @@ import FSTileList from '@dative-gpi/foundation-shared-components/components/list
 import FSTileDashboardsList from "@dative-gpi/foundation-core-components/components/lists/dashboards/FSTileDashboardsList.vue";
 
 const meta: Meta<typeof FSTileDashboardsList> = {
-  title: 'Foundation/Core/Lists/Tile Lists/TileDashboardsList',
+  title: 'Core/Components/Lists/Tile Lists/TileDashboardsList',
   component: FSTileDashboardsList,
   tags: ['autodocs'],
   argTypes: {
@@ -33,8 +33,5 @@ export const Default: Story = {
   }),
   args: {
     modelValue: [],
-    dashboardOrganisationFilters: {},
-    dashboardOrganisationTypeFilters: {},
-    dashboardShallowFilters: {},
   }
 };

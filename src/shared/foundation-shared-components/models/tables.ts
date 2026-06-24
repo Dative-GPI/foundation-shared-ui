@@ -26,6 +26,7 @@ export interface FSDataTableFilter {
   text: string;
   value: string;
   hidden: boolean;
+  custom?: boolean;
   filter?: ((value: any, property: any, item: any) => boolean) | null;
 }
 

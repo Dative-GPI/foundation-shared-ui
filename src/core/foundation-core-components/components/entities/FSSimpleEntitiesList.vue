@@ -43,6 +43,10 @@ export default defineComponent({
           return defineAsyncComponent(() => import("../lists/locations/FSSimpleLocationsList.vue"));
         case EntityType.Model:
           return defineAsyncComponent(() => import("../lists/models/FSSimpleModelsList.vue"));
+        case EntityType.Grouping:
+          return defineAsyncComponent(() => import("../lists/groupings/FSSimpleGroupingsList.vue"));
+        case EntityType.Subgrouping:
+          return defineAsyncComponent(() => import("../lists/subgroupings/FSSimpleSubgroupingsList.vue"));
         default:
           return null;
       };
@@ -58,8 +62,7 @@ export default defineComponent({
         case EntityType.Dashboard:
           return {
             ...attrs,
-            dashboardOrganisationFilters : props.filters,
-            dashboardOrganisationTypeFilters : props.filters
+            dashboardExplorerElementsFilters: props.filters
           };
         case EntityType.Folder:
           return {
@@ -85,6 +88,16 @@ export default defineComponent({
           return {
             ...attrs,
             modelFilters : props.filters
+          };
+        case EntityType.Grouping:
+          return {
+            ...attrs,
+            groupingFilters : props.filters
+          };
+        case EntityType.Subgrouping:
+          return {
+            ...attrs,
+            subgroupingFilters : props.filters
           };
         default:
           return null;

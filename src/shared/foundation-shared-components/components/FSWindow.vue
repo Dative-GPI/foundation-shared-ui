@@ -85,6 +85,7 @@ import FSButton from "./FSButton.vue";
 import FSCard from "./FSCard.vue";
 import FSIcon from "./FSIcon.vue";
 import FSText from "./FSText.vue";
+import FSCol from "./FSCol.vue";
 import FSRow from "./FSRow.vue";
 
 export default defineComponent({
@@ -94,6 +95,7 @@ export default defineComponent({
     FSCard,
     FSIcon,
     FSText,
+    FSCol,
     FSRow
   },
   props: {

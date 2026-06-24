@@ -51,6 +51,13 @@
       />
     </template>
     <template
+      #item.allowNotifications="{ item }"
+    >
+      <FSIconCheck
+        :value="item.allowNotifications"
+      />
+    </template>
+    <template
       #item.tags="{ item }"
     >
       <FSTagGroup
@@ -78,6 +85,15 @@
       </FSSpan>
     </template>
     <template
+      #item.lastActivity="{ item }"
+    >
+      <FSSpan
+        font="text-overline"
+      >
+        {{ epochToLongTimeFormat(item.lastActivity) }}
+      </FSSpan>
+    </template>
+    <template
       #item.tile="{ index, item, toggleSelect }"
     >
       <FSUserOrganisationTileUI
@@ -96,6 +112,8 @@
 import { defineComponent, type PropType, watch } from "vue";
 import { type RouteLocation } from "vue-router";
 import _ from "lodash";
+
+import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
 import type { UserOrganisationFilters, UserOrganisationInfos } from "@dative-gpi/foundation-core-domain/models";
 import { userTypeLabel, userValidityLabel } from "@dative-gpi/foundation-core-components/utils";
@@ -149,6 +167,7 @@ export default defineComponent({
   emits: ["update:modelValue"],
   setup(props) {
     const { getMany: fetchUserOrganisations, entities: userOrganisations, fetching: fetchingUserOrganisations } = useUserOrganisations();
+    const { epochToLongTimeFormat } = useDateFormat();
 
     const isSelected = (id: string): boolean => {
       return props.modelValue.includes(id);
@@ -165,7 +184,8 @@ export default defineComponent({
       userOrganisations,
       userValidityLabel,
       userTypeLabel,
-      isSelected
+      isSelected,
+      epochToLongTimeFormat,
     };
   }
 });

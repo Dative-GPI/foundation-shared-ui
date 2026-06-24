@@ -6,7 +6,7 @@ import FSEditImage from "@dative-gpi/foundation-shared-components/components/FSE
 import FSEditImageUI from '@dative-gpi/foundation-shared-components/components/FSEditImageUI.vue';
 
 const meta = {
-  title: 'Foundation/Shared/EditImage/EditImage',
+  title: 'Shared/Components/EditImage/EditImage',
   component: FSEditImage,
   parameters: {
     docs: {

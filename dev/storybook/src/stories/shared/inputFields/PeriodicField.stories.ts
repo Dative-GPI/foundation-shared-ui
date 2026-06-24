@@ -6,7 +6,7 @@ import FSDivider from '@dative-gpi/foundation-shared-components/components/FSDiv
 import { addComponentEmits } from '@/utils/properties';
 
 const meta = {
-  title: 'Foundation/Shared/Input fields/PeriodicField',
+  title: 'Shared/Components/Input fields/PeriodicField',
   component: FSPeriodicField,
   tags: ['autodocs'],
   argTypes: {

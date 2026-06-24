@@ -6,7 +6,7 @@ import FSAutocompleteField from '@dative-gpi/foundation-shared-components/compon
 import FSAutocompleteLocation from "@dative-gpi/foundation-core-components/components/autocompletes/FSAutocompleteLocation.vue";
 
 const meta: Meta<typeof FSAutocompleteLocation> = {
-  title: 'Foundation/Core/Autocompletes/AutocompleteLocation',
+  title: 'Core/Components/Autocompletes/AutocompleteLocation',
   component: FSAutocompleteLocation,
   tags: ['autodocs'],
   argTypes: {

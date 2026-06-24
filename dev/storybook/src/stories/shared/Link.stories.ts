@@ -3,11 +3,10 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FSLink from "@dative-gpi/foundation-shared-components/components/FSLink.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Link',
+  title: 'Shared/Components/Link',
   component: FSLink,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked' }
   }
 } satisfies Meta<typeof FSLink>;
 
@@ -16,8 +15,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Variations: Story = {
   args: {
-    args: {
-    }
   },
   render: (args, { argTypes }) => ({
     components: { FSLink },

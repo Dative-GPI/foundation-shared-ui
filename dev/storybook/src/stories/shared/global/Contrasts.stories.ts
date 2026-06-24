@@ -6,7 +6,7 @@ import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Global/Contrasts',
+  title: 'Shared/Components/Global/Contrasts',
   component: Contrasts,
   tags: ['autodocs'],
   argTypes: {

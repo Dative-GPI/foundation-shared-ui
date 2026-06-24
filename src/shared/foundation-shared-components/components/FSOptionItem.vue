@@ -1,5 +1,5 @@
 <template>
-  <FSClickable
+  <FSCard
     :disabled="$props.disabled"
     :height="['32px', '28px']"
     :padding="$props.padding"
@@ -47,7 +47,7 @@
         </FSIcon>
       </slot>
     </FSRow>
-  </FSClickable>
+  </FSCard>
 </template>
 
 <script lang="ts">
@@ -56,7 +56,7 @@ import { computed, defineComponent, type PropType } from "vue";
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 
-import FSClickable from "./FSClickable.vue";
+import FSCard from "./FSCard.vue";
 import FSSpan from "./FSSpan.vue";
 import FSIcon from "./FSIcon.vue";
 import FSRow from "./FSRow.vue";
@@ -64,7 +64,7 @@ import FSRow from "./FSRow.vue";
 export default defineComponent({
   name: "FSOptionItem",
   components: {
-    FSClickable,
+    FSCard,
     FSSpan,
     FSIcon,
     FSRow

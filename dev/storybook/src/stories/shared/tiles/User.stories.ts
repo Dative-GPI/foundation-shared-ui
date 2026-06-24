@@ -6,7 +6,7 @@ import FSTile from '@dative-gpi/foundation-shared-components/components/tiles/FS
 import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
 
 const meta = {
-  title: 'Foundation/Shared/Tiles/User',
+  title: 'Shared/Components/Tiles/User',
   component: FSUserTileUI,
   tags: ['autodocs'],
   argTypes: {

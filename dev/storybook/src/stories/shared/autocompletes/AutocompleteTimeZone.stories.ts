@@ -4,7 +4,7 @@ import FSAutocompleteTimeZone from "@dative-gpi/foundation-shared-components/com
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
 
 const meta = {
-  title: 'Foundation/Shared/Autocompletes/AutocompleteTimeZone',
+  title: 'Shared/Components/Autocompletes/AutocompleteTimeZone',
   component: FSAutocompleteTimeZone,
   tags: ['autodocs'],
   argTypes: {
