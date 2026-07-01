@@ -2,7 +2,7 @@ import { computed, toValue, type MaybeRefOrGetter } from "vue";
 import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config";
 import { BASE_PREFIX_INDEX, DECADES_PER_PREFIX, NO_VALUE, SMALLEST_PREFIX_EXPONENT, type FormattedQuantity } from "@dative-gpi/foundation-shared-domain/models";
 
-import { useAppLanguageCode } from "./app";
+import { useAppLanguageCode } from "../app";
 
 export const useUnitFormat = (precision?: MaybeRefOrGetter<number | undefined>) => {
   const { languageCode } = useAppLanguageCode();
