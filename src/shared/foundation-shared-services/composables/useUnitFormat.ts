@@ -1,65 +1,65 @@
-import { computed, toValue, type ComputedRef, type MaybeRefOrGetter } from "vue";
-import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config/units";
+import { computed, toValue, type MaybeRefOrGetter } from "vue";
+import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config";
+import { BASE_PREFIX_INDEX, DECADES_PER_PREFIX, NO_VALUE, SMALLEST_PREFIX_EXPONENT, type FormattedQuantity } from "@dative-gpi/foundation-shared-domain/models";
 
 import { useAppLanguageCode } from "./app";
 
-const NO_VALUE = "-";
-
-const DECADES_PER_PREFIX = 3;
-const SMALLEST_PREFIX_EXPONENT = Math.round(Math.log10(SI_PREFIXES[0].factor));
-const BASE_PREFIX_INDEX = -SMALLEST_PREFIX_EXPONENT / DECADES_PER_PREFIX;
-
-export interface FormattedQuantity {
-  value: ComputedRef<string>;
-  unit: ComputedRef<string>;
-  formatted: ComputedRef<string>;
-}
-
-export const useUnitFormat = () => {
+export const useUnitFormat = (precision?: MaybeRefOrGetter<number | undefined>) => {
   const { languageCode } = useAppLanguageCode();
 
-  const findBestPrefix = (numericValue: number) => {
-    if (numericValue === 0) {
-      return SI_PREFIXES[BASE_PREFIX_INDEX];
-    }
-    const magnitude = Math.floor(Math.log10(Math.abs(numericValue)) / DECADES_PER_PREFIX) * DECADES_PER_PREFIX;
-    const index = Math.floor((magnitude - SMALLEST_PREFIX_EXPONENT) / DECADES_PER_PREFIX);
-    return SI_PREFIXES[Math.max(0, Math.min(index, SI_PREFIXES.length - 1))];
-  };
+  const numberFormatter = computed(() => {
+    const decimals = toValue(precision);
+    const locale = languageCode.value ?? "fr-FR";
 
-  const format = (rawValue: MaybeRefOrGetter<number>,baseUnit: MaybeRefOrGetter<string>,precision?: MaybeRefOrGetter<number | undefined>): FormattedQuantity => {
+    return new Intl.NumberFormat(locale, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  });
 
-    const prefixed = computed(() => {
+  const format = (rawValue: MaybeRefOrGetter<number>, baseUnit: MaybeRefOrGetter<string>): FormattedQuantity => {
+
+    const quantityWithPrefix = computed(() => {
       const numericValue = toValue(rawValue);
-      if (!isFinite(numericValue)) {
+      if (!Number.isFinite(numericValue)) {
         return null;
       }
-      const prefix = findBestPrefix(numericValue);
+      const prefix = (() => {
+        if (numericValue === 0) {
+          return SI_PREFIXES[BASE_PREFIX_INDEX];
+        }
+
+        const valueExponent = Math.floor(Math.log10(Math.abs(numericValue)));
+
+        const prefixExponent = Math.floor(valueExponent / DECADES_PER_PREFIX) * DECADES_PER_PREFIX;
+
+        const prefixIndex = (prefixExponent - SMALLEST_PREFIX_EXPONENT) / DECADES_PER_PREFIX;
+
+        const clampedPrefixIndex = Math.max(0, Math.min(prefixIndex, SI_PREFIXES.length - 1 ));
+
+        return SI_PREFIXES[clampedPrefixIndex];
+      })();
+      
       return {
         scaledValue: numericValue / prefix.factor,
         unitSymbol: `${prefix.prefix}${toValue(baseUnit)}`,
       };
     });
 
-    const value = computed(() => {
-      if (prefixed.value === null) {
+    const displayValue = computed(() => {
+      if (quantityWithPrefix.value === null) {
         return NO_VALUE;
       }
-      const decimals = toValue(precision);
-      const locale = languageCode.value ?? "fr-FR";
-      return new Intl.NumberFormat(locale, {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      }).format(prefixed.value.scaledValue);
+      return numberFormatter.value.format(quantityWithPrefix.value.scaledValue);
     });
 
-    const unit = computed(() => prefixed.value?.unitSymbol ?? "");
+    const unit = computed(() => quantityWithPrefix.value?.unitSymbol ?? "");
 
-    const formatted = computed(() =>
-      prefixed.value === null ? NO_VALUE : `${value.value} ${unit.value}`
+    const displayText = computed(() =>
+      quantityWithPrefix.value === null ? NO_VALUE : `${displayValue.value} ${unit.value}`
     );
 
-    return { value, unit, formatted };
+    return { displayValue, unit, displayText };
   };
 
   return { format };
