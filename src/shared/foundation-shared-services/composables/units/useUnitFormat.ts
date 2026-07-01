@@ -1,6 +1,6 @@
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
 import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config";
-import { BASE_PREFIX_INDEX, DECADES_PER_PREFIX, NO_VALUE, SMALLEST_PREFIX_EXPONENT, type FormattedQuantity } from "@dative-gpi/foundation-shared-domain/models";
+import { BASE_PREFIX_INDEX, DECADES_PER_PREFIX, NO_VALUE, SMALLEST_PREFIX_EXPONENT, type FormattedQuantity } from "./units";
 
 import { useAppLanguageCode } from "../app";
 
