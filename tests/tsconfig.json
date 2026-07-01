@@ -6,6 +6,9 @@
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "strict": true,
+    "paths": {
+      "@/*": ["../src/*"]
+    },
     "types": ["jest"]
   },
   "include": ["**/*.test.ts"]
