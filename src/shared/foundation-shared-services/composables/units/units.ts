@@ -1,4 +1,4 @@
-import { SI_PREFIXES } from "@/shared/foundation-shared-services/config";
+import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config";
 import type { ComputedRef } from "vue";
 
 export interface FormattedQuantity {
