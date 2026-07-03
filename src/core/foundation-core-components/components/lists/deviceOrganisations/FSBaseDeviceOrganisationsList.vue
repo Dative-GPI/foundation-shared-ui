@@ -123,6 +123,32 @@
       />
     </template>
     <template
+      #filter.connectivity-custom="{ filter, toggle, variant }"
+    >
+      <FSChip
+        :variant="variant"
+        :height="['30px', '24px']"
+        :color="ColorEnum.Primary"
+        :label="filter.text"
+        align="center-left"
+        :clickable="true"
+        :border="false"
+        @click="toggle()"
+      >
+        <template
+          #prepend
+        >
+          <FSIcon
+            v-if="connectivityIcon(filter.value)"
+            size="s"
+            :color="variant === CardVariants.Full ? null : connectivityColor(filter.value)"
+          >
+            {{ connectivityIcon(filter.value) }}
+          </FSIcon>
+        </template>
+      </FSChip>
+    </template>
+    <template
       #filter.subgroupings-custom="{ filter, toggle, variant }"
     >
       <FSSubgroupingChip
@@ -198,7 +224,8 @@ import _ from "lodash";
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui";
   
 import { ConnectivityStatus, Criticity, PropertyEntity } from "@dative-gpi/foundation-shared-domain/enums";
-import { alphanumericSort, connectivityLabel } from "@dative-gpi/foundation-shared-components/utils";
+import { alphanumericSort, connectivityLabel, connectivityIcon, connectivityColor } from "@dative-gpi/foundation-shared-components/utils";
+import { CardVariants, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 import { AlertTools } from "@dative-gpi/foundation-shared-components/tools";
 
 import type { DeviceConnectivityDetails, DeviceOrganisationAlert, DeviceOrganisationFilters, DeviceOrganisationInfos, DeviceStatusDetails} from "@dative-gpi/foundation-core-domain/models";
@@ -216,6 +243,8 @@ import FSIconCheck from "@dative-gpi/foundation-shared-components/components/FSI
 import FSTagGroup from "@dative-gpi/foundation-shared-components/components/FSTagGroup.vue";
 import FSImage from "@dative-gpi/foundation-shared-components/components/FSImage.vue";
 import FSSpan from '@dative-gpi/foundation-shared-components/components/FSSpan.vue';
+import FSChip from "@dative-gpi/foundation-shared-components/components/FSChip.vue";
+import FSIcon from "@dative-gpi/foundation-shared-components/components/FSIcon.vue";
 import FSSubgroupingsChipGroup from "../subgroupings/FSSubgroupingsChipGroup.vue";
 
 export default defineComponent({
@@ -232,7 +261,9 @@ export default defineComponent({
     FSMetaValue,
     FSTagGroup,
     FSImage,
-    FSSpan
+    FSSpan,
+    FSChip,
+    FSIcon
   },
   props: {
     tableCode: {
@@ -444,10 +475,14 @@ export default defineComponent({
       fetchingDeviceOrganisations,
       fecthingCustomProperties,
       deviceOrganisations,
+      connectivityColor,
+      connectivityIcon,
       ConnectivityStatus,
       customProperties,
       subgroupingMap,
       headersOptions,
+      CardVariants,
+      ColorEnum,
       isSelected
     };
   }
