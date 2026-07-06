@@ -126,11 +126,11 @@
       #filter.connectivity-custom="{ filter, toggle, variant }"
     >
       <FSChip
+        align="center-left"
         :variant="variant"
         :height="['30px', '24px']"
         :color="ColorEnum.Primary"
         :label="filter.text"
-        align="center-left"
         :clickable="true"
         :border="false"
         @click="toggle()"
