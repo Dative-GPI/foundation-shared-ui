@@ -1,8 +1,8 @@
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
-import { SI_PREFIXES } from "@dative-gpi/foundation-shared-services/config";
-import { BASE_PREFIX_INDEX, DECADES_PER_PREFIX, NO_VALUE, SMALLEST_PREFIX_EXPONENT, type FormattedQuantity } from "./units";
+import { SI_PREFIXES, DECADES_PER_PREFIX, NO_VALUE, SMALLEST_PREFIX_EXPONENT } from "@dative-gpi/foundation-shared-services/config";
+import { type FormattedQuantity } from "@dative-gpi/foundation-shared-domain/models";
 
-import { useAppLanguageCode } from "../app";
+import { useAppLanguageCode } from "./app";
 
 export const useUnitFormat = (precision?: MaybeRefOrGetter<number | undefined>) => {
   const { languageCode } = useAppLanguageCode();
@@ -24,42 +24,39 @@ export const useUnitFormat = (precision?: MaybeRefOrGetter<number | undefined>) 
       if (!Number.isFinite(numericValue)) {
         return null;
       }
-      const prefix = (() => {
-        if (numericValue === 0) {
-          return SI_PREFIXES[BASE_PREFIX_INDEX];
-        }
+      const valueExponent = numericValue === 0 ? 0 : Math.floor(Math.log10(Math.abs(numericValue)));
 
-        const valueExponent = Math.floor(Math.log10(Math.abs(numericValue)));
+      const prefixExponent = Math.floor(valueExponent / DECADES_PER_PREFIX) * DECADES_PER_PREFIX;
 
-        const prefixExponent = Math.floor(valueExponent / DECADES_PER_PREFIX) * DECADES_PER_PREFIX;
+      const prefixIndex = (prefixExponent - SMALLEST_PREFIX_EXPONENT) / DECADES_PER_PREFIX;
 
-        const prefixIndex = (prefixExponent - SMALLEST_PREFIX_EXPONENT) / DECADES_PER_PREFIX;
+      const clampedPrefixIndex = Math.max(0, Math.min(prefixIndex, SI_PREFIXES.length - 1));
 
-        const clampedPrefixIndex = Math.max(0, Math.min(prefixIndex, SI_PREFIXES.length - 1 ));
+      const prefix = SI_PREFIXES[clampedPrefixIndex];
 
-        return SI_PREFIXES[clampedPrefixIndex];
-      })();
-      
       return {
         scaledValue: numericValue / prefix.factor,
         unitSymbol: `${prefix.prefix}${toValue(baseUnit)}`,
       };
     });
 
-    const displayValue = computed(() => {
+    const formattedValue = computed(() => {
       if (quantityWithPrefix.value === null) {
         return NO_VALUE;
       }
+
       return numberFormatter.value.format(quantityWithPrefix.value.scaledValue);
     });
 
     const unit = computed(() => quantityWithPrefix.value?.unitSymbol ?? "");
 
-    const displayText = computed(() =>
-      quantityWithPrefix.value === null ? NO_VALUE : `${displayValue.value} ${unit.value}`
+    const formattedText = computed(() =>
+      quantityWithPrefix.value === null
+        ? NO_VALUE
+        : `${formattedValue.value} ${unit.value}`
     );
 
-    return { displayValue, unit, displayText };
+    return { formattedValue, unit, formattedText };
   };
 
   return { format };
