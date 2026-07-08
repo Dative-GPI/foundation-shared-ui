@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSSelectField from '@dative-gpi/foundation-shared-components/components/fields/FSSelectField.vue';
-import FSSelectDashboardDatePreset from '@dative-gpi/foundation-core-components/components/dashboards/FSSelectDashboardDatePreset.vue';
+import FSSelectDashboardDatePreset from '@dative-gpi/foundation-core-components/components/fields/FSSelectDashboardDatePreset.vue';
 
 const items = [
   { hiddenCode: 'last-day', labelDefault: 'Last day' },
@@ -11,7 +11,7 @@ const items = [
 ];
 
 const meta: Meta<typeof FSSelectDashboardDatePreset> = {
-  title: 'Core/Components/Dashboards/SelectDashboardDatePreset',
+  title: 'Core/Components/Fields/SelectDashboardDatePreset',
   component: FSSelectDashboardDatePreset,
   tags: ['autodocs'],
   argTypes: {

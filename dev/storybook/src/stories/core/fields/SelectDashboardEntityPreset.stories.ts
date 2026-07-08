@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSAutocompleteField from '@dative-gpi/foundation-shared-components/components/fields/FSAutocompleteField.vue';
-import FSSelectDashboardEntityPreset from '@dative-gpi/foundation-core-components/components/dashboards/FSSelectDashboardEntityPreset.vue';
+import FSSelectDashboardEntityPreset from '@dative-gpi/foundation-core-components/components/fields/FSSelectDashboardEntityPreset.vue';
 
 const items = [
   { hiddenCode: 'devices', labelDefault: 'All devices' },
@@ -11,7 +11,7 @@ const items = [
 ];
 
 const meta: Meta<typeof FSSelectDashboardEntityPreset> = {
-  title: 'Core/Components/Dashboards/SelectDashboardEntityPreset',
+  title: 'Core/Components/Fields/SelectDashboardEntityPreset',
   component: FSSelectDashboardEntityPreset,
   tags: ['autodocs'],
   argTypes: {
