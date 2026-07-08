@@ -5,13 +5,13 @@ import { EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 
 import FSSwitch from '@dative-gpi/foundation-shared-components/components/FSSwitch.vue';
 import FSSelectEntitiesField from '@dative-gpi/foundation-core-components/components/entities/FSSelectEntitiesField.vue';
-import FSSelectDashboardEntityPreset from '@dative-gpi/foundation-core-components/components/dashboards/FSSelectDashboardEntityPreset.vue';
-import FSEntitySelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/configurations/FSEntitySelectPresetConfiguration.vue';
+import FSSelectDashboardEntityPreset from '@dative-gpi/foundation-core-components/components/fields/FSSelectDashboardEntityPreset.vue';
+import FSEntitySelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/widgetConfigurations/FSEntitySelectPresetConfiguration.vue';
 
 import { settingsMock } from './settings.mock';
 
 const meta: Meta<typeof FSEntitySelectPresetConfiguration> = {
-  title: 'Core/Components/Configurations/EntitySelectPresetConfiguration',
+  title: 'Core/Components/WidgetConfigurations/EntitySelectPresetConfiguration',
   component: FSEntitySelectPresetConfiguration,
   tags: ['autodocs'],
   argTypes: {

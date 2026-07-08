@@ -3,14 +3,14 @@ import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties'
 
 import { EntityType } from '@dative-gpi/foundation-shared-domain/enums';
 
-import FSEntitySelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/configurations/FSEntitySelectPresetConfiguration.vue';
-import FSDateSelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/configurations/FSDateSelectPresetConfiguration.vue';
-import FSBaseSelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/configurations/FSBaseSelectPresetConfiguration.vue';
+import FSEntitySelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/widgetConfigurations/FSEntitySelectPresetConfiguration.vue';
+import FSDateSelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/widgetConfigurations/FSDateSelectPresetConfiguration.vue';
+import FSBaseSelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/widgetConfigurations/FSBaseSelectPresetConfiguration.vue';
 
 import { settingsMock } from './settings.mock';
 
 const meta: Meta<typeof FSBaseSelectPresetConfiguration> = {
-  title: 'Core/Components/Configurations/BaseSelectPresetConfiguration',
+  title: 'Core/Components/WidgetConfigurations/BaseSelectPresetConfiguration',
   component: FSBaseSelectPresetConfiguration,
   tags: ['autodocs'],
   argTypes: {

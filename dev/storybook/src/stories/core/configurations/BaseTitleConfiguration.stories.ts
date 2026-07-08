@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
 import FSTranslateField from '@dative-gpi/foundation-shared-components/components/fields/FSTranslateField.vue';
-import FSBaseTitleConfiguration from '@dative-gpi/foundation-core-components/components/configurations/FSBaseTitleConfiguration.vue';
+import FSBaseTitleConfiguration from '@dative-gpi/foundation-core-components/components/widgetConfigurations/FSBaseTitleConfiguration.vue';
 
 const meta: Meta<typeof FSBaseTitleConfiguration> = {
-  title: 'Core/Components/Configurations/BaseTitleConfiguration',
+  title: 'Core/Components/WidgetConfigurations/BaseTitleConfiguration',
   component: FSBaseTitleConfiguration,
   tags: ['autodocs'],
   argTypes: {

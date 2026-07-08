@@ -33,7 +33,7 @@ import { defineComponent, type PropType } from "vue";
 import type { DashboardSettings } from "@dative-gpi/foundation-core-domain/models";
 import FSSwitch from "@dative-gpi/foundation-shared-components/components/FSSwitch.vue";
 import FSTermField from "@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue";
-import FSSelectDashboardDatePreset from "../dashboards/FSSelectDashboardDatePreset.vue";
+import FSSelectDashboardDatePreset from "../fields/FSSelectDashboardDatePreset.vue";
 
 export default defineComponent({
   name: "FSDateSelectPresetConfiguration",

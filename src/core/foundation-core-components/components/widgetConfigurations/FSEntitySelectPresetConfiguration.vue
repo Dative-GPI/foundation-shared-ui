@@ -32,7 +32,7 @@ import { defineComponent, type PropType } from "vue";
 import { EntityType } from "@dative-gpi/foundation-shared-domain/enums";
 import type { DashboardSettings } from "@dative-gpi/foundation-core-domain/models";
 import FSSwitch from "@dative-gpi/foundation-shared-components/components/FSSwitch.vue";
-import FSSelectDashboardEntityPreset from "../dashboards/FSSelectDashboardEntityPreset.vue";
+import FSSelectDashboardEntityPreset from "../fields/FSSelectDashboardEntityPreset.vue";
 import FSSelectEntitiesField from "../entities/FSSelectEntitiesField.vue";
 
 export default defineComponent({

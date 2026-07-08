@@ -3,13 +3,13 @@ import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties'
 
 import FSSwitch from '@dative-gpi/foundation-shared-components/components/FSSwitch.vue';
 import FSTermField from '@dative-gpi/foundation-shared-components/components/fields/FSTermField.vue';
-import FSSelectDashboardDatePreset from '@dative-gpi/foundation-core-components/components/dashboards/FSSelectDashboardDatePreset.vue';
-import FSDateSelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/configurations/FSDateSelectPresetConfiguration.vue';
+import FSSelectDashboardDatePreset from '@dative-gpi/foundation-core-components/components/fields/FSSelectDashboardDatePreset.vue';
+import FSDateSelectPresetConfiguration from '@dative-gpi/foundation-core-components/components/widgetConfigurations/FSDateSelectPresetConfiguration.vue';
 
 import { settingsMock } from './settings.mock';
 
 const meta: Meta<typeof FSDateSelectPresetConfiguration> = {
-  title: 'Core/Components/Configurations/DateSelectPresetConfiguration',
+  title: 'Core/Components/WidgetConfigurations/DateSelectPresetConfiguration',
   component: FSDateSelectPresetConfiguration,
   tags: ['autodocs'],
   argTypes: {
