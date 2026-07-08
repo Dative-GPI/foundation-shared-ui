@@ -75,15 +75,22 @@ export class DeviceExplorerElementInfos {
     this.worstAlert = params.worstAlert ? new DeviceOrganisationAlert(params.worstAlert) : null;
   }
 
-  static fromDeviceOrganisation = (deviceOrganisation: DeviceOrganisationInfos): DeviceExplorerElementInfos => new DeviceExplorerElementInfos({
-    ...deviceOrganisation,
-    type: DeviceExplorerElementType.DeviceOrganisation,
-    parentId: deviceOrganisation.groupId,
-    status: null,
-    connectivity: null,
-    alerts: null,
-    worstAlert: null
-  });
+  static fromDeviceOrganisation = (deviceOrganisation: DeviceOrganisationInfos): DeviceExplorerElementInfos => {
+    const element = new DeviceExplorerElementInfos({
+      ...deviceOrganisation,
+      type: DeviceExplorerElementType.DeviceOrganisation,
+      parentId: deviceOrganisation.groupId,
+      status: null,
+      connectivity: null,
+      alerts: null,
+      worstAlert: null
+    });
+    element.status = deviceOrganisation.status;
+    element.connectivity = deviceOrganisation.connectivity;
+    element.alerts = deviceOrganisation.alerts;
+    element.worstAlert = deviceOrganisation.worstAlert;
+    return element;
+  };
 
   static fromGroup = (group: GroupInfos): DeviceExplorerElementInfos => new DeviceExplorerElementInfos({
     ...group,
