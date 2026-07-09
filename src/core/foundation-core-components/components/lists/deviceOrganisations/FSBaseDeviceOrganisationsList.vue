@@ -362,7 +362,7 @@ export default defineComponent({
       connectivity: {
         fixedFilters: [{
           value: ConnectivityStatus.None,
-          text: "—"
+          text: connectivityLabel(ConnectivityStatus.None)
         }, {
           value: ConnectivityStatus.Offline,
           text: connectivityLabel(ConnectivityStatus.Offline)

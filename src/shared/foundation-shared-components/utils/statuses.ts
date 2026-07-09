@@ -5,6 +5,7 @@ const { $tr } = useTranslationsProvider();
 
 export const connectivityLabel = ((status: ConnectivityStatus): string => {
     switch (status) {
+      case ConnectivityStatus.None:            return $tr("ui.connectivity-status.never-seen", "Never seen");
       case ConnectivityStatus.Connected:          return $tr("ui.connectivity-status.connected", "Connected");
       case ConnectivityStatus.PartiallyConnected: return $tr("ui.connectivity-status.partially-connected", "Partially connected");
       case ConnectivityStatus.AlmostOffline:      return $tr("ui.connectivity-status.almost-offline", "Almost offline");
