@@ -1,5 +1,6 @@
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { ConnectivityStatus } from "@dative-gpi/foundation-shared-domain/enums";
+import { ColorEnum } from "../models";
 
 const { $tr } = useTranslationsProvider();
 
@@ -25,10 +26,10 @@ export const connectivityIcon = ((status: ConnectivityStatus): string | null => 
 
 export const connectivityColor = ((status: ConnectivityStatus): string | null => {
     switch (status) {
-      case ConnectivityStatus.Connected:          return "#6DE038";
-      case ConnectivityStatus.PartiallyConnected:
-      case ConnectivityStatus.AlmostOffline:      return "#E5A139";
-      case ConnectivityStatus.Offline:            return "#E01212";
+      case ConnectivityStatus.Connected:          return ColorEnum.Success;
+      case ConnectivityStatus.PartiallyConnected: return ColorEnum.Warning;
+      case ConnectivityStatus.AlmostOffline:      return "#FF661A";
+      case ConnectivityStatus.Offline:            return ColorEnum.Error;
       default:                                    return null;
     }
 });
