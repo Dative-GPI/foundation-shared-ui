@@ -28,7 +28,7 @@ export const connectivityColor = ((status: ConnectivityStatus): string | null =>
     switch (status) {
       case ConnectivityStatus.Connected:          return ColorEnum.Success;
       case ConnectivityStatus.PartiallyConnected: return ColorEnum.Warning;
-      case ConnectivityStatus.AlmostOffline:      return "#FF661A";
+      case ConnectivityStatus.AlmostOffline:      return ColorEnum.Alert;
       case ConnectivityStatus.Offline:            return ColorEnum.Error;
       default:                                    return null;
     }
