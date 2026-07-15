@@ -5,6 +5,7 @@ export enum ColorEnum {
     Primary    = "primary",
     Error      = "error",
     Warning    = "warning",
+    Alert      = "alert",
     Success    = "success"
 }
 

@@ -9,6 +9,7 @@ export const DefaultTheme: ThemeDefinition = {
         "primary"   : "#0059E5", // hsv(217, 100, 90)
         "success"   : "#6DE038", // hsv(101, 75,  88)
         "warning"   : "#E6A52E", // hsv(39,  80,  90)
+        "alert"     : "#FF661A", // hsv(20,  90, 100)
         "error"     : "#E01212"  // hsv(0,   92,  88)
     }
 }
