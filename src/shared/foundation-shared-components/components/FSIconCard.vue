@@ -1,7 +1,7 @@
 <template>
   <FSCard
     :variant="$props.backgroundVariant"
-    :borderColor="$props.backgroundVariant === 'background' ? ColorEnum.Light : null"
+    :borderColor="$props.backgroundVariant === 'background' ? ColorEnum.Light : $props.borderColor"
     :color="$props.backgroundColor"
     :border="$props.border"
     :height="$props.size"
@@ -78,6 +78,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    borderColor: {
+      type: String as PropType<ColorBase>,
+      required: false,
+      default: null
     }
   },
   setup(props){
