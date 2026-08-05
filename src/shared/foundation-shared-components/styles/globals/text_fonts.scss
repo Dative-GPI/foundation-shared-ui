@@ -1,6 +1,7 @@
 @import "@fontsource/montserrat/500.css";
 @import "@fontsource/montserrat/600.css";
 @import "@fontsource/montserrat/700.css";
+@import "@fontsource/roboto-mono/500.css";
 
 .text-h1 {
     font-family: 'Montserrat', sans-serif !important;
@@ -63,4 +64,15 @@
     font-size: var(--fs-font-overline-font-size) !important;
     line-height: var(--fs-font-overline-line-height) !important;
     letter-spacing: var(--fs-font-overline-letter-spacing) !important;
+}
+
+.text-formula {
+    font-family: 'Roboto Mono', monospace !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+
+    font-size: var(--fs-font-formula-font-size) !important;
+    line-height: var(--fs-font-formula-line-height) !important;
+    letter-spacing: var(--fs-font-formula-letter-spacing) !important;
 }

@@ -53,6 +53,9 @@ export const useBreakpoints = () => {
         "--fs-font-overline-font-size"     : isMobileSized.value ? "10px" : "12px",
         "--fs-font-overline-line-height"   : isMobileSized.value ? "16px" : "16px",
         "--fs-font-overline-letter-spacing": isMobileSized.value ? "0" : "0",
+        "--fs-font-formula-font-size"      : isMobileSized.value ? "12px" : "14px",
+        "--fs-font-formula-line-height"    : isMobileSized.value ? "16px" : "20px",
+        "--fs-font-formula-letter-spacing" : "0",
         ...bodyStyle.value
     }));
 
