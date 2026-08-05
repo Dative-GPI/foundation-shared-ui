@@ -19,6 +19,7 @@
     "@dative-gpi/foundation-shared-loader": "*",
     "@dative-gpi/foundation-shared-visualization": "*",
     "@fontsource/montserrat": "*",
+    "@fontsource/roboto-mono": "*",
     "@lexical/clipboard": "0.12.5",
     "@lexical/history": "0.12.5",
     "@lexical/link": "0.12.5",

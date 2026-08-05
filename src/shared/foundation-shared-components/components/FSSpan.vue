@@ -26,7 +26,7 @@ export default defineComponent({
       default: null
     },
     font: {
-      type: String as PropType<"text-h1" | "text-h2" | "text-h3" | "text-body" | "text-button" | "text-overline">,
+      type: String as PropType<"text-h1" | "text-h2" | "text-h3" | "text-body" | "text-button" | "text-overline" | "text-formula">,
       required: false,
       default: "text-body"
     },

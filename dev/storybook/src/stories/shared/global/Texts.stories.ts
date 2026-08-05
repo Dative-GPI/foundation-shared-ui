@@ -28,6 +28,8 @@ export const AllFonts: Story = {
         <FSSpan font="text-body"> text-body </FSSpan>
         <FSSpan font="text-button"> text-button </FSSpan>
         <FSSpan font="text-overline"> text-overline </FSSpan>
+        <FSSpan font="text-formula"> text-formula </FSSpan>
+        <FSText font="text-formula"> f(x) = a * x + b </FSText>
         <FSCol width="50px">
           <FSSpan font="text-h3" 
           wordBreak="break-word"
