@@ -1,4 +1,4 @@
-import type { Days, DateType } from "@dative-gpi/foundation-shared-domain/enums";
+import type { Days } from "@dative-gpi/foundation-shared-domain/enums";
 
 export class TimeRange {
   startDay: Days;
@@ -7,7 +7,6 @@ export class TimeRange {
   endDay: Days;
   endHour: number;
   endMinute: number;
-  variant: DateType;
 
   constructor(params: TimeRangeDTO) {
     this.startDay = params.startDay;
@@ -16,7 +15,6 @@ export class TimeRange {
     this.endDay = params.endDay;
     this.endHour = params.endHour;
     this.endMinute = params.endMinute;
-    this.variant = params.variant;
   }
 }
 
@@ -27,7 +25,6 @@ export interface TimeRangeDTO {
   endDay: Days;
   endHour: number;
   endMinute: number;
-  variant: DateType;
 }
 
 export interface CreateTimeRangeDTO {
@@ -37,5 +34,4 @@ export interface CreateTimeRangeDTO {
   endDay: Days;
   endHour: number;
   endMinute: number;
-  variant: DateType;
 }

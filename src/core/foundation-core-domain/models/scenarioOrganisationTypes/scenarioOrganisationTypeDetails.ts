@@ -2,8 +2,7 @@ import type { PlotPer, ResolveOn, TriggerOn } from "@dative-gpi/foundation-share
 
 import type { ScenarioOrganisationTypeInfosDTO } from "./scenarioOrganisationTypeInfos";
 import { ScenarioOrganisationTypeInfos } from "./scenarioOrganisationTypeInfos";
-import type { CreateTimeRangeDTO, TimeRangeDTO } from "../shared/timeRange";
-import { TimeRange } from "../shared/timeRange";
+
 import {
   ScenarioParameter,
   ScenarioTranslation,
@@ -13,6 +12,7 @@ import {
   type ScenarioTranslationDTO
 } from "../scenarios";
 import type { CreateChartTimeStepDTO } from "../charts/chartTimeStep";
+import { ScenarioTimeRange, type CreateScenarioTimeRangeDTO, type ScenarioTimeRangeDTO } from '../scenarios/scenarioTimeRange';
 
 export class ScenarioOrganisationTypeDetails extends ScenarioOrganisationTypeInfos {
   groupByIds: string[];
@@ -27,7 +27,7 @@ export class ScenarioOrganisationTypeDetails extends ScenarioOrganisationTypeInf
   alertCode: string;
   alertIcon: string;
   alertTags: string[];
-  timeRanges: TimeRange[];
+  timeRanges: ScenarioTimeRange[];
   triggerOn: TriggerOn;
   triggerCondition: string;
   triggerMin: number | null;
@@ -55,7 +55,7 @@ export class ScenarioOrganisationTypeDetails extends ScenarioOrganisationTypeInf
     this.alertIcon = params.alertIcon;
     this.alertCode = params.alertCode;
     this.alertTags = params.alertTags.slice();
-    this.timeRanges = params.timeRanges.map(dto => new TimeRange(dto));
+    this.timeRanges = params.timeRanges.map(dto => new ScenarioTimeRange(dto));
     this.triggerOn = params.triggerOn as TriggerOn;
     this.triggerCondition = params.triggerCondition;
     this.triggerMin = params.triggerMin;
@@ -84,7 +84,7 @@ export interface ScenarioOrganisationTypeDetailsDTO extends ScenarioOrganisation
   alertIcon: string;
   alertCode: string;
   alertTags: string[];
-  timeRanges: TimeRangeDTO[];
+  timeRanges: ScenarioTimeRangeDTO[];
   triggerOn: number;
   triggerCondition: string;
   triggerMin: number | null;
@@ -124,7 +124,7 @@ export interface UpdateScenarioOrganisationTypeDTO {
   alertCode: string;
   alertIcon: string;
   alertTags: string[];
-  timeRanges: CreateTimeRangeDTO[];
+  timeRanges: CreateScenarioTimeRangeDTO[];
   triggerOn: number;
   triggerCondition: string;
   triggerMin: number | null;
