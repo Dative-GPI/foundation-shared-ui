@@ -2,11 +2,11 @@ import type { Days } from "@dative-gpi/foundation-shared-domain/enums";
 import { TimeRange } from "../shared/timeRange";
 
 export class ScenarioTimeRange extends TimeRange {
-  timeZoneId: string | null;
+  timeZoneId: string;
   
   constructor(params: ScenarioTimeRangeDTO) {
     super(params);
-    this.timeZoneId = params.timeZoneId ?? null;
+    this.timeZoneId = params.timeZoneId ?? '';
   }
 }
 
@@ -17,7 +17,7 @@ export interface ScenarioTimeRangeDTO {
   endDay: Days;
   endHour: number;
   endMinute: number;
-  timeZoneId?: string | null;
+  timeZoneId?: string;
 }
 
 export interface CreateScenarioTimeRangeDTO {
