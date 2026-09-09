@@ -1,5 +1,5 @@
-import type { Days } from '@/shared/foundation-shared-domain/enums';
-import { TimeRange } from '@/core/foundation-core-domain/models/shared';
+import type { Days } from "@dative-gpi/foundation-shared-domain/enums";
+import { TimeRange } from "../shared/timeRange";
 
 export class ScenarioTimeRange extends TimeRange {
   timeZoneId: string;

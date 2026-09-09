@@ -2,7 +2,7 @@ import type { ScenarioParameterOverrideDTO } from "../scenarios/scenarioParamete
 import { ScenarioParameterOverride } from "../scenarios/scenarioParameterOverride";
 import { ScenarioParameter } from "../scenarios/scenarioParameter";
 import type { ScenarioParameterDTO } from "../scenarios/scenarioParameter";
-import type { ApplicationScope } from "@/shared/foundation-shared-domain/enums";
+import type { ApplicationScope } from "@dative-gpi/foundation-shared-domain/enums";
 import { ScenarioTimeRange, type ScenarioTimeRangeDTO } from '../scenarios/scenarioTimeRange';
 
 export class ScenarioDeviceOrganisationInfos {
