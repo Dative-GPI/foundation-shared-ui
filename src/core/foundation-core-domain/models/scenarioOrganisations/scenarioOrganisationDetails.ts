@@ -2,8 +2,7 @@ import type { PlotPer, ResolveOn, TriggerOn } from "@dative-gpi/foundation-share
 
 import type { ScenarioOrganisationInfosDTO } from "./scenarioOrganisationInfos";
 import { ScenarioOrganisationInfos } from "./scenarioOrganisationInfos";
-import type { CreateTimeRangeDTO, TimeRangeDTO } from "../shared/timeRange";
-import { TimeRange } from "../shared/timeRange";
+
 import {
   ScenarioParameter,
   ScenarioTranslation,
@@ -13,6 +12,7 @@ import {
   type ScenarioTranslationDTO
 } from "../scenarios";
 import type { CreateChartTimeStepDTO } from "../charts/chartTimeStep";
+import { ScenarioTimeRange, type CreateScenarioTimeRangeDTO, type ScenarioTimeRangeDTO } from '../scenarios/scenarioTimeRange';
 
 export class ScenarioOrganisationDetails extends ScenarioOrganisationInfos {
   groupByIds: string[];
@@ -27,7 +27,7 @@ export class ScenarioOrganisationDetails extends ScenarioOrganisationInfos {
   alertCode: string;
   alertIcon: string;
   alertTags: string[];
-  timeRanges: TimeRange[];
+  timeRanges: ScenarioTimeRange[];
   triggerOn: TriggerOn;
   triggerCondition: string;
   triggerMin: number | null;
@@ -55,7 +55,7 @@ export class ScenarioOrganisationDetails extends ScenarioOrganisationInfos {
     this.alertCode = params.alertCode;
     this.alertIcon = params.alertIcon;
     this.alertTags = params.alertTags.slice();
-    this.timeRanges = params.timeRanges.map(dto => new TimeRange(dto));
+    this.timeRanges = params.timeRanges.map(dto => new ScenarioTimeRange(dto));
     this.triggerOn = params.triggerOn as TriggerOn;
     this.triggerCondition = params.triggerCondition;
     this.triggerMin = params.triggerMin;
@@ -83,7 +83,7 @@ export interface ScenarioOrganisationDetailsDTO extends ScenarioOrganisationInfo
   alertCode: string;
   alertIcon: string;
   alertTags: string[];
-  timeRanges: TimeRangeDTO[];
+  timeRanges: ScenarioTimeRangeDTO[];
   triggerOn: number;
   triggerCondition: string;
   triggerMin: number | null;
@@ -118,7 +118,7 @@ export interface CreateScenarioOrganisationDTO {
   chartEndDate: string;
   chartPlotPer: PlotPer | null;
   chartStep: CreateChartTimeStepDTO | null;
-  timeRanges: CreateTimeRangeDTO[];
+  timeRanges: CreateScenarioTimeRangeDTO[];
   triggerOn: number;
   triggerCondition: string;
   triggerMin: number | null;
@@ -154,7 +154,7 @@ export interface UpdateScenarioOrganisationDTO {
   alertCode: string;
   alertIcon: string;
   alertTags: string[];
-  timeRanges: CreateTimeRangeDTO[];
+  timeRanges: CreateScenarioTimeRangeDTO[];
   triggerOn: number;
   triggerCondition: string;
   triggerMin: number | null;

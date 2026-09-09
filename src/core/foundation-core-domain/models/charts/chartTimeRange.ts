@@ -9,6 +9,7 @@ export class ChartTimeRange extends TimeRange {
   opacity: number;
   label: string;
   labelDefault: string;
+  variant: DateType;
   translations: ChartTimeRangeTranslation[];
 
   constructor(params: ChartTimeRangeDTO) {
@@ -18,6 +19,7 @@ export class ChartTimeRange extends TimeRange {
     this.opacity = params.opacity;
     this.label = params.label;
     this.labelDefault = params.labelDefault;
+    this.variant = params.variant;
     this.translations = params.translations.map(t => new ChartTimeRangeTranslation(t));
   }
 }
