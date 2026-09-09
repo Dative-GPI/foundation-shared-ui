@@ -81,7 +81,7 @@ export default defineComponent({
     const { epochToLongTimeFormat } = useDateFormat();
 
     const deviceTimestamp = computed((): string => {
-      if (props.deviceAlert.sourceTimestamp) {
+      if (props.deviceAlert.actualTimestamp) {
         return epochToLongTimeFormat(props.deviceAlert.actualTimestamp);
       }
       return "";
