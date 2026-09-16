@@ -100,7 +100,7 @@ export interface DateTimeRange {
   endDay: Days;
   endHour: number;
   endMinute: number;
-  variant: DateType;
+  variant?: DateType;
 }
 
 export const dayLabel = (day: Days | number): string => {

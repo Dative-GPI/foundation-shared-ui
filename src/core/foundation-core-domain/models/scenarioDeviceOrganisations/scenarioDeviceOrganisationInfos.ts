@@ -2,9 +2,8 @@ import type { ScenarioParameterOverrideDTO } from "../scenarios/scenarioParamete
 import { ScenarioParameterOverride } from "../scenarios/scenarioParameterOverride";
 import { ScenarioParameter } from "../scenarios/scenarioParameter";
 import type { ScenarioParameterDTO } from "../scenarios/scenarioParameter";
-import type { TimeRangeDTO } from "../shared/timeRange";
-import { TimeRange } from "../shared/timeRange";
-import type { ApplicationScope } from "@/shared/foundation-shared-domain/enums";
+import type { ApplicationScope } from "@dative-gpi/foundation-shared-domain/enums";
+import { ScenarioTimeRange, type ScenarioTimeRangeDTO } from '../scenarios/scenarioTimeRange';
 
 export class ScenarioDeviceOrganisationInfos {
   id: string;
@@ -14,7 +13,7 @@ export class ScenarioDeviceOrganisationInfos {
   deviceOrganisationCode: string;
   deviceOrganisationLabel: string;
   overrideTimeRanges: boolean;
-  timeRanges: TimeRange[];
+  timeRanges: ScenarioTimeRange[];
   overrideDelay: boolean;
   delay: number | null;
   scenarioIcon: string;
@@ -35,7 +34,7 @@ export class ScenarioDeviceOrganisationInfos {
     this.deviceOrganisationCode = params.deviceOrganisationCode;
     this.deviceOrganisationLabel = params.deviceOrganisationLabel;
     this.overrideTimeRanges = params.overrideTimeRanges;
-    this.timeRanges = params.timeRanges.map(dto => new TimeRange(dto));
+    this.timeRanges = params.timeRanges.map(dto => new ScenarioTimeRange(dto));
     this.warnDeviceManager = params.warnDeviceManager;
     this.overrideDelay = params.overrideDelay;
     this.delay = params.delay;
@@ -58,7 +57,7 @@ export interface ScenarioDeviceOrganisationInfosDTO {
   deviceOrganisationCode: string;
   deviceOrganisationLabel: string;
   overrideTimeRanges: boolean;
-  timeRanges: TimeRangeDTO[];
+  timeRanges: ScenarioTimeRangeDTO[];
   overrideDelay: boolean;
   delay: number | null;
   scenarioIcon: string;
