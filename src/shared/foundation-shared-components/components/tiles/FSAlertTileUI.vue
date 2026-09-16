@@ -23,7 +23,7 @@
         font="text-overline"
         :lineClamp="1"
       >
-        {{ epochToShortTimeFormat($props.triggerProcessedTimestamp) }}
+        {{ epochToShortTimeFormat($props.triggerActualTimestamp) }}
       </FSSpan>
       <FSSpan
         font="text-overline"
@@ -72,7 +72,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    triggerProcessedTimestamp: {
+    triggerActualTimestamp: {
       type: Number as PropType<number | null>,
       required: false,
       default: null

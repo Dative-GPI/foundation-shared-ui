@@ -140,7 +140,7 @@
       <FSSpan
         font="text-overline"
       >
-        {{ epochToShortTimeFormat(item.triggerProcessedTimestamp) }}
+        {{ epochToShortTimeFormat(item.triggerActualTimestamp) }}
       </FSSpan>
     </template>
     <template
@@ -180,7 +180,7 @@
         :deviceOrganisationLabel="item.deviceOrganisationLabel"
         :icon="item.icon"
         :selectable="$props.selectable"
-        :triggerProcessedTimestamp="item.triggerProcessedTimestamp"
+        :triggerActualTimestamp="item.triggerActualTimestamp"
         :to="$props.itemTo && $props.itemTo(item)"
         :modelValue="isSelected(item.id)"
         :color="alertColorByCriticity(item.criticity)"
