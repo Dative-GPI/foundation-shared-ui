@@ -225,12 +225,18 @@ export default defineComponent({
       resetValidation
     });
 
+    // Exposed methods are also returned so they appear in the component's instance type
     return {
+      resetValidation,
       tabIconSlots,
       currentStep,
       setFormRef,
       goToStep,
-      onSubmit
+      previous,
+      validate,
+      onSubmit,
+      submit,
+      reset
     };
   }
 });

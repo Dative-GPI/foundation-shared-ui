@@ -1,126 +1,151 @@
 <template>
   <FSCol
-    gap="24px"
+    gap="12px"
     :height="$props.height"
   >
     <FSRow
-      gap="24px"
       height="fill"
+      style="min-height: 0;"
     >
-      <FSCol
-        gap="24px"
-        height="fill"
+      <FSFadeOut
+        height="100%"
       >
-        <FSRow
-          gap="16px"
+        <FSCol
+          gap="24px"
         >
-          <slot
-            name="header"
-          >
-            <FSRow>
-              <FSCard
-                :color="configurationWindow == 0 ? ColorEnum.Primary : ColorEnum.Light"
-                padding="16px 24px"
-                width="100%"
-                :variant="CardVariants.Standard"
-                @click="() => { configurationWindow = 0; }"
-              >
-                <FSCol>
-                  <FSIcon
-                    :color="ColorEnum.Primary"
-                    size="33px"
-                    icon="mdi-pencil-ruler-outline"
-                  />
-                  <FSSpan
-                    font="text-button"
-                  >
-                    {{ $tr('ui.dialog.builder-form.manual', 'Manual configuration') }}
-                  </FSSpan>
-                </FSCol>
-              </FSCard>
-            </FSRow>
-            <FSRow>
-              <FSCard
-                :color="configurationWindow == 1 ? ColorEnum.Primary : ColorEnum.Light"
-                padding="16px 24px"
-                width="100%"
-                :variant="CardVariants.Standard"
-                @click="() => { configurationWindow = 1; }"
-              >
-                <FSCol>
-                  <FSIcon
-                    :color="ColorEnum.Primary"
-                    icon="mdi-creation-outline"
-                    size="33px"
-                  />
-                  <FSSpan
-                    font="text-button"
-                  >
-                    {{ $tr('ui.dialog.builder-form.ai', 'AI configuration') }}
-                  </FSSpan>
-                </FSCol>
-              </FSCard>
-            </FSRow>
-          </slot>
-        </FSRow>
-        <FSRow
-          height="fill"
-          style="min-height: 0;"
-        >
-          <FSWindow
-            :modelValue="configurationWindow"
-            height="100%"
-            width="100%"
+          <FSRow
+            gap="24px"
+            height="fill"
+            :style="{ minHeight: configurationMinHeight + 'px' }"
           >
             <FSCol
-              :value="0"
+              gap="24px"
               height="100%"
+              style="min-height: 0;"
             >
-              <slot
-                name="manualConfiguration"
+              <FSRow
+                v-if="displayAiConfiguration"
+                gap="16px"
               >
-                <FSMultiForm
-                  ref="multiFormRef"
-                  :value="0"
-                  :steps="$props.steps"
-                  mode="tabs"
-                  @submit="$emit('click:submitButton')"
-                  @cancel="$emit('click:cancelButton')"
-                  v-model:step="currentStep"
-                  height="100%"
-                  maxHeight="100%"
+                <slot
+                  name="header"
                 >
-                  <template
-                    v-for="(_, name) in $slots"
-                    v-slot:[name]="slotData"
+                  <FSRow>
+                    <FSCard
+                      :color="configurationWindow == 0 ? ColorEnum.Primary : ColorEnum.Light"
+                      padding="16px 24px"
+                      width="100%"
+                      :variant="CardVariants.Standard"
+                      @click="() => { configurationWindow = 0; }"
+                    >
+                      <FSCol>
+                        <FSIcon
+                          :color="ColorEnum.Primary"
+                          size="33px"
+                          icon="mdi-pencil-ruler-outline"
+                        />
+                        <FSSpan
+                          font="text-button"
+                        >
+                          {{ $tr('ui.dialog.builder-form.manual', 'Manual configuration') }}
+                        </FSSpan>
+                      </FSCol>
+                    </FSCard>
+                  </FSRow>
+                  <FSRow>
+                    <FSCard
+                      :color="configurationWindow == 1 ? ColorEnum.Primary : ColorEnum.Light"
+                      padding="16px 24px"
+                      width="100%"
+                      :variant="CardVariants.Standard"
+                      @click="() => { configurationWindow = 1; }"
+                    >
+                      <FSCol>
+                        <FSIcon
+                          :color="ColorEnum.Primary"
+                          icon="mdi-creation-outline"
+                          size="33px"
+                        />
+                        <FSSpan
+                          font="text-button"
+                        >
+                          {{ $tr('ui.dialog.builder-form.ai', 'AI configuration') }}
+                        </FSSpan>
+                      </FSCol>
+                    </FSCard>
+                  </FSRow>
+                </slot>
+              </FSRow>
+              <FSRow
+                height="fill"
+                style="min-height: 0;"
+              >
+                <FSWindow
+                  :modelValue="configurationWindow"
+                  height="100%"
+                  width="100%"
+                >
+                  <FSCol
+                    :value="0"
+                    height="100%"
                   >
                     <slot
-                      :name="name"
-                      v-bind="slotData"
-                    />
-                  </template>
-                </FSMultiForm>
-              </slot>
-            </FSCol>
+                      name="manualConfiguration"
+                    >
+                      <FSMultiForm
+                        ref="multiFormRef"
+                        :value="0"
+                        :steps="$props.steps"
+                        mode="tabs"
+                        @submit="$emit('click:submitButton')"
+                        @cancel="$emit('click:cancelButton')"
+                        v-model:step="currentStep"
+                        height="100%"
+                        maxHeight="100%"
+                      >
+                        <template
+                          v-for="(_, name) in $slots"
+                          v-slot:[name]="slotData"
+                        >
+                          <slot
+                            :name="name"
+                            v-bind="slotData"
+                          />
+                        </template>
+                      </FSMultiForm>
+                    </slot>
+                  </FSCol>
 
-            <slot
-              name="aiConfiguration"
-              :value="1"
+                  <slot
+                    v-if="displayAiConfiguration"
+                    name="aiConfiguration"
+                    :value="1"
+                  >
+                    AI Not deployed yet
+                  </slot>
+                </FSWindow>
+              </FSRow>
+            </FSCol>
+            <FSDivider
+              v-if="$props.showVerticalDivider"
+              :vertical="true"
+            />
+            <FSCol
+              height="100%"
+              style="min-height: 0;"
             >
-              AI Not deployed yet
-            </slot>
-          </FSWindow>
-        </FSRow>
-      </FSCol>
-      <FSCol
-        height="fill"
-      >
-        <FSCard
-          width="100%"
-          height="100%"
-        >
-        </FSCard>
-      </FSCol>
+              <slot
+                name="preview"
+              />
+            </FSCol>
+          </FSRow>
+          <FSCol>
+            <slot
+              name="append"
+            />
+          </FSCol>
+        </FSCol>
+      </FSFadeOut>
     </FSRow>
     <FSDivider />
     <FSRow>
@@ -192,6 +217,21 @@ export default defineComponent({
     steps: {
       type: Number,
       required: true
+    },
+    displayAiConfiguration: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showVerticalDivider: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    configurationMinHeight: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   emits: ["click:cancelButton", "click:submitButton"],
