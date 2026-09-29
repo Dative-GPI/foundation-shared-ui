@@ -2,6 +2,7 @@
   <v-form
     class="fs-form"
     ref="formRef"
+    :style="style"
     :validateOn="validateOn"
     @submit.stop="onSubmit"
     @update:modelValue="$emit('update:modelValue', $event)"
@@ -11,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import type { PropType} from "vue";
+import type { PropType, StyleValue} from "vue";
 
 import type VForm from "vuetify/lib/components/VForm";
 
@@ -29,6 +30,11 @@ export default defineComponent({
       type: String as PropType<"standard" | "submit">,
       required: false,
       default: "submit"
+    },
+    height: {
+      type: String as PropType<string>,
+      required: false,
+      default: "initial"
     }
   },
   emits: ["update:modelValue", "submit"],
@@ -41,6 +47,12 @@ export default defineComponent({
         case "standard": return "input";
         default:         return "submit";
       }
+    });
+
+    const style = computed((): StyleValue => {
+      return {
+        "--fs-form-height": props.height,
+      };
     });
 
     const onSubmit = async (event: SubmitEvent) => {
@@ -74,6 +86,7 @@ export default defineComponent({
       validateOn,
       submitted,
       formRef,
+      style,
       resetValidation,
       onSubmit,
       validate,
