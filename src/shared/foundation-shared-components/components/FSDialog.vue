@@ -57,11 +57,6 @@ export default defineComponent({
       required: false,
       default: "fit-content"
     },
-    cardClasses: {
-      type: [Array, String] as PropType<string[] | string | null>,
-      required: false,
-      default: null
-    },
     modelValue: {
       type: Boolean,
       required: false,
