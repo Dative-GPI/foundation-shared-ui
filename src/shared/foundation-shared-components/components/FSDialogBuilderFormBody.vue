@@ -32,46 +32,54 @@
                 >
                   <FSRow>
                     <FSCard
-                      :color="configurationWindow == 0 ? ColorEnum.Primary : ColorEnum.Light"
+                      :color="ColorEnum.Primary"
                       padding="16px 24px"
                       width="100%"
-                      :variant="CardVariants.Standard"
+                      :variant="configurationWindow == 0 ? CardVariants.Standard : CardVariants.Background"
                       @click="() => { configurationWindow = 0; }"
                     >
-                      <FSCol>
-                        <FSIcon
-                          :color="ColorEnum.Primary"
-                          size="33px"
-                          icon="mdi-pencil-ruler-outline"
-                        />
-                        <FSSpan
-                          font="text-button"
-                        >
-                          {{ $tr('ui.dialog.builder-form.manual', 'Manual configuration') }}
-                        </FSSpan>
-                      </FSCol>
+                      <template
+                        #default="{ contentVariant }"
+                      >
+                        <FSCol>
+                          <FSIcon
+                            :color="contentVariant == 'base' ? ColorEnum.Primary : undefined"
+                            size="33px"
+                            icon="mdi-pencil-ruler-outline"
+                          />
+                          <FSSpan
+                            font="text-button"
+                          >
+                            {{ $tr('ui.dialog.builder-form.manual', 'Manual configuration') }}
+                          </FSSpan>
+                        </FSCol>
+                      </template>
                     </FSCard>
                   </FSRow>
                   <FSRow>
                     <FSCard
-                      :color="configurationWindow == 1 ? ColorEnum.Primary : ColorEnum.Light"
+                      :color="ColorEnum.Primary"
                       padding="16px 24px"
                       width="100%"
-                      :variant="CardVariants.Standard"
+                      :variant="configurationWindow == 1 ? CardVariants.Standard : CardVariants.Background"
                       @click="() => { configurationWindow = 1; }"
                     >
-                      <FSCol>
-                        <FSIcon
-                          :color="ColorEnum.Primary"
-                          icon="mdi-creation-outline"
-                          size="33px"
-                        />
-                        <FSSpan
-                          font="text-button"
-                        >
-                          {{ $tr('ui.dialog.builder-form.ai', 'AI configuration') }}
-                        </FSSpan>
-                      </FSCol>
+                      <template
+                        #default="{ contentVariant }"
+                      >
+                        <FSCol>
+                          <FSIcon
+                            :color="contentVariant == 'base' ? ColorEnum.Primary : undefined"
+                            icon="mdi-creation-outline"
+                            size="33px"
+                          />
+                          <FSSpan
+                            font="text-button"
+                          >
+                            {{ $tr('ui.dialog.builder-form.ai', 'AI configuration') }}
+                          </FSSpan>
+                        </FSCol>
+                      </template>
                     </FSCard>
                   </FSRow>
                 </slot>
@@ -182,8 +190,8 @@
 <script lang="ts">
 import { computed, defineComponent, ref, type PropType } from "vue";
 
-import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 import { CardVariants, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 
 import FSWindow from "./FSWindow.vue";
 import FSCard from "./FSCard.vue";
@@ -256,12 +264,12 @@ export default defineComponent({
 
     return {
       ColorEnum,
-      CardVariants,
-      configurationWindow,
-      multiFormRef,
       currentStep,
+      CardVariants,
+      multiFormRef,
+      nextButtonLabel,
+      configurationWindow,
       previousButtonLabel,
-      nextButtonLabel
     };
   }
 });
