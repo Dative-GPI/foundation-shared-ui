@@ -432,7 +432,7 @@ export const Submit: Story = {
     args: {
       valid: false,
       text1: "",
-      text2: "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Hello there\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+      text2: "Hello **there**",
       check1: false,
       tags1: [],
       textdefault: null,

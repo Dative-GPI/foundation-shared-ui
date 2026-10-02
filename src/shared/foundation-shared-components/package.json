@@ -20,19 +20,12 @@
     "@dative-gpi/bones-ui": "^1.0.0",
     "@fontsource/montserrat": "^5.0.16",
     "@fontsource/roboto-mono": "^5.0.0",
-    "@lexical/clipboard": "0.12.5",
-    "@lexical/history": "0.12.5",
-    "@lexical/link": "0.12.5",
-    "@lexical/plain-text": "0.12.5",
-    "@lexical/rich-text": "0.12.5",
-    "@lexical/selection": "0.12.5",
-    "@lexical/text": "0.12.5",
-    "@lexical/utils": "0.12.5",
     "@mdi/font": "^7.4.47",
     "blurhash": "2.0.5",
     "color": "^4.2.3",
     "leaflet": "1.9.4",
-    "leaflet.markercluster": "1.5.3"
+    "leaflet.markercluster": "1.5.3",
+    "markdown-it": "^15.0.2"
   },
   "devDependencies": {
     "@types/color": "3.0.6",

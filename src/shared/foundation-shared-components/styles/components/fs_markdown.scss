@@ -1,0 +1,80 @@
+.fs-markdown {
+    @extend .text-body;
+
+    color: var(--fs-markdown-color);
+    overflow-wrap: anywhere;
+
+    & > :first-child {
+        margin-top: 0;
+    }
+
+    & > :last-child {
+        margin-bottom: 0;
+    }
+
+    h1 {
+        @extend .text-h1;
+    }
+
+    h2 {
+        @extend .text-h2;
+    }
+
+    h3 {
+        @extend .text-h3;
+    }
+
+    h4, h5, h6 {
+        @extend .text-button;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table {
+        margin: 8px 0;
+    }
+
+    ul, ol {
+        padding-left: 24px;
+    }
+
+    a {
+        color: var(--fs-markdown-link-color);
+    }
+
+    blockquote {
+        padding-left: 12px;
+        border-left: 3px solid var(--fs-markdown-border-color);
+    }
+
+    code {
+        @extend .text-formula;
+
+        padding: 0 4px;
+        border-radius: 4px;
+        background-color: var(--fs-markdown-code-color);
+    }
+
+    pre {
+        padding: 8px 12px;
+        border-radius: 4px;
+        overflow-x: auto;
+        background-color: var(--fs-markdown-code-color);
+
+        code {
+            padding: 0;
+        }
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid var(--fs-markdown-border-color);
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 4px 8px;
+        border: 1px solid var(--fs-markdown-border-color);
+    }
+}

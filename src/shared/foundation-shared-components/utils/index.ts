@@ -7,7 +7,7 @@ export * from "./gradient";
 export * from "./icons";
 export * from "./leafletMarkers"
 export * from "./levenshtein";
-export * from "./lexical";
+export * from "./markdown";
 export * from "./operations";
 export * from "./picker";
 export * from "./sort";

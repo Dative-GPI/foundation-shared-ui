@@ -20,12 +20,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     args: {
-      value1: "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Hello I am \",\"type\":\"text\",\"version\":1},{\"type\":\"variable\",\"version\":1,\"code\":\"name\",\"defaultValue\":\"defaultName\"}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"heading\",\"version\":1,\"tag\":\"h1\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"I come from \",\"type\":\"text\",\"version\":1},{\"type\":\"variable\",\"version\":1,\"code\":\"country\",\"defaultValue\":\"World\"},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\" and I am \",\"type\":\"text\",\"version\":1},{\"type\":\"variable\",\"version\":1,\"code\":\"age\",\"defaultValue\":\"defaultAge\"},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\".\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+      value1: "# Hello I am {{name}}\nI come from {{country}} and I am {{age}}.",
       variablePreset1: [{ code: "name", defaultValue: "DefaultName", label: "Name" }, { code: "age", defaultValue: "18", label: "Age" }, { code: "country", defaultValue: "World", label: "Country" }, { code: "city", defaultValue: "Capital", label: "City" }],
       variableValues1: { name: "John", age: 25 },
-      value2: "{\"root\":{\"children\":[{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-      value3: "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Click \",\"type\":\"text\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"here\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"link\",\"version\":1,\"rel\":\"noreferrer\",\"target\":\"_blank\",\"title\":\"\",\"url\":\"https://www.dative-gpi.com/\"},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\" to visit a marvelous website\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-      value4: "{\"root\": {\"type\": \"root\", \"children\": [{\"type\": \"paragraph\", \"children\": [{\"text\": \"Recette pour environ 50 baguettes tradition avec le process Paneotrad\", \"type\": \"text\"}]}, {\"type\": \"paragraph\", \"children\": []}, {\"tag\": \"h5\", \"type\": \"heading\", \"format\": \"\", \"indent\": 0, \"version\": 1, \"children\": [{\"mode\": \"normal\", \"text\": \"Ingrédients\", \"type\": \"text\", \"style\": \"\", \"detail\": 0, \"format\": 0, \"version\": 1}], \"direction\": \"ltr\"}, {\"type\": \"paragraph\", \"format\": \"\", \"indent\": 0, \"version\": 1, \"children\": [], \"direction\": null}, {\"type\": \"paragraph\", \"format\": \"\", \"indent\": 0, \"version\": 1, \"children\": [{\"mode\": \"normal\", \"text\": \"10 kg de farine de Tradition T65\", \"type\": \"text\", \"style\": \"\", \"detail\": 0, \"format\": 0, \"version\": 1}], \"direction\": \"ltr\"}, {\"type\": \"paragraph\", \"format\": \"\", \"indent\": 0, \"version\": 1, \"children\": [{\"mode\": \"normal\", \"text\": \"6,8 L + 0,4 L d'eau\", \"type\": \"text\", \"style\": \"\", \"detail\": 0, \"format\": 0, \"version\": 1}], \"direction\": \"ltr\"}, {\"type\": \"paragraph\", \"format\": \"\", \"indent\": 0, \"version\": 1, \"children\": [{\"mode\": \"normal\", \"text\": \"70 g de levure\", \"type\": \"text\", \"style\": \"\", \"detail\": 0, \"format\": 0, \"version\": 1}], \"direction\": \"ltr\"}, {\"type\": \"paragraph\", \"format\": \"\", \"indent\": 0, \"version\": 1, \"children\": [{\"mode\": \"normal\", \"text\": \"180 g de sel\", \"type\": \"text\", \"style\": \"\", \"detail\": 0, \"format\": 0, \"version\": 1}], \"direction\": \"ltr\"}]}}"
+      value2: null,
+      value3: "Click [here](https://www.dative-gpi.com/) to visit a **marvelous** website",
+      value4: "Recette pour environ 50 baguettes tradition avec le process _Paneotrad_\n\n### Ingrédients\n\n- 10 kg de farine de Tradition T65\n- 6,8 L + 0,4 L d'eau\n- 70 g de levure\n- 180 g de sel"
     }
   },
   render: (args, { argTypes }) => ({
@@ -81,7 +81,7 @@ export const Default: Story = {
 
 export const Variables: Story = {
   args: {
-    modelValue: "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Hello I am \",\"type\":\"text\",\"version\":1},{\"type\":\"variable\",\"version\":1,\"code\":\"name\",\"defaultValue\":\"defaultName\"}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"heading\",\"version\":1,\"tag\":\"h1\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"I come from \",\"type\":\"text\",\"version\":1},{\"type\":\"variable\",\"version\":1,\"code\":\"country\",\"defaultValue\":\"World\"},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\" and I am \",\"type\":\"text\",\"version\":1},{\"type\":\"variable\",\"version\":1,\"code\":\"age\",\"defaultValue\":\"defaultAge\"},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\".\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1},{\"children\":[],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+    modelValue: "# Hello I am {{name}}\n\nI come from {{country}} and I am {{age}}.",
     variableReferences: [{ code: "name", defaultValue: "DefaultName", label: "Name" }, { code: "age", defaultValue: "18", label: "Age" }, { code: "country", defaultValue: "World", label: "Country" }, { code: "city", defaultValue: "Capital", label: "City" }],
     variableValues: { name: "John", age: "25" },
   },
@@ -122,6 +122,7 @@ export const Variables: Story = {
         </FSText>
         <FSRichTextField
           variant="readonly"
+          :variableReferences="args.variableReferences"
           :variableValues="args.variableValues"
           :modelValue="args.modelValue"
         />

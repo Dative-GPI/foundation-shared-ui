@@ -2,6 +2,8 @@
   <FSCol>
     <FSRow
       v-if="!readonly"
+      align="bottom-left"
+      :wrap="false"
     >
       <slot
         name="label"
@@ -34,180 +36,110 @@
         align="center-right"
         :wrap="false"
       >
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :color="toolbarColors.undo"
-          :style="style"
-          @click="editor.dispatchCommand(UNDO_COMMAND, undefined)"
-        >
-          mdi-undo-variant
-        </FSIcon>
-        <v-divider
-          vertical
-        />
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :style="style"
-          @click="formatText('h1')"
-        >
-          mdi-format-header-1
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :style="style"
-          @click="formatText('h2')"
-        >
-          mdi-format-header-2
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :style="style"
-          @click="formatText('h3')"
-        >
-          mdi-format-header-3
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :style="style"
-          @click="formatParagraph()"
-        >
-          mdi-format-paragraph
-        </FSIcon>
-        <v-divider
-          vertical
-        />
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :color="toolbarColors.bold"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')"
-        >
-          mdi-format-bold
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :color="toolbarColors.italic"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')"
-        >
-          mdi-format-italic
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :color="toolbarColors.underline"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')"
-        >
-          mdi-format-underline
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :color="toolbarColors.strikethrough"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')"
-        >
-          mdi-format-strikethrough
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :color="toolbarColors.link"
-          :style="style"
-          @click="openLink"
-        >
-          mdi-link
-        </FSIcon>
-        <FSMenu
-          v-if="$props.variableReferences && $props.variableReferences.length > 0"
-          :closeOnContentClick="false"
-          v-model="menuVariable"
+        <template
+          v-if="!preview"
         >
           <template
-            v-slot:activator="{ props }"
+            v-for="(group, index) in tools"
+            :key="index"
           >
             <FSIcon
-              v-bind="props"
+              v-for="tool in group"
+              :key="tool.icon"
               class="fs-rich-text-field-icon"
-              :color="toolbarColors.variable"
-              :style="style"
+              :color="ColorEnum.Dark"
+              @mousedown.prevent
+              @click="tool.action"
             >
-              mdi-variable
+              {{ tool.icon }}
             </FSIcon>
-          </template>
-          <FSCard
-            padding="12"
-            width="300px"
-            :elevation="true"
-          >
-            <FSAutoCompleteField
-              itemTitle="label"
-              itemValue="code"
-              :placeholder="$tr('rich-text-field.variable-placeholder', 'Choose a variable...')"
-              :items="$props.variableReferences"
-              @update:modelValue="insertVariable($event)"
+            <v-divider
+              vertical
             />
-          </FSCard>
-        </FSMenu>
-        <v-divider
-          vertical
-        />
+          </template>
+          <FSMenu
+            v-if="$props.variableReferences.length > 0"
+            :closeOnContentClick="false"
+            v-model="menuVariable"
+          >
+            <template
+              #activator="{ props }"
+            >
+              <FSIcon
+                v-bind="props"
+                class="fs-rich-text-field-icon"
+                :color="ColorEnum.Dark"
+                @mousedown.prevent
+              >
+                mdi-variable
+              </FSIcon>
+            </template>
+            <FSCard
+              padding="12"
+              width="300px"
+              :elevation="true"
+            >
+              <FSAutoCompleteField
+                itemTitle="label"
+                itemValue="code"
+                :placeholder="$tr('rich-text-field.variable-placeholder', 'Choose a variable...')"
+                :items="$props.variableReferences"
+                @update:modelValue="insertVariable"
+              />
+            </FSCard>
+          </FSMenu>
+          <v-divider
+            v-if="$props.variableReferences.length > 0"
+            vertical
+          />
+        </template>
         <FSIcon
           class="fs-rich-text-field-icon"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')"
+          :color="preview ? ColorEnum.Primary : ColorEnum.Dark"
+          @click="preview = !preview"
         >
-          mdi-format-align-left
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')"
-        >
-          mdi-format-align-center
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')"
-        >
-          mdi-format-align-right
-        </FSIcon>
-        <FSIcon
-          class="fs-rich-text-field-icon"
-          :style="style"
-          @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')"
-        >
-          mdi-format-align-justify
+          {{ preview ? "mdi-eye-off-outline" : "mdi-eye-outline" }}
         </FSIcon>
       </FSRow>
     </FSRow>
-    <FSText
-      v-if="readonly && !$props.modelValue && $props.emptyLabel"
-      variant="soft"
+    <template
+      v-if="readonly"
     >
-      {{ $props.emptyLabel }}
-    </FSText>
-    <div
-      :class="classes"
+      <FSText
+        v-if="!$props.modelValue && $props.emptyLabel"
+        variant="soft"
+      >
+        {{ $props.emptyLabel }}
+      </FSText>
+      <FSMarkdown
+        v-else
+        :content="$props.modelValue"
+        :variableValues="variables"
+        :linkColor="$props.linkColor"
+      />
+    </template>
+    <FSMarkdown
+      v-else-if="preview"
+      class="fs-rich-text-field-preview"
+      :content="$props.modelValue"
+      :variableValues="variables"
+      :linkColor="$props.linkColor"
       :style="style"
-    >
-      <div
-        class="fs-rich-text-field-content"
-        :data-variable-values="variableValues"
-        :contenteditable="!readonly && !$props.disabled && !loading"
-        :data-readonly="$props.variant === 'readonly'"
-        :id="id"
-      />
-      <slot
-        name="append-inner"
-        v-bind="{ props: $props }"
-      />
-    </div>
-
-    <FSTextField
-      v-if="isLink && !readonly && !$props.disabled"
+    />
+    <FSTextArea
+      v-else
+      ref="textAreaRef"
       :hideHeader="true"
-      @keypress.enter.stop="toggleLink"
-      v-model="linkUrl"
+      :clearable="false"
+      :maxWidth="null"
+      :rows="$props.rows"
+      :disabled="$props.disabled"
+      :modelValue="$props.modelValue"
+      @update:modelValue="onUpdate"
+    />
+    <slot
+      name="append-inner"
+      v-bind="{ props: $props }"
     />
     <slot
       name="description"
@@ -226,28 +158,24 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, type PropType, ref, type StyleValue, watch } from "vue";
+import { computed, defineComponent, type PropType, ref, type StyleValue } from "vue";
 
-import { $createParagraphNode, $getSelection, $isElementNode, $isRangeSelection, $isNodeSelection, $setSelection, CAN_UNDO_COMMAND, createEditor, type ElementNode, FORMAT_ELEMENT_COMMAND, FORMAT_TEXT_COMMAND, ParagraphNode, UNDO_COMMAND } from "lexical";
-import { $createHeadingNode, HeadingNode, type HeadingTagType, registerRichText } from "@lexical/rich-text";
-import { createEmptyHistoryState, registerHistory } from "@lexical/history";
-import { $createLinkNode, $isLinkNode, LinkNode } from "@lexical/link";
-import { $wrapNodes } from "@lexical/selection";
+import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui/composables";
 
-import { emptyLexicalState, getAncestor, getSelectedNode } from "@dative-gpi/foundation-shared-components/utils";
+import { applyMarkdownEdit, insertMarkdown, insertMarkdownLink, type MarkdownEdit, type MarkdownLinePrefix, markdownLinePrefixes, toggleMarkdownLinePrefix, toggleMarkdownWrap } from "@dative-gpi/foundation-shared-components/utils";
 import { useBreakpoints, useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
-import { $createVariableNode, $isVariableNode, VariableNode } from "../../models/variableNode";
 import { type RichTextVariable } from "../../models/richTextVariable";
 
 import FSAutoCompleteField from "./FSAutocompleteField.vue";
-import FSTextField from "./FSTextField.vue";
+import FSTextArea from "./FSTextArea.vue";
+import FSMarkdown from "../FSMarkdown.vue";
 import FSIcon from "../FSIcon.vue";
 import FSCard from "../FSCard.vue";
 import FSText from "../FSText.vue";
 import FSSpan from "../FSSpan.vue";
-import FSMenu from '../FSMenu.vue';
+import FSMenu from "../FSMenu.vue";
 import FSCol from "../FSCol.vue";
 import FSRow from "../FSRow.vue";
 
@@ -255,7 +183,8 @@ export default defineComponent({
   name: "FSRichTextField",
   components: {
     FSAutoCompleteField,
-    FSTextField,
+    FSTextArea,
+    FSMarkdown,
     FSText,
     FSSpan,
     FSIcon,
@@ -281,7 +210,7 @@ export default defineComponent({
       default: null
     },
     modelValue: {
-      type: [Object, String] as PropType<{ [key: string]: any } | string | null>,
+      type: String as PropType<string | null>,
       required: false,
       default: null
     },
@@ -322,400 +251,83 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
-    const { fontStyles, isMobileSized } = useBreakpoints();
+    const { $tr } = useTranslationsProvider();
+    const { fontStyles } = useBreakpoints();
     const { getColors } = useColors();
 
-    const linkColors = computed(() => getColors(props.linkColor));
     const lights = getColors(ColorEnum.Light);
     const darks = getColors(ColorEnum.Dark);
 
-    const loading = ref(true);
-    const canUndo = ref(false);
-    const isLink = ref(false);
-    const isBold = ref(false);
-    const isItalic = ref(false);
-    const isUnderline = ref(false);
-    const isStrikethrough = ref(false);
-    const isVariable = ref(false);
+    const textAreaRef = ref<InstanceType<typeof FSTextArea> | null>(null);
     const menuVariable = ref(false);
+    const preview = ref(false);
 
-    const id = `${Math.random()}-editor`;
+    const readonly = computed((): boolean => props.variant === "readonly");
 
-    const linkUrl = ref("https://");
+    const variables = computed((): { [code: string]: any } => ({
+      ...Object.fromEntries(props.variableReferences.map((variable) => [variable.code, variable.defaultValue])),
+      ...props.variableValues
+    }));
 
-    const config = {
-      namespace: "MyEditor",
-      theme: {
-        paragraph: 'text-body',
-        heading: {
-          h1: 'text-h1',
-          h2: 'text-h2',
-          h3: 'text-h3'
-        },
-        link: 'editor-link',
-        text: {
-          bold: 'editor-text-bold',
-          italic: 'editor-text-italic',
-          underline: 'editor-text-underline',
-          strikethrough: 'editor-text-strikethrough',
-          underlineStrikethrough: 'editor-text-underline-strikethrough'
-        }
-      },
-      nodes: [
-        HeadingNode,
-        LinkNode,
-        ParagraphNode,
-        VariableNode
+    const style = computed((): StyleValue => ({
+      "--fs-rich-text-field-color"       : props.disabled ? lights.dark : darks.base,
+      "--fs-rich-text-field-border-color": lights.dark,
+      ...fontStyles.value
+    }));
+
+    const onUpdate = (value: string | null): void => {
+      emit("update:modelValue", value || null);
+    };
+
+    const edit = (transform: (value: string, start: number, end: number) => MarkdownEdit): void => {
+      const textarea: HTMLTextAreaElement | null = textAreaRef.value?.$el.querySelector("textarea") ?? null;
+      if (!textarea) {
+        return;
+      }
+      applyMarkdownEdit(textarea, transform(textarea.value, textarea.selectionStart, textarea.selectionEnd));
+    };
+
+    const wrap = (marker: string) => () => edit((value, start, end) => toggleMarkdownWrap(value, start, end, marker, $tr("rich-text-field.text-placeholder", "text")));
+    const prefix = (linePrefix: MarkdownLinePrefix) => () => edit((value, start, end) => toggleMarkdownLinePrefix(value, start, end, linePrefix));
+
+    const tools: { icon: string, action: () => void }[][] = [
+      [
+        { icon: "mdi-format-header-1", action: prefix(markdownLinePrefixes.h1) },
+        { icon: "mdi-format-header-2", action: prefix(markdownLinePrefixes.h2) },
+        { icon: "mdi-format-header-3", action: prefix(markdownLinePrefixes.h3) }
       ],
-      onError: console.error
-    }
+      [
+        { icon: "mdi-format-bold", action: wrap("**") },
+        { icon: "mdi-format-italic", action: wrap("_") },
+        { icon: "mdi-format-strikethrough", action: wrap("~~") },
+        { icon: "mdi-code-tags", action: wrap("`") },
+        { icon: "mdi-link", action: () => edit((value, start, end) => insertMarkdownLink(value, start, end, $tr("rich-text-field.text-placeholder", "text"))) }
+      ],
+      [
+        { icon: "mdi-format-list-bulleted", action: prefix(markdownLinePrefixes.bulletList) },
+        { icon: "mdi-format-list-numbered", action: prefix(markdownLinePrefixes.numberedList) },
+        { icon: "mdi-format-quote-close", action: prefix(markdownLinePrefixes.quote) }
+      ]
+    ];
 
-    const isEmpty = computed((): boolean => {
-      return editor.getEditorState().isEmpty();
-    });
-
-    const editor = createEditor(config);
-
-    onMounted((): void => {
-      const contentEditableElement = document.getElementById(id);
-      editor.setRootElement(contentEditableElement);
-      registerRichText(editor);
-      registerHistory(editor, createEmptyHistoryState(), 250);
-
-      updateEditorState();
-      loading.value = false;
-    });
-
-    const readonly = computed((): boolean => {
-      return ["readonly"].includes(props.variant);
-    });
-
-    const style = computed((): StyleValue => {
-      let minHeight: string | undefined = "auto";
-      if (!readonly.value) {
-        const base = isMobileSized.value ? 30 : 42;
-        const row = isMobileSized.value ? 16 : 20;
-        if (props.rows > 1) {
-          minHeight = `${base + (props.rows - 1) * row}px`;
-        }
-        else {
-          minHeight = `${base}px`;
-        }
-      }
-      switch (props.variant) {
-        case "standard": {
-          if (props.disabled) {
-            return {
-              "--fs-rich-text-field-undo-cursor"        : "default",
-              "--fs-rich-text-field-icon-cursor"        : "default",
-              "--fs-rich-text-field-border-color"       : lights.base,
-              "--fs-rich-text-field-color"              : lights.dark,
-              "--fs-rich-text-field-active-border-color": lights.base,
-              "--fs-rich-text-field-link-color"         : linkColors.value.light,
-              "--fs-rich-text-field-min-height"         : minHeight,
-              "--fs-rich-text-field-padding"            : isMobileSized.value ? "6px 16px" : "10px 12px",
-              ...fontStyles.value
-            };
-          }
-          else {
-            return {
-              "--fs-rich-text-field-undo-cursor"             : canUndo.value ? "pointer" : "default",
-              "--fs-rich-text-field-icon-cursor"             : "pointer",
-              "--fs-rich-text-field-border-color"            : lights.dark,
-              "--fs-rich-text-field-color"                   : darks.base,
-              "--fs-rich-text-field-active-border-color"     : darks.dark,
-              "--fs-rich-text-field-link-color"              : linkColors.value.dark,
-              "--fs-rich-text-field-min-height"              : minHeight,
-              "--fs-rich-text-field-variable-backgroundcolor": getColors(ColorEnum.Primary).light,
-              "--fs-rich-text-field-variable-color"          : getColors(ColorEnum.Primary).lightContrast!,
-              "--fs-rich-text-field-padding"                 : isMobileSized.value ? "6px 16px" : "10px 12px",
-              ...fontStyles.value
-            };
-          }
-        }
-        case "readonly": return {
-          "--fs-rich-text-field-border-color"       : "transparent",
-          "--fs-rich-text-field-color"              : darks.base,
-          "--fs-rich-text-field-active-border-color": "transparent",
-          "--fs-rich-text-field-link-color"         : linkColors.value.dark,
-          "--fs-rich-text-field-min-height"         : minHeight,
-          "--fs-rich-text-field-padding"            : "0",
-          ...fontStyles.value
-        }
-      }
-    });
-
-    const classes = computed((): string[] => {
-      const innerClasses = ["fs-rich-text-field"];
-      if (!readonly.value) {
-        innerClasses.push("fs-rich-text-field-readonly");
-      }
-      return innerClasses;
-    });
-
-    const toolbarColors = computed((): { [code: string]: string } => {
-      if (!props.disabled) {
-        return {
-          undo: canUndo.value ? darks.base : lights.base,
-          bold: isBold.value ? darks.base : lights.base,
-          italic: isItalic.value ? darks.base : lights.base,
-          underline: isUnderline.value ? darks.base : lights.base,
-          strikethrough: isStrikethrough.value ? darks.base : lights.base,
-          link: isLink.value ? darks.base : lights.base,
-          variable: isVariable.value ? darks.base : lights.base
-        };
-      }
-      else {
-        return {
-          undo: lights.base,
-          bold: lights.base,
-          italic: lights.base,
-          underline: lights.base,
-          strikethrough: lights.base,
-          link: lights.base
-        };
-      }
-    });
-
-    const variableValues = computed(() => {
-      return JSON.stringify(props.variableValues)
-    });
-
-    const updateToolbar = (): void => {
-      const selection = $getSelection();
-      isVariable.value = false;
-      if ($isRangeSelection(selection)) {
-        isBold.value = selection.hasFormat("bold");
-        isItalic.value = selection.hasFormat("italic");
-        isUnderline.value = selection.hasFormat("underline");
-        isStrikethrough.value = selection.hasFormat("strikethrough");
-        isLink.value = $isLinkNode(getSelectedNode(selection)) || $isLinkNode(getSelectedNode(selection).getParent());
-      }
-      else if($isNodeSelection(selection)){
-        if($isVariableNode(selection?.getNodes()[0])){
-          isVariable.value = true;
-        }
-      }
-    };
-
-    editor.registerUpdateListener(({ editorState }) => {
-      editorState.read(() => {
-        updateToolbar();
-        if(loading.value) {
-          return;
-        }
-        const editorModelValue = JSON.stringify(editorState.toJSON());
-        if(editorModelValue === emptyLexicalState && props.modelValue !== null) {
-          emit("update:modelValue", null);
-          return;
-        }
-        if(editorModelValue !== emptyLexicalState && editorModelValue !== props.modelValue) {
-          emit("update:modelValue", editorModelValue);
-        }
-      });
-    });
-
-    editor.registerCommand(CAN_UNDO_COMMAND, (payload) => {
-      canUndo.value = payload;
-      return false;
-    }, 1);
-
-    const formatText = (type: HeadingTagType) => {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode(type));
-        }
-      });
-    };
-
-    const formatParagraph = (): void => {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createParagraphNode());
-        }
-      });
-    };
-
-    const insertVariable = (code: string) => {
-      const variable = props.variableReferences.find((v) => v.code === code);
-      if (!variable) {
-        return;
-      }
+    const insertVariable = (code: string | null): void => {
       menuVariable.value = false;
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          const variableNode = $createVariableNode(code, variable.defaultValue);
-          selection.insertNodes([variableNode]);
-        }
-      });
-    };
-
-    const openLink = (): void => {
-      if (!isLink.value) {
-        isLink.value = true;
-      }
-      else {
-        editor.update(() => {
-          const selection = $getSelection();
-
-          if ($isRangeSelection(selection)) {
-            toggleLink();
-          }
-        });
+      if (code) {
+        edit((value, start, end) => insertMarkdown(value, start, end, `{{${code}}}`));
       }
     };
-
-    const toggleLink = (): void => {
-      editor.update(() => {
-        const target = "_blank";
-        const title = "";
-        const rel = "noreferrer";
-        const selection = $getSelection();
-        $setSelection(null);
-
-        if (selection != null) {
-          const nodes = selection.extract();
-
-          if (linkUrl.value === null) {
-            // Remove LinkNodes
-            nodes.forEach((node) => {
-              const parent = node.getParent();
-              if ($isLinkNode(parent)) {
-                const children = parent.getChildren();
-                for (let i = 0; i < children.length; i++) {
-                  parent.insertBefore(children[i]);
-                }
-                parent.remove();
-              }
-            });
-          }
-          else {
-            if (nodes.length === 1) {
-              const firstNode = nodes[0];
-              const linkNode = getAncestor(firstNode, $isLinkNode);
-              if (linkNode !== null) {
-                linkNode.setURL(linkUrl.value);
-                if (target !== undefined) {
-                  linkNode.setTarget(target);
-                }
-                if (rel !== null) {
-                  linkNode.setRel(rel);
-                }
-                if (title !== undefined) {
-                  linkNode.setTitle(title);
-                }
-                return;
-              }
-            }
-            let prevParent: ElementNode | LinkNode | null = null;
-            let linkNode: LinkNode | null = null;
-            nodes.forEach((node) => {
-              const parent = node.getParent();
-              if (parent === linkNode || parent === null || ($isElementNode(node) && !node.isInline())) {
-                return;
-              }
-              if ($isLinkNode(parent)) {
-                linkNode = parent;
-                parent.setURL(linkUrl.value);
-                if (target !== undefined) {
-                  parent.setTarget(target);
-                }
-                if (rel !== null) {
-                  linkNode.setRel(rel);
-                }
-                if (title !== undefined) {
-                  linkNode.setTitle(title);
-                }
-                return;
-              }
-              if (!parent.is(prevParent)) {
-                prevParent = parent;
-                linkNode = $createLinkNode(linkUrl.value, { rel, target, title });
-
-                if ($isLinkNode(parent)) {
-                  if (node.getPreviousSibling() === null) {
-                    parent.insertBefore(linkNode);
-                  }
-                  else {
-                    parent.insertAfter(linkNode);
-                  }
-                }
-                else {
-                  node.insertBefore(linkNode);
-                }
-              }
-              if ($isLinkNode(node)) {
-                if (node.is(linkNode)) {
-                  return;
-                }
-                if (linkNode !== null) {
-                  const children = node.getChildren();
-
-                  for (let i = 0; i < children.length; i++) {
-                    linkNode.append(children[i]);
-                  }
-                }
-                node.remove();
-                return;
-              }
-              if (linkNode !== null) {
-                linkNode.append(node);
-              }
-            });
-          }
-        }
-      });
-      isLink.value = false;
-    }
-
-    const updateEditorState = () => {     
-      if (JSON.stringify(editor.getEditorState().toJSON()) === props.modelValue) {
-        return;
-      }
-      if (props.modelValue != null) {
-        if (typeof props.modelValue === "string" && props.modelValue !== "") {
-          editor.setEditorState(editor.parseEditorState(props.modelValue!));
-          return;
-        }
-        if (typeof props.modelValue === "object") {
-          editor.setEditorState(editor.parseEditorState(JSON.stringify(props.modelValue)));
-          return;
-        }
-      }
-      editor.setEditorState(editor.parseEditorState(emptyLexicalState));
-    }
-
-    watch(() => props.modelValue, () => {
-      updateEditorState();
-    });
 
     return {
-      FORMAT_ELEMENT_COMMAND,
-      FORMAT_TEXT_COMMAND,
-      variableValues,
-      toolbarColors,
       menuVariable,
-      UNDO_COMMAND,
+      textAreaRef,
       ColorEnum,
+      variables,
       readonly,
-      linkUrl,
-      classes,
-      loading,
-      isEmpty,
-      editor,
-      isLink,
+      preview,
       style,
-      id,
-      formatParagraph,
+      tools,
       insertVariable,
-      formatText,
-      toggleLink,
-      openLink
+      onUpdate
     };
   }
 });
