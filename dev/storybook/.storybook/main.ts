@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-storysource"
   ],
+  staticDirs: ["../public"],
   framework: {
     name: "@storybook/vue3-vite",
     options: {},

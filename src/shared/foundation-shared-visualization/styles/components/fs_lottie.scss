@@ -1,0 +1,18 @@
+.fs-lottie {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+    height: var(--fs-lottie-height, auto);
+    width: var(--fs-lottie-width, auto);
+    border-radius: var(--fs-lottie-border-radius);
+
+    .fs-lottie-container {
+        height: 100%;
+        width: 100%;
+    }
+
+    .fs-lottie-load {
+        position: absolute;
+        inset: 0;
+    }
+}
