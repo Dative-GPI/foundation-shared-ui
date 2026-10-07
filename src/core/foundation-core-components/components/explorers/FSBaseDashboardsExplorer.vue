@@ -190,7 +190,7 @@ export default defineComponent({
     root: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     },
     allowedTypes: {
       type: Array as PropType<DashboardExplorerElementType[]>,
