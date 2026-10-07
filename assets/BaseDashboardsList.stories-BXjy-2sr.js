@@ -1,0 +1,27 @@
+import{a,b as e}from"./properties-Qw-O9fbT.js";import r from"./FSBaseDashboardsList-DbyWLcBe.js";import{F as s}from"./FSBaseDashboardsExplorer-Q1vapJ2q.js";import{F as n}from"./FSDataTable-BZ1NKIbX.js";import{F as d}from"./FSDataTableUI-hIszHyoH.js";import"./vue.esm-bundler-NVdFPFZB.js";import"./dashboardExplorerElements-DYv8N40y.js";import"./dashboards-ttSPVkRQ.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";import"./eventQueue-D85hWBFd.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./uuid-DTaye2KM.js";import"./FSDashboardOrganisationTypeTileUI-CMDVt02g.js";import"./FSSimpleTileUI-Bi734Ok8.js";import"./FSIconCard-DMtxuGAX.js";import"./FSCard-X6BL7IDn.js";import"./FSRow-BTBqaZ3Z.js";import"./css-BA19cdxW.js";import"./useBreakpoints-Trboya0O.js";import"./FSRouterLink-D11oKEEH.js";import"./vue-router-WBcFvCV3.js";import"./useColors-CPKx0SIo.js";import"./theme-CHZNEzUD.js";import"./VProgressCircular-D014ccrC.js";import"./color-Cx3XlwVF.js";import"./useRender-C5CA_XPC.js";import"./intersectionObserver-DHmVtmN7.js";import"./resizeObserver-ZKSQVJHV.js";import"./size-kKHvqn_O.js";import"./tag-BLKDmAVb.js";import"./FSIcon-D-iWmbKS.js";import"./VIcon-BPCLtKbp.js";import"./icons-AciKn6XY.js";import"./FSImage-qkvcP0r6.js";import"./FSImageUI-CXTsXdBJ.js";import"./FSLoader-DRppy7ch.js";import"./dimensions-BuDdBtmf.js";import"./elevation-DyTGrbk9.js";import"./locale-MGWjZjXD.js";import"./proxiedModel-4bJ1saXA.js";import"./VImg-CF0d7Fd2.js";import"./rounded-BE8u9DAQ.js";import"./transition-Dqm8buww.js";import"./index-D_7bL_IH.js";import"./useImages-CuuQm3J3.js";import"./composableFactory-C8uMcJZX.js";import"./serviceFactory-DI_gyWBF.js";import"./base-CmdGny12.js";import"./useAppAuthToken-CxB5IoRP.js";import"./FSSpan-CffnRYnX.js";import"./useSlots-DEXetpJf.js";import"./FSTile-BhVLh0I_.js";import"./FSCheckbox-BEgzMGmB.js";import"./FSCol-ChYB2Oag.js";import"./useRules-eFcMZq7y.js";import"./VCheckboxBtn-BT3SzIyH.js";import"./VSelectionControl-TRNlUp1F.js";import"./density-HajNgXBf.js";import"./index-CDgYZebE.js";import"./VLabel-DOSQu5RP.js";import"./VInput-CBXzUquC.js";import"./index-C0WTB2TM.js";import"./FSChip-BbpyYaSh.js";import"./FSDashboardOrganisationTileUI-Dd2mcsFQ.js";import"./FSDashboardShallowTileUI-mw3csA6f.js";import"./FSFolderTileUI-C6BpvMBq.js";import"./FSEntityCountBadge-bfelcV1p.js";import"./FSColor-BdLg0VqR.js";import"./badge-D9p4Oj7n.js";import"./FSIconCheck-Y_gdQV2g.js";import"./FSTagGroup-CWBrHoVD.js";import"./FSSlideGroup-BLif3f0e.js";import"./FSButtonNextIcon-D5s36be0.js";import"./FSButton-C9qE_hma.js";import"./FSText-DkgFU9ZB.js";import"./VSlideGroup-DLaaL0Lk.js";import"./display-RdUuPsY9.js";import"./goto-D2YfjHNt.js";import"./group-g6KFhHmW.js";import"./VSlideGroupItem-BNzWd0Zb.js";import"./FSWrapGroup-CZDPgZeJ.js";import"./FSTag-BFdBKBzb.js";import"./VBtn-CvpLyLjZ.js";import"./border-D-0PuVU0.js";import"./variant-De5GYaDP.js";import"./loader-DOKDD2NA.js";import"./VProgressLinear-DA0V-MGc.js";import"./anchor-C-rl7L3L.js";import"./position-BAHmyhJU.js";import"./router-D2Xcou1T.js";import"./VDefaultsProvider-Cane1ZR3.js";import"./dashboards-9X6gs7Q2.js";import"./useTranslations-D5uJM3hx.js";import"./useDashboardExplorerElements-qc49Ph1h.js";import"./useDashboardOrganisations-CizRJHaJ.js";import"./dashboardTranslation-DO-AlaDJ.js";import"./useAppLanguageCode-CFDnQcKu.js";import"./pathCrumb-Db-cq5HI.js";import"./base-CxE7IGU1.js";import"./useAppOrganisationId-DLYVMJh2.js";import"./useDashboardShallows-Bvsp4lru.js";import"./useDashboardOrganisationTypes-DmUjBU5i.js";import"./useFolders-DxZsIFNa.js";import"./collectionTools-Px7qlA9A.js";import"./filter-C1K_d8Vd.js";import"./FSFadeOut-DWR8A1ny.js";import"./FSSearchField-TAeMrCJx.js";import"./FSTextField-CCgGVMUk.js";import"./FSBaseField-DjPNexk7.js";import"./VTextField-C-VZod1v.js";import"./VField-C_JZJuDz.js";import"./easing-DY7PVvcf.js";import"./forwardRefs-C-GTDzx5.js";import"./FSSelectField-WAavbS0b.js";import"./FSDialogMenu-DFLdv4ZH.js";import"./VDialog-D_wwtbpx.js";import"./VOverlay-flKIXg07.js";import"./lazy-D5C5Y6_6.js";import"./scopeId-CVBASNvj.js";import"./dialog-transition-Y-HqWA1J.js";import"./FSToggleSet-BsHkDw8a.js";import"./FSRadio-BJhcq_TI.js";import"./VSelect-CfYUtP1Q.js";import"./VList-Bkkbsc6W.js";import"./ssrBoot-BimrXMWA.js";import"./VDivider-sEPw-6oz.js";import"./VMenu-DfiSs3vJ.js";import"./FSDivider-Xq6LdERt.js";import"./FSMenu-BQ9x-9Vx.js";import"./FSOptionGroup-BsfO-TRM.js";import"./filter-CEUeuq74.js";const jr={title:"Core/Components/Lists/Base Lists/BaseDashboardsList",component:r,tags:["autodocs"],argTypes:{...e([s,n,d],r),...a(r),tableCode:{control:"select",options:["dashboardsExplorer1"]}}},o={render:i=>({components:{FSBaseDashboardsList:r},setup(){return{args:i}},template:`
+      <FSBaseDashboardsList
+        v-model:modelValue="args.modelValue"
+        v-bind="args"
+      />
+    `}),args:{modelValue:[],tableCode:"dashboardsExplorer1"}};var t,m,p;o.parameters={...o.parameters,docs:{...(t=o.parameters)==null?void 0:t.docs,source:{originalSource:`{
+  render: args => ({
+    components: {
+      FSBaseDashboardsList
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: \`
+      <FSBaseDashboardsList
+        v-model:modelValue="args.modelValue"
+        v-bind="args"
+      />
+    \`
+  }),
+  args: {
+    modelValue: [],
+    tableCode: 'dashboardsExplorer1'
+  }
+}`,...(p=(m=o.parameters)==null?void 0:m.docs)==null?void 0:p.source}}};const kr=["Default"];export{o as Default,kr as __namedExportsOrder,jr as default};
