@@ -83,8 +83,6 @@ import { defineComponent, type PropType, ref, watch } from 'vue';
 
 import { useAppLanguages } from "@dative-gpi/foundation-shared-services/composables";
 
-import { emptyLexicalState } from '../../utils';
-
 import FSButtonCancelLabel from '../buttons/FSButtonCancelLabel.vue';
 import FSRichTextField from './FSRichTextField.vue';
 import FSButton from '../FSButton.vue';
@@ -114,14 +112,14 @@ export default defineComponent({
       default: false,
     },
     modelValue: {
-      type: [Object, String] as PropType<{ [key: string]: any } | string | null>,
+      type: String as PropType<string | null>,
       required: false,
       default: null
     },
     translations: {
       type: Array as PropType<{
         languageCode: string;
-        [key: string]: string | object | null;
+        [key: string]: string | null;
       }[]>,
       required: false,
       default: () => []
@@ -138,21 +136,15 @@ export default defineComponent({
 
     const innerTranslations = ref<{
       languageCode: string;
-      [key: string]: string | object | null;
+      [key: string]: string | null;
     }[]>([]);
 
-    const getTranslation = (languageCode: string): string | object => {
-      if (!innerTranslations.value) {
-        return emptyLexicalState;
-      }
-      const translation = innerTranslations.value.find((t) => t.languageCode === languageCode);
-      if (!translation || !translation[props.property]) {
-        return emptyLexicalState;
-      }
-      return translation[props.property]!;
+    const getTranslation = (languageCode: string): string | null => {
+      const translation = innerTranslations.value?.find((t) => t.languageCode === languageCode);
+      return translation?.[props.property] ?? null;
     };
 
-    const setTranslation = (languageCode: string, value: string): void => {
+    const setTranslation = (languageCode: string, value: string | null): void => {
       if (!innerTranslations.value) {
         innerTranslations.value = [{
           languageCode,
@@ -184,15 +176,7 @@ export default defineComponent({
     };
 
     watch(() => props.translations, (newTranslations) => {
-      innerTranslations.value = newTranslations.map((translation) => {
-        if(typeof translation[props.property] === 'string'){
-          return translation;
-        }
-        return {
-          ...translation,
-          [props.property]: JSON.stringify(translation[props.property])
-        }
-      });
+      innerTranslations.value = newTranslations.map((translation) => ({ ...translation }));
     }, { immediate: true, deep: true });
 
     return {
