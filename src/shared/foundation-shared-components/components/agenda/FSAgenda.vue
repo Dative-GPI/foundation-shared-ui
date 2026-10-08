@@ -105,7 +105,7 @@ export default defineComponent({
     FSAgendaVerticalTimeLineMarker,
     FSCol,
     FSDayAgenda,
-    FSMonthAgenda,  
+    FSMonthAgenda,
     FSWeekAgenda,
     FSWindow
   },
@@ -177,9 +177,9 @@ export default defineComponent({
       if (props.mode === AgendaMode.Month) {
         const lastDayOfMonth = new Date(new Date(now.value).getFullYear(), new Date(now.value).getMonth() + 1, 0);
         const newStart = epochToLocalDayStart(new Date(now.value).setDate(1));
-        const newEnd = lastDayOfMonth.getTime()
+        const newEnd = epochToLocalDayEnd(lastDayOfMonth.getTime());
         emit("update:start", newStart);
-        emit("update:end", newEnd );
+        emit("update:end", newEnd);
         emit("update", { start: newStart, end: newEnd, mode: props.mode });
         return;
       }
