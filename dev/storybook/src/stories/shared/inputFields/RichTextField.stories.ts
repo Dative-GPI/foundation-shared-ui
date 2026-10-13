@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
 
-import FSStructuredTextField from "@dative-gpi/foundation-shared-components/components/fields/FSStructuredTextField.vue";
+import FSLexicalField from "@dative-gpi/foundation-shared-components/components/fields/FSLexicalField.vue";
 import FSRichTextField from "@dative-gpi/foundation-shared-components/components/fields/FSRichTextField.vue";
 import FSMarkdownField from "@dative-gpi/foundation-shared-components/components/fields/FSMarkdownField.vue";
 import FSCol from "@dative-gpi/foundation-shared-components/components/FSCol.vue";
@@ -11,7 +11,7 @@ const meta: Meta<typeof FSRichTextField> = {
   component: FSRichTextField,
   tags: ['autodocs'],
   argTypes: {
-    ...addSubcomponentsArgTypes([FSStructuredTextField, FSMarkdownField, FSCol], FSRichTextField),
+    ...addSubcomponentsArgTypes([FSLexicalField, FSMarkdownField, FSCol], FSRichTextField),
     ...addComponentEmits(FSRichTextField),
   },
 };

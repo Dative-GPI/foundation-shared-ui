@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="markdown ? 'FSMarkdownField' : 'FSStructuredTextField'"
+    :is="markdown ? 'FSMarkdownField' : 'FSLexicalField'"
     v-bind="fieldProps"
     @update:modelValue="$emit('update:modelValue', $event)"
   >
@@ -24,13 +24,13 @@ import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-compone
 
 import { type RichTextVariable } from "../../models/richTextVariable";
 
-import FSStructuredTextField from "./FSStructuredTextField.vue";
+import FSLexicalField from "./FSLexicalField.vue";
 import FSMarkdownField from "./FSMarkdownField.vue";
 
 export default defineComponent({
   name: "FSRichTextField",
   components: {
-    FSStructuredTextField,
+    FSLexicalField,
     FSMarkdownField
   },
   props: {
@@ -54,7 +54,6 @@ export default defineComponent({
       required: false,
       default: null
     },
-    // Format used to write an empty value, an existing value is always edited in its own format
     format: {
       type: String as PropType<"lexical" | "markdown">,
       required: false,
@@ -106,7 +105,6 @@ export default defineComponent({
       return empty.value ? props.format === "markdown" : !isLexicalState(props.modelValue);
     });
 
-    // Every prop but the format is handed to the field, an empty Lexical state being an empty markdown
     const fieldProps = computed((): { [key: string]: any } => {
       const fieldProps: { [key: string]: any } = { ...props };
       delete fieldProps.format;
