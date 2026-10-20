@@ -15,7 +15,7 @@
       :alertTo="$props.alertTo"
     />
     <template
-      v-for="(modelStatus, index) in $props.modelStatuses"
+      v-for="(modelStatus, index) in visibleModelStatuses"
     >
       <FSStatus
         v-if="deviceStatus(modelStatus)"
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import { computed, defineComponent, type PropType } from "vue";
 
 import type { FSDeviceAlert, FSDeviceConnectivity, FSDeviceStatus, FSDeviceStatusGroup, FSModelStatus } from "@dative-gpi/foundation-shared-components/models";
 import { ConnectivityStatus } from "@dative-gpi/foundation-shared-domain/enums";
@@ -77,6 +77,10 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const visibleModelStatuses = computed((): FSModelStatus[] => {
+      return props.modelStatuses.filter(modelStatus => modelStatus.visible == true);
+    });
+
     const deviceStatus = (modelStatus: FSModelStatus): FSDeviceStatusGroup | null => {
       const deviceStatus = props.deviceStatuses
         .find((deviceStatus: FSDeviceStatus) => deviceStatus.modelStatusId === modelStatus.id);
@@ -94,6 +98,7 @@ export default defineComponent({
     };
 
     return {
+      visibleModelStatuses,
       ConnectivityStatus,
       deviceStatus
     };

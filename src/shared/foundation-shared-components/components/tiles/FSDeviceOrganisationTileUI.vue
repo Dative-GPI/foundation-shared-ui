@@ -153,6 +153,9 @@ export default defineComponent({
 
     const singleModelStatuses = computed((): FSModelStatus[] => {
       return props.modelStatuses.filter(modelStatus => {
+        if (modelStatus.visible === false) {
+          return false;
+        }
         if (modelStatus.groupById != null) {
           return false;
         }
@@ -173,6 +176,9 @@ export default defineComponent({
 
     const carouselModelStatuses = computed((): FSModelStatus[] => {
       return props.modelStatuses.filter(modelStatus => {
+        if (modelStatus.visible === false) {
+          return false;
+        }
         if (modelStatus.groupById == null) {
           return false;
         }
