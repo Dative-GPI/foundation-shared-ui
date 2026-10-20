@@ -47,7 +47,7 @@ import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 import { useColors } from "@dative-gpi/foundation-shared-components/composables";
 import { sizeToVar } from "@dative-gpi/foundation-shared-components/utils";
 
-import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSRow from "@dative-gpi/foundation-shared-components/components/FSRow.vue";
 import FSText from "@dative-gpi/foundation-shared-components/components/FSText.vue";
@@ -68,13 +68,20 @@ export default defineComponent({
       required: false,
       default: "80px"
     },
+    thickness: {
+      type: [String, Number],
+      required: false,
+      default: "8px"
+    },
     startColor: {
-      type: String,
-      required: false
+      type: String as PropType<ColorBase>,
+      required: false,
+      default: ColorEnum.Error
     },
     endColor: {
-      type: String,
-      required: false
+      type: String as PropType<ColorBase>,
+      required: false,
+      default: ColorEnum.Success
     },
     showValue: {
       type: Boolean,
@@ -111,8 +118,6 @@ export default defineComponent({
     const { getColors } = useColors();
 
     const lightColors = getColors(ColorEnum.Light);
-    const successColors = getColors(ColorEnum.Success);
-    const errorColors = getColors(ColorEnum.Error);
 
     const isValid = computed(() => props.max > props.min);
 
@@ -163,9 +168,10 @@ export default defineComponent({
 
     const style = computed((): StyleValue => ({
       "--progress-circle-size": sizeToVar(props.size),
+      "--progress-circle-thickness": sizeToVar(props.thickness),
       "--progress-circle-background": lightColors.dark,
-      "--progress-circle-gradient-start": props.startColor ?? errorColors.base,
-      "--progress-circle-gradient-end": props.endColor ?? successColors.base,
+      "--progress-circle-gradient-start": getColors(props.startColor).base,
+      "--progress-circle-gradient-end": getColors(props.endColor).base,
       "--progress-circle-fill-start": `${Math.min(zeroPercent.value, valuePercent.value)}%`,
       "--progress-circle-fill-end": `${Math.max(zeroPercent.value, valuePercent.value)}%`,
       "--progress-circle-cursor-angle": `${valuePercent.value * 3.6}deg`

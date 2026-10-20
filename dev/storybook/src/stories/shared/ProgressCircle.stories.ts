@@ -51,7 +51,6 @@ export const SmallClickable: Story = {
     },
     template: `
       <FSProgressCircle
-        style="cursor: pointer;"
         v-bind="args"
         @click="() => {console.log('ProgressCircle clicked'); }"
       />
@@ -84,11 +83,13 @@ export const IntervalCursor: Story = {
   render,
   args: {
     modelValue: 5,
-    min: -10,
-    max: 10,
+    min: 0,
+    max: 30,
     size: "120px",
     cursor: true,
+    startColor: ColorEnum.Primary,
+    endColor: ColorEnum.Primary,
     showValue: true,
-    labels: [{ value: -5 }, { value: 0 }, { value: 5 }],
+    labels: [{ value: 0 }, { value: 5 }, { value: 10 }, { value: 15 }, { value: 20 }, { value: 25 }],
   },
 };
