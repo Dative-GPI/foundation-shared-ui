@@ -102,7 +102,7 @@
       #item.status="{ item }"
     >
       <FSStatusesCarousel
-        :modelStatuses="item.modelStatuses"
+        :modelStatuses="item.modelStatuses.filter(modelStatus => modelStatus.visible !== false)"
         :deviceStatuses="item.status.statuses"
       />
     </template>
@@ -215,14 +215,14 @@
     </template>
   </FSDataTable>
 </template>
-  
+
 <script lang="ts">
 import { computed, defineComponent, onMounted, type PropType, watch } from "vue";
 import { type RouteLocation } from "vue-router";
 import _ from "lodash";
 
 import { useTranslations as useTranslationsProvider } from "@dative-gpi/bones-ui";
-  
+
 import { ConnectivityStatus, Criticity, PropertyEntity } from "@dative-gpi/foundation-shared-domain/enums";
 import { alphanumericSort, connectivityLabel, connectivityIcon, connectivityColor } from "@dative-gpi/foundation-shared-components/utils";
 import { CardVariants, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -311,7 +311,7 @@ export default defineComponent({
     const { fetching: fecthingCustomProperties, entities: customProperties, getMany: getManyCustomProperties } = useCustomProperties();
     const { entities, fetching: fetchingDeviceOrganisations, getMany: getManyDeviceOrganisations } = useDeviceOrganisations();
     const { $tr } = useTranslationsProvider();
-  
+
     const deviceOrganisations = computed((): DeviceOrganisationInfos[] => {
       if (props.connectedOnly) {
         return entities.value.filter(d => d.connectivity != null && d.connectivity.status != ConnectivityStatus.None);
@@ -324,17 +324,17 @@ export default defineComponent({
         value: null,
         text: "—"
       }];
-      
+
       const uniqueSubgroupings = _.uniqBy(
         entities.value.flatMap(device => device.subgroupings),
         'id'
       );
-      
+
       filters.push(...uniqueSubgroupings.map(subgrouping => ({
         value: subgrouping.id,
         text: `${subgrouping.groupingLabel} - ${subgrouping.label}`
       })));
-      
+
       return filters.sort((a, b) => a.text.localeCompare(b.text));
     });
 
@@ -454,23 +454,23 @@ export default defineComponent({
         }
       }), {})
     }));
-  
+
     const isSelected = (id: string): boolean => {
       return props.modelValue.includes(id);
     };
-  
+
     onMounted((): void => {
-      getManyCustomProperties({ 
+      getManyCustomProperties({
         entities: [PropertyEntity.Device, PropertyEntity.DeviceOrganisation]
       });
     });
-  
+
     watch(() => props.deviceOrganisationFilters, (next, previous) => {
       if ((!next && !previous) || !_.isEqual(next, previous)) {
         getManyDeviceOrganisations(props.deviceOrganisationFilters);
       }
     }, { immediate: true });
-  
+
     return {
       fetchingDeviceOrganisations,
       fecthingCustomProperties,
@@ -488,4 +488,3 @@ export default defineComponent({
   }
 });
 </script>
-  

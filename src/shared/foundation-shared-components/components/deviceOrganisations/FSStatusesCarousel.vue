@@ -4,7 +4,7 @@
     align="center-center"
   >
     <FSButton
-      v-if="visibleModelStatuses.length > 1"
+      v-if="$props.modelStatuses.length > 1"
       icon="mdi-chevron-left"
       class="fs-stopclick"
       variant="icon"
@@ -15,7 +15,7 @@
       :modelValue="tab"
     >
       <FSRow
-        v-for="(modelStatus, index) in visibleModelStatuses"
+        v-for="(modelStatus, index) in $props.modelStatuses"
         align="center-center"
         gap="4px"
         :wrap="false"
@@ -30,7 +30,7 @@
       </FSRow>
     </FSWindow>
     <FSButton
-      v-if="visibleModelStatuses.length > 1"
+      v-if="$props.modelStatuses.length > 1"
       icon="mdi-chevron-right"
       class="fs-stopclick"
       variant="icon"
@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import type { PropType} from "vue";
-import { computed, defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue";
 
 import type { FSDeviceStatus, FSDeviceStatusGroup, FSModelStatus } from "@dative-gpi/foundation-shared-components/models";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -72,21 +72,17 @@ export default defineComponent({
   setup(props) {
     const tab = ref(0);
 
-    const visibleModelStatuses = computed((): FSModelStatus[] => {
-      return props.modelStatuses.filter(modelStatus => modelStatus.visible == true);
-    });
-
     const previous = () => {
       if (tab.value > 0) {
         tab.value--;
       }
       else {
-        tab.value = visibleModelStatuses.value.length - 1;
+        tab.value = props.modelStatuses.length - 1;
       }
     };
 
     const next = () => {
-      if (tab.value < visibleModelStatuses.value.length - 1) {
+      if (tab.value < props.modelStatuses.length - 1) {
         tab.value++;
       }
       else {
@@ -111,7 +107,6 @@ export default defineComponent({
     };
 
     return {
-      visibleModelStatuses,
       ColorEnum,
       tab,
       deviceStatus,
