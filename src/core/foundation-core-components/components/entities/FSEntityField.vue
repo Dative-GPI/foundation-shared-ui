@@ -13,6 +13,7 @@
     :showEntities="$props.showEntities"
     :showCount="$props.showCount"
     @click:select="dialog = true"
+    v-bind="$attrs"
   >
     <template
       #items
@@ -127,6 +128,7 @@ export default defineComponent({
     }
   },
   emits: ["update","update:modelValue", "update:entityType"],
+  inheritAttrs: false,
   setup(props, { emit }) {
     const dialog = ref(false);
 
