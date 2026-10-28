@@ -14,8 +14,8 @@ export class ModelStatusInfos {
   showDefault: boolean;
   iconDefault: string | null;
   colorDefault: string | null;
-  visible?: boolean;
-  
+  visible: boolean;
+
   constructor(params: ModelStatusInfosDTO) {
     this.id = params.id;
     this.modelId = params.modelId;
@@ -35,7 +35,7 @@ export class ModelStatusInfos {
     this.visible = params.visible;
   }
 }
-  
+
 export interface ModelStatusInfosDTO {
   id: string;
   modelId: string;
@@ -52,7 +52,7 @@ export interface ModelStatusInfosDTO {
   showDefault: boolean;
   iconDefault: string | null;
   colorDefault: string | null;
-  visible?: boolean;
+  visible: boolean;
 }
 
 export interface ModelStatusFilters {

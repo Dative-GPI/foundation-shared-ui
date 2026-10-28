@@ -102,7 +102,7 @@
       #item.status="{ item }"
     >
       <FSStatusesCarousel
-        :modelStatuses="item.modelStatuses.filter(modelStatus => modelStatus.visible !== false)"
+        :modelStatuses="item.modelStatuses"
         :deviceStatuses="item.status.statuses"
       />
     </template>
