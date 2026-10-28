@@ -153,13 +153,10 @@ export default defineComponent({
 
     const singleModelStatuses = computed((): FSModelStatus[] => {
       return props.modelStatuses.filter(modelStatus => {
-        if (modelStatus.groupById != null) {
+        if (modelStatus.visible === false
+          || modelStatus.groupById != null
+          || (!modelStatus.showDefault && !props.deviceStatuses.some(deviceStatus => deviceStatus.modelStatusId === modelStatus.id))) {
           return false;
-        }
-        if (!modelStatus.showDefault) {
-          if (!props.deviceStatuses.some(deviceStatus => deviceStatus.modelStatusId === modelStatus.id)) {
-            return false;
-          }
         }
         return true;
       }).slice(0, 5).sort((a, b) => a.index - b.index);
@@ -173,6 +170,9 @@ export default defineComponent({
 
     const carouselModelStatuses = computed((): FSModelStatus[] => {
       return props.modelStatuses.filter(modelStatus => {
+        if (modelStatus.visible === false) {
+          return false;
+        }
         if (modelStatus.groupById == null) {
           return false;
         }

@@ -7,4 +7,5 @@ export interface FSModelStatus {
   showDefault: boolean;
   iconDefault?: string | null;
   colorDefault?: string | null;
+  visible?: boolean;
 }
