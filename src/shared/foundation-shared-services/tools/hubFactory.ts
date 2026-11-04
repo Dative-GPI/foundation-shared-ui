@@ -1,6 +1,8 @@
 import { computed, onUnmounted, ref, watch } from "vue";
 import * as signalR from "@microsoft/signalr";
 
+import { useAppAuthToken } from "../composables/app/useAppAuthToken";
+
 export class HubFactory {
     static create(
         url: string | (() => string),
@@ -14,10 +16,14 @@ export class HubFactory {
         const watcheds = ref<string[]>([]);
 
         return () => {
+            const { authToken } = useAppAuthToken();
+
             const connect = async () => {
                 if (!connection) {
                     connection = new signalR.HubConnectionBuilder()
-                        .withUrl(typeof url == "string" ? url : url())
+                        .withUrl(typeof url == "string" ? url : url(), {
+                            accessTokenFactory: () => authToken.value ?? ""
+                        })
                         .configureLogging(signalR.LogLevel.Warning)
                         .withAutomaticReconnect()
                         .build();
