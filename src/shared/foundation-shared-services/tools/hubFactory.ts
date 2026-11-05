@@ -32,6 +32,10 @@ export class HubFactory {
                         isWatched: (id: string) => watcheds.value.includes(id),
                         hasWatchers: () => watchManySubscribers.value > 0,
                     })
+
+                    connection.onreconnected(async () => {
+                        await init(connection!);
+                    });
                 }
                 if (connection.state !== signalR.HubConnectionState.Connected) {
                     try {
@@ -51,6 +55,7 @@ export class HubFactory {
                 if (connection) {
                     await connection.stop();
                     connection = null;
+                    subscribed = false;
                 }
             }
 
@@ -70,7 +75,7 @@ export class HubFactory {
 
             const unsubscribeFromOne = (alertId: string) => {
                 const index = watcheds.value.indexOf(alertId);
-                if (index > -1) {watcheds.value = watcheds.value.splice(index, 1);}
+                if (index > -1) {watcheds.value.splice(index, 1);}
             }
 
             const subscribeToMany = () => {
@@ -124,4 +129,4 @@ export class HubFactory {
             }
         }
     }
-} 
+}
