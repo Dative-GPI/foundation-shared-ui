@@ -10,6 +10,10 @@ on:
     tags:
       - "*"
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 #piepline which run ci/generators/Foundation.Shared.Translations.Generator and publish the output to nuget
 jobs:
   publish:
@@ -37,8 +41,16 @@ jobs:
           export VERSION=${{ github.ref_name }}
           dotnet pack -c Release
 
+      # exchange the GitHub OIDC token for a short-lived NuGet API key (valid 1 hour)
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          # nuget.org profile name of the account that created the trusted publishing policy (not an email)
+          user: ${{ secrets.NUGET_USER }}
+
       # publish to NuGet
       - name: Publish Package to NuGet 🚀
         working-directory: ${{ env.OUTPUT_PROJECT_PATH }}/bin/Release
         run: |
-          dotnet nuget push ${{ env.OUTPUT_PROJECT_NAME }}.${{ github.ref_name }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push ${{ env.OUTPUT_PROJECT_NAME }}.${{ github.ref_name }}.nupkg -k ${{ steps.login.outputs.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
