@@ -6,6 +6,7 @@
     :required="$props.required"
     :disabled="$props.disabled"
     :messages="messages"
+    :maxWidth="$props.maxWidth"
   >
     <template
       v-if="$slots.label"
@@ -132,6 +133,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
+    },
+    maxWidth: {
+      type: [Array, String, Number] as PropType<string[] | number[] | string | number | null>,
+      required: false,
+      default: "600px"
     }
   },
   emits: ["update:modelValue"],

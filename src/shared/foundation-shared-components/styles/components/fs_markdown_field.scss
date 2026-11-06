@@ -1,0 +1,20 @@
+.fs-markdown-field-icon {
+    transition: color 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer;
+}
+
+.fs-markdown-field-label {
+    color: var(--fs-markdown-field-color);
+}
+
+.fs-markdown-field-description {
+    color: var(--fs-markdown-field-color);
+}
+
+.fs-markdown-field-preview {
+    width: 100%;
+    min-height: 38px;
+    padding: 11px 16px;
+    border: 1px solid var(--fs-markdown-field-border-color);
+    border-radius: 4px;
+}

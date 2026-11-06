@@ -27,3 +27,22 @@ export const getAncestor = <NodeType extends LexicalNode = LexicalNode>(node: Le
   }
   return predicate(parent) ? parent : null;
 }
+
+export const isLexicalState = (value: unknown): boolean => {
+  if (value == null) {
+    return false;
+  }
+  if (typeof value === "object") {
+    return true;
+  }
+  if (typeof value !== "string" || !value.trimStart().startsWith("{")) {
+    return false;
+  }
+  try {
+    const parsed = JSON.parse(value);
+    return parsed != null && typeof parsed === "object" && "root" in parsed;
+  }
+  catch {
+    return false;
+  }
+}

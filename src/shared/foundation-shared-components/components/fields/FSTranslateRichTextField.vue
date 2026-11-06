@@ -152,7 +152,7 @@ export default defineComponent({
       return translation[props.property]!;
     };
 
-    const setTranslation = (languageCode: string, value: string): void => {
+    const setTranslation = (languageCode: string, value: string | null): void => {
       if (!innerTranslations.value) {
         innerTranslations.value = [{
           languageCode,
@@ -185,7 +185,7 @@ export default defineComponent({
 
     watch(() => props.translations, (newTranslations) => {
       innerTranslations.value = newTranslations.map((translation) => {
-        if(typeof translation[props.property] === 'string'){
+        if(translation[props.property] == null || typeof translation[props.property] === 'string'){
           return translation;
         }
         return {
