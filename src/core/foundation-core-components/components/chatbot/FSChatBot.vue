@@ -11,68 +11,37 @@
     <template
       #append-inner
     >
-      <FSMenu
-        v-model="usageMenu"
+      <FSChatbotUsageMenu
+        :usageAmount="chatBudget?.consumed ?? 0"
+        :totalAuthorizedAmount="chatBudget?.monthlyLimit ?? 0"
+        :periodStart="chatBudget?.periodStart"
+        @click:ask-for-authorization="$emit('click:ask-for-authorization')"
+      />
+      <FSButton
+        v-if="chatBudget && chatBudget.remaining <= 0"
+        :color="ColorEnum.Primary"
+        :label="$tr('ui.chatbot.budget-limit-reached', 'Ask for more AI budget')"
+        @click="() => budgetDialog = true"
+      />
+      <slot
+        name="append-inner"
+        v-bind="{ dialog: budgetDialog }"
       >
-        <template
-          #activator="{ props: activatorProps }"
+        <FSDialog
+          v-model="budgetDialog"
+          width="648"
+          :title="$tr('ui.chatbot.usage', 'AI Credits')"
         >
-          <FSProgressCircle
-            v-bind="activatorProps"
-            padding="4px"
-            :modelValue="usageRate"
-            :startColor="ColorEnum.Primary"
-            :endColor="ColorEnum.Primary"
-            :showValue="false"
-            thickness="2.5px"
-            size="18px"
-            style="cursor: pointer;"
-          />
-        </template>
-        <FSCard
-          width="320px"
-          padding="16px"
-        >
-          <FSCol
-            gap="12px"
+          <template
+            #body
           >
-            <FSRow>
-              <FSRow>
-                <FSText
-                  font="text-button"
-                >
-                  {{ $tr('ui.chatbot.usage', "AI Credits") }}
-                </FSText>
-              </FSRow>
-              <FSRow
-                width="hug"
-              >
-                <FSText
-                  font="text-overline"
-                >
-                  {{ actualMonthYear }}
-                </FSText>
-              </FSRow>
-            </FSRow>
-            <FSProgressBar
-              :modelValue="usageRate"
-              :startColor="ColorEnum.Primary"
-              :endColor="ColorEnum.Primary"
-              :showValue="false"
+            <FSDialogChatBotUsageLimitBody
+              @click:cancel="budgetDialog = false"
+              @click:ask-for-authorization="$emit('click:ask-for-authorization')"
             />
-            <FSText
-              font="text-body"
-            >
-              {{ $tr('ui.chatbot.usage-amount', "{0}€ used out of {1}€ this month", usageAmout, totalAuthorizedAmount) }}
-            </FSText>
-            <FSButton
-              width="100%"
-              :label="$tr('ui.chatbot.ask-for-authorization', 'Ask for more credits')"
-              @click="$emit('click:ask-for-authorization')"
-            />
-          </FSCol>
-        </FSCard>
-      </FSMenu>
+          </template>
+        </FSDialog>
+      </slot>
     </template>
     <template
       v-for="(_, name) in $slots"
@@ -87,34 +56,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
-import { useDateFormat } from '@dative-gpi/foundation-shared-services/composables';
+import { useCurrentChatBudget } from "@dative-gpi/foundation-core-services/composables";
 
-import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
-import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
-import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
-import FSCard from '@dative-gpi/foundation-shared-components/components/FSCard.vue';
-import FSMenu from '@dative-gpi/foundation-shared-components/components/FSMenu.vue';
-import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
+import FSDialog from '@dative-gpi/foundation-shared-components/components/FSDialog.vue';
 import FSButton from '@dative-gpi/foundation-shared-components/components/FSButton.vue';
-import FSProgressBar from '@dative-gpi/foundation-shared-components/components/FSProgressBar.vue';
 import FSChatBotUI from "@dative-gpi/foundation-shared-components/components/chatbot/FSChatBotUI.vue";
-import FSProgressCircle from '@dative-gpi/foundation-shared-components/components/FSProgressCircle.vue';
+import FSChatbotUsageMenu from "@dative-gpi/foundation-shared-components/components/chatbot/FSChatbotUsageMenu.vue";
+import FSDialogChatBotUsageLimitBody from './FSDialogChatBotUsageLimitBody.vue';
 
 export default defineComponent({
   name: "FSChatBot",
   components: {
-    FSRow,
-    FSCol,
-    FSCard,
-    FSMenu,
-    FSText,
     FSButton,
+    FSDialog,
     FSChatBotUI,
-    FSProgressBar,
-    FSProgressCircle,
+    FSChatbotUsageMenu,
+    FSDialogChatBotUsageLimitBody
   },
   inheritAttrs: false,
   props: {
@@ -137,21 +98,17 @@ export default defineComponent({
   },
   emits: ["click:ask-for-authorization", "submit", "update:modelValue"],
   setup() {
-    const { epochToMonthYearOnlyFormat } = useDateFormat();
+    const { fetch: fetchChatBudget, entity: chatBudget } = useCurrentChatBudget();
+    const budgetDialog = ref(true);
 
-    const usageAmout = ref(0);
-    const usageRate = ref(0.8);
-    const usageMenu = ref(false);
-    const totalAuthorizedAmount = ref(50);
-    const actualMonthYear = ref(epochToMonthYearOnlyFormat(Date.now()));
+    onMounted(() => {
+      fetchChatBudget();
+    });
 
     return {
-      usageRate,
-      usageMenu,
-      usageAmout,
-      totalAuthorizedAmount,
       ColorEnum,
-      actualMonthYear
+      chatBudget,
+      budgetDialog
     };
   }
 });
