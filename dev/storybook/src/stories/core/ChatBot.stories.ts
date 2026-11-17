@@ -56,7 +56,7 @@ export const WithSuggestions: Story = {
     suggestions: [
       { icon: "mdi-view-dashboard-outline", title: "Create a dashboard", description: "Build a dashboard from your devices data", prompt: "Create a dashboard for my devices" },
       { icon: "mdi-chart-line", title: "Analyse a trend", description: "Explain the evolution of a measure over the last week", prompt: "Analyse the temperature trend of last week" },
-      { icon: "mdi-alert-outline", title: "Review alerts", description: "Summarize the alerts raised in the last 24 hours with a description that is a real book becaus of its length", prompt: "Summarize the alerts of the last 24 hours" },
+      { icon: "mdi-alert-outline", title: "Review alerts", description: "Summarize the alerts raised in the last 24 hours with a description that is a real book because of its length", prompt: "Summarize the alerts of the last 24 hours" },
       { icon: "mdi-map-marker-outline", title: "Locate devices", description: "Find the devices that went offline today", prompt: "Which devices went offline today?" },
     ],
   },

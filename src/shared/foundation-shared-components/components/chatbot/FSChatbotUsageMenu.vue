@@ -46,9 +46,9 @@
           :modelValue="usageRate"
           :startColor="ColorEnum.Primary"
           :endColor="ColorEnum.Primary"
-          :showValue="false"
         />
         <FSText
+          v-if="$props.usageAmount && $props.totalAuthorizedAmount"
           font="text-body"
         >
           {{ $tr('ui.chatbot.usage-amount', "{0}€ used out of {1}€ this month", $props.usageAmount, $props.totalAuthorizedAmount) }}

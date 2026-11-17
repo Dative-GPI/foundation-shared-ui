@@ -23,7 +23,7 @@
             <FSSpan
               font="text-overline"
             >
-              {{ $tr('ui.chatbot.usage-only', "You used {0}€ of AI credits this month", chatBudget.consumed) }}
+              {{ $tr('ui.chatbot.usage-month', "You used {0}€ of AI credits this month", chatBudget.consumed) }}
             </FSSpan>
             <FSSpan
               font="text-overline"
@@ -34,7 +34,7 @@
         </FSRow>
       </FSCard>
       <FSText>
-        {{ $tr('ui.chatbot.usage-ask', "You can contact the platform administrators to get more AI credits and keep using the platform's AI chatbots.") }}
+        {{ $tr('ui.chatbot.usage-ask-description', "You can contact the platform administrators to get more AI credits and keep using the platform's AI chatbots.") }}
       </FSText>
       <FSCol>
         <FSText
@@ -46,12 +46,11 @@
           :modelValue="usageRate"
           :startColor="ColorEnum.Primary"
           :endColor="ColorEnum.Primary"
-          :showValue="false"
         />
         <FSText
           font="text-body"
         >
-          {{ $tr('ui.chatbot.usage-amount', "{0}€ used out of {1}€ this month", chatBudget.consumed, chatBudget.monthlyLimit) }}
+          {{ $tr('ui.chatbot.usage-budget-month', "{0}€ used out of {1}€ this month", chatBudget.consumed, chatBudget.monthlyLimit) }}
         </FSText>
       </FSCol>
     </template>

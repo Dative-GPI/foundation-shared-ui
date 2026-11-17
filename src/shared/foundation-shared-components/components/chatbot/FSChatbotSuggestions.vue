@@ -57,7 +57,7 @@ export default defineComponent({
   props: {
     suggestions: {
       type: Array as PropType<ChatbotSuggestion[]>,
-      required: false,
+      required: true,
       default: () => []
     }
   },

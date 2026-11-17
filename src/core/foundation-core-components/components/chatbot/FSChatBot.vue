@@ -4,6 +4,7 @@
     :subtitle="$props.subtitle"
     :placeholder="$props.placeholder"
     :modelValue="$props.modelValue"
+    :disableSubmit="outOfCredits"
     @submit="$emit('submit', $event)"
     @update:model-value="$emit('update:modelValue', $event)"
     v-bind="$attrs"
@@ -18,9 +19,9 @@
         @click:ask-for-authorization="$emit('click:ask-for-authorization')"
       />
       <FSButton
-        v-if="chatBudget && chatBudget.remaining <= 0"
+        v-if="outOfCredits"
         :color="ColorEnum.Primary"
-        :label="$tr('ui.chatbot.budget-limit-reached', 'Ask for more AI budget')"
+        :label="$tr('ui.chatbot.ask-for-authorization', 'Ask for more credits')"
         @click="() => budgetDialog = true"
       />
       <slot
@@ -56,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 
 import { useCurrentChatBudget } from "@dative-gpi/foundation-core-services/composables";
 
@@ -99,7 +100,9 @@ export default defineComponent({
   emits: ["click:ask-for-authorization", "submit", "update:modelValue"],
   setup() {
     const { fetch: fetchChatBudget, entity: chatBudget } = useCurrentChatBudget();
-    const budgetDialog = ref(true);
+    const budgetDialog = ref(false);
+
+    const outOfCredits = computed(() => !!chatBudget.value && chatBudget.value.remaining <= 0);
 
     onMounted(() => {
       fetchChatBudget();
@@ -108,7 +111,8 @@ export default defineComponent({
     return {
       ColorEnum,
       chatBudget,
-      budgetDialog
+      budgetDialog,
+      outOfCredits
     };
   }
 });

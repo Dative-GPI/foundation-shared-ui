@@ -3,6 +3,7 @@
     gap="32px"
     :maxWidth="$props.maxWidth"
     align="center-center"
+    style="min-width: 0;"
   >
     <FSCol
       v-if="$props.events?.length === 0"
@@ -164,7 +165,7 @@
                   </FSRow>
                 </FSCard>
                 <FSButton
-                  v-else
+                  v-else-if="!$props.disableSubmit"
                   icon="mdi-send"
                   variant="icon"
                   :color="ColorEnum.Primary"
@@ -259,6 +260,11 @@ export default defineComponent({
       type: String,
       required: false,
       default: "1016px"
+    },
+    disableSubmit: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   emits: ["submit", "stop", "update:modelValue"],
@@ -275,7 +281,7 @@ export default defineComponent({
     const onPressEnter = (event: KeyboardEvent) => {
       event.preventDefault();
       event.stopPropagation();
-      if (event.repeat || props.thinking || !props.modelValue) {
+      if (event.repeat || props.thinking || props.disableSubmit || !props.modelValue) {
         return;
       }
       emit('submit', props.modelValue);
