@@ -1,6 +1,8 @@
 import { computed, onUnmounted, ref, watch } from "vue";
 import * as signalR from "@microsoft/signalr";
 
+import { useAppAuthToken } from "../composables/app/useAppAuthToken";
+
 export class HubFactory {
     static create(
         url: string | (() => string),
@@ -14,10 +16,14 @@ export class HubFactory {
         const watcheds = ref<string[]>([]);
 
         return () => {
+            const { authToken } = useAppAuthToken();
+
             const connect = async () => {
                 if (!connection) {
                     connection = new signalR.HubConnectionBuilder()
-                        .withUrl(typeof url == "string" ? url : url())
+                        .withUrl(typeof url == "string" ? url : url(), {
+                            accessTokenFactory: () => authToken.value ?? ""
+                        })
                         .configureLogging(signalR.LogLevel.Warning)
                         .withAutomaticReconnect()
                         .build();
@@ -26,6 +32,10 @@ export class HubFactory {
                         isWatched: (id: string) => watcheds.value.includes(id),
                         hasWatchers: () => watchManySubscribers.value > 0,
                     })
+
+                    connection.onreconnected(async () => {
+                        await init(connection!);
+                    });
                 }
                 if (connection.state !== signalR.HubConnectionState.Connected) {
                     try {
@@ -45,6 +55,7 @@ export class HubFactory {
                 if (connection) {
                     await connection.stop();
                     connection = null;
+                    subscribed = false;
                 }
             }
 
@@ -64,7 +75,7 @@ export class HubFactory {
 
             const unsubscribeFromOne = (alertId: string) => {
                 const index = watcheds.value.indexOf(alertId);
-                if (index > -1) {watcheds.value = watcheds.value.splice(index, 1);}
+                if (index > -1) {watcheds.value.splice(index, 1);}
             }
 
             const subscribeToMany = () => {
@@ -118,4 +129,4 @@ export class HubFactory {
             }
         }
     }
-} 
+}

@@ -165,12 +165,12 @@
     </template>
   </FSDataTable>
 </template>
-  
+
 <script lang="ts">
 import { computed, defineComponent, type PropType, ref, watch } from "vue";
 import { type RouteLocation } from "vue-router";
 import _ from "lodash";
-  
+
 import { ConnectivityStatus, DeviceExplorerElementType } from "@dative-gpi/foundation-shared-domain/enums";
 import { useDeviceExplorerElements } from "@dative-gpi/foundation-core-services/composables";
 import { type DeviceExplorerElementInfos} from "@dative-gpi/foundation-core-domain/models";
@@ -259,7 +259,7 @@ export default defineComponent({
     const deviceExplorerElements = computed((): DeviceExplorerElementInfos[] => {
       let elements = entities.value.slice();
       if (props.connectedOnly) {
-        elements = elements.filter(dee => 
+        elements = elements.filter(dee =>
           dee.type === DeviceExplorerElementType.Group ||
           (dee.connectivity != null && dee.connectivity.status != ConnectivityStatus.None)
         );
@@ -295,7 +295,7 @@ export default defineComponent({
 
     // Delay to wait before fetching after a search change
     const debounceFetch = (): void => debounce(fetch, 1000);
-  
+
     watch([() => props.parentId, () => props.root], (next, previous) => {
       if ((!next && !previous) || !_.isEqual(next, previous)) {
         fetch();

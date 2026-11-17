@@ -4,7 +4,7 @@
     align="center-center"
   >
     <FSButton
-      v-if="$props.modelStatuses.length > 1"
+      v-if="displayedModelStatuses.length > 1"
       icon="mdi-chevron-left"
       class="fs-stopclick"
       variant="icon"
@@ -15,7 +15,7 @@
       :modelValue="tab"
     >
       <FSRow
-        v-for="(modelStatus, index) in $props.modelStatuses"
+        v-for="(modelStatus, index) in displayedModelStatuses"
         align="center-center"
         gap="4px"
         :wrap="false"
@@ -30,7 +30,7 @@
       </FSRow>
     </FSWindow>
     <FSButton
-      v-if="$props.modelStatuses.length > 1"
+      v-if="displayedModelStatuses.length > 1"
       icon="mdi-chevron-right"
       class="fs-stopclick"
       variant="icon"
@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import type { PropType} from "vue";
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 
 import type { FSDeviceStatus, FSDeviceStatusGroup, FSModelStatus } from "@dative-gpi/foundation-shared-components/models";
 import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
@@ -72,17 +72,27 @@ export default defineComponent({
   setup(props) {
     const tab = ref(0);
 
+    const displayedModelStatuses = computed((): FSModelStatus[] => {
+      return props.modelStatuses.filter(modelStatus => {
+        if (modelStatus.visible === false) {
+          return false;
+        }
+        return modelStatus.showDefault
+          || props.deviceStatuses.some(deviceStatus => deviceStatus.modelStatusId === modelStatus.id);
+      });
+    });
+
     const previous = () => {
       if (tab.value > 0) {
         tab.value--;
       }
       else {
-        tab.value = props.modelStatuses.length - 1;
+        tab.value = displayedModelStatuses.value.length - 1;
       }
     };
 
     const next = () => {
-      if (tab.value < props.modelStatuses.length - 1) {
+      if (tab.value < displayedModelStatuses.value.length - 1) {
         tab.value++;
       }
       else {
@@ -107,6 +117,7 @@ export default defineComponent({
     };
 
     return {
+      displayedModelStatuses,
       ColorEnum,
       tab,
       deviceStatus,

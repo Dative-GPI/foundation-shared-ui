@@ -10,12 +10,12 @@
       <FSColorIcon
         class="fs-stopclick"
         :size="$props.size"
-        :color="$props.statusGroup.color"
+        :color="color"
         :padding="$props.padding"
         @click.prevent.stop
         v-bind="props"
       >
-        {{ $props.statusGroup.icon }}
+        {{ icon }}
       </FSColorIcon>
     </template>
     <FSStatusCard
@@ -28,9 +28,9 @@
 
 <script lang="ts">
 import type { PropType} from "vue";
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 
-import type { FSDeviceStatusGroup, FSModelStatus } from "@dative-gpi/foundation-shared-components/models";
+import { ColorEnum, type FSDeviceStatusGroup, type FSModelStatus } from "@dative-gpi/foundation-shared-components/models";
 
 import FSStatusCard from "./FSStatusCard.vue";
 import FSColorIcon from "../FSColorIcon.vue";
@@ -61,11 +61,21 @@ export default defineComponent({
       default: "8px"
     }
   },
-  setup() {
+  setup(props) {
     const menu = ref(false);
 
+    const icon = computed((): string => {
+      return props.statusGroup.icon || "mdi-information-outline";
+    });
+
+    const color = computed((): string => {
+      return props.statusGroup.color || ColorEnum.Dark;
+    });
+
     return {
-      menu
+      menu,
+      icon,
+      color
     };
   }
 });
