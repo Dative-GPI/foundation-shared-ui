@@ -1,1 +1,1 @@
-export const DATA_V2_RELOAD_URL = "/api/data/v2/data";
+export const DATA_V2_RELOAD_URL = "/api/foundation/data/v2/data";
