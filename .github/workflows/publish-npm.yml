@@ -31,6 +31,19 @@ jobs:
         run: |
           npm install
           npm run lint
+      
+      # Workaround Rekor 409 until sigstore-js#1791 reaches lerna:
+      # on a 409, reuse the entry our own first attempt created instead of failing
+      - name: Patch sigstore 🩹
+        run: |
+          test -x node_modules/.bin/lerna || { echo "lerna not installed locally, npx would use another copy"; exit 1; }
+          files=$(find node_modules -path '*/sigstore/dist/config.js')
+          [ -n "$files" ] || { echo "sigstore config.js not found"; exit 1; }
+          for f in $files; do
+            sed -i 's/fetchOnConflict: false/fetchOnConflict: true/; s/DEFAULT_TIMEOUT = 5000/DEFAULT_TIMEOUT = 30000/' "$f"
+            grep -q 'fetchOnConflict: true' "$f" || { echo "patch failed: $f"; exit 1; }
+            echo "patched $f"+
+          done
 
       - name: Set up Python
         uses: actions/setup-python@v5
