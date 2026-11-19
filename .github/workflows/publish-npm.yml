@@ -15,12 +15,12 @@ jobs:
   
     steps:
       # Checking out repository
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       
       # Setting .npmrc file up to publish to npm
       - name: Setting things up 🔧
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
@@ -33,7 +33,7 @@ jobs:
           npm run lint
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -47,9 +47,15 @@ jobs:
           npm install -w @dative-gpi/foundation-shared-loader
           npm run build -w @dative-gpi/foundation-shared-loader
 
-      # Publishing with tag name as version
+      # 1) Set every package.json to the tag version (no commit, no tag, no push)
+      - name: Set version from tag 🏷️
+        run: |
+          npx lerna version ${{ github.ref_name }} --exact --no-git-tag-version --no-push --force-publish --yes
+
+      # 2) Publish only what is not on the registry yet, one package at a time
+      #    -> a re-run of the same tag completes a partial publish instead of failing
       - name: Publishing to npm 🚀
         run: |
-          npx lerna publish ${{ github.ref_name }} --exact --no-git-tag-version --yes --no-private --force-publish
+          npx lerna publish from-package --yes --no-private --concurrency 1
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
