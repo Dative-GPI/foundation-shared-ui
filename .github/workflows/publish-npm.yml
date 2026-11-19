@@ -12,11 +12,12 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
+  
     steps:
       # Checking out repository
       - uses: actions/checkout@v4
-
+      
+      
       # Setting .npmrc file up to publish to npm
       - name: Setting things up 🔧
         uses: actions/setup-node@v4
@@ -25,7 +26,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           # User or organization
           scope: '@dative-gpi'
-
+      
       - name: Install and Build 🔧
         run: |
           npm install
