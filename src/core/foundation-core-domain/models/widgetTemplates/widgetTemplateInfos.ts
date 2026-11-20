@@ -2,64 +2,51 @@ import _ from "lodash";
 import type { WidgetCategory } from "@dative-gpi/foundation-shared-domain/enums";
 import type { WidgetTemplateType } from '@dative-gpi/foundation-shared-domain/enums/widgetTemplates';
 
-const clean = <T>(meta: T): T => {
-  const newMeta = _.cloneDeepWith(meta, (value) => {
-    if (typeof value === "string") {
-      try {
-        return JSON.parse(value as string);
-      } catch {
-        return value
-      }
-    }
-  });
-  return newMeta;
+export class WidgetTemplateInfos {
+  id: string;
+  type: WidgetTemplateType;
+  extensionId: string | null;
+  extensionHost: string | null;
+  label: string;
+  code: string;
+  icon: string;
+  description: string;
+  category: WidgetCategory;
+  defaultWidth: number;
+  defaultHeight: number;
+  defaultMeta: { [key: string]: string }
+
+  constructor(params: WidgetTemplateInfosDTO) {
+    this.id = params.id;
+    this.type = params.type;
+    this.extensionId = params.extensionId ?? null;
+    this.extensionHost = params.extensionHost ?? null;
+    this.label = params.label;
+    this.code = params.code;
+    this.icon = params.icon;
+    this.description = params.description;
+    this.category = params.category;
+    this.defaultWidth = params.defaultWidth;
+    this.defaultHeight = params.defaultHeight;
+    this.defaultMeta = _.cloneDeep(params.defaultMeta);
+  }
 }
 
-export class WidgetTemplateInfos {
-    id: string;
-    type: WidgetTemplateType;
-    extensionId: string | null;
-    extensionHost: string | null;
-    label: string;
-    code: string;
-    icon: string;
-    description: string;
-    category: WidgetCategory;
-    defaultWidth: number;
-    defaultHeight: number;
-    defaultMeta: { [key: string]: string }
-  
-    constructor(params: WidgetTemplateInfosDTO) {
-        this.id = params.id;
-        this.type = params.type;
-        this.extensionId = params.extensionId ?? null;
-        this.extensionHost = params.extensionHost ?? null;
-        this.label = params.label;
-        this.code = params.code;
-        this.icon = params.icon;
-        this.description = params.description;
-        this.category = params.category;
-        this.defaultWidth = params.defaultWidth;
-        this.defaultHeight = params.defaultHeight;
-        this.defaultMeta = clean(params.defaultMeta);
-    }
-}
-  
 export interface WidgetTemplateInfosDTO {
-    id: string;
-    type: WidgetTemplateType;
-    extensionId?: string;
-    extensionHost?: string;
-    label: string;
-    code: string;
-    icon: string;
-    description: string;
-    category: WidgetCategory;
-    defaultWidth: number;
-    defaultHeight: number;
-    defaultMeta: { [key: string]: string }
+  id: string;
+  type: WidgetTemplateType;
+  extensionId?: string;
+  extensionHost?: string;
+  label: string;
+  code: string;
+  icon: string;
+  description: string;
+  category: WidgetCategory;
+  defaultWidth: number;
+  defaultHeight: number;
+  defaultMeta: { [key: string]: string }
 }
-  
+
 export interface WidgetTemplateFilters {
-    search?: string | null;
+  search?: string | null;
 }
