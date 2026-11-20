@@ -3,6 +3,7 @@ export * from "./articles.mock";
 export * from "./authTokens.mock";
 export * from "./chartOrganisations.mock";
 export * from "./chartOrganisationTypes.mock";
+export * from "./chatBudgets.mock";
 export * from "./comments.mock";
 export * from "./connectivityScenarios.mock";
 export * from "./customProperties.mock";

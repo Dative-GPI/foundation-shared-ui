@@ -6,6 +6,7 @@ export * from "./useChartCategories";
 export * from "./useChartOrganisationTypes";
 export * from "./useChartOrganisations";
 export * from "./useCharts";
+export * from "./useChatBudgets";
 export * from "./useComments";
 export * from "./useConnectivityAlerts";
 export * from "./useConnectivityScenarios";
