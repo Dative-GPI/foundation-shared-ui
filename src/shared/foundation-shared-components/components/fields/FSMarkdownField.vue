@@ -135,7 +135,7 @@
       :rows="$props.rows"
       :disabled="$props.disabled"
       :modelValue="$props.modelValue"
-      @update:modelValue="onUpdate"
+      @update:modelValue="$emit('update:modelValue', $event)"
     />
     <slot
       name="append-inner"
@@ -274,11 +274,6 @@ export default defineComponent({
       ...fontStyles.value
     }));
 
-    const onUpdate = (value: string | null): void => {
-      emit("update:modelValue", value || null);
-    };
-
-    // Replaces the selected text, execCommand keeps the change in the native undo stack (Ctrl+Z)
     const replaceSelection = (transform: (selected: string) => string, wholeLines: boolean = false): void => {
       const textarea: HTMLTextAreaElement | null = textAreaRef.value?.$el.querySelector("textarea") ?? null;
       if (!textarea) {
@@ -336,8 +331,7 @@ export default defineComponent({
       preview,
       style,
       tools,
-      insertVariable,
-      onUpdate
+      insertVariable
     };
   }
 });

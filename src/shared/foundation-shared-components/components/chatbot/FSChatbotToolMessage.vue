@@ -1,7 +1,6 @@
 <template>
   <FSRow
     align="center-left"
-    width="fill"
   >
     <FSRow
       gap="12px"

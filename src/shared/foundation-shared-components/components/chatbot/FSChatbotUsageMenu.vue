@@ -48,7 +48,7 @@
           :endColor="ColorEnum.Primary"
         />
         <FSText
-          v-if="$props.usageAmount && $props.totalAuthorizedAmount"
+          v-if="$props.usageAmount !== undefined && $props.totalAuthorizedAmount"
           font="text-body"
         >
           {{ $tr('ui.chatbot.usage-amount', "{0}€ used out of {1}€ this month", $props.usageAmount, $props.totalAuthorizedAmount) }}

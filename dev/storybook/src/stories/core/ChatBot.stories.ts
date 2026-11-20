@@ -79,10 +79,3 @@ export const LongConversation: Story = {
     events: Array.from({ length: 10 }, () => exchange).flat().map((event, index) => ({ ...event, timestamp: index })) as ChatbotEvent[],
   },
 };
-
-export const UsageLimitDialog: Story = {
-  render: Default.render,
-  args: {
-    ...Default.args
-  },
-};
