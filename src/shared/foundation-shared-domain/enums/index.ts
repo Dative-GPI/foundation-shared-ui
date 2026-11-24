@@ -3,6 +3,7 @@ export * from "./agendas";
 export * from "./alerts";
 export * from "./applications";
 export * from "./charts";
+export * from "./chats";
 export * from "./connectivities";
 export * from "./customProperties";
 export * from "./dashboardExplorerElements";
