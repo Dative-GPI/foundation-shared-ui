@@ -14,7 +14,7 @@
   >
     <FSRow
       v-if="$props.direction === 'row'"
-      align="center-center"
+      :align="$props.align ?? 'center-center'"
       width="fill"
       :wrap="false"
     >
@@ -52,7 +52,7 @@
     </FSRow>
     <FSCol
       v-else
-      align="center-center"
+      :align="$props.align ?? 'center-center'"
       width="fill"
     >
       <slot
@@ -97,7 +97,7 @@
   >
     <FSRow
       width="hug"
-      align="center-left"
+      :align="$props.align ?? 'center-left'"
       v-bind="$attrs"
     >
       <template
@@ -214,6 +214,11 @@ export default defineComponent({
       type: String as PropType<"row" | "column">,
       required: false,
       default: "row"
+    },
+    align: {
+      type: String as PropType<"top-left" | "top-center" | "top-right" | "center-left" | "center-center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right" | null>,
+      required: false,
+      default: null
     },
     color: {
       type: String as PropType<ColorBase>,
