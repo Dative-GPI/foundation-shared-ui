@@ -113,7 +113,7 @@ export default defineComponent({
       if (!chatBudget?.value?.monthlyLimit) {
         return 0;
       }
-      return (chatBudget.value.consumed / chatBudget.value.monthlyLimit) * 100;
+      return chatBudget.value.consumed / chatBudget.value.monthlyLimit;
     });
 
     onMounted(() => {

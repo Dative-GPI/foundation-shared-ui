@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, type PropType, ref } from "vue";
 
 import { useDateFormat } from "@dative-gpi/foundation-shared-services/composables";
 
@@ -103,8 +103,8 @@ export default defineComponent({
       default: 0
     },
     periodStart: {
-      type: Number,
-      required: true,
+      type: Number as PropType<number | null>,
+      required: false,
       default: null
     }
   },

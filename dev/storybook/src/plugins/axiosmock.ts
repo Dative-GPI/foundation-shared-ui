@@ -11,7 +11,7 @@ const generateRegExp = (endpoint: string) => {
     return new RegExp(`^${escapedEndpoint}(\\?.+)?$`);
 };
 
-const onGetWithRegex = (endpoint: string, data: any) => {
+export const onGetWithRegex = (endpoint: string, data: any) => {
     const regex = generateRegExp(endpoint);
     mock.onGet(regex).reply(200, data);
 };

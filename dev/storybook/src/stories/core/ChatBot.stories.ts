@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { addComponentEmits, addSubcomponentsArgTypes } from '@/utils/properties';
+import { onGetWithRegex } from '@/plugins/axiosmock';
+import { CURRENT_CHATBUDGET } from '@/mocks';
 
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSChatBot from "@dative-gpi/foundation-core-components/components/chatbot/FSChatBot.vue";
@@ -77,5 +79,16 @@ export const LongConversation: Story = {
   args: {
     ...Default.args,
     events: Array.from({ length: 10 }, () => exchange).flat().map((event, index) => ({ ...event, timestamp: index })) as ChatbotEvent[],
+  },
+};
+
+const CHAT_BUDGET_URL = "/api/foundation/core/v1/organisations/dative/chat-budgets/current";
+
+export const OutOfCredits: Story = {
+  render: Default.render,
+  args: Default.args,
+  beforeEach: () => {
+    onGetWithRegex(CHAT_BUDGET_URL, { ...CURRENT_CHATBUDGET, consumed: CURRENT_CHATBUDGET.monthlyLimit, remaining: 0 });
+    return () => onGetWithRegex(CHAT_BUDGET_URL, CURRENT_CHATBUDGET);
   },
 };
