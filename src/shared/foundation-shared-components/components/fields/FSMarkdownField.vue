@@ -249,7 +249,7 @@ export default defineComponent({
     }
   },
   emits: ["update:modelValue"],
-  setup(props, { emit }) {
+  setup(props) {
     const { $tr } = useTranslationsProvider();
     const { fontStyles } = useBreakpoints();
     const { getColors } = useColors();
