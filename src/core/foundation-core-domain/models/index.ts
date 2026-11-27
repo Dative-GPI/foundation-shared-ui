@@ -12,6 +12,7 @@ export * from "./connectivityAlerts";
 export * from "./connectivityScenarios";
 export * from "./customProperties";
 export * from "./customPropertyValues";
+export * from "./dashboardBuilders";
 export * from "./dashboardDatePresets";                 // No service
 export * from "./dashboardEntityPresets";               // No service
 export * from "./dashboardExplorerElements";

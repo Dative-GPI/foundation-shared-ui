@@ -15,6 +15,7 @@ export * from "./useCustomPropertyValues";
 export * from "./useDashboardOrganisations";
 export * from "./useDashboardOrganisationTypes";
 export * from "./useDashboards";
+export * from "./useDashboardBuilders";
 export * from "./useDashboardExplorerElements";
 export * from "./useDashboardShallows";
 export * from "./useDataCategories";

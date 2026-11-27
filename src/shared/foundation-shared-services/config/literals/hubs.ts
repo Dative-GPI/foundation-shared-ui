@@ -14,3 +14,6 @@ export const UPDATE_CONNECTIVITY_ALERT = "UpdateConnectivityAlert";
 export const REMOVE_CONNECTIVITY_ALERT = "RemoveConnectivityAlert";
 
 export const CREATE_NOTIFICATION = "CreateNotification";
+
+// Hub NLP des dashboard-builders (`DashboardBuildersHub.EventInvoke` côté back)
+export const DASHBOARD_BUILDER_EVENT = "nlp.event";

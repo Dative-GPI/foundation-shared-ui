@@ -14,6 +14,7 @@ export * from "./customPropertyValues";
 export * from "./dashboardOrganisations";
 export * from "./dashboardOrganisationTypes";
 export * from "./dashboards";
+export * from "./dashboardBuilders";
 export * from "./dashboardExplorerElements";
 export * from "./data";
 export * from "./dataCategories";
