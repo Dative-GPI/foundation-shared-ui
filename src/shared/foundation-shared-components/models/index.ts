@@ -1,5 +1,6 @@
 export * from "./agenda";
 export * from "./breadcrumbs";
+export * from "./chatbot";
 export * from "./colors";
 export * from "./deviceAlerts";
 export * from "./deviceConnectivities";

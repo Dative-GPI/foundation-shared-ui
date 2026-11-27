@@ -63,7 +63,7 @@ import { computed, defineComponent, type PropType, type StyleValue } from "vue";
 
 import { useColors } from '@dative-gpi/foundation-shared-components/composables';
 
-import { ColorEnum } from "@dative-gpi/foundation-shared-components/models";
+import { type ColorBase, ColorEnum } from "@dative-gpi/foundation-shared-components/models";
 
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
 import FSText from '@dative-gpi/foundation-shared-components/components/FSText.vue';
@@ -80,12 +80,14 @@ export default defineComponent({
       required: true
     },
     startColor: {
-      type: String,
-      required: false
+      type: String as PropType<ColorBase>,
+      required: false,
+      default: ColorEnum.Error
     },
     endColor: {
-      type: String,
-      required: false
+      type: String as PropType<ColorBase>,
+      required: false,
+      default: ColorEnum.Success
     },
     showValue: {
       type: Boolean,
@@ -122,8 +124,6 @@ export default defineComponent({
     const { getColors } = useColors();
 
     const lightColors = getColors(ColorEnum.Light);
-    const successColors = getColors(ColorEnum.Success);
-    const errorColors = getColors(ColorEnum.Error);
 
     const isValid = computed(() => props.max > props.min);
 
@@ -188,9 +188,9 @@ export default defineComponent({
 
     const style = computed((): StyleValue => ({
       "--progress-bar-background": lightColors.dark,
-      "--progress-bar-gradient-start": props.startColor ?? errorColors.base,
+      "--progress-bar-gradient-start": getColors(props.startColor).base,
       "--progress-bar-gradient-start-stop": gradientStartStop.value,
-      "--progress-bar-gradient-end": props.endColor ?? successColors.base,
+      "--progress-bar-gradient-end": getColors(props.endColor).base,
       "--progress-bar-gradient-end-stop": gradientEndStop.value,
       "--progress-bar-fill-left": `${fillLeft.value}%`,
       "--progress-bar-fill-width": `${fillWidth.value}%`,

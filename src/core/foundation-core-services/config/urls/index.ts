@@ -5,6 +5,7 @@ export * from "./charts";
 export * from "./chartCategories";
 export * from "./chartOrganisations";
 export * from "./chartOrganisationTypes";
+export * from "./chatBudgets";
 export * from "./comments";
 export * from "./connectivityAlerts";
 export * from "./connectivityScenarios";

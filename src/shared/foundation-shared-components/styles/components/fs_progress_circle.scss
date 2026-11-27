@@ -1,0 +1,81 @@
+// Registered so the fill transitions when the value changes
+@property --progress-circle-fill-start {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+}
+
+@property --progress-circle-fill-end {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+}
+
+.fs-progress-circle {
+    --progress-circle-radius: calc(var(--progress-circle-size) / 2 - var(--progress-circle-thickness) / 2);
+
+    position: relative;
+    width: var(--progress-circle-size);
+    height: var(--progress-circle-size);
+    transition: --progress-circle-fill-start 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                --progress-circle-fill-end 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.fs-progress-circle--labels {
+        margin: 24px;
+    }
+}
+
+.fs-progress-circle-track {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--progress-circle-background);
+    // 1px soft edge: a hard stop in a gradient is not antialiased
+    mask: radial-gradient(farthest-side, transparent calc(100% - var(--progress-circle-thickness) - 1px), #000 calc(100% - var(--progress-circle-thickness)));
+
+    .fs-progress-circle-fill {
+        width: 100%;
+        height: 100%;
+        background: conic-gradient(
+            var(--progress-circle-gradient-start),
+            var(--progress-circle-gradient-end)
+        );
+        mask: conic-gradient(
+            transparent var(--progress-circle-fill-start),
+            #000 var(--progress-circle-fill-start) var(--progress-circle-fill-end),
+            transparent var(--progress-circle-fill-end)
+        );
+    }
+}
+
+.fs-progress-circle-cursor {
+    position: absolute;
+    left: calc(50% + sin(var(--progress-circle-cursor-angle)) * var(--progress-circle-radius));
+    top: calc(50% - cos(var(--progress-circle-cursor-angle)) * var(--progress-circle-radius));
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(
+        to right,
+        var(--progress-circle-gradient-start),
+        var(--progress-circle-gradient-end)
+    );
+    transform: translate(-50%, -50%);
+}
+
+.fs-progress-circle-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fs-progress-circle-label {
+    --progress-circle-label-radius: calc(var(--progress-circle-size) / 2 + 14px);
+
+    position: absolute;
+    left: calc(50% + sin(var(--progress-circle-label-angle)) * var(--progress-circle-label-radius));
+    top: calc(50% - cos(var(--progress-circle-label-angle)) * var(--progress-circle-label-radius));
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
