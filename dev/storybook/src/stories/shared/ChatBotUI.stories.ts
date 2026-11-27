@@ -49,3 +49,16 @@ export const Default: Story = {
     ],
   },
 };
+
+export const LongUserMessages: Story = {
+  render: Default.render,
+  args: {
+    ...Default.args,
+    suggestions: [],
+    events: [
+      { type: ChatbotEventType.UserMessage, content: "First line\nSecond line\n\nFourth line after an empty one", timestamp: 0 },
+      { type: ChatbotEventType.UserMessage, content: "Can you check this link https://app.dative-gpi.com/organisations/dative/dashboards/0f8b6c2e-4d1a-4b7e-9c3f-8a2d5e6f7b1c?variables=temperature,humidity,pressure&range=last-7-days", timestamp: 1 },
+      { type: ChatbotEventType.UserMessage, content: "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", timestamp: 2 },
+    ],
+  },
+};

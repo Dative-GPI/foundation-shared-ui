@@ -9,6 +9,9 @@
       <FSCard
         width="100%"
         padding="16px 24px"
+        :color="ColorEnum.Primary"
+        :variant="CardVariants.Standard"
+        :border="false"
       >
         <FSRow
           gap="12px"
@@ -33,7 +36,9 @@
           </FSCol>
         </FSRow>
       </FSCard>
-      <FSText>
+      <FSText
+        :ellipsis="false"
+      >
         {{ $tr('ui.chatbot.usage-ask-description', "You can contact the platform administrators to get more AI credits and keep using the platform's AI chatbots.") }}
       </FSText>
       <FSCol>
@@ -77,7 +82,7 @@ import { defineComponent, onMounted, computed } from 'vue';
 import { useDateFormat } from '@dative-gpi/foundation-shared-services/composables';
 import { useCurrentChatBudget } from '@dative-gpi/foundation-core-services/composables';
 
-import { ColorEnum } from '@dative-gpi/foundation-shared-components/models';
+import { CardVariants, ColorEnum } from '@dative-gpi/foundation-shared-components/models';
 
 import FSCol from '@dative-gpi/foundation-shared-components/components/FSCol.vue';
 import FSRow from '@dative-gpi/foundation-shared-components/components/FSRow.vue';
@@ -122,6 +127,7 @@ export default defineComponent({
 
     return {
       ColorEnum,
+      CardVariants,
       usageRate,
       chatBudget,
       periodEndDate

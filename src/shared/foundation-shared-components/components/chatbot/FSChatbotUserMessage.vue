@@ -10,10 +10,10 @@
     >
       <FSSpan
         font="text-body"
+        word-break="break-word"
         :ellipsis="false"
-      >
-        {{ $props.event.content }}
-      </FSSpan>
+        :label="$props.event.content"
+      />
     </FSCard>
   </FSRow>
 </template>
